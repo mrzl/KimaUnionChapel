@@ -14,7 +14,6 @@ varying vec4 vertTexCoord;
 
 uniform float m;
 uniform float n;
-uniform float epsilon;
 uniform vec2 resolution;
 
 float rand(vec2 co){
@@ -24,12 +23,8 @@ float rand(vec2 co){
 void main(void) {
 
   vec2 position = ( gl_FragCoord.xy / resolution.xy );
-  //vec2 pixel = 1.0/resolution;
-  
   float chladni = cos( n * M_PI * position.x ) * cos( m * M_PI * position.y ) - cos( m * M_PI * position.x ) * cos( n * M_PI * position.y );
-  // if( abs(chladni) <= epsilon ) {
-  //  gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
-  //}
+
   float fin = abs(chladni);
 
   gl_FragColor = vec4( fin, fin, fin, 1.0 );

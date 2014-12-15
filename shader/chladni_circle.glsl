@@ -5,13 +5,13 @@ precision mediump int;
 
 #define PROCESSING_COLOR_SHADER
 #define M_PI 3.1415926535897932384626433832795
-//#define POLES 40
 
 uniform sampler2D texture;
 uniform vec2 texOffset;
 
 uniform vec2 resolution;
-uniform vec2 mouse;
+uniform float m;
+uniform float n;
 uniform float time;
 uniform float scale;
 uniform int poles;
@@ -30,7 +30,7 @@ void main(void) {
   float larger = max(resolution.x, resolution.y) / scale;
   	vec2 uv = (gl_FragCoord.xy - .5*resolution.xy) / larger;
   	vec2 uvflip = vec2(uv.x, -uv.y);
-  	vec2 cursor = (mouse.xy - .5*resolution.xy) / larger;
+  	vec2 cursor = (vec2( m, n ) - .5*resolution.xy) / larger;
   	vec2 blessr = vec2(-cursor.x, cursor.y);
   	vec2 position = ( gl_FragCoord.xy / resolution.xy );
 
