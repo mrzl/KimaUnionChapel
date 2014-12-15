@@ -1,6 +1,7 @@
 package main;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 
@@ -8,29 +9,17 @@ import processing.opengl.PShader;
  * Created by mar on 14.12.14.
  */
 public class ChladniSurface {
-
     protected PApplet p;
     protected PGraphics offscreen;
-    protected PShader ps;
+    protected PShader shader;
 
-    public ChladniSurface( PApplet p, int width, int height, String renderer ) {
+    public ChladniSurface( PApplet p, int width, int height ) {
         this.p = p;
-        offscreen = p.createGraphics( width, height, renderer );
+        offscreen = p.createGraphics( width, height, PConstants.P3D );
     }
 
     public void draw( int x, int y, int w, int h ) {
-        p.image( offscreen, x, y, w, h );
-    }
-
-    public void update() {
-
-    }
-
-    public void setN( float _n ) {
-    }
-
-    public void setM( float _m ) {
-
+        p.image( getBuffer(), x, y, w, h );
     }
 
     public int get( int x, int y ) {
@@ -51,5 +40,9 @@ public class ChladniSurface {
 
     public PGraphics getBuffer() {
         return offscreen;
+    }
+
+    public void update() {
+
     }
 }

@@ -1,7 +1,6 @@
 package main;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.opengl.PShader;
 
 import java.io.File;
@@ -10,35 +9,27 @@ import java.io.File;
  * Created by mar on 13.12.14.
  */
 public class ChladniRectangle extends ChladniSurface{
-    private PShader ps;
+    private float m, n;
 
-    private float m, n, l, epsiolon;
+    public ChladniRectangle( PApplet p, int width, int height ) {
+        super( p, width, height );
 
-    public ChladniRectangle( PApplet p, int width, int height, String renderer ) {
-        super( p, width, height, renderer );
+        this.shader = p.loadShader( "shader" + File.separator + "chladni_rect.glsl" );
+        this.shader.set( "resolution", getWidth(), getHeight() );
 
-        ps = p.loadShader( "shader" + File.separator + "chladni_rect.glsl" );
-        ps.set( "resolution", ( float )( width ), ( float )( height ) );
-
-        m = 10.0f;
-        n = 2.0f;
-        l = 300.0f;
-        epsiolon = 0.05f;
+        setM( 10.0f );
+        setN( 2.0f );
     }
 
     public void update() {
-        ps.set( "n", this.n );
-        ps.set( "m", this.m );
-        ps.set( "epsilon", this.epsiolon );
-        ps.set( "resolution", ( float )( offscreen.width ), ( float )( offscreen.height ) );
+        this.shader.set( "m", getM() );
+        this.shader.set( "n", getN() );
+        getBuffer().beginDraw();
 
-        offscreen.beginDraw();
-        offscreen.background( 255 );
+        getBuffer().shader( this.shader );
+        getBuffer().rect( 0, 0, getWidth(), getHeight() );
 
-        offscreen.shader( ps );
-        offscreen.rect(0, 0, offscreen.width, offscreen.height);
-
-        offscreen.endDraw();
+        getBuffer().endDraw();
     }
 
     public void setM( float m ) {
@@ -49,10 +40,11 @@ public class ChladniRectangle extends ChladniSurface{
         this.n = n;
     }
 
-    public void setEpsilon( float epsilon ) {
-        this.epsiolon = epsilon;
+    public float getM() {
+        return this.m;
     }
 
-
-
+    public float getN() {
+        return this.n;
+    }
 }

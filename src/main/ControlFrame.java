@@ -22,13 +22,15 @@ public class ControlFrame extends PApplet {
     }
 
     public void rectM( float val ) {
-        parent.particlesRect.frequencyChanged();
-        parent.rect.setM( val );
+        parent.chladniRect.frequencyChanged();
+        ChladniRectangle r = ( ChladniRectangle ) parent.chladniRect.getSurface();
+        r.setM( val );
     }
 
     public void rectN( float val ) {
-        parent.particlesRect.frequencyChanged();
-        parent.rect.setN( val );
+        parent.chladniRect.frequencyChanged();
+        ChladniRectangle r = ( ChladniRectangle ) parent.chladniRect.getSurface();
+        r.setN( val );
     }
 
     public void draw() {

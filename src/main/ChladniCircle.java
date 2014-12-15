@@ -1,50 +1,48 @@
 package main;
 
 import processing.core.PApplet;
-import processing.core.PGraphics;
 import processing.core.PImage;
-import processing.opengl.PShader;
 
 import java.io.File;
 
 /**
  * Created by mar on 13.12.14.
  */
-public class ChladniCircle extends ChladniSurface{
+public class ChladniCircle extends ChladniSurface {
 
-    private float r, m, n, c1, c2;
+    private float m, n, scale;
+    private int poles;
     private PImage circleMask;
 
-    public ChladniCircle( PApplet p, int width, int height, String renderer, float r ) {
-        super( p, width, height, renderer );
-        this.r = r;
+    public ChladniCircle( PApplet p, int width, int height ) {
+        super( p, width, height );
 
-        ps = p.loadShader( "shader" + File.separator + "chladni_circle.glsl" );
-        ps.set( "resolution", ( float )( width ), ( float )( height ) );
+        this.shader = p.loadShader( "shader" + File.separator + "chladni_circle.glsl" );
+        this.shader.set( "resolution", getWidth(), getHeight() );
 
-        this.n = 3.0f;
-        this.m = 2.0f;
-        this.c1 = 1.0f;
-        this.c2 = 2.0f;
+        setPoles( 21 );
+        setScale( 1.0f );
+        setN( 3.0f );
+        setM( 2.0f );
 
-        circleMask = p.loadImage( "media" + File.separator + "circle.png" );
-        circleMask.resize( (int)getWidth(), (int)getHeight() );
+        this.circleMask = p.loadImage( "media" + File.separator + "circle.png" );
+        this.circleMask.resize( ( int ) getWidth(), ( int ) getHeight() );
     }
 
     public void update() {
-        ps.set( "mouse", (float)( p.mouseX ), (float)( p.mouseY ) );
-        //ps.set( "time", ( float ) (p.millis() / 1000.0) );
-        ps.set( "scale", 1.0f );
-        ps.set( "poles", 21 );
+        this.shader.set( "m", getM() );
+        this.shader.set( "n", getN() );
+        this.shader.set( "scale", getScale() );
+        this.shader.set( "poles", getPoles() );
 
-        offscreen.beginDraw();
-        offscreen.background( 255 );
+        getBuffer().beginDraw();
+        getBuffer().background( 255 );
 
-        offscreen.shader( ps );
-        offscreen.rect(0, 0, offscreen.width, offscreen.height);
+        getBuffer().shader( this.shader );
+        getBuffer().rect( 0, 0, getWidth(), getHeight() );
 
-        offscreen.mask( circleMask );
-        offscreen.endDraw();
+        getBuffer().mask( circleMask );
+        getBuffer().endDraw();
     }
 
     public void setM( float m ) {
@@ -55,11 +53,27 @@ public class ChladniCircle extends ChladniSurface{
         this.n = n;
     }
 
-    public void setC1( float c1 ) {
-        this.c1 = c1;
+    public float getN() {
+        return this.n;
     }
 
-    public void setC2( float c2 ) {
-        this.c2 = c2;
+    public float getM() {
+        return this.m;
+    }
+
+    public void setScale( float scale ) {
+        this.scale = scale;
+    }
+
+    public float getScale() {
+        return this.scale;
+    }
+
+    public void setPoles( int poles ) {
+        this.poles = poles;
+    }
+
+    public int getPoles( ) {
+        return this.poles;
     }
 }
