@@ -1,0 +1,30 @@
+#ifdef GL_ES
+precision mediump float;
+precision mediump int;
+#endif
+
+#define PROCESSING_COLOR_SHADER
+#define M_PI 3.1415926535897932384626433832795
+
+uniform sampler2D texture;
+uniform vec2 texOffset;
+
+varying vec4 vertColor;
+varying vec4 vertTexCoord;
+
+uniform float m;
+uniform float n;
+uniform float epsilon;
+uniform vec2 resolution;
+
+
+void main(void) {
+
+  vec2 position = ( gl_FragCoord.xy / resolution.xy );
+  vec2 pixel = 1.0/resolution;
+  
+  float chladni = cos( n * M_PI * position.x ) * cos( m * M_PI * position.y ) - cos( m * M_PI * position.x ) * cos( n * M_PI * position.y );
+  if( abs(chladni) <= epsilon ) {
+    gl_FragColor = vec4( 0.0, 1.0, 0.0, 1.0 );
+  }    
+}
