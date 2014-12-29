@@ -1,5 +1,6 @@
 package main;
 
+import codeanticode.syphon.SyphonServer;
 import controlP5.ControlP5;
 import ddf.minim.AudioOutput;
 import ddf.minim.Minim;
@@ -16,12 +17,17 @@ public class Main extends PApplet {
     protected ChladniContainer chladniRect;
     protected ChladniContainer chladniCircle;
 
+    MetaBallModifier mm;
+    boolean doMetaBall, syphonOutput;
+
     Minim minim;
     AudioOutput out;
     Oscil wave;
 
     private ControlP5 cp5;
     ControlFrame cf;
+
+    SyphonOutput syphonRectangle, syphonCircle;
 /*
     public void init() {
         frame.removeNotify();
@@ -34,15 +40,15 @@ public class Main extends PApplet {
     int resolution = 800;
 
     public void setup() {
-        size( 1600, 800, PConstants.P3D );
+        size( 1920, 1000, PConstants.P3D );
 
         frameRate( 200 );
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniCircle circle = new ChladniCircle( this, resolution, resolution );
 
-        chladniRect = new ChladniContainer( this, rect, 50000 );
-        chladniCircle = new ChladniContainer( this, circle, 50000 );
+        chladniRect = new ChladniContainer( this, rect, 0 );
+        chladniCircle = new ChladniContainer( this, circle, 0 );
 
         minim = new Minim(this);
         out = minim.getLineOut();
@@ -51,22 +57,39 @@ public class Main extends PApplet {
         // patch the Oscil to the output
         //wave.patch( out );
 
+
         cp5 = new ControlP5(this);
         cf = MathUtils.addControlFrame( this, "Controls", 400, 600 );
+
+        mm = new MetaBallModifier( this );
+        doMetaBall = false;
+        syphonOutput = false;
+
+        syphonRectangle = new SyphonOutput( new SyphonServer( this, "kima_syphon_rectangle" ) );
+        syphonCircle = new SyphonOutput( new SyphonServer( this, "kima_syphon_circle" ) );
     }
 
     public void draw() {
         background( 0 );
         frame.setTitle( frameRate + "" );
 
-        chladniRect.update( 5 );
+        chladniRect.update( 1 );
         //chladniRect.drawOriginal( 0, 0, 800, 800 );
         chladniRect.drawParticles( 0, 0 );
 
-        chladniCircle.update( 5 );
+        chladniCircle.update( 1 );
         chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
         //chladniCircle.drawOriginal( 800, 0, 800, 800 );
         chladniCircle.drawParticles( 800, 0 );
+
+        if( doMetaBall ) {
+            mm.apply();
+        }
+
+        if( syphonOutput ) {
+            syphonRectangle.send( chladniRect.getParticlePBO() );
+            syphonCircle.send( chladniCircle.getParticlePBO() );
+        }
     }
 
     public void mouseMoved() {
@@ -89,6 +112,11 @@ public class Main extends PApplet {
         chladniCircle.frequencyChanged();
     }
 
+    public void exit() {
+        syphonCircle.stop();
+        syphonRectangle.stop();
+        super.exit();
+    }
     public static void main( String[] args ) {
         PApplet.main( new String[]{ "main.Main" } );
     }
