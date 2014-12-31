@@ -3,6 +3,8 @@ package main;
 import controlP5.ControlP5;
 import processing.core.PApplet;
 
+import java.awt.*;
+
 /**
  * Created by mar on 15.12.14.
  */
@@ -66,7 +68,7 @@ public class ControlFrame extends PApplet {
     public void circlePoles( float val ) {
         parent.chladniCircle.frequencyChanged();
         ChladniCircle c = ( ChladniCircle ) parent.chladniCircle.getSurface();
-        c.setPoles( (int)( val ) );
+        c.setPoles( ( int ) ( val ) );
     }
 
     public void circleScale( float val ) {
@@ -111,5 +113,18 @@ public class ControlFrame extends PApplet {
         parent = theParent;
         w = theWidth;
         h = theHeight;
+    }
+
+    public static ControlFrame addControlFrame(Main pa, String theName, int theWidth, int theHeight) {
+        Frame f = new Frame(theName);
+        ControlFrame p = new ControlFrame(pa, theWidth, theHeight);
+        f.add(p);
+        p.init();
+        f.setTitle(theName);
+        f.setSize(p.w, p.h);
+        f.setLocation(100, 100);
+        f.setResizable(false);
+        f.setVisible(true);
+        return p;
     }
 }

@@ -16,6 +16,7 @@ public class Main extends PApplet {
 
     protected ChladniContainer chladniRect;
     protected ChladniContainer chladniCircle;
+    protected ChladniContainer chladniRealCircle;
 
     MetaBallModifier mm;
     boolean doMetaBall, syphonOutput;
@@ -46,9 +47,11 @@ public class Main extends PApplet {
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniCircle circle = new ChladniCircle( this, resolution, resolution );
+        ChladniRealCircle realCircle = new ChladniRealCircle( this, resolution, resolution );
 
         chladniRect = new ChladniContainer( this, rect, 0 );
         chladniCircle = new ChladniContainer( this, circle, 0 );
+        chladniRealCircle = new ChladniContainer( this, realCircle, 50000 );
 
         minim = new Minim(this);
         out = minim.getLineOut();
@@ -59,7 +62,7 @@ public class Main extends PApplet {
 
 
         cp5 = new ControlP5(this);
-        cf = MathUtils.addControlFrame( this, "Controls", 400, 600 );
+        cf = ControlFrame.addControlFrame( this, "Controls", 400, 600 );
 
         mm = new MetaBallModifier( this );
         doMetaBall = false;
@@ -73,14 +76,19 @@ public class Main extends PApplet {
         background( 0 );
         frame.setTitle( frameRate + "" );
 
-        chladniRect.update( 1 );
-        //chladniRect.drawOriginal( 0, 0, 800, 800 );
-        chladniRect.drawParticles( 0, 0 );
+        chladniRealCircle.update( 1 );
+        //chladniRealCircle.drawOriginal( 0, 0, 800, 800 );
+        chladniRealCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
+        chladniRealCircle.drawParticles( 0, 0 );
 
-        chladniCircle.update( 1 );
-        chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
+        //chladniRect.update( 1 );
+        //chladniRect.drawOriginal( 0, 0, 800, 800 );
+        //chladniRect.drawParticles( 0, 0 );
+
+        //chladniCircle.update( 1 );
+        //chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
         //chladniCircle.drawOriginal( 800, 0, 800, 800 );
-        chladniCircle.drawParticles( 800, 0 );
+        //chladniCircle.drawParticles( 800, 0 );
 
         if( doMetaBall ) {
             mm.apply();

@@ -12,18 +12,6 @@ public class MathUtils {
     public static final double BIGNO = 1.0e10;
     public static final double BIGNI = 1.0e-10;
 
-    public static ControlFrame addControlFrame(Main pa, String theName, int theWidth, int theHeight) {
-        Frame f = new Frame(theName);
-        ControlFrame p = new ControlFrame(pa, theWidth, theHeight);
-        f.add(p);
-        p.init();
-        f.setTitle(theName);
-        f.setSize(p.w, p.h);
-        f.setLocation(100, 100);
-        f.setResizable(false);
-        f.setVisible(true);
-        return p;
-    }
 
     public static final double bessi0(double x) {
         double answer;
@@ -56,21 +44,21 @@ public class MathUtils {
         return answer;
     }
 
-    public static final double bessi(int n, double x) {
-        if (n < 2)
+    public static final double bessi(int m, double n) {
+        if (m < 2)
             //throw new IllegalArgumentException("Function order must be greater than 1");
         {
             int dfdfd = 0;
         }
 
-        if (x == 0.0) {
+        if (n == 0.0) {
             return 0.0;
         } else {
-            double tox = 2.0/ Math.abs( x );
+            double tox = 2.0/ Math.abs( n );
             double ans = 0.0;
             double bip = 0.0;
             double bi  = 1.0;
-            for (int j = 2*(n + (int) Math.sqrt( ACC * n )); j > 0; --j) {
+            for (int j = 2*(m + (int) Math.sqrt( ACC * m )); j > 0; --j) {
                 double bim = bip + j*tox*bi;
                 bip = bi;
                 bi = bim;
@@ -79,16 +67,16 @@ public class MathUtils {
                     bi *= BIGNI;
                     bip *= BIGNI;
                 }
-                if (j == n) {
+                if (j == m) {
                     ans = bip;
                 }
             }
-            ans *= bessi0(x)/bi;
-            return (((x < 0.0) && ((n % 2) == 0)) ? -ans : ans);
+            ans *= bessi0(n)/bi;
+            return (((n < 0.0) && ((m % 2) == 0)) ? -ans : ans);
         }
     }
 
-    public static double zeroj( int m_order, int n_zero) {
+    public static double getNthZeroOfMthBessel( int m_order, int n_zero ) {
         // Zeros of the Bessel function J(x)
         // Inputs
         //   m_order   Order of the Bessel function

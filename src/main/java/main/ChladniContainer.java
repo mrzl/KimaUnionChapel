@@ -53,7 +53,7 @@ public class ChladniContainer {
             particles.add( v );
         }
 
-        rebuildSpeed = 10.0f;
+        rebuildSpeed = 40.0f;
         particleSize = 3.0f;
         this.particleOpacity = 0.6f;
         pgl  = (PJOGL) particlePBO.beginPGL();

@@ -24,6 +24,7 @@
     <orderEntry type="library" name="Maven: com.nativelibs4java:nativelibs4java-utils:1.5" level="project" />
     <orderEntry type="library" name="oscP5" level="project" />
     <orderEntry type="library" name="Syphon" level="project" />
+    <orderEntry type="library" name="jscience" level="project" />
   </component>
 </module>
 
