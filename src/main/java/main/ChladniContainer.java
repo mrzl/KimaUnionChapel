@@ -95,7 +95,7 @@ public class ChladniContainer {
     public void restrictCircular( int radius ) {
         for ( Vec2D v : particles ) {
             float rad = p.dist( v.x, v.y, surface.getWidth() / 2, surface.getHeight() / 2 );
-            if( rad > radius ) {
+            if( rad >= radius ) {
                 v.x = p.random( surface.getWidth() );
                 v.y = p.random( surface.getHeight() );
             }

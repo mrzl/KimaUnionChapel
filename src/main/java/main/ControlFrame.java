@@ -24,8 +24,8 @@ public class ControlFrame extends PApplet {
 
         cp5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 90 ).setValue( 2.0f );
         cp5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 130 ).setValue( 3.0f );
-        cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 170 ).setValue( 2.0f );
-        cp5.addSlider( "circleScale" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 210 ).setValue( 3.0f );
+        cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 170 ).setValue( 33.0f );
+        cp5.addSlider( "circleScale" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 210 ).setValue( 1.0f );
 
         cp5.addSlider( "jumpyness" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 270 ).setValue( 3.0f );
         cp5.addSlider( "particleSize" ).setRange( 0, 10 ).setSize( 300, 20 ).setPosition( 10, 300 ).setValue( 3.0f );
@@ -80,6 +80,7 @@ public class ControlFrame extends PApplet {
     public void jumpyness( float _jumpyness ) {
         parent.chladniRect.setRebuildSpeed( _jumpyness );
         parent.chladniCircle.setRebuildSpeed( _jumpyness );
+        parent.chladniRealCircle.setRebuildSpeed( _jumpyness );
     }
 
     public void threshold( float _threshold ) {
@@ -93,16 +94,19 @@ public class ControlFrame extends PApplet {
     public void particleSize( float _particleSize ) {
         parent.chladniRect.setParticleSize( _particleSize );
         parent.chladniCircle.setParticleSize( _particleSize );
+        parent.chladniRealCircle.setParticleSize( _particleSize );
     }
 
     public void particleCount( float _particleCount) {
         parent.chladniCircle.setParticleCount( ( int )( _particleCount ) );
         parent.chladniRect.setParticleCount( ( int )( _particleCount ) );
+        parent.chladniRealCircle.setParticleCount( ( int )( _particleCount ) );
     }
 
     public void particleOpacity( float _particleOpacity ) {
         parent.chladniCircle.setParticleOpacity( _particleOpacity );
         parent.chladniRect.setParticleOpacity( _particleOpacity );
+        parent.chladniRealCircle.setParticleOpacity( _particleOpacity );
     }
 
     public void draw() {

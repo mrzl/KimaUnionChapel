@@ -38,7 +38,7 @@ public class Main extends PApplet {
         super.init();
     }*/
 
-    int resolution = 800;
+    int resolution = 500;
 
     public void setup() {
         size( 1920, 1000, PConstants.P3D );
@@ -51,7 +51,7 @@ public class Main extends PApplet {
 
         chladniRect = new ChladniContainer( this, rect, 0 );
         chladniCircle = new ChladniContainer( this, circle, 0 );
-        chladniRealCircle = new ChladniContainer( this, realCircle, 50000 );
+        chladniRealCircle = new ChladniContainer( this, realCircle, 10000 );
 
         minim = new Minim(this);
         out = minim.getLineOut();
@@ -76,19 +76,21 @@ public class Main extends PApplet {
         background( 0 );
         frame.setTitle( frameRate + "" );
 
+
+
+        chladniRect.update( 1 );
+        //chladniRect.drawOriginal( 0, 0, resolution, resolution );
+        chladniRect.drawParticles( 0, 0 );
+
+        chladniCircle.update( 1 );
+        chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
+        //chladniCircle.drawOriginal( resolution, 0, resolution, resolution );
+        chladniCircle.drawParticles( resolution, 0 );
+
         chladniRealCircle.update( 1 );
-        //chladniRealCircle.drawOriginal( 0, 0, 800, 800 );
+        //chladniRealCircle.drawOriginal( resolution * 2, 0, resolution, resolution );
         chladniRealCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
-        chladniRealCircle.drawParticles( 0, 0 );
-
-        //chladniRect.update( 1 );
-        //chladniRect.drawOriginal( 0, 0, 800, 800 );
-        //chladniRect.drawParticles( 0, 0 );
-
-        //chladniCircle.update( 1 );
-        //chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
-        //chladniCircle.drawOriginal( 800, 0, 800, 800 );
-        //chladniCircle.drawParticles( 800, 0 );
+        chladniRealCircle.drawParticles( resolution * 2, 0 );
 
         if( doMetaBall ) {
             mm.apply();
@@ -118,6 +120,7 @@ public class Main extends PApplet {
 
         chladniRect.frequencyChanged();
         chladniCircle.frequencyChanged();
+        chladniRealCircle.frequencyChanged();
     }
 
     public void exit() {

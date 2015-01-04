@@ -17,8 +17,8 @@ public class ChladniRealCircle extends ChladniSurface {
     }
 
     public void update() {
-        int m = ( int ) p.map( p.mouseX, 0, p.width, 1, 6 );
-        int n = ( int ) p.map( p.mouseY, 0, p.height, 1, 6 );
+        int m = ( int ) p.map( p.mouseX, 0, p.width, 1, 16 );
+        int n = ( int ) p.map( p.mouseY, 0, p.height, 1, 16 );
         float nthZero = ( float ) MathUtils.getNthZeroOfMthBessel( m, n );
         this.shader.set( "nthZero", nthZero );
         this.shader.set( "m", m );

@@ -297,7 +297,7 @@ void main() {
       float second = sin( float(m) * theta );
       float third = cos( nthZero );
       float res = first * second * third;
-        gl_FragColor = vec4(vec3(abs(res)), 1.0);
+        gl_FragColor = vec4(vec3(abs(4*res)), 1.0);
         }
     //gl_FragColor = vec4(val2, val2, val2, 1.0);
 }
