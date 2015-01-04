@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Syphon">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/Syphon.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jsyphon.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
