@@ -41,7 +41,7 @@ public class Main extends PApplet {
     int resolution = 500;
 
     public void setup() {
-        size( 1920, 1000, PConstants.P3D );
+        size( resolution * 3, resolution, PConstants.P3D );
 
         frameRate( 200 );
 
@@ -58,7 +58,7 @@ public class Main extends PApplet {
         // create a sine wave Oscil, set to 440 Hz, at 0.5 amplitude
         wave = new Oscil( 440, 0.5f, Waves.SINE );
         // patch the Oscil to the output
-        //wave.patch( out );
+        // wave.patch( out );
 
 
         cp5 = new ControlP5(this);
@@ -66,7 +66,7 @@ public class Main extends PApplet {
 
         mm = new MetaBallModifier( this );
         doMetaBall = false;
-        syphonOutput = false;
+        syphonOutput = true;
 
         syphonRectangle = new SyphonOutput( new SyphonServer( this, "kima_syphon_rectangle" ) );
         syphonCircle = new SyphonOutput( new SyphonServer( this, "kima_syphon_circle" ) );
@@ -76,9 +76,8 @@ public class Main extends PApplet {
         background( 0 );
         frame.setTitle( frameRate + "" );
 
-
-
         chladniRect.update( 1 );
+
         //chladniRect.drawOriginal( 0, 0, resolution, resolution );
         chladniRect.drawParticles( 0, 0 );
 
@@ -100,6 +99,7 @@ public class Main extends PApplet {
             syphonRectangle.send( chladniRect.getParticlePBO() );
             syphonCircle.send( chladniCircle.getParticlePBO() );
         }
+
     }
 
     public void mouseMoved() {
