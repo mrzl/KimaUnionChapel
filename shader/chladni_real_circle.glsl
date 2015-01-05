@@ -9,8 +9,8 @@ precision mediump int;
 uniform sampler2D texture;
 uniform vec2 resolution;
 uniform float nthZero;
-uniform int m;
-uniform int n;
+uniform float m;
+uniform float n;
 
 /*
 float getNthZeroOfMthBessel( const int m_order, const int n_zero ) {
@@ -293,7 +293,7 @@ void main() {
       float xpos = uv.x / resolution.x;
       float ypos = uv.y / resolution.y;
       float theta = atan( ypos / xpos );
-      float first = jn( m, nthZero * radius );
+      float first = jn( int(m), nthZero * radius );
       float second = sin( float(m) * theta );
       float third = cos( nthZero );
       float res = first * second * third;
