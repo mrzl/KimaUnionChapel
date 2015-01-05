@@ -25,8 +25,8 @@ public class Main extends PApplet {
 
     private SyphonOutput syphonOutput;
 
-    int resolution = 512; // 256
-    float scaleFactor = 2.0f; // 4.0f
+    int resolution;
+    float scaleFactor;
     boolean debug = true;
 
     public void setup() {
@@ -65,8 +65,6 @@ public class Main extends PApplet {
         oscRouter = new OscRouter( 5001 );
         oscRouter.add( OscRouter.AMPLITUDE, "/amplitude1", chladniRect  );
         oscRouter.add( OscRouter.FREQUENCY, "/frequency1", chladniRect  );
-
-
     }
 
     public void draw() {
