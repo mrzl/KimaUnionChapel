@@ -10,10 +10,9 @@ import java.awt.*;
  */
 public class ControlFrame extends PApplet {
 
-    ControlP5 cp5;
-    Main parent;
-
-    int w, h;
+    private ControlP5 cp5;
+    private Main parent;
+    private int w, h;
 
     public void setup() {
         size( w, h );
@@ -22,23 +21,44 @@ public class ControlFrame extends PApplet {
         cp5.addSlider( "rectN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 10 ).setValue( 2.0f );
         cp5.addSlider( "rectM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 50 ).setValue( 3.0f );
 
-        cp5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 90 ).setValue( 2.0f );
-        cp5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 130 ).setValue( 3.0f );
-        cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 170 ).setValue( 33.0f );
-        cp5.addSlider( "circleScale" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 210 ).setValue( 1.0f );
+        float circleY = 120;
+        cp5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f );
+        circleY += 40;
+        cp5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f );
+        circleY += 40;
+        cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 33.0f );
+        circleY += 40;
+        cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.0f );
 
-        cp5.addSlider( "jumpyness" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 270 ).setValue( 3.0f );
-        cp5.addSlider( "particleSize" ).setRange( 0, 10 ).setSize( 300, 20 ).setPosition( 10, 300 ).setValue( 3.0f );
-        cp5.addSlider( "particleCount" ).setRange( 0, 80000 ).setSize( 300, 20 ).setPosition( 10, 330 ).setValue( 10000.0f );
-        cp5.addSlider( "particleOpacity" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, 360 ).setValue( 0.6f );
+        float realCircleY = 300;
+        cp5.addSlider( "realCircleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f );
+        realCircleY += 40;
+        cp5.addSlider( "realCircleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f );
 
+        float generalY = 450;
+        cp5.addSlider( "jumpyness" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 30.0f );
+        generalY += 30;
+        cp5.addSlider( "particleSize" ).setRange( 0, 10 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 3.0f );
+        generalY += 30;
+        cp5.addSlider( "particleCount" ).setRange( 0, 80000 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 10000.0f );
+        generalY += 30;
+        cp5.addSlider( "particleOpacity" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 0.6f );
+        generalY += 40;
         cp5.addToggle("thresholdToggle")
-                .setPosition( 40,450 )
+                .setPosition( 40,generalY )
                 .setSize(80,20)
                 .setValue(false)
                 .setMode(ControlP5.SWITCH)
         ;
-        cp5.addSlider( "threshold" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, 490 ).setValue( 0.2f );
+
+        cp5.addToggle("colorModeToggle")
+                .setPosition( 160,generalY )
+                .setSize(80,20)
+                .setValue(false)
+                .setMode(ControlP5.SWITCH)
+        ;
+        generalY += 50;
+        cp5.addSlider( "threshold" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 0.2f );
     }
 
     public void rectM( float val ) {
@@ -77,6 +97,18 @@ public class ControlFrame extends PApplet {
         c.setScale( val );
     }
 
+    public void realCircleN( float n ) {
+        parent.chladniRealCircle.frequencyChanged();
+        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniRealCircle.getSurface();
+        realCircle.setN( n );
+    }
+
+    public void realCircleM( float m ) {
+        parent.chladniRealCircle.frequencyChanged();
+        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniRealCircle.getSurface();
+        realCircle.setM( m );
+    }
+
     public void jumpyness( float _jumpyness ) {
         parent.chladniRect.setRebuildSpeed( _jumpyness );
         parent.chladniCircle.setRebuildSpeed( _jumpyness );
@@ -84,11 +116,23 @@ public class ControlFrame extends PApplet {
     }
 
     public void threshold( float _threshold ) {
-        parent.mm.setThreshold( _threshold );
+        parent.getMetaBallModifier().setThreshold( _threshold );
     }
 
     public void thresholdToggle( boolean isEnabled ) {
-        parent.doMetaBall = isEnabled;
+        parent.getMetaBallModifier().setEnabled( isEnabled );
+    }
+
+    public void colorModeToggle( boolean isEnabled ) {
+        if( isEnabled ) {
+            parent.chladniRect.setColorMode( ColorMode.MONOCHROME );
+            parent.chladniCircle.setColorMode( ColorMode.MONOCHROME );
+            parent.chladniRealCircle.setColorMode( ColorMode.MONOCHROME );
+        } else {
+            parent.chladniRect.setColorMode( ColorMode.VELOCITIES );
+            parent.chladniCircle.setColorMode( ColorMode.VELOCITIES );
+            parent.chladniRealCircle.setColorMode( ColorMode.VELOCITIES );
+        }
     }
 
     public void particleSize( float _particleSize ) {

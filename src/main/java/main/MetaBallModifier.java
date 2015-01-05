@@ -16,30 +16,46 @@ public class MetaBallModifier {
 
     private int blurStrength;
     private float thresholdValue;
+    private boolean enabled;
 
     public MetaBallModifier( PApplet p ) {
         this.p = p;
-        blur = p.loadShader( "shader" + File.separator + "blur.glsl" );
-        threshold = p.loadShader( "shader" + File.separator + "threshold.glsl" );
+        this.blur = p.loadShader( "shader" + File.separator + "blur.glsl" );
+        this.threshold = p.loadShader( "shader" + File.separator + "threshold.glsl" );
 
-        blurStrength = 5;
-        thresholdValue = 0.1f;
+        setBlurStrength( 2 );
+        setThreshold( 0.1f );
 
-
+        setEnabled( false );
     }
 
-    public void apply( ) {
-        threshold.set( "threshold", thresholdValue );
-        for( int i = 0; i < blurStrength; i++ ) {
-            p.filter( blur );
-        }
+    public void apply( PGraphics buffer ) {
+        if( isEnabled() ) {
+            threshold.set( "threshold", thresholdValue );
 
-        p.filter( threshold );
-        p.filter( blur );
+            for ( int i = 0; i < blurStrength; i++ ) {
+                buffer.filter( blur );
+            }
+
+            buffer.filter( threshold );
+            buffer.filter( blur );
+            buffer.filter( blur );
+        }
+    }
+
+    public void setBlurStrength( int _blurStrength ) {
+        this.blurStrength = _blurStrength;
     }
 
     public void setThreshold( float _threshold ) {
         this.thresholdValue = _threshold;
+    }
 
+    public void setEnabled( boolean _enabled ) {
+        this.enabled = _enabled;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
     }
 }

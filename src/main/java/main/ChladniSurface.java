@@ -8,7 +8,7 @@ import processing.opengl.PShader;
 /**
  * Created by mar on 14.12.14.
  */
-public class ChladniSurface {
+public class ChladniSurface implements ChladniSurfaceInterface {
     protected PApplet p;
     protected PGraphics offscreen;
     protected PShader shader;
@@ -42,7 +42,8 @@ public class ChladniSurface {
         return offscreen;
     }
 
-    public void update() {
-
+    @Override
+    public void update () {
+        System.err.println( "Calling ChladniSurface.update() without extending it." );
     }
 }

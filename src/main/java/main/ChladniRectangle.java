@@ -8,7 +8,7 @@ import java.io.File;
 /**
  * Created by mar on 13.12.14.
  */
-public class ChladniRectangle extends ChladniSurface{
+public class ChladniRectangle extends ChladniSurface {
     private float m, n;
 
     public ChladniRectangle( PApplet p, int width, int height ) {

@@ -1,6 +1,8 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
+import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 
 /**
@@ -9,11 +11,30 @@ import processing.core.PGraphics;
 public class SyphonOutput {
 
     private SyphonServer server;
-    public SyphonOutput( SyphonServer _s ) {
+    private PGraphics buffer;
+
+    public SyphonOutput( PApplet p, int width, int height, SyphonServer _s ) {
         this.server = _s;
+        this.buffer = p.createGraphics( width, height, PConstants.P3D );
     }
 
-    public void send( PGraphics frame ) {
+    public void beginDraw() {
+        this.buffer.beginDraw();
+    }
+
+    public void drawOnTexture( PGraphics bufferToDraw, int x, int y ) {
+        this.buffer.image( bufferToDraw, x, y );
+    }
+
+    public void endDraw() {
+        this.buffer.endDraw();
+    }
+
+    public void send() {
+        this.send( this.buffer );
+    }
+
+    private void send( PGraphics frame ) {
         server.sendImage( frame );
     }
 
@@ -22,5 +43,13 @@ public class SyphonOutput {
             server.stop();
             server.dispose();
         }
+    }
+
+    public PGraphics getBuffer() {
+        return this.buffer;
+    }
+
+    public void saveFrame( String fileName ) {
+        this.buffer.save( fileName );
     }
 }
