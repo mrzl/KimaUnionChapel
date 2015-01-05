@@ -39,7 +39,6 @@ public class MetaBallModifier {
 
             buffer.filter( threshold );
             buffer.filter( blur );
-            buffer.filter( blur );
         }
     }
 

@@ -3,6 +3,7 @@ package main;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
+import processing.core.PImage;
 import processing.opengl.PGL;
 import processing.opengl.PJOGL;
 import toxi.geom.Vec2D;
@@ -80,9 +81,13 @@ public class ParticleContainer {
             for ( Vec2D v : particles ) {
                 v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
                 v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
+
                 float jumpyNess = p.map( surface.get( ( int ) ( v.x / scaleFactor ), ( int ) ( v.y / scaleFactor ) ), 0, 255, 0, rebuildSpeed );
                 Vec2D toAdd = new Vec2D( p.random( -jumpyNess, jumpyNess ), p.random( -jumpyNess, jumpyNess ) );
                 v.addSelf( toAdd );
+
+                v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
+                v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
 
                 velocities.set( index, jumpyNess );
 
@@ -99,6 +104,21 @@ public class ParticleContainer {
         for ( Vec2D v : particles ) {
             float rad = p.dist( v.x, v.y, particlePBO.width / 2, particlePBO.height / 2 );
             if ( rad >= radius ) {
+                v.x = p.random( particlePBO.width );
+                v.y = p.random( particlePBO.height );
+            }
+        }
+    }
+
+    public void restrictTriangular() {
+        ChladniCircle c = ( ChladniCircle ) getSurface();
+        PImage im = c.getMastk();
+        im.loadPixels();
+        for ( Vec2D v : particles ) {
+            int x = ( int ) p.map( v.x, 0, particlePBO.width, 0, im.width );
+            int y = ( int ) p.map( v.y, 0, particlePBO.height, 0, im.height );
+            int col = im.pixels[ x + y * im.width ] & 0xFF;
+            if( col < 1 ) {
                 v.x = p.random( particlePBO.width );
                 v.y = p.random( particlePBO.height );
             }

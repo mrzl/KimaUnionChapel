@@ -4,6 +4,11 @@ import codeanticode.syphon.SyphonServer;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  * Created by mar on 13.12.14.
  */
@@ -22,7 +27,7 @@ public class Main extends PApplet {
 
     int resolution = 512; // 256
     float scaleFactor = 2.0f; // 4.0f
-    boolean debug = false;
+    boolean debug = true;
 
     public void setup() {
         int overallWidth, overallHeight;
@@ -37,7 +42,7 @@ public class Main extends PApplet {
             scaleFactor = 4.0f;
             overallWidth = ( int )( resolution * 3 * scaleFactor );
             overallHeight = ( int )( resolution * scaleFactor );
-            size( 200, 100, PConstants.P3D );
+            size( 1, 1, PConstants.P3D );
         }
 
         frameRate( 1000 );
@@ -60,12 +65,14 @@ public class Main extends PApplet {
         oscRouter = new OscRouter( 5001 );
         oscRouter.add( OscRouter.AMPLITUDE, "/amplitude1", chladniRect  );
         oscRouter.add( OscRouter.FREQUENCY, "/frequency1", chladniRect  );
+
+
     }
 
     public void draw() {
-        background( 0 );
-        if( frameCount % 30 == 0 ) {
-            frame.setTitle( frameRate + "" );
+        //background( 0 );
+        if( frameCount % 20 == 0 ) {
+            println( frameRate );
         }
 
         chladniRect.update( 1 );
@@ -77,6 +84,7 @@ public class Main extends PApplet {
         chladniCircle.update( 1 );
         //chladniCircle.restrictCircular( ( int ) ( chladniCircle.getSurface().getWidth() / 2 ) );
         //chladniCircle.drawOriginal( resolution, 0, resolution, resolution );
+        chladniCircle.restrictTriangular();
         chladniCircle.renderParticles( );
         //chladniCircle.renderParticlesToScreen( ( int ) (resolution * chladniRect.getScaleFactor()), 0 );
 
@@ -106,7 +114,7 @@ public class Main extends PApplet {
 
     public void keyPressed() {
         if( key == 's' ) {
-            syphonOutput.saveFrame( "out.png" );
+            this.g.save( "out.png" );
         }
     }
 

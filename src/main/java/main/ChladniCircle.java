@@ -12,7 +12,7 @@ public class ChladniCircle extends ChladniSurface {
 
     private float m, n, scale;
     private int poles;
-    private PImage circleMask;
+    private PImage triangleMask;
 
     public ChladniCircle( PApplet p, int width, int height ) {
         super( p, width, height );
@@ -25,8 +25,8 @@ public class ChladniCircle extends ChladniSurface {
         setN( 3.0f );
         setM( 2.0f );
 
-        this.circleMask = p.loadImage( "media" + File.separator + "circle.png" );
-        this.circleMask.resize( ( int ) getWidth(), ( int ) getHeight() );
+        this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
+        this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );
     }
 
     public void update() {
@@ -41,7 +41,7 @@ public class ChladniCircle extends ChladniSurface {
         getBuffer().shader( this.shader );
         getBuffer().rect( 0, 0, getWidth(), getHeight() );
 
-        getBuffer().mask( circleMask );
+        getBuffer().mask( triangleMask );
         getBuffer().endDraw();
     }
 
@@ -75,5 +75,9 @@ public class ChladniCircle extends ChladniSurface {
 
     public int getPoles( ) {
         return this.poles;
+    }
+
+    public PImage getMastk() {
+        return triangleMask;
     }
 }
