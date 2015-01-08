@@ -28,7 +28,7 @@ public class Main extends PApplet {
 
     int resolution;
     float scaleFactor;
-    boolean debug = true;
+    boolean debug = false;
 
     public void setup() {
         int overallWidth, overallHeight;
@@ -154,7 +154,7 @@ public class Main extends PApplet {
 
     public void keyPressed() {
         if( key == 's' ) {
-            this.g.save( "out.png" );
+            this.syphonOutput.saveFrame( "out.png" );
         }
     }
 

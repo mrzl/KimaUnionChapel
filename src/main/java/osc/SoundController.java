@@ -33,10 +33,9 @@ public class SoundController {
 
     public void oscEvent( OscMessage receivedOscMessage ) {
         try {
-            SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
-
+            SoundInputParameterEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
             float value;
-            switch ( soundInputParameter.getType() ) {
+            switch ( soundParameterType ) {
                 case FREQUENCY_PARAMETER1:
                 case FREQUENCY_PARAMETER2:
                 case FREQUENCY_PARAMETER3:
@@ -57,9 +56,12 @@ public class SoundController {
                     throw new UnknownOscParameterException();
             }
 
+            debugDisplay.updateParameter( soundParameterType, value );
+
+            SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
+
             for( SoundParameterMapping m : mappings ) {
                 m.soundInputParameterReceived( soundInputParameter, value );
-                debugDisplay.updateParameter( soundInputParameter.getType( ), value );
             }
 
         } catch ( UnknownOscParameterException e ) {
