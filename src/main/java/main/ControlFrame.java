@@ -1,6 +1,10 @@
 package main;
 
 import controlP5.ControlP5;
+import pattern.ChladniCircle;
+import pattern.ChladniRealCircle;
+import pattern.ChladniRectangle;
+import pattern.ColorMode;
 import processing.core.PApplet;
 
 import java.awt.*;
@@ -28,7 +32,7 @@ public class ControlFrame extends PApplet {
         circleY += 40;
         cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 33.0f );
         circleY += 40;
-        cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.0f );
+        //cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.1f );
 
         float realCircleY = 300;
         cp5.addSlider( "realCircleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f );
@@ -74,45 +78,45 @@ public class ControlFrame extends PApplet {
     }
 
     public void circleN( float val ) {
-        parent.chladniCircle.frequencyChanged();
-        ChladniCircle c = ( ChladniCircle ) parent.chladniCircle.getSurface();
+        parent.chladniTriangle.frequencyChanged();
+        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface();
         c.setN( val );
     }
 
     public void circleM( float val ) {
-        parent.chladniCircle.frequencyChanged();
-        ChladniCircle c = ( ChladniCircle ) parent.chladniCircle.getSurface();
+        parent.chladniTriangle.frequencyChanged();
+        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface();
         c.setM( val );
     }
 
     public void circlePoles( float val ) {
-        parent.chladniCircle.frequencyChanged();
-        ChladniCircle c = ( ChladniCircle ) parent.chladniCircle.getSurface();
+        parent.chladniTriangle.frequencyChanged();
+        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface();
         c.setPoles( ( int ) ( val ) );
     }
 
     public void circleScale( float val ) {
-        parent.chladniCircle.frequencyChanged();
-        ChladniCircle c = ( ChladniCircle ) parent.chladniCircle.getSurface();
+        parent.chladniTriangle.frequencyChanged();
+        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface();
         c.setScale( val );
     }
 
     public void realCircleN( float n ) {
-        parent.chladniRealCircle.frequencyChanged();
-        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniRealCircle.getSurface();
+        parent.chladniCircle.frequencyChanged();
+        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniCircle.getSurface();
         realCircle.setN( n );
     }
 
     public void realCircleM( float m ) {
-        parent.chladniRealCircle.frequencyChanged();
-        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniRealCircle.getSurface();
+        parent.chladniCircle.frequencyChanged();
+        ChladniRealCircle realCircle = (ChladniRealCircle) parent.chladniCircle.getSurface();
         realCircle.setM( m );
     }
 
     public void jumpyness( float _jumpyness ) {
         parent.chladniRect.setRebuildSpeed( _jumpyness );
+        parent.chladniTriangle.setRebuildSpeed( _jumpyness );
         parent.chladniCircle.setRebuildSpeed( _jumpyness );
-        parent.chladniRealCircle.setRebuildSpeed( _jumpyness );
     }
 
     public void threshold( float _threshold ) {
@@ -126,31 +130,31 @@ public class ControlFrame extends PApplet {
     public void colorModeToggle( boolean isEnabled ) {
         if( isEnabled ) {
             parent.chladniRect.setColorMode( ColorMode.MONOCHROME );
+            parent.chladniTriangle.setColorMode( ColorMode.MONOCHROME );
             parent.chladniCircle.setColorMode( ColorMode.MONOCHROME );
-            parent.chladniRealCircle.setColorMode( ColorMode.MONOCHROME );
         } else {
             parent.chladniRect.setColorMode( ColorMode.VELOCITIES );
+            parent.chladniTriangle.setColorMode( ColorMode.VELOCITIES );
             parent.chladniCircle.setColorMode( ColorMode.VELOCITIES );
-            parent.chladniRealCircle.setColorMode( ColorMode.VELOCITIES );
         }
     }
 
     public void particleSize( float _particleSize ) {
         parent.chladniRect.setParticleSize( _particleSize );
+        parent.chladniTriangle.setParticleSize( _particleSize );
         parent.chladniCircle.setParticleSize( _particleSize );
-        parent.chladniRealCircle.setParticleSize( _particleSize );
     }
 
     public void particleCount( float _particleCount) {
-        parent.chladniCircle.setParticleCount( ( int )( _particleCount ) );
+        parent.chladniTriangle.setParticleCount( ( int )( _particleCount ) );
         parent.chladniRect.setParticleCount( ( int )( _particleCount ) );
-        parent.chladniRealCircle.setParticleCount( ( int )( _particleCount ) );
+        parent.chladniCircle.setParticleCount( ( int )( _particleCount ) );
     }
 
     public void particleOpacity( float _particleOpacity ) {
-        parent.chladniCircle.setParticleOpacity( _particleOpacity );
+        parent.chladniTriangle.setParticleOpacity( _particleOpacity );
         parent.chladniRect.setParticleOpacity( _particleOpacity );
-        parent.chladniRealCircle.setParticleOpacity( _particleOpacity );
+        parent.chladniCircle.setParticleOpacity( _particleOpacity );
     }
 
     public void draw() {
@@ -170,7 +174,8 @@ public class ControlFrame extends PApplet {
         p.init();
         f.setTitle(theName);
         f.setSize(p.w, p.h);
-        f.setLocation(100, 100);
+        f.setUndecorated( true );
+        f.setLocation(0, 150);
         f.setResizable(false);
         f.setVisible(true);
         return p;
