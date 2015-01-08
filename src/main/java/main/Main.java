@@ -28,7 +28,7 @@ public class Main extends PApplet {
 
     int resolution;
     float scaleFactor;
-    boolean debug = false;
+    boolean debug = true;
 
     public void setup() {
         int overallWidth, overallHeight;

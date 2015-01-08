@@ -30,7 +30,6 @@ public class ChladniCircle extends ChladniSurface {
     public void update() {
         this.shader.set( "m", getM() );
         this.shader.set( "n", getN() );
-        System.out.println( "Setting scale to " + getScale() );
         this.shader.set( "scale", getScale() );
         this.shader.set( "poles", getPoles() );
 

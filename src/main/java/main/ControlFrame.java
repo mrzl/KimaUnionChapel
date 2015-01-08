@@ -32,7 +32,7 @@ public class ControlFrame extends PApplet {
         circleY += 40;
         cp5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 33.0f );
         circleY += 40;
-        //cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.1f );
+        cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.1f );
 
         float realCircleY = 300;
         cp5.addSlider( "realCircleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f );
