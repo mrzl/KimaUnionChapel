@@ -3,7 +3,7 @@ package main;
 import codeanticode.syphon.SyphonServer;
 import osc.*;
 import pattern.ChladniCircle;
-import pattern.ChladniPattern;
+import pattern.ChladniParticles;
 import pattern.ChladniRealCircle;
 import pattern.ChladniRectangle;
 import processing.core.PApplet;
@@ -14,9 +14,9 @@ import processing.core.PConstants;
  */
 public class Main extends PApplet {
 
-    protected ChladniPattern chladniRect;
-    protected ChladniPattern chladniTriangle;
-    protected ChladniPattern chladniCircle;
+    protected ChladniParticles chladniRect;
+    protected ChladniParticles chladniTriangle;
+    protected ChladniParticles chladniCircle;
 
     private SoundController soundController;
 
@@ -54,9 +54,9 @@ public class Main extends PApplet {
         ChladniCircle circle = new ChladniCircle( this, resolution, resolution );
         ChladniRealCircle realCircle = new ChladniRealCircle( this, resolution, resolution );
 
-        chladniRect = new ChladniPattern( this, rect, scaleFactor, 10000 );
-        chladniTriangle = new ChladniPattern( this, circle, scaleFactor, 10000 );
-        chladniCircle = new ChladniPattern( this, realCircle, scaleFactor, 10000 );
+        chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
+        chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
+        chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
 
         controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 800 );
 

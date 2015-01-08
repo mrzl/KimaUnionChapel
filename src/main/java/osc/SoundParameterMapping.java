@@ -1,6 +1,6 @@
 package osc;
 
-import pattern.ChladniPattern;
+import pattern.ChladniParticles;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ public class SoundParameterMapping {
     private ArrayList< SoundInputParameter > sips;
     private ArrayList< ChladniPatternParameter > cpps;
 
-    private ChladniPattern chladniPattern;
+    private ChladniParticles chladniParticles;
 
-    public SoundParameterMapping( ChladniPattern _chladniPattern) {
+    public SoundParameterMapping( ChladniParticles _chladniParticles ) {
         sips = new ArrayList<>(  );
         cpps = new ArrayList<>(  );
 
-        this.chladniPattern = _chladniPattern;
+        this.chladniParticles = _chladniParticles;
     }
 
     public void addMapping( SoundInputParameter _sip, ChladniPatternParameter _cpp ) {
@@ -37,7 +37,7 @@ public class SoundParameterMapping {
             if( s.getType().equals( _parameter.getType() ) ) {
                 ChladniPatternParameter chladniPatternParameter = cpps.get( sips.indexOf( s ) );
                 float mappedValue = PApplet.map( value, _parameter.getMin(), _parameter.getMax(), chladniPatternParameter.getMin(), chladniPatternParameter.getMax() );
-                chladniPattern.parameterChanged( chladniPatternParameter.getType(), mappedValue );
+                chladniParticles.parameterChanged( chladniPatternParameter.getType(), mappedValue );
             }
         }
     }

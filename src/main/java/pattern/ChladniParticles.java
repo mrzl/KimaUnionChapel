@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by mar on 14.12.14.
  */
-public class ChladniPattern {
+public class ChladniParticles {
 
     private ChladniSurface surface;
     private PGraphics particlePBO;
@@ -36,7 +36,7 @@ public class ChladniPattern {
     // performance: rendering the origin smaller,
     private float scaleFactor;
 
-    public ChladniPattern ( PApplet p, ChladniSurface surface, float scaleFactor, int particleCount ) {
+    public ChladniParticles ( PApplet p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
         this.p = p;
         this.particleCount = particleCount;
@@ -59,8 +59,7 @@ public class ChladniPattern {
 
         gl2 = GLU.getCurrentGL( ).getGL2( );
 
-        colorMode = ColorMode.MONOCHROME;
-
+        colorMode = ColorMode.VELOCITIES;
     }
 
     public void update ( int speed ) {
