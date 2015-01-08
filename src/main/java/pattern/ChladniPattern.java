@@ -1,5 +1,6 @@
-package main;
+package pattern;
 
+import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by mar on 14.12.14.
  */
-public class ParticleContainer {
+public class ChladniPattern {
 
     private ChladniSurface surface;
     private PGraphics particlePBO;
@@ -35,7 +36,7 @@ public class ParticleContainer {
     // performance: rendering the origin smaller,
     private float scaleFactor;
 
-    public ParticleContainer ( PApplet p, ChladniSurface surface, float scaleFactor, int particleCount ) {
+    public ChladniPattern ( PApplet p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
         this.p = p;
         this.particleCount = particleCount;
@@ -117,10 +118,13 @@ public class ParticleContainer {
         for ( Vec2D v : particles ) {
             int x = ( int ) p.map( v.x, 0, particlePBO.width, 0, im.width );
             int y = ( int ) p.map( v.y, 0, particlePBO.height, 0, im.height );
-            int col = im.pixels[ x + y * im.width ] & 0xFF;
-            if( col < 1 ) {
-                v.x = p.random( particlePBO.width );
-                v.y = p.random( particlePBO.height );
+            int index = x + y * im.width;
+            if( index < im.pixels.length - 1 && index >= 0 ) {
+                int col = im.pixels[ index ] & 0xFF;
+                if ( col < 1 ) {
+                    v.x = p.random( particlePBO.width );
+                    v.y = p.random( particlePBO.height );
+                }
             }
         }
     }
@@ -210,5 +214,39 @@ public class ParticleContainer {
 
     public float getScaleFactor() {
         return this.scaleFactor;
+    }
+
+    public void parameterChanged ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
+        switch( chladniPatternParameter ) {
+            case M:
+                if( p.dist( getSurface().getM(), 0, value, 0 ) > 1 ) {
+                    frequencyChanged();
+                }
+                getSurface().setM( value );
+                break;
+            case N:
+                getSurface().setN( value );
+                break;
+            case JUMPYNESS:
+                setRebuildSpeed( value );
+                break;
+            case PARTICLE_COUNT:
+                setParticleCount( ( int ) value );
+                break;
+            case PARTICLE_OPACITY:
+                setParticleOpacity( value );
+                break;
+            case PARTICLE_SIZE:
+                setParticleSize( value );
+                break;
+            case POLES:
+                getSurface().setPoles( ( int ) value );
+                break;
+            case SCALE:
+                getSurface().setScale( value );
+                break;
+            default:
+                System.err.println( "EROR: Unknown ChladniPatternParameter type in ChladniPattern" );
+        }
     }
 }

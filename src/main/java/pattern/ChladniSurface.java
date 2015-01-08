@@ -1,4 +1,4 @@
-package main;
+package pattern;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -12,6 +12,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     protected PApplet p;
     protected PGraphics offscreen;
     protected PShader shader;
+    private float n, m;
+    private int poles;
+    private float scale;
 
     public ChladniSurface( PApplet p, int width, int height ) {
         this.p = p;
@@ -45,5 +48,37 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     @Override
     public void update () {
         System.err.println( "Calling ChladniSurface.update() without extending it." );
+    }
+
+    public void setM( float m ) {
+        this.m = m;
+    }
+
+    public float getM() {
+        return this.m;
+    }
+
+    public void setN ( float n ) {
+        this.n = n;
+    }
+
+    public float getN () {
+        return n;
+    }
+
+    public void setPoles ( int poles ) {
+        this.poles = poles;
+    }
+
+    public int getPoles () {
+        return poles;
+    }
+
+    public void setScale ( float scale ) {
+        this.scale = scale;
+    }
+
+    public float getScale () {
+        return scale;
     }
 }

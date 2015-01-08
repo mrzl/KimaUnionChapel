@@ -1,5 +1,6 @@
-package main;
+package pattern;
 
+import main.MathUtils;
 import processing.core.PApplet;
 
 import java.io.File;
@@ -8,9 +9,6 @@ import java.io.File;
  * Created by mar on 31.12.14.
  */
 public class ChladniRealCircle extends ChladniSurface {
-
-    private float m;
-    private float n;
 
     public ChladniRealCircle( PApplet p, int width, int height ) {
         super( p, width, height );
@@ -23,10 +21,10 @@ public class ChladniRealCircle extends ChladniSurface {
     }
 
     public void update() {
-        float nthZero = ( float ) MathUtils.getNthZeroOfMthBessel( ( int )( m ), n );
+        float nthZero = ( float ) MathUtils.getNthZeroOfMthBessel( ( int ) ( getM( ) ), getN( ) );
         this.shader.set( "nthZero", nthZero );
-        this.shader.set( "m", m );
-        this.shader.set( "n", n );
+        this.shader.set( "m", getM() );
+        this.shader.set( "n", getN() );
 
         getBuffer().beginDraw();
         getBuffer().background( 255 );
@@ -36,21 +34,4 @@ public class ChladniRealCircle extends ChladniSurface {
 
         getBuffer().endDraw();
     }
-
-    public void setN( float n ) {
-        this.n = n;
-    }
-
-    public void setM( float m ) {
-        this.m = m;
-    }
-
-    public float getM() {
-        return this.m;
-    }
-
-    public float getN() {
-        return this.n;
-    }
-
 }

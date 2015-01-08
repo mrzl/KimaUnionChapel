@@ -1,4 +1,4 @@
-package main;
+package pattern;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -10,8 +10,6 @@ import java.io.File;
  */
 public class ChladniCircle extends ChladniSurface {
 
-    private float m, n, scale;
-    private int poles;
     private PImage triangleMask;
 
     public ChladniCircle( PApplet p, int width, int height ) {
@@ -21,7 +19,7 @@ public class ChladniCircle extends ChladniSurface {
         this.shader.set( "resolution", getWidth(), getHeight() );
 
         setPoles( 21 );
-        setScale( 1.0f );
+        setScale( 1.2f );
         setN( 3.0f );
         setM( 2.0f );
 
@@ -32,6 +30,7 @@ public class ChladniCircle extends ChladniSurface {
     public void update() {
         this.shader.set( "m", getM() );
         this.shader.set( "n", getN() );
+        System.out.println( "Setting scale to " + getScale() );
         this.shader.set( "scale", getScale() );
         this.shader.set( "poles", getPoles() );
 
@@ -43,38 +42,6 @@ public class ChladniCircle extends ChladniSurface {
 
         getBuffer().mask( triangleMask );
         getBuffer().endDraw();
-    }
-
-    public void setM( float m ) {
-        this.m = m;
-    }
-
-    public void setN( float n ) {
-        this.n = n;
-    }
-
-    public float getN() {
-        return this.n;
-    }
-
-    public float getM() {
-        return this.m;
-    }
-
-    public void setScale( float scale ) {
-        this.scale = scale;
-    }
-
-    public float getScale() {
-        return this.scale;
-    }
-
-    public void setPoles( int poles ) {
-        this.poles = poles;
-    }
-
-    public int getPoles( ) {
-        return this.poles;
     }
 
     public PImage getMastk() {
