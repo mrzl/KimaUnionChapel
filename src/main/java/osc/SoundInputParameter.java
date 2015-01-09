@@ -1,8 +1,5 @@
 package osc;
 
-
-import osc.SoundInputParameterEnum;
-
 /**
  * Created by mrzl on 07.01.2015.
  */

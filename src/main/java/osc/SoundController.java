@@ -4,6 +4,7 @@ import main.Main;
 import osc.debug.OscParameterDisplay;
 import oscP5.OscMessage;
 import oscP5.OscP5;
+import signal.library.SignalFilter;
 
 import java.util.ArrayList;
 
@@ -15,13 +16,12 @@ public class SoundController {
     private OscP5 oscServer;
     private OscParameterDisplay debugDisplay;
     private ArrayList< SoundParameterMapping > mappings;
+    private SignalFilter frequencyFilter1, frequencyFilter2, frequencyFilter3;
+    private SignalFilter amplitudeFilter1, amplitudeFilter2, amplitudeFilter3;
+    private SignalFilter attackFilter1, attackFilter2, attackFilter3;
 
     /**
-     * TODO: Introduce a mechanism to specify minimum and maximum values of possible input and output parameters
-     * E.g.attack min: 0 max = 1, value out min 0, max = 20
-     *
-     * TODO: Add functionality to map one of the three(!) SoundInput's and it's paramters(attack/frequency/amplitude) to a specific ChladniPattern
-     * I forgot to take that into account, now every mapping gets all three parameters
+
      * @param port
      */
     public SoundController( Main p, int port ) {
@@ -29,6 +29,16 @@ public class SoundController {
         oscServer = new OscP5( this, port );
 
         debugDisplay = OscParameterDisplay.addControlFrame( p, "OscParameterDebug", 600, 150 );
+
+        frequencyFilter1 = new SignalFilter( p );
+        frequencyFilter2 = new SignalFilter( p );
+        frequencyFilter3 = new SignalFilter( p );
+        amplitudeFilter1 = new SignalFilter( p );
+        amplitudeFilter2 = new SignalFilter( p );
+        amplitudeFilter3 = new SignalFilter( p );
+        attackFilter1 = new SignalFilter( p );
+        attackFilter2 = new SignalFilter( p );
+        attackFilter3 = new SignalFilter( p );
     }
 
     public void oscEvent( OscMessage receivedOscMessage ) {
@@ -37,19 +47,42 @@ public class SoundController {
             float value;
             switch ( soundParameterType ) {
                 case FREQUENCY_PARAMETER1:
+                    value = receivedOscMessage.get( 0 ).intValue();
+                    System.out.print( "Changed parameter frequency 1 from " + value );
+                    value = frequencyFilter1.filterUnitFloat( value );
+                    System.out.println( " to " + value );
+                    break;
                 case FREQUENCY_PARAMETER2:
+                    value = receivedOscMessage.get( 0 ).intValue();
+                    value = frequencyFilter2.filterUnitFloat( value );
+                    break;
                 case FREQUENCY_PARAMETER3:
                     value = receivedOscMessage.get( 0 ).intValue();
+                    value = frequencyFilter3.filterUnitFloat( value );
                     break;
                 case AMPLITUDE_PARAMETER1:
+                    value = receivedOscMessage.get( 0 ).floatValue();
+                    value = amplitudeFilter1.filterUnitFloat( value );
+                    break;
                 case AMPLITUDE_PARAMETER2:
+                    value = receivedOscMessage.get( 0 ).floatValue();
+                    value = amplitudeFilter2.filterUnitFloat( value );
+                    break;
                 case AMPLITUDE_PARAMETER3:
                     value = receivedOscMessage.get( 0 ).floatValue();
+                    value = amplitudeFilter3.filterUnitFloat( value );
                     break;
                 case ATTACK_PARAMETER1:
+                    value = receivedOscMessage.get( 0 ).intValue();
+                    //value = attackFilter1.filterUnitFloat( value );
+                    break;
                 case ATTACK_PARAMETER2:
+                    value = receivedOscMessage.get( 0 ).intValue();
+                    //value = attackFilter2.filterUnitFloat( value );
+                    break;
                 case ATTACK_PARAMETER3:
                     value = receivedOscMessage.get( 0 ).intValue();
+                    //value = attackFilter3.filterUnitFloat( value );
                     break;
                 default:
                     System.err.println( "WARNING: in oscEvent(OscMessage) of SoundController." );
