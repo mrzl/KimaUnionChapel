@@ -134,6 +134,8 @@ public class ChladniParticles {
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
         particlePBO.clear( );
+        gl2.glEnable( GL.GL_BLEND );
+        gl2.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE);
         gl2.glPointSize( particleSize );
         gl2.glBegin( GL.GL_POINTS );
 
