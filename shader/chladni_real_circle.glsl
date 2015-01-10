@@ -12,145 +12,6 @@ uniform float nthZero;
 uniform float m;
 uniform float n;
 
-/*
-float getNthZeroOfMthBessel( const int m_order, const int n_zero ) {
-        // Zeros of the Bessel function J(x)
-        // Inputs
-        //   m_order   Order of the Bessel function
-        //   n_zero    Index of the zero (first, second, etc.)
-        // Output
-        //   z         The "n_zero"th zero of the Bessel function
-
-
-
-        if (m_order >= 48 && n_zero == 1) {
-            if( m_order == 48 ) {
-              return 55.0283;
-            }
-            if( m_order == 49 ) {
-              return 56.0729;
-            }
-            if( m_order == 50 ) {
-              return 57.1169;
-            }
-            if( m_order == 51 ) {
-              return 58.1603;
-            }
-            if( m_order == 52 ) {
-              return 59.2032;
-            }
-            if( m_order == 53 ) {
-              return 60.2456;
-            }
-            if( m_order == 54 ) {
-              return 61.2875;
-            }
-            if( m_order == 55 ) {
-              return 62.3288;
-            }
-            if( m_order == 56 ) {
-              return 63.3697;
-            }
-            if( m_order == 57 ) {
-              return 64.4102;
-            }
-            if( m_order == 58 ) {
-              return 65.4501;
-            }
-            if( m_order == 59 ) {
-              return 66.4897;
-            }
-            if( m_order == 60 ) {
-              return 67.5288;
-            }
-            if( m_order == 61 ) {
-              return 68.5675;
-            }
-            if( m_order == 62 ) {
-              return 69.6058;
-            }
-            if( m_order == 63 ) {
-              return 70.6437;
-            }
-            if( m_order == 64 ) {
-              return 71.6812;
-            }
-        }
-        if (m_order >= 62 && n_zero == 2) {
-            if( m_order == 62 ) {
-                return 75.6376;
-            }
-            if( m_order == 63 ) {
-                return 76.7021;
-            }
-            if( m_order == 64 ) {
-                return 77.7659;
-            }
-        }
-
-        //* Use asymtotic formula for initial guess
-        float beta = (float(n_zero) + 0.5*float(m_order) - 0.25)*(M_PI);
-        float mu = 4.0*float(m_order)*float(m_order);
-        float beta8 = 8.0*beta;
-        float beta82 = beta8*beta8;
-        float beta84 = beta82*beta82;
-        float z = beta - (mu-1.0)/beta8
-                - 4.0*(mu-1.0)*(7.0*mu-31.0)/(3.0*beta82*beta8);
-        z -= 32.0*(mu-1.0)*(83.0*mu*mu-982.0*mu+3779.0)/(15.0*beta84*beta8);
-        z -= 64.0*(mu-1.0)*(6949.0*mu*mu*mu-153855.0*mu*mu+1585743.0*mu-6277237.0)/
-                (105.0*beta84*beta82*beta8);
-
-        //* Use Newton's method to locate the root
-        const int arraySize = m_order+3;
-        float jj[arraySize];
-        int i;  float deriv;
-        for( i=1; i<=5; i++ ) {
-        jj = bess( m_order+1, z, arraySize );
-            //bess( m_order+1, z, arraySize );  // Remember j(1) is J_0(z)
-            // Use the recursion relation to evaluate derivative
-            deriv = -jj[m_order+2] + float(m_order)/z * jj[m_order+1];
-            z -= jj[m_order+1]/deriv;  // Newton's root finding
-        }
-        return(z);
-    }
-
-    float[] bess( int m_max, float x, const int size ) {
-            float jj[size];
-            // Bessel function
-            // Inputs
-            //    m_max  Largest desired order
-            //    x = Value at which Bessel function J(x) is evaluated
-            // Output
-            //    jj = Vector of J(x) for order m = 0, 1, ..., m_max
-
-            //* Perform downward recursion from initial guess
-            int maxmx = 0;
-            if( float(m_max) > x ) {
-                maxmx = m_max;
-            } else {
-                maxmx = int(x);
-            }
-            //int maxmx = (m_max > x) ? m_max : (int(x));  // Max(m,x)
-            // Recursion is downward from m_top (which is even)
-            const int m_top = 2*((maxmx+15)/2 + 1 );
-            float j[m_top+2];// = new double[m_top+2];
-            j[m_top+1] = 0.0;
-            j[m_top] = 1.0;
-            float tinyNumber = 0.00000001;
-            int m;
-            for( m=m_top-2; m>=0; m--)       // Downward recursion
-                j[m+1] = 2.0*(float(m)+1.0)/(x+tinyNumber)*j[m+2] - j[m+3];
-
-            //* Normalize using identity and return requested values
-            float norm = j[1];        // NOTE: Be careful, m=0,1,... but
-            for( m=2; m<=m_top; m+=2 ) // vector goes j(1),j(2),...
-                norm += 2.0*j[m+1];
-            for( m=0; m<=m_max; m++ )  // Send back only the values for
-                jj[m+1] = j[m+1]/norm;   // m=0,...,m_max and discard values
-
-            return jj;
-        }                            // for m=m_max+1,...,m_top
-*/
 float j0(float x) {
 	float ax;
 
@@ -271,13 +132,9 @@ float jn(int n, float x ) {
 	} else {
 	    return ans;
 	}
-	//return  x < 0.0 && mod(n, 2.0) == 1 ? -ans : ans;
 }
 
 void main() {
-    //int m = 2;
-    //int n = 1;
-    // float val = getNthZeroOfMthBessel( 0, 1 );
     vec2 uv = gl_FragCoord.xy;
     uv -= vec2( resolution.x * 0.5, resolution.y * 0.5 );
 
@@ -298,5 +155,4 @@ void main() {
       float res = first * second * third;
       gl_FragColor = vec4(vec3(abs(4.0*res)), 1.0);
     }
-    //gl_FragColor = vec4(val2, val2, val2, 1.0);
 }
