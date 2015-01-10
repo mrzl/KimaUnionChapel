@@ -277,18 +277,17 @@ float jn(int n, float x ) {
 void main() {
     //int m = 2;
     //int n = 1;
-   // float val = getNthZeroOfMthBessel( 0, 1 );
-   vec2 uv = gl_FragCoord.xy;
-   uv -= vec2( resolution.x * 0.5, resolution.y * 0.5 );
+    // float val = getNthZeroOfMthBessel( 0, 1 );
+    vec2 uv = gl_FragCoord.xy;
+    uv -= vec2( resolution.x * 0.5, resolution.y * 0.5 );
 
     float val2 = jn( 2, 2.0 );
     float dist =  dot(uv, uv);
     float circle_radius = resolution.x * 0.5;
-      if ( length(uv) > circle_radius ) {
-
-        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-        }
-      else {
+    if ( length(uv) > circle_radius ) {
+         gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    }
+    else {
       float radius = length(uv) / resolution.x;
       float xpos = uv.x / resolution.x;
       float ypos = uv.y / resolution.y;
@@ -297,7 +296,7 @@ void main() {
       float second = sin( float(m) * theta );
       float third = cos( nthZero );
       float res = first * second * third;
-        gl_FragColor = vec4(vec3(abs(4*res)), 1.0);
-        }
+      gl_FragColor = vec4(vec3(abs(4.0*res)), 1.0);
+    }
     //gl_FragColor = vec4(val2, val2, val2, 1.0);
 }
