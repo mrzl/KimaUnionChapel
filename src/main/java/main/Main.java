@@ -6,7 +6,7 @@ import modificators.MetaBallModifier;
 import osc.*;
 import pattern.ChladniCircle;
 import pattern.ChladniParticles;
-import pattern.ChladniRealCircle;
+import pattern.ChladniTriangle;
 import pattern.ChladniRectangle;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -32,6 +32,8 @@ public class Main extends PApplet {
     int resolution;
     float scaleFactor;
     boolean debug = true;
+    public boolean drawSurface = true;
+    public boolean doMotionBlur = false;
 
 
     public void setup () {
@@ -50,12 +52,11 @@ public class Main extends PApplet {
             size( 1, 1, PConstants.P3D );
         }
 
-        frameRate( 1000 );
-
+        noSmooth();
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniCircle circle = new ChladniCircle( this, resolution, resolution );
-        ChladniRealCircle realCircle = new ChladniRealCircle( this, resolution, resolution );
+        ChladniTriangle realCircle = new ChladniTriangle( this, resolution, resolution );
 
         chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
@@ -84,7 +85,7 @@ public class Main extends PApplet {
 
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
         SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
-        ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 1.0f, 2.0f );
+        ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 0.2f, 0.5f );
         SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200, 10000 );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
@@ -93,9 +94,9 @@ public class Main extends PApplet {
 
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
         SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
-        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 30.0f );
+        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
         SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200.0f, 10000.0f );
-        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 500.0f );
+        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 500 );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
@@ -117,17 +118,34 @@ public class Main extends PApplet {
         chladniCircle.restrictCircular( ( int ) ( chladniTriangle.getSurface( ).getWidth( ) * scaleFactor / 2 ) );
 
         // draw particles
-        chladniRect.renderParticles( );
-        chladniTriangle.renderParticles( );
-        chladniCircle.renderParticles( );
+        if( !drawSurface ) {
+            chladniRect.renderParticles( );
+            chladniTriangle.renderParticles( );
+            chladniCircle.renderParticles( );
+        }
 
         // draw everything on the syphon buffer
         syphonOutput.beginDraw( );
-        syphonOutput.getBuffer( ).background( 0 );
-        syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
-        syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
-        syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
-        syphonOutput.endDraw( );
+
+        if( doMotionBlur ) {
+            syphonOutput.getBuffer( ).pushStyle( );
+            syphonOutput.getBuffer( ).fill( 0, 40 );
+            syphonOutput.getBuffer( ).rect( 0, 0, syphonOutput.getBuffer( ).width, syphonOutput.getBuffer( ).height );
+            syphonOutput.getBuffer( ).popStyle( );
+        } else {
+            syphonOutput.getBuffer().background( 0 );
+        }
+        //syphonOutput.getBuffer( ).background( 0 );
+        if( drawSurface ) {
+            syphonOutput.getBuffer().image( chladniRect.getSurface( ).getBuffer( ), 0, 0, resolution * 2, resolution * 2 );
+            syphonOutput.getBuffer().image( chladniTriangle.getSurface( ).getBuffer( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0, resolution * 2, resolution * 2 );
+            syphonOutput.getBuffer().image( chladniCircle.getSurface( ).getBuffer( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0, resolution * 2, resolution * 2 );
+        } else {
+            syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
+            syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
+            syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
+            syphonOutput.endDraw( );
+        }
 
         // apply bloom effect
         if ( bm.isEnabled() ) {
@@ -137,9 +155,12 @@ public class Main extends PApplet {
 
             syphonOutput.beginDraw( );
             syphonOutput.getBuffer( ).blendMode( PConstants.ADD );
+
             syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
             syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
             syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
+
+            syphonOutput.getBuffer().blendMode( PConstants.BLEND );
             syphonOutput.endDraw( );
         }
 

@@ -2,7 +2,7 @@ package main;
 
 import controlP5.ControlP5;
 import pattern.ChladniCircle;
-import pattern.ChladniRealCircle;
+import pattern.ChladniTriangle;
 import pattern.ChladniRectangle;
 import pattern.ColorMode;
 import processing.core.PApplet;
@@ -49,22 +49,36 @@ public class ControlFrame extends PApplet {
         generalY += 40;
 
         cp5.addToggle( "thresholdToggle" )
-                .setPosition( 40, generalY )
-                .setSize( 80, 20 )
+                .setPosition( 10, generalY )
+                .setSize( 50, 20 )
                 .setValue( false )
                 .setMode( ControlP5.SWITCH )
         ;
 
         cp5.addToggle( "colorModeToggle" )
-                .setPosition( 160, generalY )
-                .setSize( 80, 20 )
+                .setPosition( 80, generalY )
+                .setSize( 50, 20 )
                 .setValue( false )
                 .setMode( ControlP5.SWITCH )
         ;
 
         cp5.addToggle( "bloomToggle" )
-                .setPosition( 280, generalY )
-                .setSize( 80, 20 )
+                .setPosition( 150, generalY )
+                .setSize( 50, 20 )
+                .setValue( false )
+                .setMode( ControlP5.SWITCH )
+        ;
+
+        cp5.addToggle( "original" )
+                .setPosition( 220, generalY )
+                .setSize( 50, 20 )
+                .setValue( false )
+                .setMode( ControlP5.SWITCH )
+        ;
+
+        cp5.addToggle( "motionBlur" )
+                .setPosition( 290, generalY )
+                .setSize( 50, 20 )
                 .setValue( false )
                 .setMode( ControlP5.SWITCH )
         ;
@@ -110,13 +124,13 @@ public class ControlFrame extends PApplet {
 
     public void realCircleN ( float n ) {
         parent.chladniCircle.frequencyChanged( );
-        ChladniRealCircle realCircle = ( ChladniRealCircle ) parent.chladniCircle.getSurface( );
+        ChladniTriangle realCircle = ( ChladniTriangle ) parent.chladniCircle.getSurface( );
         realCircle.setN( n );
     }
 
     public void realCircleM ( float m ) {
         parent.chladniCircle.frequencyChanged( );
-        ChladniRealCircle realCircle = ( ChladniRealCircle ) parent.chladniCircle.getSurface( );
+        ChladniTriangle realCircle = ( ChladniTriangle ) parent.chladniCircle.getSurface( );
         realCircle.setM( m );
     }
 
@@ -148,6 +162,14 @@ public class ControlFrame extends PApplet {
 
     public void bloomToggle ( boolean isEnabled ) {
         parent.getBloomModifier( ).setEnabled( isEnabled );
+    }
+
+    public void original ( boolean isEnabled ) {
+        parent.drawSurface = isEnabled;
+    }
+
+    public void motionBlur( boolean isEnabled ) {
+        parent.doMotionBlur = isEnabled;
     }
 
     public void particleSize ( float _particleSize ) {
