@@ -2,6 +2,7 @@ package main;
 
 import codeanticode.syphon.SyphonServer;
 import modificators.BloomModifier;
+import modificators.MetaBallModifier;
 import osc.*;
 import pattern.ChladniCircle;
 import pattern.ChladniParticles;
