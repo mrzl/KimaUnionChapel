@@ -1,10 +1,10 @@
 package osc;
 
+import filter.SignalFilter;
 import main.Main;
 import osc.debug.OscParameterDisplay;
 import oscP5.OscMessage;
 import oscP5.OscP5;
-import signal.library.SignalFilter;
 
 import java.util.ArrayList;
 
@@ -47,10 +47,8 @@ public class SoundController {
             float value;
             switch ( soundParameterType ) {
                 case FREQUENCY_PARAMETER1:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    System.out.print( "Changed parameter frequency 1 from " + value );
+                    value = receivedOscMessage.get( 0 ).intValue( );
                     value = frequencyFilter1.filterUnitFloat( value );
-                    System.out.println( " to " + value );
                     break;
                 case FREQUENCY_PARAMETER2:
                     value = receivedOscMessage.get( 0 ).intValue();
