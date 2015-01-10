@@ -150,7 +150,7 @@ public class SignalFilter {
             filteredArray = filterValues( noisyArray );
         }
         catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
 
         float filteredFloat = filteredArray[0];
