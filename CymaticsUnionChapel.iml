@@ -19,13 +19,5 @@
     <orderEntry type="library" name="oscP5" level="project" />
     <orderEntry type="library" name="Syphon" level="project" />
     <orderEntry type="library" name="jscience" level="project" />
-    <orderEntry type="library" name="Maven: com.nativelibs4java:javacl:1.0.0-RC3" level="project" />
-    <orderEntry type="library" name="Maven: com.nativelibs4java:javacl-core:1.0.0-RC3" level="project" />
-    <orderEntry type="library" name="Maven: com.nativelibs4java:opencl4java:1.0.0-RC3" level="project" />
-    <orderEntry type="library" name="Maven: com.nativelibs4java:bridj:0.6.2" level="project" />
-    <orderEntry type="library" name="Maven: com.google.android.tools:dx:1.7" level="project" />
-    <orderEntry type="library" name="Maven: com.nativelibs4java:nativelibs4java-utils:1.5" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />
-    <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
   </component>
 </module>
