@@ -53,7 +53,6 @@ public class OscParameterDisplay extends PApplet {
 
     public void draw () {
         background( 0 );
-
     }
 
     public void updateParameter ( SoundInputParameterEnum _sip, float value ) {
