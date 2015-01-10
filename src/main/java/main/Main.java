@@ -1,6 +1,7 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
+import modificators.BloomModifier;
 import osc.*;
 import pattern.ChladniCircle;
 import pattern.ChladniParticles;
@@ -21,6 +22,7 @@ public class Main extends PApplet {
     private SoundController soundController;
 
     private MetaBallModifier mm;
+    private BloomModifier bm;
     private boolean doSyphonOutput;
 
     private SyphonOutput syphonOutput;
@@ -30,24 +32,24 @@ public class Main extends PApplet {
     float scaleFactor;
     boolean debug = true;
 
-    public void setup() {
+
+    public void setup () {
         int overallWidth, overallHeight;
-        if( debug ) {
+        if ( debug ) {
             resolution = 256;
             scaleFactor = 2.0f;
-            overallWidth = ( int )( resolution * 3 * scaleFactor );
-            overallHeight = ( int )( resolution * scaleFactor );
+            overallWidth = ( int ) ( resolution * 3 * scaleFactor );
+            overallHeight = ( int ) ( resolution * scaleFactor );
             size( overallWidth, overallHeight, PConstants.P3D );
         } else {
             resolution = 256;
             scaleFactor = 4.0f;
-            overallWidth = ( int )( resolution * 3 * scaleFactor );
-            overallHeight = ( int )( resolution * scaleFactor );
+            overallWidth = ( int ) ( resolution * 3 * scaleFactor );
+            overallHeight = ( int ) ( resolution * scaleFactor );
             size( 1, 1, PConstants.P3D );
         }
 
         frameRate( 1000 );
-
 
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
@@ -61,6 +63,7 @@ public class Main extends PApplet {
         controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 800 );
 
         mm = new MetaBallModifier( this );
+        bm = new BloomModifier( this );
         doSyphonOutput = false;
 
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima_syphon_rectangle" ) );
@@ -96,78 +99,82 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
 
-        /*
-        SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
-        mappingTriangle.addMapping( SoundInputParameterEnum.AMPLITUDE_PARAMETER, ChladniPatternParameterEnum.M );
-        mappingTriangle.addMapping( SoundInputParameterEnum.FREQUENCY_PARAMETER, ChladniPatternParameterEnum.N );
-        soundController.addSoundParameterMapping( mappingTriangle );
-
-        SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
-        mappingCircle.addMapping( SoundInputParameterEnum.AMPLITUDE_PARAMETER, ChladniPatternParameterEnum.M );
-        mappingCircle.addMapping( SoundInputParameterEnum.FREQUENCY_PARAMETER, ChladniPatternParameterEnum.N );
-        soundController.addSoundParameterMapping( mappingCircle );
-        */
     }
 
-    public void draw() {
-        //background( 0 );
-        if( frameCount % 20 == 0 ) {
+    public void draw () {
+        if ( frameCount % 20 == 0 ) {
             println( frameRate );
         }
 
+        // draw the surface
         chladniRect.update( 1 );
-
-        //chladniRect.drawOriginal( 0, 0, resolution, resolution );
-        chladniRect.renderParticles( );
-        //chladniRect.renderParticlesToScreen( 0, 0 );
-
         chladniTriangle.update( 1 );
-        //chladniTriangle.restrictCircular( ( int ) ( chladniTriangle.getSurface().getWidth() / 2 ) );
-        //chladniTriangle.drawOriginal( resolution, 0, resolution, resolution );
-        chladniTriangle.restrictTriangular( );
-        chladniTriangle.renderParticles( );
-        //chladniTriangle.renderParticlesToScreen( ( int ) (resolution * chladniRect.getScaleFactor()), 0 );
-
         chladniCircle.update( 1 );
-        //chladniCircle.drawOriginal( resolution * 2, 0, resolution, resolution );
+
+        // restrict surfaces
+        chladniTriangle.restrictTriangular( );
         chladniCircle.restrictCircular( ( int ) ( chladniTriangle.getSurface( ).getWidth( ) * scaleFactor / 2 ) );
+
+        // draw particles
+        chladniRect.renderParticles( );
+        chladniTriangle.renderParticles( );
         chladniCircle.renderParticles( );
-        //chladniCircle.renderParticlesToScreen( ( int ) (resolution * 2 * chladniTriangle.getScaleFactor()), 0 );
 
-
+        // draw everything on the syphon buffer
         syphonOutput.beginDraw( );
         syphonOutput.getBuffer( ).background( 0 );
         syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
         syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
+        syphonOutput.endDraw( );
+
+        // apply bloom effect
+        if ( bm.isEnabled() ) {
+            bm.apply( chladniRect.getParticlePBO( ) );
+            bm.apply( chladniTriangle.getParticlePBO() );
+            bm.apply( chladniCircle.getParticlePBO() );
+
+            syphonOutput.beginDraw( );
+            syphonOutput.getBuffer( ).blendMode( PConstants.ADD );
+            syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
+            syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
+            syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
+            syphonOutput.endDraw( );
+        }
+
+        // apply threshold fluid effect
+        syphonOutput.beginDraw( );
         mm.apply( syphonOutput.getBuffer( ) );
         syphonOutput.endDraw( );
 
-        if( debug ) {
-            image( syphonOutput.getBuffer(), 0, 0 );
+
+        if ( debug ) {
+            image( syphonOutput.getBuffer( ), 0, 0 );
         }
 
-        if( doSyphonOutput ) {
-            syphonOutput.send();
+        // send syphon texture
+        if ( doSyphonOutput ) {
+            syphonOutput.send( );
         }
     }
 
-    public void keyPressed() {
-        if( key == 's' ) {
+    public void keyPressed () {
+        if ( key == 's' ) {
             this.syphonOutput.saveFrame( "out.png" );
         }
     }
 
-    public void exit() {
+    public void exit () {
         syphonOutput.stop( );
-        super.exit();
+        super.exit( );
     }
 
-    public MetaBallModifier  getMetaBallModifier() {
+    public MetaBallModifier getMetaBallModifier () {
         return mm;
     }
+    public BloomModifier getBloomModifier() { return bm; }
 
-    public static void main( String[] args ) {
+    public static void main ( String[] args ) {
         PApplet.main( new String[]{ "main.Main" } );
     }
 }

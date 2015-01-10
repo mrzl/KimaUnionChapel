@@ -42,6 +42,13 @@ public class MetaBallModifier {
         }
     }
 
+    public void applyBlur( PGraphics buffer ) {
+        buffer.beginDraw();
+        threshold.set( "threshold", thresholdValue );
+        buffer.filter( blur );
+        buffer.endDraw();
+    }
+
     public void setBlurStrength( int _blurStrength ) {
         this.blurStrength = _blurStrength;
     }
