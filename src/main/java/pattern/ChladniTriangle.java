@@ -8,9 +8,9 @@ import java.io.File;
 /**
  * Created by mar on 31.12.14.
  */
-public class ChladniRealCircle extends ChladniSurface {
+public class ChladniTriangle extends ChladniSurface {
 
-    public ChladniRealCircle( PApplet p, int width, int height ) {
+    public ChladniTriangle ( PApplet p, int width, int height ) {
         super( p, width, height );
 
         this.shader = p.loadShader( "shader" + File.separator + "chladni_real_circle.glsl" );
@@ -24,7 +24,6 @@ public class ChladniRealCircle extends ChladniSurface {
         float nthZero = ( float ) MathUtils.getNthZeroOfMthBessel( ( int ) ( getM( ) ), getN( ) );
         this.shader.set( "nthZero", nthZero );
         this.shader.set( "m", getM() );
-        this.shader.set( "n", getN() );
 
         getBuffer().beginDraw();
         getBuffer().background( 255 );
