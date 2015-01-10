@@ -20,7 +20,6 @@ public class ControlFrame extends PApplet {
 
     public void setup () {
         size( w, h );
-        frameRate( 500 );
         cp5 = new ControlP5( this );
         cp5.addSlider( "rectN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 10 ).setValue( 2.0f );
         cp5.addSlider( "rectM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, 50 ).setValue( 3.0f );
