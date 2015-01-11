@@ -24,7 +24,6 @@ public class Main extends PApplet {
 
     private MetaBallModifier mm;
     private BloomModifier bm;
-    private boolean doSyphonOutput = true;
 
     private SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
@@ -34,7 +33,7 @@ public class Main extends PApplet {
     boolean debug = false;
     public boolean drawSurface = true;
     public boolean doMotionBlur = false;
-
+    private boolean doSyphonOutput = true;
 
     public void setup () {
         int overallWidth, overallHeight;
@@ -67,7 +66,7 @@ public class Main extends PApplet {
         mm = new MetaBallModifier( this );
         bm = new BloomModifier( this );
 
-        syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima_syphon_rectangle" ) );
+        syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima" ) );
 
         // attack = [0,1}
         // frequency = [200,10000]
