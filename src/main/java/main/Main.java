@@ -24,14 +24,14 @@ public class Main extends PApplet {
 
     private MetaBallModifier mm;
     private BloomModifier bm;
-    private boolean doSyphonOutput;
+    private boolean doSyphonOutput = true;
 
     private SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
 
     int resolution;
     float scaleFactor;
-    boolean debug = true;
+    boolean debug = false;
     public boolean drawSurface = true;
     public boolean doMotionBlur = false;
 
@@ -66,7 +66,6 @@ public class Main extends PApplet {
 
         mm = new MetaBallModifier( this );
         bm = new BloomModifier( this );
-        doSyphonOutput = false;
 
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima_syphon_rectangle" ) );
 
@@ -137,9 +136,9 @@ public class Main extends PApplet {
         }
         //syphonOutput.getBuffer( ).background( 0 );
         if( drawSurface ) {
-            syphonOutput.getBuffer().image( chladniRect.getSurface( ).getBuffer( ), 0, 0, resolution * 2, resolution * 2 );
-            syphonOutput.getBuffer().image( chladniTriangle.getSurface( ).getBuffer( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0, resolution * 2, resolution * 2 );
-            syphonOutput.getBuffer().image( chladniCircle.getSurface( ).getBuffer( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0, resolution * 2, resolution * 2 );
+            syphonOutput.getBuffer().image( chladniRect.getSurface( ).getBuffer( ), 0, 0, resolution * scaleFactor, resolution * scaleFactor );
+            syphonOutput.getBuffer().image( chladniTriangle.getSurface( ).getBuffer( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0, resolution * scaleFactor, resolution * scaleFactor );
+            syphonOutput.getBuffer().image( chladniCircle.getSurface( ).getBuffer( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0, resolution * scaleFactor, resolution * scaleFactor );
         } else {
             syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
             syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
