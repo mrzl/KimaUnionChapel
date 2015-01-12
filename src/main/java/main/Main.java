@@ -10,6 +10,9 @@ import pattern.ChladniTriangle;
 import pattern.ChladniRectangle;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PGraphics;
+
+import java.util.Calendar;
 
 /**
  * Created by mar on 13.12.14.
@@ -38,8 +41,8 @@ public class Main extends PApplet {
     public void setup () {
         int overallWidth, overallHeight;
         if ( debug ) {
-            resolution = 256;
-            scaleFactor = 2.0f;
+            resolution = 512;
+            scaleFactor = 4.0f;
             overallWidth = ( int ) ( resolution * 3 * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( overallWidth, overallHeight, PConstants.P3D );
@@ -179,9 +182,33 @@ public class Main extends PApplet {
     }
 
     public void keyPressed () {
-        if ( key == 's' ) {
-            this.syphonOutput.saveFrame( "out.png" );
+        if ( key == 'r' ) {
+            get( 0, 0, (int)(resolution * scaleFactor), (int)(resolution * scaleFactor)).save( "out_rect_"+timestamp()+".png" );
         }
+        if ( key == 't' ) {
+            save( "out_triangle_"+timestamp()+".png" );
+        }
+        if ( key == 'c' ) {
+            save( "out_circle_"+timestamp()+".png" );
+        }
+        if( key == 's' ) {
+            saveHiRes( 1 );
+        }
+
+    }
+
+    public void saveHiRes(int scaleFactor) {
+        PGraphics hires = createGraphics(width*scaleFactor, height*scaleFactor, P3D);
+        beginRecord(hires);
+        hires.scale(scaleFactor);
+        draw();
+        endRecord();
+        hires.save("hires" + timestamp() + ".png");
+    }
+
+    String timestamp() {
+        Calendar now = Calendar.getInstance();
+        return String.format( "%1$ty.%1$tm.%1$td_%1$tH:%1$tM:%1$tS", now );
     }
 
     public void exit () {
