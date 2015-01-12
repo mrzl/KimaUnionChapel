@@ -39,7 +39,7 @@ public class ControlFrame extends PApplet {
         cp5.addSlider( "realCircleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f );
 
         float generalY = 450;
-        cp5.addSlider( "jumpyness" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 30.0f );
+        cp5.addSlider( "jumpyness" ).setRange( 0, 200 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 30.0f );
         generalY += 30;
         cp5.addSlider( "particleSize" ).setRange( 0, 10 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 3.0f );
         generalY += 30;

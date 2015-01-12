@@ -13,6 +13,7 @@ public class SyphonOutput {
     private SyphonServer server;
     private PGraphics buffer;
 
+
     public SyphonOutput( PApplet p, int width, int height, SyphonServer _s ) {
         this.server = _s;
         this.buffer = p.createGraphics( width, height, PConstants.P3D );

@@ -30,10 +30,10 @@ public class Main extends PApplet {
 
     int resolution;
     float scaleFactor;
-    boolean debug = false;
+    boolean debug = true;
     public boolean drawSurface = true;
     public boolean doMotionBlur = false;
-    private boolean doSyphonOutput = true;
+    private boolean doSyphonOutput = false;
 
     public void setup () {
         int overallWidth, overallHeight;
