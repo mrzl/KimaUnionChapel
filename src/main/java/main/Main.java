@@ -41,8 +41,8 @@ public class Main extends PApplet {
     public void setup () {
         int overallWidth, overallHeight;
         if ( debug ) {
-            resolution = 512;
-            scaleFactor = 4.0f;
+            resolution = 256;
+            scaleFactor = 2.0f;
             overallWidth = ( int ) ( resolution * 3 * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( overallWidth, overallHeight, PConstants.P3D );
