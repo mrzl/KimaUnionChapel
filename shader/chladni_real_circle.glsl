@@ -8,9 +8,8 @@ precision mediump int;
 
 uniform sampler2D texture;
 uniform vec2 resolution;
-uniform float nthZero;
-uniform float m;
-uniform float n;
+uniform int nthZero;
+uniform int m;
 
 float j0(float x) {
 	float ax;
@@ -153,6 +152,6 @@ void main() {
       float second = sin( float(m) * theta );
       float third = cos( nthZero );
       float res = first * second * third;
-      gl_FragColor = vec4(vec3(abs(4.0*res)), 1.0);
+      gl_FragColor = vec4(vec3(abs(10.0*res)), 1.0);
     }
 }

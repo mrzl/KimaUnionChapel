@@ -16,7 +16,7 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     private int poles;
     private float scale;
 
-    public ChladniSurface( PApplet p, int width, int height ) {
+    public ChladniSurface ( PApplet p, int width, int height ) {
         this.p = p;
         offscreen = p.createGraphics( width, height, PConstants.P3D );
     }

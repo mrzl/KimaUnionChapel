@@ -1,8 +1,11 @@
 package main;
 
+import controlP5.ControlEvent;
+import controlP5.ControlListener;
 import controlP5.ControlP5;
-import pattern.ChladniCircle;
+import controlP5.Slider;
 import pattern.ChladniTriangle;
+import pattern.ChladniCircle;
 import pattern.ChladniRectangle;
 import pattern.ColorMode;
 import processing.core.PApplet;
@@ -34,9 +37,9 @@ public class ControlFrame extends PApplet {
         cp5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.1f );
 
         float realCircleY = 300;
-        cp5.addSlider( "realCircleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f );
+        cp5.addSlider( "realCircleN" ).setRange( 1, 20 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f );
         realCircleY += 40;
-        cp5.addSlider( "realCircleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f );
+        cp5.addSlider( "realCircleM" ).setRange( 1, 14 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f );
 
         float generalY = 450;
         cp5.addSlider( "jumpyness" ).setRange( 0, 200 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 30.0f );
@@ -45,8 +48,30 @@ public class ControlFrame extends PApplet {
         generalY += 30;
         cp5.addSlider( "particleCount" ).setRange( 0, 80000 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 10000.0f );
         generalY += 30;
-        cp5.addSlider( "particleOpacity" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 0.6f );
+
+        Slider particleOpacitySliderRect = cp5.addSlider( "particleOpacityRect" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniRect.setParticleOpacity( controlEvent.getValue() );
+            }
+        } );
+
+        Slider particleOpacitySliderTriangle = cp5.addSlider( "particleOpacityTriangle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniTriangle.setParticleOpacity( controlEvent.getValue() );
+            }
+        } );
+
+        Slider particleOpacitySliderCircle = cp5.addSlider( "particleOpacityCircle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniCircle.setParticleOpacity( controlEvent.getValue() );
+            }
+        } );
         generalY += 40;
+
+
 
         cp5.addToggle( "thresholdToggle" )
                 .setPosition( 10, generalY )
@@ -84,6 +109,8 @@ public class ControlFrame extends PApplet {
         ;
         generalY += 50;
         cp5.addSlider( "threshold" ).setRange( 0, 1 ).setSize( 300, 20 ).setPosition( 10, generalY ).setValue( 0.2f );
+
+        cp5.loadProperties();
     }
 
     public void rectM ( float val ) {
@@ -100,37 +127,37 @@ public class ControlFrame extends PApplet {
 
     public void circleN ( float val ) {
         parent.chladniTriangle.frequencyChanged( );
-        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface( );
+        ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
         c.setN( val );
     }
 
     public void circleM ( float val ) {
         parent.chladniTriangle.frequencyChanged( );
-        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface( );
+        ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
         c.setM( val );
     }
 
     public void circlePoles ( float val ) {
         parent.chladniTriangle.frequencyChanged( );
-        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface( );
+        ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
         c.setPoles( ( int ) ( val ) );
     }
 
     public void circleScale ( float val ) {
         parent.chladniTriangle.frequencyChanged( );
-        ChladniCircle c = ( ChladniCircle ) parent.chladniTriangle.getSurface( );
+        ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
         c.setScale( val );
     }
 
     public void realCircleN ( float n ) {
         parent.chladniCircle.frequencyChanged( );
-        ChladniTriangle realCircle = ( ChladniTriangle ) parent.chladniCircle.getSurface( );
+        ChladniCircle realCircle = ( ChladniCircle ) parent.chladniCircle.getSurface( );
         realCircle.setN( n );
     }
 
     public void realCircleM ( float m ) {
         parent.chladniCircle.frequencyChanged( );
-        ChladniTriangle realCircle = ( ChladniTriangle ) parent.chladniCircle.getSurface( );
+        ChladniCircle realCircle = ( ChladniCircle ) parent.chladniCircle.getSurface( );
         realCircle.setM( m );
     }
 
@@ -149,6 +176,7 @@ public class ControlFrame extends PApplet {
     }
 
     public void colorModeToggle ( boolean isEnabled ) {
+        /*
         if ( isEnabled ) {
             parent.chladniRect.setColorMode( ColorMode.MONOCHROME );
             parent.chladniTriangle.setColorMode( ColorMode.MONOCHROME );
@@ -158,6 +186,7 @@ public class ControlFrame extends PApplet {
             parent.chladniTriangle.setColorMode( ColorMode.VELOCITIES );
             parent.chladniCircle.setColorMode( ColorMode.VELOCITIES );
         }
+        */
     }
 
     public void bloomToggle ( boolean isEnabled ) {
@@ -184,11 +213,6 @@ public class ControlFrame extends PApplet {
         parent.chladniCircle.setParticleCount( ( int ) ( _particleCount ) );
     }
 
-    public void particleOpacity ( float _particleOpacity ) {
-        parent.chladniTriangle.setParticleOpacity( _particleOpacity );
-        parent.chladniRect.setParticleOpacity( _particleOpacity );
-        parent.chladniCircle.setParticleOpacity( _particleOpacity );
-    }
 
     public void draw () {
         background( 0 );
@@ -198,6 +222,10 @@ public class ControlFrame extends PApplet {
         parent = theParent;
         w = theWidth;
         h = theHeight;
+    }
+
+    public void saveParameters() {
+        this.cp5.saveProperties();
     }
 
     public static ControlFrame addControlFrame ( Main pa, String theName, int theWidth, int theHeight ) {

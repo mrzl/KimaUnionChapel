@@ -1,22 +1,17 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import com.illposed.osc.OSCListener;
-import com.illposed.osc.OSCMessage;
-import com.illposed.osc.OSCPort;
-import com.illposed.osc.OSCPortIn;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
 import osc.*;
-import pattern.ChladniCircle;
-import pattern.ChladniParticles;
 import pattern.ChladniTriangle;
+import pattern.ChladniParticles;
+import pattern.ChladniCircle;
 import pattern.ChladniRectangle;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
-import java.net.SocketException;
 import java.util.Calendar;
 
 /**
@@ -62,8 +57,8 @@ public class Main extends PApplet {
         noSmooth();
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
-        ChladniCircle circle = new ChladniCircle( this, resolution, resolution );
-        ChladniTriangle realCircle = new ChladniTriangle( this, resolution, resolution );
+        ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
+        ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
 
         chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
@@ -107,6 +102,7 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
 
+        prepareExitHandler();
     }
 
     public void draw () {
@@ -216,9 +212,20 @@ public class Main extends PApplet {
         return String.format( "%1$ty.%1$tm.%1$td_%1$tH:%1$tM:%1$tS", now );
     }
 
-    public void exit () {
+    public void stop () {
+        System.out.println( "exit called" );
         syphonOutput.stop( );
-        super.exit( );
+        super.stop();
+        //super.exit( );
+    }
+
+    private void prepareExitHandler () {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run () {
+                controlFrame.saveParameters();
+                System.out.println("Shutdown successfull");
+            }
+        }));
     }
 
     public MetaBallModifier getMetaBallModifier () {

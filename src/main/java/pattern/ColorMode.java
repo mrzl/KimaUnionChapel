@@ -5,5 +5,6 @@ package pattern;
  */
 public enum ColorMode {
     MONOCHROME,
-    VELOCITIES
+    VELOCITIES,
+    MOON
 }

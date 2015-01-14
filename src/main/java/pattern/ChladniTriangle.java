@@ -1,29 +1,37 @@
 package pattern;
 
-import main.MathUtils;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.io.File;
 
 /**
- * Created by mar on 31.12.14.
+ * Created by mar on 13.12.14.
  */
 public class ChladniTriangle extends ChladniSurface {
+
+    private PImage triangleMask;
 
     public ChladniTriangle ( PApplet p, int width, int height ) {
         super( p, width, height );
 
-        this.shader = p.loadShader( "shader" + File.separator + "chladni_real_circle.glsl" );
+        this.shader = p.loadShader( "shader" + File.separator + "chladni_circle.glsl" );
         this.shader.set( "resolution", getWidth(), getHeight() );
 
-        setM( 10.0f );
-        setN( 2.0f );
+        setPoles( 21 );
+        setScale( 1.2f );
+        setN( 3.0f );
+        setM( 2.0f );
+
+        this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
+        this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );
     }
 
     public void update() {
-        float nthZero = ( float ) MathUtils.getNthZeroOfMthBessel( ( int ) ( getM( ) ), getN( ) );
-        this.shader.set( "nthZero", nthZero );
         this.shader.set( "m", getM() );
+        this.shader.set( "n", getN() );
+        this.shader.set( "scale", getScale() );
+        this.shader.set( "poles", getPoles() );
 
         getBuffer().beginDraw();
         getBuffer().background( 255 );
@@ -31,6 +39,11 @@ public class ChladniTriangle extends ChladniSurface {
         getBuffer().shader( this.shader );
         getBuffer().rect( 0, 0, getWidth(), getHeight() );
 
+        getBuffer().mask( triangleMask );
         getBuffer().endDraw();
+    }
+
+    public PImage getMastk() {
+        return triangleMask;
     }
 }

@@ -23,8 +23,9 @@ public class ChladniParticles {
     private ChladniSurface surface;
     private PGraphics particlePBO;
     private ColorMode colorMode;
+    private DrawMode drawMode;
     private int particleCount;
-    private ArrayList< Vec2D > particles;
+    private ArrayList< Vec2D > particles, oldParticles;
     private ArrayList< Float > velocities;
     private PApplet p;
     private float rebuildSpeed, particleSize, particleOpacity;
@@ -46,11 +47,13 @@ public class ChladniParticles {
 
         particles = new ArrayList<>( );
         velocities = new ArrayList<>( );
+        oldParticles = new ArrayList<>();
 
         for ( int i = 0; i < particleCount; i++ ) {
             Vec2D v = new Vec2D( p.random( particlePBO.width ), p.random( particlePBO.height ) );
             particles.add( v );
             velocities.add( 1.0f );
+            oldParticles.add( new Vec2D( ) );
         }
 
         rebuildSpeed = 40.0f;
@@ -59,7 +62,8 @@ public class ChladniParticles {
 
         gl2 = GLU.getCurrentGL( ).getGL2( );
 
-        colorMode = ColorMode.VELOCITIES;
+        colorMode = ColorMode.MOON;
+        drawMode = DrawMode.POINTS;
     }
 
     public void update ( int speed ) {
@@ -69,11 +73,13 @@ public class ChladniParticles {
         while ( particles.size( ) > particleCount ) {
             particles.remove( particles.size( ) - 1 );
             velocities.remove( velocities.size() - 1 );
+            oldParticles.remove( oldParticles.size() - 1 );
         }
 
         while ( particles.size( ) < particleCount ) {
             particles.add( new Vec2D( p.random( particlePBO.width ), p.random( particlePBO.height ) ) );
             velocities.add( 1.0f );
+            oldParticles.add( new Vec2D( ) );
         }
 
         for ( int i = 0; i < speed; i++ ) {
@@ -84,12 +90,16 @@ public class ChladniParticles {
 
                 float jumpyNess = p.map( surface.get( ( int ) ( v.x / scaleFactor ), ( int ) ( v.y / scaleFactor ) ), 0, 255, 0, rebuildSpeed );
                 Vec2D toAdd = new Vec2D( p.random( -jumpyNess, jumpyNess ), p.random( -jumpyNess, jumpyNess ) );
+
+                oldParticles.set( index, v.copy() );
+
                 v.addSelf( toAdd );
 
                 v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
                 v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
 
                 velocities.set( index, jumpyNess );
+
 
                 index++;
             }
@@ -111,7 +121,7 @@ public class ChladniParticles {
     }
 
     public void restrictTriangular() {
-        ChladniCircle c = ( ChladniCircle ) getSurface();
+        ChladniTriangle c = ( ChladniTriangle ) getSurface();
         PImage im = c.getMastk();
         im.loadPixels();
         for ( Vec2D v : particles ) {
@@ -129,13 +139,50 @@ public class ChladniParticles {
     }
 
     public void renderParticles () {
-
         particlePBO.beginDraw( );
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
+
+        switch( drawMode ) {
+            case POINTS:
+                drawPoints();
+                break;
+            case LINES:
+                drawLines();
+                break;
+            default:
+                // nothing
+                break;
+        }
+
+
+    }
+
+    private void drawLines() {
         particlePBO.clear( );
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE);
+        gl2.glLineWidth( particleSize );
+        gl2.glBegin( GL.GL_LINES );
+
+        int index = 0;
+        for ( Vec2D v : particles ) {
+            gl2.glColor4f( 1, 1, 1, particleOpacity );
+            gl2.glVertex2f( v.x, v.y );
+            Vec2D to = oldParticles.get( index );
+            gl2.glVertex2f( to.x, to.y );
+            index++;
+        }
+
+        gl2.glEnd( );
+        particlePBO.endPGL( );
+        particlePBO.endDraw( );
+    }
+
+    private void drawPoints() {
+        particlePBO.clear( );
+        gl2.glEnable( GL.GL_BLEND );
+        gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
         gl2.glPointSize( particleSize );
         gl2.glBegin( GL.GL_POINTS );
 
@@ -154,6 +201,13 @@ public class ChladniParticles {
                     g = 1;
                     b = 1;
                     break;
+                case MOON:
+                    // TODO: fix this shit.
+                    Color c1 = Color.getHSBColor( 0.07222f,p.map( velocities.get( index ), 0, rebuildSpeed, 1, 0.8f), 0.67f );
+                    r = c1.getRed();
+                    g = c1.getGreen();
+                    b = c1.getBlue();
+                    break;
                 default:
                     r = 1;
                     g = 1;
@@ -167,7 +221,6 @@ public class ChladniParticles {
         gl2.glEnd( );
         particlePBO.endPGL( );
         particlePBO.endDraw( );
-
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
