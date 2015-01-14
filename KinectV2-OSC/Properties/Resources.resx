@@ -121,7 +121,7 @@
     <value>Initializing</value>
   </data>
   <data name="IPAddress" xml:space="preserve">
-    <value>192.168.100.204</value>
+    <value>127.0.0.1</value>
   </data>
   <data name="NoSensorFoundText" xml:space="preserve">
     <value>Kinect not found...</value>

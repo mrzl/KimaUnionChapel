@@ -10,12 +10,28 @@ namespace KinectV2OSC.Model.Network
 {
     public class MessageBuilder
     {
-        public OscMessage BuildJointMessage(Body body, KeyValuePair<JointType, Joint> joint)
+        public OscMessage BuildJointMessageX(Body body, KeyValuePair<JointType, Joint> joint)
         {
-            var address = String.Format("/bodies/{0}/joints/{1}", body.TrackingId, joint.Key);
+            var address = String.Format("/bodies/{0}/joints/{1}/x", body.TrackingId, joint.Key );
             var position = joint.Value.Position;
             //System.Diagnostics.Debug.WriteLine(address);
-            return new OscMessage(address, position.X, position.Y, position.Z, joint.Value.TrackingState.ToString());
+            return new OscMessage(address, position.X);
+        }
+
+        public OscMessage BuildJointMessageY(Body body, KeyValuePair<JointType, Joint> joint)
+        {
+            var address = String.Format("/bodies/{0}/joints/{1}/y", body.TrackingId, joint.Key);
+            var position = joint.Value.Position;
+            //System.Diagnostics.Debug.WriteLine(address);
+            return new OscMessage(address, position.Y);
+        }
+
+        public OscMessage BuildJointMessageZ(Body body, KeyValuePair<JointType, Joint> joint)
+        {
+            var address = String.Format("/bodies/{0}/joints/{1}/z", body.TrackingId, joint.Key);
+            var position = joint.Value.Position;
+            //System.Diagnostics.Debug.WriteLine(address);
+            return new OscMessage(address, position.Z);
         }
 
         public OscMessage BuildHandMessage(Body body, string key, HandState state, TrackingConfidence confidence)

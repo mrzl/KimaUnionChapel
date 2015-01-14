@@ -35,14 +35,14 @@ namespace KinectV2OSC.Model.Network
             {
                 try
                 {
-                    var oscSender = new OscSender(ipAddress, int.Parse(this.port) );
+                    var oscSender = new OscSender(ipAddress, int.Parse(this.port), int.Parse("12346") );
                     oscSender.Connect();
                     this.oscSenders.Add(oscSender);
-                    this.status += "OSC connection established on\nIP: " + ipAddress + "\nPort: " + port + "\n";
+                    this.status += "OSC connection established on\nIP: " + ipAddress + "\nLocalport: " + port + " Remoteport: " + int.Parse("12346") + "\n";
                 }
                 catch (Exception e)
                 {
-                    this.status += "Unable to make OSC connection on\nIP: " + ipAddress + "\nPort: " + port + "\n";
+                    this.status += "Unable to make OSC connection on\nIP: " + ipAddress + "\nLocalport: " + port + " Remoteport: " + int.Parse("12346") + "\n";
                     Console.WriteLine("Exception on OSC connection...");
                     Console.WriteLine(e.StackTrace);
                 }
@@ -70,7 +70,11 @@ namespace KinectV2OSC.Model.Network
         {
             foreach (var joint in body.Joints)
             {
-                message = messageBuilder.BuildJointMessage(body, joint);
+                message = messageBuilder.BuildJointMessageX(body, joint);
+                this.Broadcast(message);
+                message = messageBuilder.BuildJointMessageY(body, joint);
+                this.Broadcast(message);
+                message = messageBuilder.BuildJointMessageZ(body, joint);
                 this.Broadcast(message);
             }
 

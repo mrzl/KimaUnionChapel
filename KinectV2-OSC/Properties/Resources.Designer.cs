@@ -70,7 +70,7 @@ namespace KinectV2OSC.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 192.168.100.204.
+        ///   Looks up a localized string similar to 127.0.0.1.
         /// </summary>
         internal static string IPAddress {
             get {
