@@ -35,7 +35,7 @@ namespace KinectV2OSC.Model.Network
             {
                 try
                 {
-                    var oscSender = new OscSender(ipAddress, int.Parse(this.port));
+                    var oscSender = new OscSender(ipAddress, int.Parse(this.port) );
                     oscSender.Connect();
                     this.oscSenders.Add(oscSender);
                     this.status += "OSC connection established on\nIP: " + ipAddress + "\nPort: " + port + "\n";

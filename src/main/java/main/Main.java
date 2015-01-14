@@ -1,6 +1,10 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
+import com.illposed.osc.OSCListener;
+import com.illposed.osc.OSCMessage;
+import com.illposed.osc.OSCPort;
+import com.illposed.osc.OSCPortIn;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
 import osc.*;
@@ -12,6 +16,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 
+import java.net.SocketException;
 import java.util.Calendar;
 
 /**
