@@ -19,6 +19,8 @@ import java.util.Calendar;
  */
 public class Main extends PApplet {
 
+    public static final String OSX = "Mac";
+
     protected ChladniParticles chladniRect;
     protected ChladniParticles chladniTriangle;
     protected ChladniParticles chladniCircle;
@@ -36,7 +38,6 @@ public class Main extends PApplet {
     boolean debug = true;
     public boolean drawSurface = true;
     public boolean doMotionBlur = false;
-    private boolean doSyphonOutput = false;
 
     public void setup () {
         int overallWidth, overallHeight;
@@ -77,9 +78,9 @@ public class Main extends PApplet {
         this.soundController = new SoundController( this, 5001 );
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
         SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
-        ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 5.0f );
-        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200, 10000 );
-        ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
+        ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 20.0f );
+        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 200 ,10000 );
+        ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
         mappingRect.addMapping( soundMapping11, chladniMapping11 );
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
         soundController.addSoundParameterMapping( mappingRect );
@@ -177,51 +178,30 @@ public class Main extends PApplet {
         }
 
         // send syphon texture
-        if ( doSyphonOutput ) {
+        if ( System.getProperty("os.name").startsWith( OSX ) ) {
             syphonOutput.send( );
         }
 
         chladniRect.doAnomaly();
         chladniCircle.doAnomaly();
         chladniTriangle.doAnomaly();
-
     }
 
     public void keyPressed () {
         if ( key == 'r' ) {
-            get( 0, 0, (int)(resolution * scaleFactor), (int)(resolution * scaleFactor)).save( "out_rect_"+timestamp()+".png" );
+            get( 0, 0, (int)(resolution * scaleFactor), (int)(resolution * scaleFactor)).save( "out_rect_" + timestamp( ) + ".png" );
         }
         if ( key == 't' ) {
             save( "out_triangle_"+timestamp()+".png" );
         }
         if ( key == 'c' ) {
-            save( "out_circle_"+timestamp()+".png" );
+            save( "out_circle_" + timestamp( ) + ".png" );
         }
-        if( key == 's' ) {
-            saveHiRes( 1 );
-        }
-
-    }
-
-    public void saveHiRes(int scaleFactor) {
-        PGraphics hires = createGraphics(width*scaleFactor, height*scaleFactor, P3D);
-        beginRecord(hires);
-        hires.scale(scaleFactor);
-        draw();
-        endRecord();
-        hires.save("hires" + timestamp() + ".png");
     }
 
     String timestamp() {
         Calendar now = Calendar.getInstance();
         return String.format( "%1$ty.%1$tm.%1$td_%1$tH:%1$tM:%1$tS", now );
-    }
-
-    public void stop () {
-        System.out.println( "exit called" );
-        syphonOutput.stop( );
-        super.stop();
-        //super.exit( );
     }
 
     private void prepareExitHandler () {
