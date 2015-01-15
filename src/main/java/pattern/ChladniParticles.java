@@ -294,9 +294,6 @@ public class ChladniParticles {
     public void parameterChanged ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
         switch( chladniPatternParameter ) {
             case M:
-                if( p.dist( getSurface().getM(), 0, value, 0 ) > 1 ) {
-                    frequencyChanged();
-                }
                 getSurface().setM( value );
                 break;
             case N:
