@@ -1,5 +1,6 @@
 package pattern;
 
+import main.ControlFrame;
 import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -202,7 +203,8 @@ public class ChladniParticles {
                     b = 1;
                     break;
                 case MOON:
-                    // TODO: fix this shit.
+                    // TODO:
+                    // fix this shit.
                     Color c1 = Color.getHSBColor( 0.07222f,p.map( velocities.get( index ), 0, rebuildSpeed, 1, 0.8f), 0.67f );
                     r = c1.getRed();
                     g = c1.getGreen();
@@ -221,6 +223,19 @@ public class ChladniParticles {
         gl2.glEnd( );
         particlePBO.endPGL( );
         particlePBO.endDraw( );
+    }
+
+    public void doAnomaly(){
+        int index = 0;
+        for( Vec2D v : particles ) {
+            if( velocities.get( index ) < 0.5f ) {
+                if( p.random( 1 ) < 0.1f ){
+                    v.addSelf( p.random(-rebuildSpeed, rebuildSpeed), p.random(-rebuildSpeed, rebuildSpeed) );
+                }
+            }
+
+            index++;
+        }
     }
 
     public void renderParticlesToScreen ( int x, int y ) {

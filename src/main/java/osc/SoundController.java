@@ -19,7 +19,7 @@ public class SoundController {
     private SignalFilter frequencyFilter1, frequencyFilter2, frequencyFilter3;
     private SignalFilter amplitudeFilter1, amplitudeFilter2, amplitudeFilter3;
     private SignalFilter attackFilter1, attackFilter2, attackFilter3;
-
+    private long lastTimeOscMessageArrived;
     /**
 
      * @param port
@@ -39,64 +39,70 @@ public class SoundController {
         attackFilter1 = new SignalFilter( p );
         attackFilter2 = new SignalFilter( p );
         attackFilter3 = new SignalFilter( p );
+
+        lastTimeOscMessageArrived = System.currentTimeMillis();
     }
 
     public void oscEvent( OscMessage receivedOscMessage ) {
-        try {
-            SoundInputParameterEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
-            float value;
-            switch ( soundParameterType ) {
-                case FREQUENCY_PARAMETER1:
-                    value = receivedOscMessage.get( 0 ).intValue( );
-                    value = frequencyFilter1.filterUnitFloat( value );
-                    break;
-                case FREQUENCY_PARAMETER2:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    value = frequencyFilter2.filterUnitFloat( value );
-                    break;
-                case FREQUENCY_PARAMETER3:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    value = frequencyFilter3.filterUnitFloat( value );
-                    break;
-                case AMPLITUDE_PARAMETER1:
-                    value = receivedOscMessage.get( 0 ).floatValue();
-                    value = amplitudeFilter1.filterUnitFloat( value );
-                    break;
-                case AMPLITUDE_PARAMETER2:
-                    value = receivedOscMessage.get( 0 ).floatValue();
-                    value = amplitudeFilter2.filterUnitFloat( value );
-                    break;
-                case AMPLITUDE_PARAMETER3:
-                    value = receivedOscMessage.get( 0 ).floatValue();
-                    value = amplitudeFilter3.filterUnitFloat( value );
-                    break;
-                case ATTACK_PARAMETER1:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    //value = attackFilter1.filterUnitFloat( value );
-                    break;
-                case ATTACK_PARAMETER2:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    //value = attackFilter2.filterUnitFloat( value );
-                    break;
-                case ATTACK_PARAMETER3:
-                    value = receivedOscMessage.get( 0 ).intValue();
-                    //value = attackFilter3.filterUnitFloat( value );
-                    break;
-                default:
-                    System.err.println( "WARNING: in oscEvent(OscMessage) of SoundController." );
-                    throw new UnknownOscParameterException();
+        long timeArrived = System.currentTimeMillis();
+        if( timeArrived - lastTimeOscMessageArrived > 1000 ) {
+            lastTimeOscMessageArrived = timeArrived;
+            try {
+                SoundInputParameterEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
+                float value;
+                switch ( soundParameterType ) {
+                    case FREQUENCY_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        value = frequencyFilter1.filterUnitFloat( value );
+                        break;
+                    case FREQUENCY_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        value = frequencyFilter2.filterUnitFloat( value );
+                        break;
+                    case FREQUENCY_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        value = frequencyFilter3.filterUnitFloat( value );
+                        break;
+                    case AMPLITUDE_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).floatValue();
+                        value = amplitudeFilter1.filterUnitFloat( value );
+                        break;
+                    case AMPLITUDE_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).floatValue();
+                        value = amplitudeFilter2.filterUnitFloat( value );
+                        break;
+                    case AMPLITUDE_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).floatValue();
+                        value = amplitudeFilter3.filterUnitFloat( value );
+                        break;
+                    case ATTACK_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        //value = attackFilter1.filterUnitFloat( value );
+                        break;
+                    case ATTACK_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        //value = attackFilter2.filterUnitFloat( value );
+                        break;
+                    case ATTACK_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).intValue();
+                        //value = attackFilter3.filterUnitFloat( value );
+                        break;
+                    default:
+                        System.err.println( "WARNING: in oscEvent(OscMessage) of SoundController." );
+                        throw new UnknownOscParameterException();
+                }
+
+                debugDisplay.updateParameter( soundParameterType, value );
+
+                SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
+
+                for ( SoundParameterMapping m : mappings ) {
+                    m.soundInputParameterReceived( soundInputParameter, value );
+                }
+
+            } catch ( UnknownOscParameterException e ) {
+                //e.printStackTrace( );
             }
-
-            debugDisplay.updateParameter( soundParameterType, value );
-
-            SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
-
-            for( SoundParameterMapping m : mappings ) {
-                m.soundInputParameterReceived( soundInputParameter, value );
-            }
-
-        } catch ( UnknownOscParameterException e ) {
-            //e.printStackTrace( );
         }
     }
 

@@ -180,6 +180,11 @@ public class Main extends PApplet {
         if ( doSyphonOutput ) {
             syphonOutput.send( );
         }
+
+        chladniRect.doAnomaly();
+        chladniCircle.doAnomaly();
+        chladniTriangle.doAnomaly();
+
     }
 
     public void keyPressed () {
