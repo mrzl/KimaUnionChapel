@@ -148,9 +148,9 @@ void main() {
       float xpos = uv.x / resolution.x;
       float ypos = uv.y / resolution.y;
       float theta = atan( ypos / xpos );
-      float first = jn( int(m), nthZero * radius );
+      float first = jn( int(m), float(nthZero) * radius );
       float second = sin( float(m) * theta );
-      float third = cos( nthZero );
+      float third = cos( float(nthZero) );
       float res = first * second * third;
       gl_FragColor = vec4(vec3(abs(10.0*res)), 1.0);
     }

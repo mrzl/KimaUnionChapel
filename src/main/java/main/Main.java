@@ -110,8 +110,6 @@ public class Main extends PApplet {
             println( frameRate );
         }
 
-        chladniRect.getParticlePBO().colorMode( HSB );
-
         // draw the surface
         chladniRect.update( 1 );
         chladniTriangle.update( 1 );

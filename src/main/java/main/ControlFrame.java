@@ -182,21 +182,20 @@ public class ControlFrame extends PApplet {
                 .setValue( false )
                 .setMode( ControlP5.SWITCH )
                 .addListener( new ControlListener( ) {
+
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
                         if ( getBoolFromFloat( controlEvent.getValue( ) ) ) {
-                            parent.chladniRect.setColorModeEnum( ColorModeEnum.MONOCHROME );
-                            parent.chladniTriangle.setColorModeEnum( ColorModeEnum.MONOCHROME );
-                            parent.chladniCircle.setColorModeEnum( ColorModeEnum.MONOCHROME );
+                            parent.chladniRect.setColorModeEnum( ColorModeEnum.MOON );
+                            parent.chladniTriangle.setColorModeEnum( ColorModeEnum.MOON );
+                            parent.chladniCircle.setColorModeEnum( ColorModeEnum.MOON );
                         } else {
                             parent.chladniRect.setColorModeEnum( ColorModeEnum.VELOCITIES );
                             parent.chladniTriangle.setColorModeEnum( ColorModeEnum.VELOCITIES );
                             parent.chladniCircle.setColorModeEnum( ColorModeEnum.VELOCITIES );
                         }
-
                     }
-                } )
-        ;
+                } );
 
         controlP5.addToggle( "bloomToggle" )
                 .setPosition( 150, generalY )
@@ -208,8 +207,7 @@ public class ControlFrame extends PApplet {
                     public void controlEvent ( ControlEvent controlEvent ) {
                         parent.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
                     }
-                } )
-        ;
+                } );
 
         controlP5.addToggle( "original" )
                 .setPosition( 220, generalY )
@@ -221,8 +219,7 @@ public class ControlFrame extends PApplet {
                     public void controlEvent ( ControlEvent controlEvent ) {
                         parent.drawSurface = getBoolFromFloat( controlEvent.getValue( ) );
                     }
-                } )
-        ;
+                } );
 
         controlP5.addToggle( "motionBlur" )
                 .setPosition( 290, generalY )
@@ -234,8 +231,7 @@ public class ControlFrame extends PApplet {
                     public void controlEvent ( ControlEvent controlEvent ) {
                         parent.doMotionBlur = getBoolFromFloat( controlEvent.getValue( ) );
                     }
-                } )
-        ;
+                } );
     }
 
     private boolean getBoolFromFloat ( float _f ) {
@@ -266,21 +262,21 @@ public class ControlFrame extends PApplet {
     }
 
     private void createParticleCountSliders ( float generalY ) {
-        Slider particleCountSliderRect = controlP5.addSlider( "particleCountRect" ).setRange( 0, 80000 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
+        Slider particleCountSliderRect = controlP5.addSlider( "particleCountRect" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 parent.chladniRect.setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
 
-        Slider particleCountSliderTriangle = controlP5.addSlider( "particleCountTriangle" ).setRange( 0, 80000 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
+        Slider particleCountSliderTriangle = controlP5.addSlider( "particleCountTriangle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 parent.chladniTriangle.setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
 
-        Slider particleCountSliderCircle = controlP5.addSlider( "particleCountCircle" ).setRange( 0, 80000 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
+        Slider particleCountSliderCircle = controlP5.addSlider( "particleCountCircle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 parent.chladniCircle.setParticleCount( ( int ) controlEvent.getValue( ) );

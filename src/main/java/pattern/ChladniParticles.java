@@ -157,8 +157,6 @@ public class ChladniParticles {
                 // nothing
                 break;
         }
-
-
     }
 
     private void drawLines() {
@@ -194,7 +192,7 @@ public class ChladniParticles {
         for ( Vec2D v : particles ) {
             switch( colorModeEnum ) {
                 case VELOCITIES:
-                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed );
+                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed, ColorMapping.HUE );
                     r = colorMode.red;
                     g = colorMode.green;
                     b = colorMode.blue;
@@ -205,13 +203,10 @@ public class ChladniParticles {
                     b = 1;
                     break;
                 case MOON:
-                    // TODO:
-                    // fix this shit.
-
-                    Color c1 = Color.getHSBColor( 0.07222f,p.map( velocities.get( index ), 0, rebuildSpeed, 1, 0.8f), 0.67f );
-                    r = c1.getRed();
-                    g = c1.getGreen();
-                    b = c1.getBlue();
+                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed, ColorMapping.SATURATION );
+                    r = colorMode.red;
+                    g = colorMode.green;
+                    b = colorMode.blue;
                     break;
                 default:
                     r = 1;
@@ -286,6 +281,10 @@ public class ChladniParticles {
 
     public void setColorModeEnum ( ColorModeEnum colorModeEnum ) {
         this.colorModeEnum = colorModeEnum;
+    }
+
+    public ColorModeEnum getColorModeEnum() {
+        return colorModeEnum;
     }
 
     public float getScaleFactor() {

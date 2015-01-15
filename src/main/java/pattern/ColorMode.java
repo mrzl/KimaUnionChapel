@@ -23,12 +23,22 @@ public class ColorMode {
         maxHue = max;
     }
 
-    public void setVelocity( float _velocity, ColorMode cm ) {
-        //switch( cm ) {
-            //case ColorMapping.HUE
-       // }
-        float selectedHue = PApplet.map( _velocity, 0, 1, minHue, maxHue );
-        int rgb = Color.HSBtoRGB( selectedHue, 0.9f, 0.9f );
+    public void setVelocity( float _velocity, ColorMapping cm ) {
+        float selectedHue;
+        int rgb = 0;
+        switch( cm ) {
+            case HUE:
+                selectedHue = PApplet.map( _velocity, 0, 1, minHue, maxHue );
+                rgb = Color.HSBtoRGB( selectedHue, 0.9f, 0.9f );
+                break;
+            case SATURATION:
+                selectedHue = PApplet.map( _velocity, 0, 1, minHue, maxHue );
+                rgb = Color.HSBtoRGB( 0.07222f, selectedHue, 0.9f );
+                break;
+            case BRIGHTNESS:
+
+                break;
+        }
         red = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
         green = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
         blue = ( rgb & 0xFF ) / 255.0f;
