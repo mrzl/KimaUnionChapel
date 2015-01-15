@@ -13,12 +13,10 @@ import java.util.ArrayList;
  */
 public class SoundController {
 
-    private OscP5 oscServer;
     private OscParameterDisplay debugDisplay;
     private ArrayList< SoundParameterMapping > mappings;
     private SignalFilter frequencyFilter1, frequencyFilter2, frequencyFilter3;
     private SignalFilter amplitudeFilter1, amplitudeFilter2, amplitudeFilter3;
-    private SignalFilter attackFilter1, attackFilter2, attackFilter3;
     private long lastTimeOscMessageArrived, updateDelay;
     /**
 
@@ -26,7 +24,7 @@ public class SoundController {
      */
     public SoundController( Main p, int port ) {
         mappings = new ArrayList<>();
-        oscServer = new OscP5( this, port );
+        new OscP5( this, port );
 
         debugDisplay = OscParameterDisplay.addControlFrame( p, "OscParameterDebug", 600, 150 );
 
@@ -36,9 +34,6 @@ public class SoundController {
         amplitudeFilter1 = new SignalFilter( p );
         amplitudeFilter2 = new SignalFilter( p );
         amplitudeFilter3 = new SignalFilter( p );
-        attackFilter1 = new SignalFilter( p );
-        attackFilter2 = new SignalFilter( p );
-        attackFilter3 = new SignalFilter( p );
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
         updateDelay = 0;
