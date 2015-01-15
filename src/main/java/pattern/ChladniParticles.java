@@ -1,6 +1,5 @@
 package pattern;
 
-import main.ControlFrame;
 import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -15,6 +14,7 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by mar on 14.12.14.
@@ -24,6 +24,7 @@ public class ChladniParticles {
     private ChladniSurface surface;
     private PGraphics particlePBO;
     private ColorMode colorMode;
+    private ColorModeEnum colorModeEnum;
     private DrawMode drawMode;
     private int particleCount;
     private ArrayList< Vec2D > particles, oldParticles;
@@ -63,8 +64,10 @@ public class ChladniParticles {
 
         gl2 = GLU.getCurrentGL( ).getGL2( );
 
-        colorMode = ColorMode.MOON;
+        colorModeEnum = ColorModeEnum.MOON;
         drawMode = DrawMode.POINTS;
+
+        colorMode = new ColorMode();
     }
 
     public void update ( int speed ) {
@@ -88,7 +91,6 @@ public class ChladniParticles {
             for ( Vec2D v : particles ) {
                 v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
                 v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
-
                 float jumpyNess = p.map( surface.get( ( int ) ( v.x / scaleFactor ), ( int ) ( v.y / scaleFactor ) ), 0, 255, 0, rebuildSpeed );
                 Vec2D toAdd = new Vec2D( p.random( -jumpyNess, jumpyNess ), p.random( -jumpyNess, jumpyNess ) );
 
@@ -190,12 +192,12 @@ public class ChladniParticles {
         int index = 0;
         float r, g ,b;
         for ( Vec2D v : particles ) {
-            switch( colorMode ) {
+            switch( colorModeEnum ) {
                 case VELOCITIES:
-                    Color c = Color.getHSBColor( velocities.get( index ) / rebuildSpeed, 1, 1 );
-                    r = c.getRed();
-                    g = c.getGreen();
-                    b = c.getBlue();
+                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed );
+                    r = colorMode.red;
+                    g = colorMode.green;
+                    b = colorMode.blue;
                     break;
                 case MONOCHROME:
                     r = 1;
@@ -205,6 +207,7 @@ public class ChladniParticles {
                 case MOON:
                     // TODO:
                     // fix this shit.
+
                     Color c1 = Color.getHSBColor( 0.07222f,p.map( velocities.get( index ), 0, rebuildSpeed, 1, 0.8f), 0.67f );
                     r = c1.getRed();
                     g = c1.getGreen();
@@ -236,6 +239,10 @@ public class ChladniParticles {
 
             index++;
         }
+    }
+
+    public ColorMode getColorMode() {
+        return colorMode;
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
@@ -277,8 +284,8 @@ public class ChladniParticles {
         this.particleOpacity = _particleOpacity;
     }
 
-    public void setColorMode( ColorMode colorMode ) {
-        this.colorMode = colorMode;
+    public void setColorModeEnum ( ColorModeEnum colorModeEnum ) {
+        this.colorModeEnum = colorModeEnum;
     }
 
     public float getScaleFactor() {

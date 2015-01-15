@@ -23,7 +23,7 @@ public class Main extends PApplet {
     protected ChladniParticles chladniTriangle;
     protected ChladniParticles chladniCircle;
 
-    private SoundController soundController;
+    protected SoundController soundController;
 
     private MetaBallModifier mm;
     private BloomModifier bm;
@@ -109,6 +109,8 @@ public class Main extends PApplet {
         if ( frameCount % 20 == 0 ) {
             println( frameRate );
         }
+
+        chladniRect.getParticlePBO().colorMode( HSB );
 
         // draw the surface
         chladniRect.update( 1 );

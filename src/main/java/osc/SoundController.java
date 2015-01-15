@@ -19,7 +19,7 @@ public class SoundController {
     private SignalFilter frequencyFilter1, frequencyFilter2, frequencyFilter3;
     private SignalFilter amplitudeFilter1, amplitudeFilter2, amplitudeFilter3;
     private SignalFilter attackFilter1, attackFilter2, attackFilter3;
-    private long lastTimeOscMessageArrived;
+    private long lastTimeOscMessageArrived, updateDelay;
     /**
 
      * @param port
@@ -41,11 +41,12 @@ public class SoundController {
         attackFilter3 = new SignalFilter( p );
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
+        updateDelay = 0;
     }
 
     public void oscEvent( OscMessage receivedOscMessage ) {
         long timeArrived = System.currentTimeMillis();
-        if( timeArrived - lastTimeOscMessageArrived > 1000 ) {
+        if( timeArrived - lastTimeOscMessageArrived > updateDelay ) {
             lastTimeOscMessageArrived = timeArrived;
             try {
                 SoundInputParameterEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
@@ -104,6 +105,10 @@ public class SoundController {
                 //e.printStackTrace( );
             }
         }
+    }
+
+    public void setUpdateDelay( long _updateDelay ) {
+        this.updateDelay = _updateDelay;
     }
 
     public void addSoundParameterMapping( SoundParameterMapping _spm ) {

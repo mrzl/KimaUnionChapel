@@ -9,6 +9,11 @@ public class MathUtils {
     public static final double BIGNI = 1.0e-10;
 
     public static double getNthZeroOfMthBessel ( int m_order, float n_zero ) {
+        if ( m_order < 0 ) {
+
+            m_order = 0;
+            System.err.println( "getNthZeroOfMthBessel M shouldnt be < 0" );
+        }
         // Zeros of the Bessel function J(x)
         // Inputs
         //   m_order   Order of the Bessel function
