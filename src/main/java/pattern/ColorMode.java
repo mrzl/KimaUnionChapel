@@ -23,11 +23,16 @@ public class ColorMode {
         maxHue = max;
     }
 
-    public void setVelocity( float _velocity ) {
+    public void setVelocity( float _velocity, ColorMode cm ) {
+        //switch( cm ) {
+            //case ColorMapping.HUE
+       // }
         float selectedHue = PApplet.map( _velocity, 0, 1, minHue, maxHue );
         int rgb = Color.HSBtoRGB( selectedHue, 0.9f, 0.9f );
         red = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
         green = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
         blue = ( rgb & 0xFF ) / 255.0f;
     }
+
+
 }
