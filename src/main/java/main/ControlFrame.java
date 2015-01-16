@@ -1,9 +1,6 @@
 package main;
 
-import controlP5.ControlEvent;
-import controlP5.ControlListener;
-import controlP5.ControlP5;
-import controlP5.Slider;
+import controlP5.*;
 import pattern.ChladniTriangle;
 import pattern.ChladniCircle;
 import pattern.ChladniRectangle;
@@ -22,6 +19,7 @@ public class ControlFrame extends PApplet {
     private int w, h;
 
     public Slider particleJumpynessSliderRect;
+    public Range minMaxHue;
 
     public void setup () {
         size( w, h );
@@ -144,7 +142,7 @@ public class ControlFrame extends PApplet {
 
         generalY += 50;
 
-        controlP5.addRange( "minHue" )
+        minMaxHue = controlP5.addRange( "minHue" )
                 .setRange( 0.0f, 1.0f )
                 .setSize( 300, 20 )
                 .setPosition( 10, generalY )
@@ -158,7 +156,7 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
-
+        this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
         controlP5.loadProperties();
     }
 
@@ -342,7 +340,8 @@ public class ControlFrame extends PApplet {
     }
 
     public void saveParameters () {
-        this.controlP5.saveProperties();
+        this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+        this.controlP5.saveProperties(  );
     }
 
     public static ControlFrame addControlFrame ( Main pa, String theName, int theWidth, int theHeight ) {

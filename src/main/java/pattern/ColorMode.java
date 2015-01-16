@@ -18,6 +18,14 @@ public class ColorMode {
         minHue = maxHue = 0.0f;
     }
 
+    public void setRangeMin( float min ) {
+        this.minHue = min;
+    }
+
+    public void setRangeMax( float max ) {
+        this.maxHue = max;
+    }
+
     public void setRange ( float min, float max ) {
         minHue = min;
         maxHue = max;
@@ -43,6 +51,4 @@ public class ColorMode {
         green = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
         blue = ( rgb & 0xFF ) / 255.0f;
     }
-
-
 }

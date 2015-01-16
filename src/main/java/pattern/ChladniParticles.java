@@ -1,5 +1,9 @@
 package pattern;
 
+import main.Main;
+import nano.NanoInputParameter;
+import nano.VisualParameter;
+import nano.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -29,7 +33,7 @@ public class ChladniParticles {
     private int particleCount;
     private ArrayList< Vec2D > particles, oldParticles;
     private ArrayList< Float > velocities;
-    private PApplet p;
+    private Main p;
     private float rebuildSpeed, particleSize, particleOpacity;
 
     // opengl
@@ -39,7 +43,7 @@ public class ChladniParticles {
     // performance: rendering the origin smaller,
     private float scaleFactor;
 
-    public ChladniParticles ( PApplet p, ChladniSurface surface, float scaleFactor, int particleCount ) {
+    public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
         this.p = p;
         this.particleCount = particleCount;
@@ -319,6 +323,24 @@ public class ChladniParticles {
                 break;
             default:
                 System.err.println( "EROR: Unknown ChladniPatternParameter type in ChladniPattern" );
+        }
+    }
+
+    public void parameterChanged ( VisualParameterEnum visualParameter, float value ) {
+        switch( visualParameter ) {
+            case MIN_HUE:
+                getColorMode().setRangeMin( value );
+                System.out.println( "Setting value to " + value );
+                p.controlFrame.minMaxHue.setRangeValues( value, p.controlFrame.minMaxHue.getArrayValue( )[ 1 ] );
+                break;
+            case MAX_HUE:
+                getColorMode().setRangeMax( value );
+                System.out.println( "Setting value to " + value );
+                p.controlFrame.minMaxHue.setRangeValues( p.controlFrame.minMaxHue.getArrayValue()[ 0 ], value );
+                break;
+            case UPDATE_DELAY:
+                System.err.println( "UPDATE_DELAY not yet implemented." );
+                break;
         }
     }
 }

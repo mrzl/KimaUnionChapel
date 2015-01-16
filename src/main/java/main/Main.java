@@ -107,9 +107,11 @@ public class Main extends PApplet {
         nanoController = new NanoKontrolController( this );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
         NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
-        //ChladniPatternParameter chladniParameter1 = new ChladniPatternParameter( Ch )
-        //nanoMapping.addMapping( NanoKontrolSliderEnum.SLIDER_1, VisualParameterEnum.MIN_HUE );
-        //nanoMapping.addMapping( NanoKontrolSliderEnum.SLIDER_2, VisualParameterEnum.MAX_HUE );
+        VisualParameter visualParamter1 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, 0, 127 );
+        VisualParameter visualParamter2 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
+        nanoMapping.addMapping( nanoParameter1, visualParamter1 );
+        nanoMapping.addMapping( nanoParameter2, visualParamter2 );
         nanoController.addMapping( nanoMapping );
 
         prepareExitHandler( );

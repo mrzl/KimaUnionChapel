@@ -30,7 +30,6 @@ public class SoundParameterMapping {
     }
 
     public ArrayList< SoundInputParameter > getInputParameters() {
-
         return sips;
     }
 
