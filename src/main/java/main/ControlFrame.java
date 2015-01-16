@@ -1,10 +1,7 @@
 package main;
 
 import controlP5.*;
-import pattern.ChladniTriangle;
-import pattern.ChladniCircle;
-import pattern.ChladniRectangle;
-import pattern.ColorModeEnum;
+import pattern.*;
 import processing.core.PApplet;
 
 import java.awt.*;
@@ -123,7 +120,9 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                        parent.chladniCircle.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                        parent.chladniRect.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                        parent.chladniTriangle.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
                     }
                 } );
 
@@ -169,7 +168,9 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniCircle.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniTriangle.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniRect.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
                     }
                 } )
         ;
@@ -203,19 +204,38 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniCircle.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniTriangle.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        parent.chladniRect.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
                     }
                 } );
 
-        controlP5.addToggle( "original" )
+        controlP5.addSlider( "drawMode" )
                 .setPosition( 220, generalY )
                 .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
+                .setRange( 0, 1 )
+                .setValue( 0.0f )
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.drawSurface = getBoolFromFloat( controlEvent.getValue( ) );
+                        float v = controlEvent.getValue( );
+
+                        if ( v < 0.3f ) {
+                            System.out.println( "POINTS value: " + v );
+                            parent.chladniCircle.setDrawMode( DrawMode.POINTS );
+                            parent.chladniTriangle.setDrawMode( DrawMode.POINTS );
+                            parent.chladniRect.setDrawMode( DrawMode.POINTS );
+                        } else if( v > 0.6f ) {
+                            System.out.println( "LINES value: " + v );
+                            parent.chladniCircle.setDrawMode( DrawMode.LINES );
+                            parent.chladniTriangle.setDrawMode( DrawMode.LINES );
+                            parent.chladniRect.setDrawMode( DrawMode.LINES );
+                        } else {
+                            System.out.println( "ORIGINAL value: " + v );
+                            parent.chladniCircle.setDrawMode( DrawMode.ORIGINAL );
+                            parent.chladniTriangle.setDrawMode( DrawMode.ORIGINAL );
+                            parent.chladniRect.setDrawMode( DrawMode.ORIGINAL );
+                        }
                     }
                 } );
 
@@ -227,7 +247,9 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.doMotionBlur = getBoolFromFloat( controlEvent.getValue( ) );
+                        parent.chladniTriangle.setDoMotionBlur( !parent.chladniTriangle.isDoMotionBlur() );
+                        parent.chladniRect.setDoMotionBlur( !parent.chladniRect.isDoMotionBlur() );
+                        parent.chladniCircle.setDoMotionBlur( !parent.chladniCircle.isDoMotionBlur() );
                     }
                 } );
     }

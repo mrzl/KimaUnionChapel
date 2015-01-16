@@ -1,11 +1,10 @@
 package pattern;
 
 import main.Main;
-import nano.NanoInputParameter;
-import nano.VisualParameter;
+import modificators.BloomModifier;
+import modificators.MetaBallModifier;
 import nano.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -16,9 +15,7 @@ import toxi.geom.Vec2D;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
-import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by mar on 14.12.14.
@@ -35,6 +32,11 @@ public class ChladniParticles {
     private ArrayList< Float > velocities;
     private Main p;
     private float rebuildSpeed, particleSize, particleOpacity;
+    private boolean doMotionBlur;
+    private float motionBlurAmount;
+    private boolean drawOriginal;
+    private BloomModifier bm;
+    private MetaBallModifier mm;
 
     // opengl
     public PGL pgl;
@@ -69,9 +71,14 @@ public class ChladniParticles {
         gl2 = GLU.getCurrentGL( ).getGL2( );
 
         colorModeEnum = ColorModeEnum.MOON;
-        drawMode = DrawMode.POINTS;
+        drawMode = DrawMode.ORIGINAL;
 
         colorMode = new ColorMode();
+        doMotionBlur = true;
+        motionBlurAmount = 40;
+        drawOriginal = false;
+        bm = new BloomModifier( p );
+        mm = new MetaBallModifier( p );
     }
 
     public void update ( int speed ) {
@@ -157,14 +164,51 @@ public class ChladniParticles {
             case LINES:
                 drawLines();
                 break;
+            case ORIGINAL:
+                particlePBO.background( 0 );
+                drawOriginal( 0, 0, (int)(getSurface().getWidth()), (int)(getSurface().getHeight()) );
+                particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
+                break;
             default:
                 // nothing
                 break;
         }
+
+        gl2.glEnd( );
+        particlePBO.endPGL( );
+        particlePBO.endDraw( );
+
+        if( bm.isEnabled() ) {
+            bm.apply( getParticlePBO() );
+            getParticlePBO().beginDraw( );
+            getParticlePBO().blendMode( PConstants.ADD );
+
+            getParticlePBO().image( getParticlePBO(), 0, 0 );
+
+            getParticlePBO( ).blendMode( PConstants.BLEND );
+            getParticlePBO( ).endDraw();
+        }
+
+        if( mm.isEnabled() ) {
+            mm.apply( getParticlePBO() );
+        }
+    }
+
+    public void setDrawMode( DrawMode _dm ) {
+        this.drawMode = _dm;
     }
 
     private void drawLines() {
-        particlePBO.clear( );
+        if( isDoMotionBlur() ) {
+            particlePBO.pushStyle( );
+            particlePBO.noStroke( );
+            particlePBO.fill( 0, motionBlurAmount );
+            particlePBO.rect( 0, 0, particlePBO.width, particlePBO.height );
+            particlePBO.popStyle( );
+        } else {
+            particlePBO.background( 0 );
+        }
+
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE);
         gl2.glLineWidth( particleSize );
@@ -178,14 +222,19 @@ public class ChladniParticles {
             gl2.glVertex2f( to.x, to.y );
             index++;
         }
-
-        gl2.glEnd( );
-        particlePBO.endPGL( );
-        particlePBO.endDraw( );
     }
 
     private void drawPoints() {
-        particlePBO.clear( );
+        if( isDoMotionBlur() ) {
+            particlePBO.pushStyle( );
+            particlePBO.noStroke( );
+            particlePBO.fill( 0, motionBlurAmount );
+            particlePBO.rect( 0, 0, particlePBO.width, particlePBO.height );
+            particlePBO.popStyle( );
+        } else {
+            particlePBO.background( 0 );
+        }
+
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
         gl2.glPointSize( particleSize );
@@ -222,9 +271,6 @@ public class ChladniParticles {
             gl2.glVertex2f( v.x, v.y );
             index++;
         }
-        gl2.glEnd( );
-        particlePBO.endPGL( );
-        particlePBO.endDraw( );
     }
 
     public void doAnomaly(){
@@ -238,6 +284,22 @@ public class ChladniParticles {
 
             index++;
         }
+    }
+
+    public void setDoMotionBlur( boolean _doMotionBlur ) {
+        this.doMotionBlur = _doMotionBlur;
+    }
+
+    public boolean isDoMotionBlur() {
+        return this.doMotionBlur;
+    }
+
+    public float getMotionBlurAmount() {
+        return this.motionBlurAmount;
+    }
+
+    public void setMotionBlurAmount( float _motionBlurAmount ) {
+        this.motionBlurAmount = _motionBlurAmount;
     }
 
     public ColorMode getColorMode() {
@@ -293,6 +355,12 @@ public class ChladniParticles {
 
     public float getScaleFactor() {
         return this.scaleFactor;
+    }
+
+    public BloomModifier getBloomModifier() { return bm; }
+
+    public MetaBallModifier getMetaBallModifier () {
+        return mm;
     }
 
     public void parameterChanged ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {

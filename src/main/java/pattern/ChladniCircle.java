@@ -26,7 +26,7 @@ public class ChladniCircle extends ChladniSurface {
         this.shader.set( "m", (int)(getM()) );
 
         getBuffer().beginDraw();
-        getBuffer().background( 255 );
+        getBuffer().background( 0 );
 
         getBuffer().shader( this.shader );
         getBuffer().rect( 0, 0, getWidth(), getHeight() );

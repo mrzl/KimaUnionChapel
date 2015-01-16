@@ -13,10 +13,9 @@ public class NanoKontrolController {
     private MidiBus midi;
     private ArrayList< NanoKontrolMapping > mappings;
 
-
-    public NanoKontrolController ( PApplet p ) {
+    public NanoKontrolController ( PApplet p, String nanoControlIdentifier ) {
         this.mappings = new ArrayList<>( );
-        this.midi = new MidiBus( this, "nanoKONTROL2", -1 );
+        this.midi = new MidiBus( this, nanoControlIdentifier, -1 );
     }
 
     public void addMapping( NanoKontrolMapping _m ) {
@@ -24,13 +23,6 @@ public class NanoKontrolController {
     }
 
     public void controllerChange ( ControlChange change ) {
-        System.out.println( );
-        System.out.println( "Controller Change:" );
-        System.out.println( "--------" );
-        System.out.println( "Channel:" + change.channel( ) );
-        System.out.println( "Number:" + change.number( ) );
-        System.out.println( "Value:" + change.value( ) );
-
         NanoKontrolSliderEnum vpe = getParameter( change );
 
         for( NanoKontrolMapping m : mappings ) {
