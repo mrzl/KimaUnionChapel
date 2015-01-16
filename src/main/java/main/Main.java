@@ -1,8 +1,6 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import modificators.BloomModifier;
-import modificators.MetaBallModifier;
 import nano.*;
 import osc.*;
 import pattern.ChladniTriangle;
@@ -22,10 +20,9 @@ public class Main extends PApplet {
     public static final String OSX = "Mac";
 
     protected enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1}
-
     protected HashMap< ChladniFormId, ChladniParticles > chladniForms;
 
-    protected SoundController soundController;
+    public SoundController soundController;
     protected NanoKontrolController nanoController;
 
     private SyphonOutput syphonOutput;
@@ -109,8 +106,11 @@ public class Main extends PApplet {
         VisualParameter visualParamter1 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
         NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, 0, 127 );
         VisualParameter visualParamter2 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
+        NanoInputParameter nanoParameter3 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_3, 0, 127 );
+        VisualParameter visualParamter3 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
         nanoMapping.addMapping( nanoParameter1, visualParamter1 );
         nanoMapping.addMapping( nanoParameter2, visualParamter2 );
+        nanoMapping.addMapping( nanoParameter3, visualParamter3 );
         nanoController.addMapping( nanoMapping );
 
         prepareExitHandler( );
@@ -138,7 +138,7 @@ public class Main extends PApplet {
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-            p.renderParticles( );
+            p.render( );
         }
 
         // draw everything on the syphon buffer
@@ -164,11 +164,6 @@ public class Main extends PApplet {
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.doAnomaly( );
         }
-    }
-
-    String timestamp () {
-        Calendar now = Calendar.getInstance( );
-        return String.format( "%1$ty.%1$tm.%1$td_%1$tH:%1$tM:%1$tS", now );
     }
 
     private void prepareExitHandler () {

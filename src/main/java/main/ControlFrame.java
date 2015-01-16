@@ -17,7 +17,7 @@ public class ControlFrame extends PApplet {
     private Main parent;
     private int w, h;
 
-    public Slider particleJumpynessSliderRect;
+    public Slider particleJumpynessSliderRect, updateDelaySlider;
     public Range minMaxHue;
 
     public void setup () {
@@ -132,7 +132,7 @@ public class ControlFrame extends PApplet {
                 } );
 
         generalY += 50;
-        controlP5.addSlider( "updateDelay" )
+        updateDelaySlider = controlP5.addSlider( "updateDelay" )
                 .setRange( 0, 2000 )
                 .setSize( 300, 20 )
                 .setPosition( 10, generalY )
@@ -245,21 +245,21 @@ public class ControlFrame extends PApplet {
                             while (it.hasNext()) {
                                 Map.Entry pairs = ( Map.Entry ) it.next( );
                                 ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setDrawMode( DrawMode.POINTS );
+                                p.setRenderMode( RenderMode.POINTS );
                             }
                         } else if( v > 0.6f ) {
                             Iterator it = parent.chladniForms.entrySet().iterator();
                             while (it.hasNext()) {
                                 Map.Entry pairs = ( Map.Entry ) it.next( );
                                 ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setDrawMode( DrawMode.LINES );
+                                p.setRenderMode( RenderMode.LINES );
                             }
                         } else {
                             Iterator it = parent.chladniForms.entrySet().iterator();
                             while (it.hasNext()) {
                                 Map.Entry pairs = ( Map.Entry ) it.next( );
                                 ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setDrawMode( DrawMode.ORIGINAL );
+                                p.setRenderMode( RenderMode.ORIGINAL );
                             }
                         }
                     }

@@ -9,12 +9,11 @@ import java.awt.*;
  */
 public class ColorMode {
 
-    private ColorMapping colorModeEnum;
     private float minHue, maxHue;
     public float red, green, blue;
+    private ColorModeEnum colorMode;
 
     public ColorMode () {
-        colorModeEnum = ColorMapping.HUE;
         minHue = maxHue = 0.0f;
     }
 
@@ -50,5 +49,13 @@ public class ColorMode {
         red = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
         green = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
         blue = ( rgb & 0xFF ) / 255.0f;
+    }
+
+    public void setColorMode ( ColorModeEnum colorMode ) {
+        this.colorMode = colorMode;
+    }
+
+    public ColorModeEnum getColorMode () {
+        return colorMode;
     }
 }

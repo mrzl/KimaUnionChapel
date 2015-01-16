@@ -22,28 +22,27 @@ import java.util.ArrayList;
  */
 public class ChladniParticles {
 
+    private Main p;
     private ChladniSurface surface;
     private PGraphics particlePBO;
-    private ColorMode colorMode;
-    private ColorModeEnum colorModeEnum;
-    private DrawMode drawMode;
-    private int particleCount;
+
     private ArrayList< Vec2D > particles, oldParticles;
     private ArrayList< Float > velocities;
-    private Main p;
-    private float rebuildSpeed, particleSize, particleOpacity;
-    private boolean doMotionBlur;
-    private float motionBlurAmount;
-    private boolean drawOriginal;
+
+    private ColorMode colorMode;
+    private RenderMode renderMode;
     private BloomModifier bm;
     private MetaBallModifier mm;
+
+    private float scaleFactor; // only the underlying surface will be rendered smaller
+    private float rebuildSpeed, particleSize, particleOpacity;
+    private int particleCount;
+    private boolean doMotionBlur;
+    private float motionBlurAmount;
 
     // opengl
     public PGL pgl;
     public GL2 gl2;
-
-    // performance: rendering the origin smaller,
-    private float scaleFactor;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -51,44 +50,43 @@ public class ChladniParticles {
         this.particleCount = particleCount;
         this.scaleFactor = scaleFactor;
 
-        particlePBO = p.createGraphics( ( int ) ( getSurface( ).getWidth( ) * scaleFactor ), ( int ) ( getSurface( ).getHeight( ) * scaleFactor ), PConstants.P3D );
+        this.particlePBO = p.createGraphics( ( int ) ( getSurface( ).getWidth( ) * scaleFactor ), ( int ) ( getSurface( ).getHeight( ) * scaleFactor ), PConstants.P3D );
 
-        particles = new ArrayList<>( );
-        velocities = new ArrayList<>( );
-        oldParticles = new ArrayList<>();
+        this.particles = new ArrayList<>( );
+        this.velocities = new ArrayList<>( );
+        this.oldParticles = new ArrayList<>( );
 
         for ( int i = 0; i < particleCount; i++ ) {
             Vec2D v = new Vec2D( p.random( particlePBO.width ), p.random( particlePBO.height ) );
-            particles.add( v );
-            velocities.add( 1.0f );
-            oldParticles.add( new Vec2D( ) );
+            this.particles.add( v );
+            this.velocities.add( 1.0f );
+            this.oldParticles.add( new Vec2D( ) );
         }
 
-        rebuildSpeed = 40.0f;
-        particleSize = 3.0f;
+        this.rebuildSpeed = 40.0f;
+        this.particleSize = 3.0f;
         this.particleOpacity = 0.6f;
 
-        gl2 = GLU.getCurrentGL( ).getGL2( );
+        this.gl2 = GLU.getCurrentGL( ).getGL2( );
 
-        colorModeEnum = ColorModeEnum.MOON;
-        drawMode = DrawMode.ORIGINAL;
+        this.renderMode = RenderMode.ORIGINAL;
 
-        colorMode = new ColorMode();
-        doMotionBlur = true;
-        motionBlurAmount = 40;
-        drawOriginal = false;
-        bm = new BloomModifier( p );
-        mm = new MetaBallModifier( p );
+        this.colorMode = new ColorMode( );
+        this.colorMode.setColorMode( ColorModeEnum.MOON );
+        this.doMotionBlur = true;
+        this.motionBlurAmount = 40;
+        this.bm = new BloomModifier( p );
+        this.mm = new MetaBallModifier( p );
     }
 
     public void update ( int speed ) {
-        surface.update();
-        surface.loadPixels( );
+        this.surface.update( );
+        this.surface.loadPixels( );
 
         while ( particles.size( ) > particleCount ) {
             particles.remove( particles.size( ) - 1 );
-            velocities.remove( velocities.size() - 1 );
-            oldParticles.remove( oldParticles.size() - 1 );
+            velocities.remove( velocities.size( ) - 1 );
+            oldParticles.remove( oldParticles.size( ) - 1 );
         }
 
         while ( particles.size( ) < particleCount ) {
@@ -105,7 +103,7 @@ public class ChladniParticles {
                 float jumpyNess = p.map( surface.get( ( int ) ( v.x / scaleFactor ), ( int ) ( v.y / scaleFactor ) ), 0, 255, 0, rebuildSpeed );
                 Vec2D toAdd = new Vec2D( p.random( -jumpyNess, jumpyNess ), p.random( -jumpyNess, jumpyNess ) );
 
-                oldParticles.set( index, v.copy() );
+                oldParticles.set( index, v.copy( ) );
 
                 v.addSelf( toAdd );
 
@@ -113,7 +111,6 @@ public class ChladniParticles {
                 v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
 
                 velocities.set( index, jumpyNess );
-
 
                 index++;
             }
@@ -134,15 +131,15 @@ public class ChladniParticles {
         }
     }
 
-    public void restrictTriangular() {
-        ChladniTriangle c = ( ChladniTriangle ) getSurface();
-        PImage im = c.getMastk();
-        im.loadPixels();
+    public void restrictTriangular () {
+        ChladniTriangle c = ( ChladniTriangle ) getSurface( );
+        PImage im = c.getMastk( );
+        im.loadPixels( );
         for ( Vec2D v : particles ) {
             int x = ( int ) p.map( v.x, 0, particlePBO.width, 0, im.width );
             int y = ( int ) p.map( v.y, 0, particlePBO.height, 0, im.height );
             int index = x + y * im.width;
-            if( index < im.pixels.length - 1 && index >= 0 ) {
+            if ( index < im.pixels.length - 1 && index >= 0 ) {
                 int col = im.pixels[ index ] & 0xFF;
                 if ( col < 1 ) {
                     v.x = p.random( particlePBO.width );
@@ -152,25 +149,25 @@ public class ChladniParticles {
         }
     }
 
-    public void renderParticles () {
+    public void render () {
         particlePBO.beginDraw( );
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
-        switch( drawMode ) {
+        switch ( renderMode ) {
             case POINTS:
-                drawPoints();
+                drawPoints( );
                 break;
             case LINES:
-                drawLines();
+                drawLines( );
                 break;
             case ORIGINAL:
                 particlePBO.background( 0 );
-                drawOriginal( 0, 0, (int)(getSurface().getWidth()), (int)(getSurface().getHeight()) );
-                particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
+                drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                particlePBO.image( getSurface( ).getBuffer( ), 0, 0, particlePBO.width, particlePBO.height );
                 break;
             default:
-                // nothing
+                System.err.println( "ERROR: Trying to render with unknown RenderMode" );
                 break;
         }
 
@@ -178,28 +175,28 @@ public class ChladniParticles {
         particlePBO.endPGL( );
         particlePBO.endDraw( );
 
-        if( bm.isEnabled() ) {
-            bm.apply( getParticlePBO() );
-            getParticlePBO().beginDraw( );
-            getParticlePBO().blendMode( PConstants.ADD );
+        if ( bm.isEnabled( ) ) {
+            bm.apply( getParticlePBO( ) );
+            getParticlePBO( ).beginDraw( );
+            getParticlePBO( ).blendMode( PConstants.ADD );
 
-            getParticlePBO().image( getParticlePBO(), 0, 0 );
+            getParticlePBO( ).image( getParticlePBO( ), 0, 0 );
 
             getParticlePBO( ).blendMode( PConstants.BLEND );
-            getParticlePBO( ).endDraw();
+            getParticlePBO( ).endDraw( );
         }
 
-        if( mm.isEnabled() ) {
-            mm.apply( getParticlePBO() );
+        if ( mm.isEnabled( ) ) {
+            mm.apply( getParticlePBO( ) );
         }
     }
 
-    public void setDrawMode( DrawMode _dm ) {
-        this.drawMode = _dm;
+    public void setRenderMode ( RenderMode _dm ) {
+        this.renderMode = _dm;
     }
 
-    private void drawLines() {
-        if( isDoMotionBlur() ) {
+    private void drawLines () {
+        if ( isDoMotionBlur( ) ) {
             particlePBO.pushStyle( );
             particlePBO.noStroke( );
             particlePBO.fill( 0, motionBlurAmount );
@@ -210,7 +207,7 @@ public class ChladniParticles {
         }
 
         gl2.glEnable( GL.GL_BLEND );
-        gl2.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE);
+        gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
         gl2.glLineWidth( particleSize );
         gl2.glBegin( GL.GL_LINES );
 
@@ -224,8 +221,8 @@ public class ChladniParticles {
         }
     }
 
-    private void drawPoints() {
-        if( isDoMotionBlur() ) {
+    private void drawPoints () {
+        if ( isDoMotionBlur( ) ) {
             particlePBO.pushStyle( );
             particlePBO.noStroke( );
             particlePBO.fill( 0, motionBlurAmount );
@@ -241,9 +238,9 @@ public class ChladniParticles {
         gl2.glBegin( GL.GL_POINTS );
 
         int index = 0;
-        float r, g ,b;
+        float r, g, b;
         for ( Vec2D v : particles ) {
-            switch( colorModeEnum ) {
+            switch ( colorMode.getColorMode( ) ) {
                 case VELOCITIES:
                     colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed, ColorMapping.HUE );
                     r = colorMode.red;
@@ -273,37 +270,17 @@ public class ChladniParticles {
         }
     }
 
-    public void doAnomaly(){
+    public void doAnomaly () {
         int index = 0;
-        for( Vec2D v : particles ) {
-            if( velocities.get( index ) < 0.5f ) {
-                if( p.random( 1 ) < 0.1f ){
-                    v.addSelf( p.random(-rebuildSpeed, rebuildSpeed), p.random(-rebuildSpeed, rebuildSpeed) );
+        for ( Vec2D v : particles ) {
+            if ( velocities.get( index ) < 0.5f ) {
+                if ( p.random( 1 ) < 0.1f ) {
+                    v.addSelf( p.random( -rebuildSpeed, rebuildSpeed ), p.random( -rebuildSpeed, rebuildSpeed ) );
                 }
             }
 
             index++;
         }
-    }
-
-    public void setDoMotionBlur( boolean _doMotionBlur ) {
-        this.doMotionBlur = _doMotionBlur;
-    }
-
-    public boolean isDoMotionBlur() {
-        return this.doMotionBlur;
-    }
-
-    public float getMotionBlurAmount() {
-        return this.motionBlurAmount;
-    }
-
-    public void setMotionBlurAmount( float _motionBlurAmount ) {
-        this.motionBlurAmount = _motionBlurAmount;
-    }
-
-    public ColorMode getColorMode() {
-        return colorMode;
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
@@ -314,10 +291,6 @@ public class ChladniParticles {
         this.surface.draw( x, y, w, h );
     }
 
-    public PGraphics getParticlePBO () {
-        return particlePBO;
-    }
-
     public void frequencyChanged () {
         for ( Vec2D v : particles ) {
             float jumpyNess = 6.0f;
@@ -325,51 +298,13 @@ public class ChladniParticles {
         }
     }
 
-    public void setRebuildSpeed ( float _rebuildSpeed ) {
-        this.rebuildSpeed = _rebuildSpeed;
-    }
-
-    public void setParticleSize ( float _particleSize ) {
-        this.particleSize = _particleSize;
-    }
-
-    public float getParticleSize() {
-        return this.particleSize;
-    }
-
-    public ChladniSurface getSurface () {
-        return surface;
-    }
-
-    public void setParticleOpacity ( float _particleOpacity ) {
-        this.particleOpacity = _particleOpacity;
-    }
-
-    public void setColorModeEnum ( ColorModeEnum colorModeEnum ) {
-        this.colorModeEnum = colorModeEnum;
-    }
-
-    public ColorModeEnum getColorModeEnum() {
-        return colorModeEnum;
-    }
-
-    public float getScaleFactor() {
-        return this.scaleFactor;
-    }
-
-    public BloomModifier getBloomModifier() { return bm; }
-
-    public MetaBallModifier getMetaBallModifier () {
-        return mm;
-    }
-
     public void parameterChanged ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
-        switch( chladniPatternParameter ) {
+        switch ( chladniPatternParameter ) {
             case M:
-                getSurface().setM( value );
+                getSurface( ).setM( value );
                 break;
             case N:
-                getSurface().setN( value );
+                getSurface( ).setN( value );
                 break;
             case JUMPYNESS:
                 setRebuildSpeed( value );
@@ -384,10 +319,10 @@ public class ChladniParticles {
                 setParticleSize( value );
                 break;
             case POLES:
-                getSurface().setPoles( ( int ) value );
+                getSurface( ).setPoles( ( int ) value );
                 break;
             case SCALE:
-                getSurface().setScale( value );
+                getSurface( ).setScale( value );
                 break;
             default:
                 System.err.println( "EROR: Unknown ChladniPatternParameter type in ChladniPattern" );
@@ -395,20 +330,81 @@ public class ChladniParticles {
     }
 
     public void parameterChanged ( VisualParameterEnum visualParameter, float value ) {
-        switch( visualParameter ) {
+        switch ( visualParameter ) {
             case MIN_HUE:
-                getColorMode().setRangeMin( value );
+                getColorMode( ).setRangeMin( value );
                 System.out.println( "Setting value to " + value );
                 p.controlFrame.minMaxHue.setRangeValues( value, p.controlFrame.minMaxHue.getArrayValue( )[ 1 ] );
                 break;
             case MAX_HUE:
-                getColorMode().setRangeMax( value );
+                getColorMode( ).setRangeMax( value );
                 System.out.println( "Setting value to " + value );
-                p.controlFrame.minMaxHue.setRangeValues( p.controlFrame.minMaxHue.getArrayValue()[ 0 ], value );
+                p.controlFrame.minMaxHue.setRangeValues( p.controlFrame.minMaxHue.getArrayValue( )[ 0 ], value );
                 break;
             case UPDATE_DELAY:
-                System.err.println( "UPDATE_DELAY not yet implemented." );
+                p.soundController.setUpdateDelay( ( long ) value );
+                p.controlFrame.updateDelaySlider.setValue( value );
                 break;
         }
+    }
+
+    public PGraphics getParticlePBO () {
+        return particlePBO;
+    }
+
+    public void setRebuildSpeed ( float _rebuildSpeed ) {
+        this.rebuildSpeed = _rebuildSpeed;
+    }
+
+    public void setParticleSize ( float _particleSize ) {
+        this.particleSize = _particleSize;
+    }
+
+    public float getParticleSize () {
+        return this.particleSize;
+    }
+
+    public ChladniSurface getSurface () {
+        return surface;
+    }
+
+    public void setParticleOpacity ( float _particleOpacity ) {
+        this.particleOpacity = _particleOpacity;
+    }
+
+    public void setColorModeEnum ( ColorModeEnum colorModeEnum ) {
+        this.colorMode.setColorMode( colorModeEnum );
+    }
+
+    public float getScaleFactor () {
+        return this.scaleFactor;
+    }
+
+    public BloomModifier getBloomModifier () {
+        return bm;
+    }
+
+    public MetaBallModifier getMetaBallModifier () {
+        return mm;
+    }
+
+    public void setDoMotionBlur ( boolean _doMotionBlur ) {
+        this.doMotionBlur = _doMotionBlur;
+    }
+
+    public boolean isDoMotionBlur () {
+        return this.doMotionBlur;
+    }
+
+    public float getMotionBlurAmount () {
+        return this.motionBlurAmount;
+    }
+
+    public void setMotionBlurAmount ( float _motionBlurAmount ) {
+        this.motionBlurAmount = _motionBlurAmount;
+    }
+
+    public ColorMode getColorMode () {
+        return colorMode;
     }
 }
