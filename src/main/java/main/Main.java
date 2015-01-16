@@ -3,6 +3,7 @@ package main;
 import codeanticode.syphon.SyphonServer;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
+import nano.*;
 import osc.*;
 import pattern.ChladniTriangle;
 import pattern.ChladniParticles;
@@ -10,7 +11,6 @@ import pattern.ChladniCircle;
 import pattern.ChladniRectangle;
 import processing.core.PApplet;
 import processing.core.PConstants;
-import processing.core.PGraphics;
 
 import java.util.Calendar;
 
@@ -26,6 +26,7 @@ public class Main extends PApplet {
     protected ChladniParticles chladniCircle;
 
     protected SoundController soundController;
+    protected NanoKontrolController nanoController;
 
     private MetaBallModifier mm;
     private BloomModifier bm;
@@ -103,7 +104,15 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
 
-        prepareExitHandler();
+        nanoController = new NanoKontrolController( this );
+        NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
+        NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
+        //ChladniPatternParameter chladniParameter1 = new ChladniPatternParameter( Ch )
+        //nanoMapping.addMapping( NanoKontrolSliderEnum.SLIDER_1, VisualParameterEnum.MIN_HUE );
+        //nanoMapping.addMapping( NanoKontrolSliderEnum.SLIDER_2, VisualParameterEnum.MAX_HUE );
+        nanoController.addMapping( nanoMapping );
+
+        prepareExitHandler( );
     }
 
     public void draw () {

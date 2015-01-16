@@ -12,12 +12,14 @@ public class SoundParameterMapping {
 
     private ArrayList< SoundInputParameter > sips;
     private ArrayList< ChladniPatternParameter > cpps;
+    private ArrayList< Integer > updateDelays;
 
     private ChladniParticles chladniParticles;
 
     public SoundParameterMapping( ChladniParticles _chladniParticles ) {
         sips = new ArrayList<>(  );
         cpps = new ArrayList<>(  );
+        updateDelays = new ArrayList<>();
 
         this.chladniParticles = _chladniParticles;
     }

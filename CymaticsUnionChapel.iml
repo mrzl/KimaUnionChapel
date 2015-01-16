@@ -19,6 +19,6 @@
     <orderEntry type="library" name="oscP5" level="project" />
     <orderEntry type="library" name="Syphon" level="project" />
     <orderEntry type="library" name="jscience" level="project" />
+    <orderEntry type="library" name="themidibus" level="project" />
   </component>
 </module>
-
