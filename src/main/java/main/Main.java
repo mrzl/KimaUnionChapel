@@ -118,7 +118,7 @@ public class Main extends PApplet {
 
     public void draw () {
         if ( frameCount % 40 == 0 ) {
-            println( frameRate );
+            if( frame != null ) frame.setTitle( frameRate + "" );
         }
 
         // draw the surface
