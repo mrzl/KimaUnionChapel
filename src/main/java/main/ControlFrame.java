@@ -5,6 +5,8 @@ import pattern.*;
 import processing.core.PApplet;
 
 import java.awt.*;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by mar on 15.12.14.
@@ -25,7 +27,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniRect.getSurface( );
+                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface( );
                 r.setN( controlEvent.getValue( ) );
             }
         } );
@@ -33,7 +35,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniRect.getSurface( );
+                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface( );
                 r.setM( controlEvent.getValue( ) );
             }
         } );
@@ -43,7 +45,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
                 c.setN( controlEvent.getValue( ) );
             }
         } );
@@ -53,7 +55,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
                 c.setM( controlEvent.getValue( ) );
             }
         } );
@@ -62,7 +64,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
                 c.setPoles( ( int ) ( controlEvent.getValue( ) ) );
             }
         } );
@@ -71,7 +73,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniTriangle.getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
                 c.setScale( controlEvent.getValue( ) );
             }
         } );
@@ -81,7 +83,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniCircle.getSurface( );
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface( );
                 realCircle.setN( controlEvent.getValue( ) );
             }
         } );
@@ -90,7 +92,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniCircle.getSurface( );
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface( );
                 realCircle.setM( controlEvent.getValue( ) );
             }
         } );
@@ -120,9 +122,12 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniCircle.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
-                        parent.chladniRect.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
-                        parent.chladniTriangle.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                        Iterator it = parent.chladniForms.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pairs = ( Map.Entry ) it.next( );
+                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            p.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                        }
                     }
                 } );
 
@@ -149,9 +154,12 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniRect.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
-                        parent.chladniCircle.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
-                        parent.chladniTriangle.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
+                        Iterator it = parent.chladniForms.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pairs = ( Map.Entry ) it.next( );
+                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
+                        }
                     }
                 } );
 
@@ -168,9 +176,12 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniCircle.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        parent.chladniTriangle.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        parent.chladniRect.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        Iterator it = parent.chladniForms.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pairs = ( Map.Entry ) it.next( );
+                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            p.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        }
                     }
                 } )
         ;
@@ -185,13 +196,19 @@ public class ControlFrame extends PApplet {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
                         if ( getBoolFromFloat( controlEvent.getValue( ) ) ) {
-                            parent.chladniRect.setColorModeEnum( ColorModeEnum.MOON );
-                            parent.chladniTriangle.setColorModeEnum( ColorModeEnum.MOON );
-                            parent.chladniCircle.setColorModeEnum( ColorModeEnum.MOON );
+                            Iterator it = parent.chladniForms.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pairs = ( Map.Entry ) it.next( );
+                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                                p.setColorModeEnum( ColorModeEnum.MOON );
+                            }
                         } else {
-                            parent.chladniRect.setColorModeEnum( ColorModeEnum.VELOCITIES );
-                            parent.chladniTriangle.setColorModeEnum( ColorModeEnum.VELOCITIES );
-                            parent.chladniCircle.setColorModeEnum( ColorModeEnum.VELOCITIES );
+                            Iterator it = parent.chladniForms.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pairs = ( Map.Entry ) it.next( );
+                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                                p.setColorModeEnum( ColorModeEnum.VELOCITIES );
+                            }
                         }
                     }
                 } );
@@ -204,9 +221,12 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniCircle.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        parent.chladniTriangle.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        parent.chladniRect.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        Iterator it = parent.chladniForms.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pairs = ( Map.Entry ) it.next( );
+                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            p.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                        }
                     }
                 } );
 
@@ -221,20 +241,26 @@ public class ControlFrame extends PApplet {
                         float v = controlEvent.getValue( );
 
                         if ( v < 0.3f ) {
-                            System.out.println( "POINTS value: " + v );
-                            parent.chladniCircle.setDrawMode( DrawMode.POINTS );
-                            parent.chladniTriangle.setDrawMode( DrawMode.POINTS );
-                            parent.chladniRect.setDrawMode( DrawMode.POINTS );
+                            Iterator it = parent.chladniForms.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pairs = ( Map.Entry ) it.next( );
+                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                                p.setDrawMode( DrawMode.POINTS );
+                            }
                         } else if( v > 0.6f ) {
-                            System.out.println( "LINES value: " + v );
-                            parent.chladniCircle.setDrawMode( DrawMode.LINES );
-                            parent.chladniTriangle.setDrawMode( DrawMode.LINES );
-                            parent.chladniRect.setDrawMode( DrawMode.LINES );
+                            Iterator it = parent.chladniForms.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pairs = ( Map.Entry ) it.next( );
+                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                                p.setDrawMode( DrawMode.LINES );
+                            }
                         } else {
-                            System.out.println( "ORIGINAL value: " + v );
-                            parent.chladniCircle.setDrawMode( DrawMode.ORIGINAL );
-                            parent.chladniTriangle.setDrawMode( DrawMode.ORIGINAL );
-                            parent.chladniRect.setDrawMode( DrawMode.ORIGINAL );
+                            Iterator it = parent.chladniForms.entrySet().iterator();
+                            while (it.hasNext()) {
+                                Map.Entry pairs = ( Map.Entry ) it.next( );
+                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                                p.setDrawMode( DrawMode.ORIGINAL );
+                            }
                         }
                     }
                 } );
@@ -247,9 +273,12 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniTriangle.setDoMotionBlur( !parent.chladniTriangle.isDoMotionBlur() );
-                        parent.chladniRect.setDoMotionBlur( !parent.chladniRect.isDoMotionBlur() );
-                        parent.chladniCircle.setDoMotionBlur( !parent.chladniCircle.isDoMotionBlur() );
+                        Iterator it = parent.chladniForms.entrySet().iterator();
+                        while (it.hasNext()) {
+                            Map.Entry pairs = ( Map.Entry ) it.next( );
+                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            p.setDoMotionBlur( !p.isDoMotionBlur( ) );
+                        }
                     }
                 } );
     }
@@ -262,21 +291,21 @@ public class ControlFrame extends PApplet {
         Slider particleOpacitySliderRect = controlP5.addSlider( "particleOpacityRect" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniRect.setParticleOpacity( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleOpacitySliderTriangle = controlP5.addSlider( "particleOpacityTriangle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniTriangle.setParticleOpacity( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleOpacitySliderCircle = controlP5.addSlider( "particleOpacityCircle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniCircle.setParticleOpacity( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( controlEvent.getValue( ) );
             }
         } );
     }
@@ -285,21 +314,21 @@ public class ControlFrame extends PApplet {
         Slider particleCountSliderRect = controlP5.addSlider( "particleCountRect" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniRect.setParticleCount( ( int ) controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
 
         Slider particleCountSliderTriangle = controlP5.addSlider( "particleCountTriangle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniTriangle.setParticleCount( ( int ) controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
 
         Slider particleCountSliderCircle = controlP5.addSlider( "particleCountCircle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniCircle.setParticleCount( ( int ) controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
     }
@@ -308,21 +337,21 @@ public class ControlFrame extends PApplet {
         Slider particleSizeSliderRect = controlP5.addSlider( "particleSizeRect" ).setRange( 0, 30 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniRect.setParticleSize( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleSize( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleSizeSliderTriangle = controlP5.addSlider( "particleSizeTriangle" ).setRange( 0, 30 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniTriangle.setParticleSize( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleSize( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleSizeSliderCircle = controlP5.addSlider( "particleSizeCircle" ).setRange( 0, 30 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniCircle.setParticleSize( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleSize( controlEvent.getValue( ) );
             }
         } );
     }
@@ -331,21 +360,21 @@ public class ControlFrame extends PApplet {
         particleJumpynessSliderRect = controlP5.addSlider( "jumpynessRect" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniRect.setRebuildSpeed( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setRebuildSpeed( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleJumpynessSliderTriangle = controlP5.addSlider( "jumpynessTriangle" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniTriangle.setRebuildSpeed( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setRebuildSpeed( controlEvent.getValue( ) );
             }
         } );
 
         Slider particleJumpynessSliderCicle = controlP5.addSlider( "jumpynessCircle" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniCircle.setRebuildSpeed( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setRebuildSpeed( controlEvent.getValue( ) );
             }
         } );
     }

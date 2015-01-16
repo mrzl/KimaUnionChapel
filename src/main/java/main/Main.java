@@ -12,7 +12,7 @@ import pattern.ChladniRectangle;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-import java.util.Calendar;
+import java.util.*;
 
 /**
  * Created by mar on 13.12.14.
@@ -21,9 +21,9 @@ public class Main extends PApplet {
 
     public static final String OSX = "Mac";
 
-    protected ChladniParticles chladniRect;
-    protected ChladniParticles chladniTriangle;
-    protected ChladniParticles chladniCircle;
+    protected enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1}
+
+    protected HashMap< ChladniFormId, ChladniParticles > chladniForms;
 
     protected SoundController soundController;
     protected NanoKontrolController nanoController;
@@ -31,9 +31,9 @@ public class Main extends PApplet {
     private SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
 
-    int resolution;
-    float scaleFactor;
-    boolean debug = true;
+    private int resolution;
+    private float scaleFactor;
+    private boolean debug = true;
 
     public void setup () {
         int overallWidth, overallHeight;
@@ -51,15 +51,22 @@ public class Main extends PApplet {
             size( 1, 1, PConstants.P3D );
         }
 
-        noSmooth();
+        noSmooth( );
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
         ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
 
-        chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
-        chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
-        chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
+
+        ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
+        ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
+        ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
+
+        chladniForms = new HashMap<>( );
+        chladniForms.put( ChladniFormId.RECT1, chladniRect );
+        chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
+        chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
+
 
         controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 800 );
 
@@ -72,7 +79,7 @@ public class Main extends PApplet {
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
         SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 20.0f );
-        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 200 ,10000 );
+        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 200, 10000 );
         ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
         mappingRect.addMapping( soundMapping11, chladniMapping11 );
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
@@ -115,24 +122,30 @@ public class Main extends PApplet {
         }
 
         // draw the surface
-        chladniRect.update( 1 );
-        chladniTriangle.update( 1 );
-        chladniCircle.update( 1 );
+        Iterator it = chladniForms.entrySet( ).iterator( );
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.update( 1 );
+        }
 
         // restrict surfaces
-        chladniTriangle.restrictTriangular( );
-        chladniCircle.restrictCircular( ( int ) ( chladniTriangle.getSurface( ).getWidth( ) * scaleFactor / 2 ) );
+        chladniForms.get( ChladniFormId.TRIANGLE1 ).restrictTriangular( );
+        chladniForms.get( ChladniFormId.CIRCLE1 ).restrictCircular( ( int ) ( chladniForms.get( ChladniFormId.TRIANGLE1 ).getSurface( ).getWidth( ) * scaleFactor / 2 ) );
 
         // draw particles
-        chladniRect.renderParticles( );
-        chladniTriangle.renderParticles( );
-        chladniCircle.renderParticles( );
+        it = chladniForms.entrySet( ).iterator( );
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.renderParticles( );
+        }
 
         // draw everything on the syphon buffer
         syphonOutput.beginDraw( );
-        syphonOutput.drawOnTexture( chladniRect.getParticlePBO( ), 0, 0 );
-        syphonOutput.drawOnTexture( chladniTriangle.getParticlePBO( ), ( int ) ( resolution * chladniRect.getScaleFactor( ) ), 0 );
-        syphonOutput.drawOnTexture( chladniCircle.getParticlePBO( ), ( int ) ( resolution * 2 * chladniTriangle.getScaleFactor( ) ), 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO( ), 0, 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
         if ( debug ) {
@@ -140,28 +153,31 @@ public class Main extends PApplet {
         }
 
         // send syphon texture
-        if ( System.getProperty("os.name").startsWith( OSX ) ) {
+        if ( System.getProperty( "os.name" ).startsWith( OSX ) ) {
             syphonOutput.send( );
         }
 
         // do anomalies in order to avoid too strong clustering on black areas
-        chladniRect.doAnomaly();
-        chladniCircle.doAnomaly();
-        chladniTriangle.doAnomaly();
+        it = chladniForms.entrySet( ).iterator( );
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.doAnomaly( );
+        }
     }
 
-    String timestamp() {
-        Calendar now = Calendar.getInstance();
+    String timestamp () {
+        Calendar now = Calendar.getInstance( );
         return String.format( "%1$ty.%1$tm.%1$td_%1$tH:%1$tM:%1$tS", now );
     }
 
     private void prepareExitHandler () {
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+        Runtime.getRuntime( ).addShutdownHook( new Thread( new Runnable( ) {
             public void run () {
-                controlFrame.saveParameters();
-                System.out.println("Shutdown successfull");
+                controlFrame.saveParameters( );
+                System.out.println( "Shutdown successfull" );
             }
-        }));
+        } ) );
     }
 
     public static void main ( String[] args ) {
