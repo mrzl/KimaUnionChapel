@@ -325,7 +325,7 @@ public class ChladniParticles {
                 getSurface( ).setScale( value );
                 break;
             default:
-                System.err.println( "EROR: Unknown ChladniPatternParameter type in ChladniPattern" );
+                System.err.println( "ERROR: Unknown ChladniPatternParameter type in ChladniPattern" );
         }
     }
 
@@ -333,12 +333,10 @@ public class ChladniParticles {
         switch ( visualParameter ) {
             case MIN_HUE:
                 getColorMode( ).setRangeMin( value );
-                System.out.println( "Setting value to " + value );
                 p.controlFrame.minMaxHue.setRangeValues( value, p.controlFrame.minMaxHue.getArrayValue( )[ 1 ] );
                 break;
             case MAX_HUE:
                 getColorMode( ).setRangeMax( value );
-                System.out.println( "Setting value to " + value );
                 p.controlFrame.minMaxHue.setRangeValues( p.controlFrame.minMaxHue.getArrayValue( )[ 0 ], value );
                 break;
             case UPDATE_DELAY:
