@@ -24,11 +24,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6207865" vertical-offset="1538" max-vertical-offset="3438">
-              <caret line="120" column="26" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2294" max-vertical-offset="3438">
+              <caret line="154" column="46" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChladniSurfaceInterface.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurfaceInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChladniSurface.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1026">
+              <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChladniRectangle.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniRectangle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -46,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Utils.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Utils.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
+            <state vertical-scroll-proportion="0.1737931" vertical-offset="0" max-vertical-offset="725">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
               <folding />
             </state>
@@ -66,16 +96,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChladniPatternParameterEnum.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/osc/ChladniPatternParameterEnum.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="396">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ColorMode.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ColorMode.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -86,21 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BloomModifier.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/modificators/BloomModifier.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="810">
-              <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ChladniParticles.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="4976" max-vertical-offset="6714">
-              <caret line="330" column="0" selection-start-line="330" selection-start-column="0" selection-end-line="330" selection-end-column="0" />
+              <caret line="316" column="25" selection-start-line="316" selection-start-column="25" selection-end-line="316" selection-end-column="25" />
               <folding>
                 <element signature="e#8877#8878#0" expanded="true" />
                 <element signature="e#8921#8922#0" expanded="true" />
@@ -137,58 +147,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SoundController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/osc/SoundController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="252" max-vertical-offset="2880">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ControlFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/ControlFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1773" max-vertical-offset="5530">
-              <caret line="191" column="57" selection-start-line="191" selection-start-column="57" selection-end-line="191" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2772" max-vertical-offset="6698">
+              <caret line="217" column="27" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="27" />
               <folding>
                 <element signature="e#641#1015#0" expanded="true" />
                 <element signature="e#1004#1005#0" expanded="true" />
-                <element signature="e#7937#8193#0" expanded="true" />
-                <element signature="e#8182#8183#0" expanded="true" />
-                <element signature="e#8393#8653#0" expanded="true" />
-                <element signature="e#8642#8643#0" expanded="true" />
-                <element signature="e#8849#9107#0" expanded="true" />
-                <element signature="e#9096#9097#0" expanded="true" />
-                <element signature="e#14930#14931#0" expanded="true" />
-                <element signature="e#14960#14961#0" expanded="true" />
-                <element signature="e#15212#15467#0" expanded="true" />
-                <element signature="e#15456#15457#0" expanded="true" />
-                <element signature="e#15663#15922#0" expanded="true" />
-                <element signature="e#15911#15912#0" expanded="true" />
-                <element signature="e#16114#16371#0" expanded="true" />
-                <element signature="e#16360#16361#0" expanded="true" />
-                <element signature="e#16633#16894#0" expanded="true" />
-                <element signature="e#16883#16884#0" expanded="true" />
-                <element signature="e#17094#17359#0" expanded="true" />
-                <element signature="e#17348#17349#0" expanded="true" />
-                <element signature="e#17555#17818#0" expanded="true" />
-                <element signature="e#17807#17808#0" expanded="true" />
-                <element signature="e#18070#18322#0" expanded="true" />
-                <element signature="e#18311#18312#0" expanded="true" />
-                <element signature="e#18513#18769#0" expanded="true" />
-                <element signature="e#18758#18759#0" expanded="true" />
-                <element signature="e#18956#19210#0" expanded="true" />
-                <element signature="e#19199#19200#0" expanded="true" />
-                <element signature="e#19456#19708#0" expanded="true" />
-                <element signature="e#19697#19698#0" expanded="true" />
-                <element signature="e#19903#20159#0" expanded="true" />
-                <element signature="e#20148#20149#0" expanded="true" />
-                <element signature="e#20349#20603#0" expanded="true" />
-                <element signature="e#20592#20593#0" expanded="true" />
-                <element signature="e#20639#20640#0" expanded="true" />
-                <element signature="e#20670#20671#0" expanded="true" />
+                <element signature="e#7852#8108#0" expanded="true" />
+                <element signature="e#8097#8098#0" expanded="true" />
+                <element signature="e#8308#8568#0" expanded="true" />
+                <element signature="e#8557#8558#0" expanded="true" />
+                <element signature="e#8764#9022#0" expanded="true" />
+                <element signature="e#9011#9012#0" expanded="true" />
+                <element signature="e#14845#14846#0" expanded="true" />
+                <element signature="e#14875#14876#0" expanded="true" />
+                <element signature="e#15127#15382#0" expanded="true" />
+                <element signature="e#15371#15372#0" expanded="true" />
+                <element signature="e#15578#15837#0" expanded="true" />
+                <element signature="e#15826#15827#0" expanded="true" />
+                <element signature="e#16029#16286#0" expanded="true" />
+                <element signature="e#16275#16276#0" expanded="true" />
+                <element signature="e#16548#16809#0" expanded="true" />
+                <element signature="e#16798#16799#0" expanded="true" />
+                <element signature="e#17009#17274#0" expanded="true" />
+                <element signature="e#17263#17264#0" expanded="true" />
+                <element signature="e#17470#17733#0" expanded="true" />
+                <element signature="e#17722#17723#0" expanded="true" />
+                <element signature="e#17985#18237#0" expanded="true" />
+                <element signature="e#18226#18227#0" expanded="true" />
+                <element signature="e#18428#18684#0" expanded="true" />
+                <element signature="e#18673#18674#0" expanded="true" />
+                <element signature="e#18871#19125#0" expanded="true" />
+                <element signature="e#19114#19115#0" expanded="true" />
+                <element signature="e#19371#19623#0" expanded="true" />
+                <element signature="e#19612#19613#0" expanded="true" />
+                <element signature="e#19818#20074#0" expanded="true" />
+                <element signature="e#20063#20064#0" expanded="true" />
+                <element signature="e#20264#20518#0" expanded="true" />
+                <element signature="e#20507#20508#0" expanded="true" />
+                <element signature="e#20554#20555#0" expanded="true" />
+                <element signature="e#20585#20586#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -204,11 +204,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/main/ControlFrame.java" />
         <option value="$PROJECT_DIR$/src/main/java/nano/VisualParameterEnum.java" />
         <option value="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
         <option value="$PROJECT_DIR$/src/main/java/nano/NanoKontrolController.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/ControlFrame.java" />
       </list>
     </option>
   </component>
@@ -828,40 +828,40 @@
           <folding>
             <element signature="e#641#1015#0" expanded="true" />
             <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#7937#8193#0" expanded="true" />
-            <element signature="e#8182#8183#0" expanded="true" />
-            <element signature="e#8393#8653#0" expanded="true" />
-            <element signature="e#8642#8643#0" expanded="true" />
-            <element signature="e#8849#9107#0" expanded="true" />
-            <element signature="e#9096#9097#0" expanded="true" />
-            <element signature="e#14930#14931#0" expanded="true" />
-            <element signature="e#14960#14961#0" expanded="true" />
-            <element signature="e#15212#15467#0" expanded="true" />
-            <element signature="e#15456#15457#0" expanded="true" />
-            <element signature="e#15663#15922#0" expanded="true" />
-            <element signature="e#15911#15912#0" expanded="true" />
-            <element signature="e#16114#16371#0" expanded="true" />
-            <element signature="e#16360#16361#0" expanded="true" />
-            <element signature="e#16633#16894#0" expanded="true" />
-            <element signature="e#16883#16884#0" expanded="true" />
-            <element signature="e#17094#17359#0" expanded="true" />
-            <element signature="e#17348#17349#0" expanded="true" />
-            <element signature="e#17555#17818#0" expanded="true" />
-            <element signature="e#17807#17808#0" expanded="true" />
-            <element signature="e#18070#18322#0" expanded="true" />
-            <element signature="e#18311#18312#0" expanded="true" />
-            <element signature="e#18513#18769#0" expanded="true" />
-            <element signature="e#18758#18759#0" expanded="true" />
-            <element signature="e#18956#19210#0" expanded="true" />
-            <element signature="e#19199#19200#0" expanded="true" />
-            <element signature="e#19456#19708#0" expanded="true" />
-            <element signature="e#19697#19698#0" expanded="true" />
-            <element signature="e#19903#20159#0" expanded="true" />
-            <element signature="e#20148#20149#0" expanded="true" />
-            <element signature="e#20349#20603#0" expanded="true" />
-            <element signature="e#20592#20593#0" expanded="true" />
-            <element signature="e#20639#20640#0" expanded="true" />
-            <element signature="e#20670#20671#0" expanded="true" />
+            <element signature="e#7852#8108#0" expanded="true" />
+            <element signature="e#8097#8098#0" expanded="true" />
+            <element signature="e#8308#8568#0" expanded="true" />
+            <element signature="e#8557#8558#0" expanded="true" />
+            <element signature="e#8764#9022#0" expanded="true" />
+            <element signature="e#9011#9012#0" expanded="true" />
+            <element signature="e#14845#14846#0" expanded="true" />
+            <element signature="e#14875#14876#0" expanded="true" />
+            <element signature="e#15127#15382#0" expanded="true" />
+            <element signature="e#15371#15372#0" expanded="true" />
+            <element signature="e#15578#15837#0" expanded="true" />
+            <element signature="e#15826#15827#0" expanded="true" />
+            <element signature="e#16029#16286#0" expanded="true" />
+            <element signature="e#16275#16276#0" expanded="true" />
+            <element signature="e#16548#16809#0" expanded="true" />
+            <element signature="e#16798#16799#0" expanded="true" />
+            <element signature="e#17009#17274#0" expanded="true" />
+            <element signature="e#17263#17264#0" expanded="true" />
+            <element signature="e#17470#17733#0" expanded="true" />
+            <element signature="e#17722#17723#0" expanded="true" />
+            <element signature="e#17985#18237#0" expanded="true" />
+            <element signature="e#18226#18227#0" expanded="true" />
+            <element signature="e#18428#18684#0" expanded="true" />
+            <element signature="e#18673#18674#0" expanded="true" />
+            <element signature="e#18871#19125#0" expanded="true" />
+            <element signature="e#19114#19115#0" expanded="true" />
+            <element signature="e#19371#19623#0" expanded="true" />
+            <element signature="e#19612#19613#0" expanded="true" />
+            <element signature="e#19818#20074#0" expanded="true" />
+            <element signature="e#20063#20064#0" expanded="true" />
+            <element signature="e#20264#20518#0" expanded="true" />
+            <element signature="e#20507#20508#0" expanded="true" />
+            <element signature="e#20554#20555#0" expanded="true" />
+            <element signature="e#20585#20586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -888,40 +888,40 @@
           <folding>
             <element signature="e#641#1015#0" expanded="true" />
             <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#7937#8193#0" expanded="true" />
-            <element signature="e#8182#8183#0" expanded="true" />
-            <element signature="e#8393#8653#0" expanded="true" />
-            <element signature="e#8642#8643#0" expanded="true" />
-            <element signature="e#8849#9107#0" expanded="true" />
-            <element signature="e#9096#9097#0" expanded="true" />
-            <element signature="e#14930#14931#0" expanded="true" />
-            <element signature="e#14960#14961#0" expanded="true" />
-            <element signature="e#15212#15467#0" expanded="true" />
-            <element signature="e#15456#15457#0" expanded="true" />
-            <element signature="e#15663#15922#0" expanded="true" />
-            <element signature="e#15911#15912#0" expanded="true" />
-            <element signature="e#16114#16371#0" expanded="true" />
-            <element signature="e#16360#16361#0" expanded="true" />
-            <element signature="e#16633#16894#0" expanded="true" />
-            <element signature="e#16883#16884#0" expanded="true" />
-            <element signature="e#17094#17359#0" expanded="true" />
-            <element signature="e#17348#17349#0" expanded="true" />
-            <element signature="e#17555#17818#0" expanded="true" />
-            <element signature="e#17807#17808#0" expanded="true" />
-            <element signature="e#18070#18322#0" expanded="true" />
-            <element signature="e#18311#18312#0" expanded="true" />
-            <element signature="e#18513#18769#0" expanded="true" />
-            <element signature="e#18758#18759#0" expanded="true" />
-            <element signature="e#18956#19210#0" expanded="true" />
-            <element signature="e#19199#19200#0" expanded="true" />
-            <element signature="e#19456#19708#0" expanded="true" />
-            <element signature="e#19697#19698#0" expanded="true" />
-            <element signature="e#19903#20159#0" expanded="true" />
-            <element signature="e#20148#20149#0" expanded="true" />
-            <element signature="e#20349#20603#0" expanded="true" />
-            <element signature="e#20592#20593#0" expanded="true" />
-            <element signature="e#20639#20640#0" expanded="true" />
-            <element signature="e#20670#20671#0" expanded="true" />
+            <element signature="e#7852#8108#0" expanded="true" />
+            <element signature="e#8097#8098#0" expanded="true" />
+            <element signature="e#8308#8568#0" expanded="true" />
+            <element signature="e#8557#8558#0" expanded="true" />
+            <element signature="e#8764#9022#0" expanded="true" />
+            <element signature="e#9011#9012#0" expanded="true" />
+            <element signature="e#14845#14846#0" expanded="true" />
+            <element signature="e#14875#14876#0" expanded="true" />
+            <element signature="e#15127#15382#0" expanded="true" />
+            <element signature="e#15371#15372#0" expanded="true" />
+            <element signature="e#15578#15837#0" expanded="true" />
+            <element signature="e#15826#15827#0" expanded="true" />
+            <element signature="e#16029#16286#0" expanded="true" />
+            <element signature="e#16275#16276#0" expanded="true" />
+            <element signature="e#16548#16809#0" expanded="true" />
+            <element signature="e#16798#16799#0" expanded="true" />
+            <element signature="e#17009#17274#0" expanded="true" />
+            <element signature="e#17263#17264#0" expanded="true" />
+            <element signature="e#17470#17733#0" expanded="true" />
+            <element signature="e#17722#17723#0" expanded="true" />
+            <element signature="e#17985#18237#0" expanded="true" />
+            <element signature="e#18226#18227#0" expanded="true" />
+            <element signature="e#18428#18684#0" expanded="true" />
+            <element signature="e#18673#18674#0" expanded="true" />
+            <element signature="e#18871#19125#0" expanded="true" />
+            <element signature="e#19114#19115#0" expanded="true" />
+            <element signature="e#19371#19623#0" expanded="true" />
+            <element signature="e#19612#19613#0" expanded="true" />
+            <element signature="e#19818#20074#0" expanded="true" />
+            <element signature="e#20063#20064#0" expanded="true" />
+            <element signature="e#20264#20518#0" expanded="true" />
+            <element signature="e#20507#20508#0" expanded="true" />
+            <element signature="e#20554#20555#0" expanded="true" />
+            <element signature="e#20585#20586#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1060,17 +1060,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurfaceInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="238">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniTriangle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
           <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,13 +1079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2022" max-vertical-offset="2754">
           <caret line="140" column="30" selection-start-line="140" selection-start-column="30" selection-end-line="140" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniRectangle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1124,19 +1111,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
           <caret line="28" column="33" selection-start-line="28" selection-start-column="33" selection-end-line="28" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="96" max-vertical-offset="1037">
-          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
-          <folding>
-            <element signature="e#661#662#0" expanded="false" />
-            <element signature="e#711#712#0" expanded="false" />
-            <element signature="e#1143#1144#0" expanded="false" />
-            <element signature="e#1236#1237#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1179,51 +1154,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/ControlFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1773" max-vertical-offset="5530">
-          <caret line="191" column="57" selection-start-line="191" selection-start-column="57" selection-end-line="191" selection-end-column="57" />
-          <folding>
-            <element signature="e#641#1015#0" expanded="true" />
-            <element signature="e#1004#1005#0" expanded="true" />
-            <element signature="e#7937#8193#0" expanded="true" />
-            <element signature="e#8182#8183#0" expanded="true" />
-            <element signature="e#8393#8653#0" expanded="true" />
-            <element signature="e#8642#8643#0" expanded="true" />
-            <element signature="e#8849#9107#0" expanded="true" />
-            <element signature="e#9096#9097#0" expanded="true" />
-            <element signature="e#14930#14931#0" expanded="true" />
-            <element signature="e#14960#14961#0" expanded="true" />
-            <element signature="e#15212#15467#0" expanded="true" />
-            <element signature="e#15456#15457#0" expanded="true" />
-            <element signature="e#15663#15922#0" expanded="true" />
-            <element signature="e#15911#15912#0" expanded="true" />
-            <element signature="e#16114#16371#0" expanded="true" />
-            <element signature="e#16360#16361#0" expanded="true" />
-            <element signature="e#16633#16894#0" expanded="true" />
-            <element signature="e#16883#16884#0" expanded="true" />
-            <element signature="e#17094#17359#0" expanded="true" />
-            <element signature="e#17348#17349#0" expanded="true" />
-            <element signature="e#17555#17818#0" expanded="true" />
-            <element signature="e#17807#17808#0" expanded="true" />
-            <element signature="e#18070#18322#0" expanded="true" />
-            <element signature="e#18311#18312#0" expanded="true" />
-            <element signature="e#18513#18769#0" expanded="true" />
-            <element signature="e#18758#18759#0" expanded="true" />
-            <element signature="e#18956#19210#0" expanded="true" />
-            <element signature="e#19199#19200#0" expanded="true" />
-            <element signature="e#19456#19708#0" expanded="true" />
-            <element signature="e#19697#19698#0" expanded="true" />
-            <element signature="e#19903#20159#0" expanded="true" />
-            <element signature="e#20148#20149#0" expanded="true" />
-            <element signature="e#20349#20603#0" expanded="true" />
-            <element signature="e#20592#20593#0" expanded="true" />
-            <element signature="e#20639#20640#0" expanded="true" />
-            <element signature="e#20670#20671#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nano/VisualParameterEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
@@ -1232,10 +1162,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Utils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nano/NanoKontrolController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
+          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+          <folding>
+            <element signature="e#578#579#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurfaceInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniSurface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="31" max-vertical-offset="1026">
+          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniRectangle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1243,7 +1199,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="4976" max-vertical-offset="6714">
-          <caret line="330" column="0" selection-start-line="330" selection-start-column="0" selection-end-line="330" selection-end-column="0" />
+          <caret line="316" column="25" selection-start-line="316" selection-start-column="25" selection-end-line="316" selection-end-column="25" />
           <folding>
             <element signature="e#8877#8878#0" expanded="true" />
             <element signature="e#8921#8922#0" expanded="true" />
@@ -1279,20 +1235,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nano/NanoKontrolController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/ControlFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1350">
-          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2772" max-vertical-offset="6698">
+          <caret line="217" column="27" selection-start-line="217" selection-start-column="27" selection-end-line="217" selection-end-column="27" />
           <folding>
-            <element signature="e#578#579#0" expanded="true" />
+            <element signature="e#641#1015#0" expanded="true" />
+            <element signature="e#1004#1005#0" expanded="true" />
+            <element signature="e#7852#8108#0" expanded="true" />
+            <element signature="e#8097#8098#0" expanded="true" />
+            <element signature="e#8308#8568#0" expanded="true" />
+            <element signature="e#8557#8558#0" expanded="true" />
+            <element signature="e#8764#9022#0" expanded="true" />
+            <element signature="e#9011#9012#0" expanded="true" />
+            <element signature="e#14845#14846#0" expanded="true" />
+            <element signature="e#14875#14876#0" expanded="true" />
+            <element signature="e#15127#15382#0" expanded="true" />
+            <element signature="e#15371#15372#0" expanded="true" />
+            <element signature="e#15578#15837#0" expanded="true" />
+            <element signature="e#15826#15827#0" expanded="true" />
+            <element signature="e#16029#16286#0" expanded="true" />
+            <element signature="e#16275#16276#0" expanded="true" />
+            <element signature="e#16548#16809#0" expanded="true" />
+            <element signature="e#16798#16799#0" expanded="true" />
+            <element signature="e#17009#17274#0" expanded="true" />
+            <element signature="e#17263#17264#0" expanded="true" />
+            <element signature="e#17470#17733#0" expanded="true" />
+            <element signature="e#17722#17723#0" expanded="true" />
+            <element signature="e#17985#18237#0" expanded="true" />
+            <element signature="e#18226#18227#0" expanded="true" />
+            <element signature="e#18428#18684#0" expanded="true" />
+            <element signature="e#18673#18674#0" expanded="true" />
+            <element signature="e#18871#19125#0" expanded="true" />
+            <element signature="e#19114#19115#0" expanded="true" />
+            <element signature="e#19371#19623#0" expanded="true" />
+            <element signature="e#19612#19613#0" expanded="true" />
+            <element signature="e#19818#20074#0" expanded="true" />
+            <element signature="e#20063#20064#0" expanded="true" />
+            <element signature="e#20264#20518#0" expanded="true" />
+            <element signature="e#20507#20508#0" expanded="true" />
+            <element signature="e#20554#20555#0" expanded="true" />
+            <element signature="e#20585#20586#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6207865" vertical-offset="1538" max-vertical-offset="3438">
-          <caret line="120" column="26" selection-start-line="120" selection-start-column="26" selection-end-line="120" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2294" max-vertical-offset="3438">
+          <caret line="154" column="46" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1737931" vertical-offset="0" max-vertical-offset="725">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>

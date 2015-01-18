@@ -152,7 +152,7 @@ public class Main extends PApplet {
         chladniForms.get( ChladniFormId.CIRCLE1 ).restrictCircular( ( int ) ( chladniForms.get( ChladniFormId.TRIANGLE1 ).getSurface( ).getWidth( ) * scaleFactor / 2 ) );
 
         // draw particles
-        it = chladniForms.entrySet( ).iterator( );
+        it = chladniForms.entrySet().iterator();
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
