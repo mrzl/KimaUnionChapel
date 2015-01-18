@@ -22,7 +22,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>0.24</value>
+		<value>0.84</value>
 	</property>
 	<property>
 		<address>/particleOpacityRect</address>
@@ -126,7 +126,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>3.6</value>
+		<value>2.6999998</value>
 	</property>
 	<property>
 		<address>/realCircleN</address>
@@ -390,7 +390,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>6300.0</value>
+		<value>4499.9995</value>
 	</property>
 	<property>
 		<address>/rectN</address>
@@ -518,7 +518,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>3600.0</value>
+		<value>4800.0</value>
 	</property>
 	<property>
 		<address>/rectM</address>
@@ -582,7 +582,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>6300.0</value>
+		<value>5999.9995</value>
 	</property>
 	<property>
 		<address>/particleOpacityCircle</address>
