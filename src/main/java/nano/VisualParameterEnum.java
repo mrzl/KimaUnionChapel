@@ -6,5 +6,6 @@ package nano;
 public enum VisualParameterEnum {
     UPDATE_DELAY,
     MIN_HUE,
-    MAX_HUE
+    MAX_HUE,
+    BACKGROUND_OPACITY
 }

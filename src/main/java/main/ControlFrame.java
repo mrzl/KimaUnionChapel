@@ -27,7 +27,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface( );
+                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface();
                 r.setN( controlEvent.getValue( ) );
             }
         } );
@@ -35,7 +35,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface( );
+                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface();
                 r.setM( controlEvent.getValue( ) );
             }
         } );
@@ -45,7 +45,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
                 c.setN( controlEvent.getValue( ) );
             }
         } );
@@ -55,7 +55,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
                 c.setM( controlEvent.getValue( ) );
             }
         } );
@@ -64,7 +64,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
                 c.setPoles( ( int ) ( controlEvent.getValue( ) ) );
             }
         } );
@@ -73,7 +73,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface( );
+                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
                 c.setScale( controlEvent.getValue( ) );
             }
         } );
@@ -83,7 +83,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface( );
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface();
                 realCircle.setN( controlEvent.getValue( ) );
             }
         } );
@@ -92,12 +92,12 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface( );
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface();
                 realCircle.setM( controlEvent.getValue( ) );
             }
         } );
 
-        float generalY = 450;
+        float generalY = 400;
         createJumpynessSliders( generalY );
 
         generalY += 30;
@@ -109,7 +109,11 @@ public class ControlFrame extends PApplet {
         generalY += 30;
         createParticleOpacitySliders( generalY );
 
-        generalY += 40;
+        generalY += 30;
+
+        createBackgroundOpacitySliders( generalY );
+
+        generalY += 100;
 
         addToggles( generalY );
 
@@ -165,6 +169,29 @@ public class ControlFrame extends PApplet {
 
         this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
         controlP5.loadProperties();
+    }
+
+    private void createBackgroundOpacitySliders( float generalY ) {
+        Slider backgroundOpacitySliderRect = controlP5.addSlider( "backgroundOpacityRect" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setMotionBlurAmount( controlEvent.getValue( ) );
+            }
+        } );
+
+        Slider backgroundOpacitySliderTriangle = controlP5.addSlider( "backgroundOpacityTriangle" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setMotionBlurAmount( controlEvent.getValue( ) );
+            }
+        } );
+
+        Slider backgroundOpacitySliderCircle = controlP5.addSlider( "backgroundOpacityCircle" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setMotionBlurAmount( controlEvent.getValue( ) );
+            }
+        } );
     }
 
     private void addToggles ( float generalY ) {
@@ -264,7 +291,7 @@ public class ControlFrame extends PApplet {
                         }
                     }
                 } );
-
+        /*
         controlP5.addToggle( "motionBlur" )
                 .setPosition( 290, generalY )
                 .setSize( 50, 20 )
@@ -281,6 +308,7 @@ public class ControlFrame extends PApplet {
                         }
                     }
                 } );
+                */
     }
 
     private boolean getBoolFromFloat ( float _f ) {

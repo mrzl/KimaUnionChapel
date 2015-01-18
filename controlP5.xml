@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<properties name="C:\Users\mrzl\Dropbox\workspace\CymaticsUnionChapel\controlP5.xml">
+<properties name="/home/mar/Dropbox/workspace/CymaticsUnionChapel/controlP5.xml">
 	<property>
 		<address>/particleOpacityTriangle</address>
 		<class>controlP5.Slider</class>
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>0.45</value>
+		<value>0.58</value>
 	</property>
 	<property>
 		<address>/circlePoles</address>
@@ -14,7 +14,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>31.066668</value>
+		<value>18.133333</value>
 	</property>
 	<property>
 		<address>/particleOpacityCircle</address>
@@ -22,7 +22,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>0.84</value>
+		<value>0.6</value>
 	</property>
 	<property>
 		<address>/particleOpacityRect</address>
@@ -54,7 +54,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>46.666668</value>
+		<value>100.0</value>
 	</property>
 	<property>
 		<address>/realCircleM</address>
@@ -86,7 +86,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>0.19333334</value>
+		<value>0.2</value>
 	</property>
 	<property>
 		<address>/particleOpacityTriangle</address>
@@ -126,7 +126,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>2.6999998</value>
+		<value>3.0</value>
 	</property>
 	<property>
 		<address>/realCircleN</address>
@@ -222,7 +222,23 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>3.9466667</value>
+		<value>5.9833336</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityTriangle</address>
+		<class>controlP5.Slider</class>
+		<setter>setMin</setter>
+		<getter>getMin</getter>
+		<type>float</type>
+		<value>0.0</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityRect</address>
+		<class>controlP5.Slider</class>
+		<setter>setMin</setter>
+		<getter>getMin</getter>
+		<type>float</type>
+		<value>0.0</value>
 	</property>
 	<property>
 		<address>/circleM</address>
@@ -281,20 +297,12 @@
 		<value>2000.0</value>
 	</property>
 	<property>
-		<address>/motionBlur</address>
-		<class>controlP5.Toggle</class>
-		<setter>setValue</setter>
-		<getter>getValue</getter>
-		<type>float</type>
-		<value>1.0</value>
-	</property>
-	<property>
 		<address>/realCircleN</address>
 		<class>controlP5.Slider</class>
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>5.75</value>
+		<value>9.17</value>
 	</property>
 	<property>
 		<address>/circleM</address>
@@ -302,7 +310,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>19.466667</value>
+		<value>23.600002</value>
 	</property>
 	<property>
 		<address>/bloomToggle</address>
@@ -337,6 +345,14 @@
 		<value>20.0</value>
 	</property>
 	<property>
+		<address>/backgroundOpacityCircle</address>
+		<class>controlP5.Slider</class>
+		<setter>setValue</setter>
+		<getter>getValue</getter>
+		<type>float</type>
+		<value>45.899998</value>
+	</property>
+	<property>
 		<address>/circlePoles</address>
 		<class>controlP5.Slider</class>
 		<setter>setMax</setter>
@@ -353,12 +369,20 @@
 		<value>30000.0</value>
 	</property>
 	<property>
+		<address>/backgroundOpacityCircle</address>
+		<class>controlP5.Slider</class>
+		<setter>setMax</setter>
+		<getter>getMax</getter>
+		<type>float</type>
+		<value>255.0</value>
+	</property>
+	<property>
 		<address>/particleOpacityRect</address>
 		<class>controlP5.Slider</class>
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>0.44</value>
+		<value>0.53999996</value>
 	</property>
 	<property>
 		<address>/rectN</address>
@@ -366,7 +390,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>12.133333</value>
+		<value>2.3333333</value>
 	</property>
 	<property>
 		<address>/jumpynessCircle</address>
@@ -374,7 +398,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>14.0</value>
+		<value>9.999999</value>
 	</property>
 	<property>
 		<address>/thresholdToggle</address>
@@ -390,7 +414,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>4499.9995</value>
+		<value>8099.9995</value>
 	</property>
 	<property>
 		<address>/rectN</address>
@@ -430,7 +454,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>29.866667</value>
+		<value>28.133335</value>
 	</property>
 	<property>
 		<address>/jumpynessRect</address>
@@ -438,7 +462,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>28.0</value>
+		<value>24.0</value>
 	</property>
 	<property>
 		<address>/circleScale</address>
@@ -446,7 +470,15 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>1.1933334</value>
+		<value>0.64</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityCircle</address>
+		<class>controlP5.Slider</class>
+		<setter>setMin</setter>
+		<getter>getMin</getter>
+		<type>float</type>
+		<value>0.0</value>
 	</property>
 	<property>
 		<address>/circleScale</address>
@@ -494,7 +526,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>8.0</value>
+		<value>6.0</value>
 	</property>
 	<property>
 		<address>/updateDelay</address>
@@ -510,7 +542,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>3.0</value>
+		<value>3.3</value>
 	</property>
 	<property>
 		<address>/particleCountTriangle</address>
@@ -518,7 +550,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>4800.0</value>
+		<value>5999.9995</value>
 	</property>
 	<property>
 		<address>/rectM</address>
@@ -526,7 +558,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>4.4666667</value>
+		<value>7.0</value>
 	</property>
 	<property>
 		<address>/particleSizeTriangle</address>
@@ -534,7 +566,7 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>3.0</value>
+		<value>3.3</value>
 	</property>
 	<property>
 		<address>/minHue</address>
@@ -542,7 +574,7 @@
 		<setter>setHighValue</setter>
 		<getter>getHighValue</getter>
 		<type>float</type>
-		<value>0.046428572</value>
+		<value>0.07857143</value>
 	</property>
 	<property>
 		<address>/jumpynessRect</address>
@@ -551,6 +583,14 @@
 		<getter>getMax</getter>
 		<type>float</type>
 		<value>200.0</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityRect</address>
+		<class>controlP5.Slider</class>
+		<setter>setMax</setter>
+		<getter>getMax</getter>
+		<type>float</type>
+		<value>255.0</value>
 	</property>
 	<property>
 		<address>/jumpynessTriangle</address>
@@ -582,7 +622,23 @@
 		<setter>setValue</setter>
 		<getter>getValue</getter>
 		<type>float</type>
-		<value>5999.9995</value>
+		<value>8099.9995</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityTriangle</address>
+		<class>controlP5.Slider</class>
+		<setter>setMax</setter>
+		<getter>getMax</getter>
+		<type>float</type>
+		<value>255.0</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityTriangle</address>
+		<class>controlP5.Slider</class>
+		<setter>setValue</setter>
+		<getter>getValue</getter>
+		<type>float</type>
+		<value>58.649998</value>
 	</property>
 	<property>
 		<address>/particleOpacityCircle</address>
@@ -599,5 +655,13 @@
 		<getter>getMin</getter>
 		<type>float</type>
 		<value>0.0</value>
+	</property>
+	<property>
+		<address>/backgroundOpacityRect</address>
+		<class>controlP5.Slider</class>
+		<setter>setValue</setter>
+		<getter>getValue</getter>
+		<type>float</type>
+		<value>81.6</value>
 	</property>
 </properties>

@@ -37,7 +37,7 @@ public class ChladniParticles {
     private float scaleFactor; // only the underlying surface will be rendered smaller
     private float rebuildSpeed, particleSize, particleOpacity;
     private int particleCount;
-    private boolean doMotionBlur;
+    //private boolean doMotionBlur;
     private float motionBlurAmount;
 
     // opengl
@@ -73,7 +73,6 @@ public class ChladniParticles {
 
         this.colorMode = new ColorMode( );
         this.colorMode.setColorMode( ColorModeEnum.MOON );
-        this.doMotionBlur = true;
         this.motionBlurAmount = 40;
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
@@ -196,15 +195,7 @@ public class ChladniParticles {
     }
 
     private void drawLines () {
-        if ( isDoMotionBlur( ) ) {
-            particlePBO.pushStyle( );
-            particlePBO.noStroke( );
-            particlePBO.fill( 0, motionBlurAmount );
-            particlePBO.rect( 0, 0, particlePBO.width, particlePBO.height );
-            particlePBO.popStyle( );
-        } else {
-            particlePBO.background( 0 );
-        }
+        particlePBO.background( 0, motionBlurAmount );
 
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
@@ -222,15 +213,7 @@ public class ChladniParticles {
     }
 
     private void drawPoints () {
-        if ( isDoMotionBlur( ) ) {
-            particlePBO.pushStyle( );
-            particlePBO.noStroke( );
-            particlePBO.fill( 0, motionBlurAmount );
-            particlePBO.rect( 0, 0, particlePBO.width, particlePBO.height );
-            particlePBO.popStyle( );
-        } else {
-            particlePBO.background( 0 );
-        }
+        particlePBO.background( 0, motionBlurAmount );
 
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
@@ -343,6 +326,9 @@ public class ChladniParticles {
                 p.soundController.setUpdateDelay( ( long ) value );
                 p.controlFrame.updateDelaySlider.setValue( value );
                 break;
+            case BACKGROUND_OPACITY:
+                setMotionBlurAmount( value );
+                break;
         }
     }
 
@@ -384,14 +370,6 @@ public class ChladniParticles {
 
     public MetaBallModifier getMetaBallModifier () {
         return mm;
-    }
-
-    public void setDoMotionBlur ( boolean _doMotionBlur ) {
-        this.doMotionBlur = _doMotionBlur;
-    }
-
-    public boolean isDoMotionBlur () {
-        return this.doMotionBlur;
     }
 
     public float getMotionBlurAmount () {

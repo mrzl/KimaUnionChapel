@@ -13,7 +13,7 @@ public class NanoKontrolController {
     private MidiBus midi;
     private ArrayList< NanoKontrolMapping > mappings;
 
-    public NanoKontrolController ( PApplet p, String nanoControlIdentifier ) {
+    public NanoKontrolController ( PApplet p, int nanoControlIdentifier ) {
         this.mappings = new ArrayList<>( );
         this.midi = new MidiBus( this, nanoControlIdentifier, -1 );
     }
