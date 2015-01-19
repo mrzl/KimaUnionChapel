@@ -167,7 +167,7 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
-        this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
         controlP5.loadProperties();
     }
 
@@ -419,7 +419,7 @@ public class ControlFrame extends PApplet {
     }
 
     public void saveParameters () {
-        this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
         this.controlP5.saveProperties(  );
     }
 
