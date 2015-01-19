@@ -291,24 +291,22 @@ public class ControlFrame extends PApplet {
                         }
                     }
                 } );
-        /*
-        controlP5.addToggle( "motionBlur" )
-                .setPosition( 290, generalY )
-                .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.setDoMotionBlur( !p.isDoMotionBlur( ) );
-                        }
-                    }
-                } );
-                */
+
+        controlP5.addToggle( "behaviorMode" ).setPosition( 300, generalY ).setSize( 50, 20 ).setValue( false ).addListener(new ControlListener() {
+            @Override
+            public void controlEvent( ControlEvent controlEvent ) {
+                boolean v = getBoolFromFloat( controlEvent.getValue() );
+                if ( v ) {
+                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                } else {
+                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                }
+            }
+        });
     }
 
     private boolean getBoolFromFloat ( float _f ) {

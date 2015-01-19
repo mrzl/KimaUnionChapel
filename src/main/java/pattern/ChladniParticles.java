@@ -405,4 +405,12 @@ public class ChladniParticles {
     public ColorMode getColorMode () {
         return colorMode;
     }
+
+    public void setBehaviorMode(BehaviorMode behaviorMode) {
+        this.behaviorMode = behaviorMode;
+    }
+
+    public BehaviorMode getBehaviorMode() {
+        return behaviorMode;
+    }
 }
