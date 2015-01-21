@@ -30,7 +30,7 @@ public class Main extends PApplet {
 
     private int resolution;
     private float scaleFactor;
-    private boolean debug = true;
+    private boolean debug = false;
 
     public void setup () {
         int overallWidth, overallHeight;
@@ -74,28 +74,28 @@ public class Main extends PApplet {
         // amplitude = [0,0.99]
         this.soundController = new SoundController( this, 5001 );
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
-        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
+        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.5f );
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 20.0f );
         SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 200, 10000 );
         ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
-        mappingRect.addMapping( soundMapping11, chladniMapping11 );
-        mappingRect.addMapping( soundMapping21, chladniMapping21 );
-        soundController.addSoundParameterMapping( mappingRect );
+        //mappingRect.addMapping( soundMapping11, chladniMapping11 );
+        //mappingRect.addMapping( soundMapping21, chladniMapping21 );
+        //soundController.addSoundParameterMapping( mappingRect );
 
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
+        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 20f );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 0.2f, 0.5f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200, 10000 );
+        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200, 500 );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
         soundController.addSoundParameterMapping( mappingTriangle );
 
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 0.99f );
+        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, 0.0f, 20.0f );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 200.0f, 10000.0f );
-        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 500 );
+        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, 200.0f, 500 );
+        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 10 );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );

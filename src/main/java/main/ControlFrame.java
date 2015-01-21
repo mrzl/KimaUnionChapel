@@ -113,7 +113,7 @@ public class ControlFrame extends PApplet {
 
         createBackgroundOpacitySliders( generalY );
 
-        generalY += 100;
+        generalY += 40;
 
         addToggles( generalY );
 
