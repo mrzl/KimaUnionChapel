@@ -15,6 +15,9 @@ public class NanoKontrolController {
 
     public NanoKontrolController ( PApplet p, int nanoControlIdentifier ) {
         this.mappings = new ArrayList<>( );
+        for( String s : MidiBus.availableInputs() ) {
+            System.out.println(s);
+        }
         this.midi = new MidiBus( this, nanoControlIdentifier, -1 );
     }
 

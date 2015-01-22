@@ -5,6 +5,7 @@ import modificators.BloomModifier;
 import modificators.MetaBallModifier;
 import nano.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
+import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.core.PImage;
@@ -31,6 +32,7 @@ public class ChladniParticles {
 
     private ColorMode colorMode;
     private RenderMode renderMode;
+    private BehaviorMode behaviorMode;
     private BloomModifier bm;
     private MetaBallModifier mm;
 
@@ -70,6 +72,7 @@ public class ChladniParticles {
         this.gl2 = GLU.getCurrentGL( ).getGL2( );
 
         this.renderMode = RenderMode.ORIGINAL;
+        this.behaviorMode = BehaviorMode.REGULAR;
 
         this.colorMode = new ColorMode( );
         this.colorMode.setColorMode( ColorModeEnum.MOON );
@@ -89,16 +92,29 @@ public class ChladniParticles {
         }
 
         while ( particles.size( ) < particleCount ) {
-            particles.add( new Vec2D( p.random( particlePBO.width ), p.random( particlePBO.height ) ) );
+            if( behaviorMode == BehaviorMode.REGULAR ) {
+                particles.add(new Vec2D(p.random(particlePBO.width), p.random(particlePBO.height)));
+            } else if ( behaviorMode == BehaviorMode.CENTER_OUTWARDS ) {
+                particles.add(new Vec2D(particlePBO.width / 2, particlePBO.height / 2));
+            }
+
             velocities.add( 1.0f );
             oldParticles.add( new Vec2D( ) );
+        }
+        if( behaviorMode == BehaviorMode.CENTER_OUTWARDS ) {
+            for (Vec2D v : particles) {
+                Vec2D center = new Vec2D(particlePBO.width / 2, particlePBO.height / 2);
+                Vec2D trans = v.sub(center).normalize().scale(PApplet.map(p.dist(particlePBO.width / 2, particlePBO.height / 2, v.x, v.y), 0, particlePBO.width / 2, 0, 0.6f));
+                v.addSelf(trans);
+            }
         }
 
         for ( int i = 0; i < speed; i++ ) {
             int index = 0;
             for ( Vec2D v : particles ) {
-                v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
-                v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
+
+                limitParticleToBufferSize( v );
+
                 float jumpyNess = p.map( surface.get( ( int ) ( v.x / scaleFactor ), ( int ) ( v.y / scaleFactor ) ), 0, 255, 0, rebuildSpeed );
                 Vec2D toAdd = new Vec2D( p.random( -jumpyNess, jumpyNess ), p.random( -jumpyNess, jumpyNess ) );
 
@@ -106,14 +122,20 @@ public class ChladniParticles {
 
                 v.addSelf( toAdd );
 
-                v.x = p.constrain( v.x, 0, particlePBO.width - 1 );
-                v.y = p.constrain( v.y, 0, particlePBO.height - 1 );
+                limitParticleToBufferSize( v );
 
                 velocities.set( index, jumpyNess );
 
                 index++;
             }
         }
+    }
+
+    private void limitParticleToBufferSize( Vec2D v ) {
+        if( v.x >= particlePBO.width ) v.x = p.random( particlePBO.width );
+        if( v.x < 0 ) v.x = p.random( particlePBO.width );
+        if( v.y >= particlePBO.height ) v.y = p.random( particlePBO.height );
+        if( v.y < 0 ) v.y = p.random( particlePBO.height );
     }
 
     public void setParticleCount ( int _particleCount ) {
@@ -382,5 +404,13 @@ public class ChladniParticles {
 
     public ColorMode getColorMode () {
         return colorMode;
+    }
+
+    public void setBehaviorMode(BehaviorMode behaviorMode) {
+        this.behaviorMode = behaviorMode;
+    }
+
+    public BehaviorMode getBehaviorMode() {
+        return behaviorMode;
     }
 }

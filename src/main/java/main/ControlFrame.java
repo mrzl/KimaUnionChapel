@@ -113,7 +113,7 @@ public class ControlFrame extends PApplet {
 
         createBackgroundOpacitySliders( generalY );
 
-        generalY += 100;
+        generalY += 40;
 
         addToggles( generalY );
 
@@ -167,6 +167,10 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
+<<<<<<< HEAD
+=======
+       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+>>>>>>> b93e1b974aa86d75c0d16de445d509446338508d
         controlP5.loadProperties();
     }
 
@@ -290,24 +294,22 @@ public class ControlFrame extends PApplet {
                         }
                     }
                 } );
-        /*
-        controlP5.addToggle( "motionBlur" )
-                .setPosition( 290, generalY )
-                .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.setDoMotionBlur( !p.isDoMotionBlur( ) );
-                        }
-                    }
-                } );
-                */
+
+        controlP5.addToggle( "behaviorMode" ).setPosition( 300, generalY ).setSize( 50, 20 ).setValue( false ).addListener(new ControlListener() {
+            @Override
+            public void controlEvent( ControlEvent controlEvent ) {
+                boolean v = getBoolFromFloat( controlEvent.getValue() );
+                if ( v ) {
+                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                } else {
+                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                }
+            }
+        });
     }
 
     private boolean getBoolFromFloat ( float _f ) {
@@ -418,7 +420,11 @@ public class ControlFrame extends PApplet {
     }
 
     public void saveParameters () {
+<<<<<<< HEAD
         //this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+=======
+       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
+>>>>>>> b93e1b974aa86d75c0d16de445d509446338508d
         this.controlP5.saveProperties(  );
     }
 

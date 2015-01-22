@@ -12,7 +12,7 @@ namespace KinectV2OSC.Model.Network
     {
         public OscMessage BuildJointMessageX(Body body, KeyValuePair<JointType, Joint> joint)
         {
-            var address = String.Format("/bodies/{0}/joints/{1}/x", body.TrackingId, joint.Key );
+            var address = String.Format("/bodies/1/joints/{0}/x", joint.Key );
             var position = joint.Value.Position;
             //System.Diagnostics.Debug.WriteLine(address);
             return new OscMessage(address, position.X);
@@ -28,7 +28,7 @@ namespace KinectV2OSC.Model.Network
 
         public OscMessage BuildJointMessageZ(Body body, KeyValuePair<JointType, Joint> joint)
         {
-            var address = String.Format("/bodies/{0}/joints/{1}/z", body.TrackingId, joint.Key);
+            var address = String.Format("/bodies/1/joints/{0}/z", joint.Key);
             var position = joint.Value.Position;
             //System.Diagnostics.Debug.WriteLine(address);
             return new OscMessage(address, position.Z);
