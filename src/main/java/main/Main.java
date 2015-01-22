@@ -30,7 +30,7 @@ public class Main extends PApplet {
 
     private int resolution;
     private float scaleFactor;
-    private boolean debug = false;
+    private boolean debug = true;
 
     public void setup () {
         int overallWidth, overallHeight;
@@ -78,9 +78,9 @@ public class Main extends PApplet {
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 20.0f );
         SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 200, 10000 );
         ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
-        //mappingRect.addMapping( soundMapping11, chladniMapping11 );
-        //mappingRect.addMapping( soundMapping21, chladniMapping21 );
-        //soundController.addSoundParameterMapping( mappingRect );
+        mappingRect.addMapping( soundMapping11, chladniMapping11 );
+        mappingRect.addMapping( soundMapping21, chladniMapping21 );
+        soundController.addSoundParameterMapping( mappingRect );
 
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
         SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 20f );

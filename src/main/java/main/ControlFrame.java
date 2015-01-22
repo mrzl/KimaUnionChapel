@@ -167,10 +167,6 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
-<<<<<<< HEAD
-=======
-       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
->>>>>>> b93e1b974aa86d75c0d16de445d509446338508d
         controlP5.loadProperties();
     }
 
@@ -420,11 +416,6 @@ public class ControlFrame extends PApplet {
     }
 
     public void saveParameters () {
-<<<<<<< HEAD
-        //this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
-=======
-       // this.controlP5.getProperties().setFormat( ControllerProperties.Format.XML );
->>>>>>> b93e1b974aa86d75c0d16de445d509446338508d
         this.controlP5.saveProperties(  );
     }
 

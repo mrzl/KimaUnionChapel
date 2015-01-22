@@ -184,8 +184,18 @@ public class ChladniParticles {
                 break;
             case ORIGINAL:
                 particlePBO.background( 0 );
-                drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                particlePBO.image( getSurface( ).getBuffer( ), 0, 0, particlePBO.width, particlePBO.height );
+                if( surface.getClass().equals( ChladniTriangle.class ) ) {
+                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                    PGraphics pg = getSurface().getBuffer();
+                    particlePBO.pushMatrix();
+                    particlePBO.scale( 1.0f, -1.0f );
+                    particlePBO.image( pg, 0, -particlePBO.height, particlePBO.width, particlePBO.height );
+                    particlePBO.popMatrix();
+                } else {
+                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+
+                    particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
+                }
                 break;
             default:
                 System.err.println( "ERROR: Trying to render with unknown RenderMode" );

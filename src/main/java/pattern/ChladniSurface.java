@@ -1,6 +1,5 @@
 package pattern;
 
-import main.ControlFrame;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
