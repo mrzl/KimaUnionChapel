@@ -175,7 +175,7 @@ public class ChladniParticles {
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
-        switch ( renderMode ) {
+        switch ( getRenderMode() ) {
             case POINTS:
                 drawPoints( );
                 break;
@@ -184,6 +184,7 @@ public class ChladniParticles {
                 break;
             case ORIGINAL:
                 particlePBO.background( 0 );
+                // some bug in processing PShader, it flips the shape somehow..
                 if( surface.getClass().equals( ChladniTriangle.class ) ) {
                     drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     PGraphics pg = getSurface().getBuffer();
@@ -193,7 +194,7 @@ public class ChladniParticles {
                     particlePBO.popMatrix();
                 } else {
                     drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-
+                    particlePBO.tint( particleOpacity * 255 );
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
                 break;
@@ -220,6 +221,10 @@ public class ChladniParticles {
         if ( mm.isEnabled( ) ) {
             mm.apply( getParticlePBO( ) );
         }
+    }
+
+    private RenderMode getRenderMode () {
+        return renderMode;
     }
 
     public void setRenderMode ( RenderMode _dm ) {
