@@ -3,7 +3,7 @@ package pattern;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
-import nano.VisualParameterEnum;
+import midi.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -175,17 +175,34 @@ public class ChladniParticles {
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
-        switch ( renderMode ) {
+
+        switch ( getRenderMode() ) {
             case POINTS:
+                getSurface().setDrawMonochrome( true );
                 drawPoints( );
                 break;
             case LINES:
+                getSurface().setDrawMonochrome( true );
                 drawLines( );
                 break;
             case ORIGINAL:
                 particlePBO.background( 0 );
-                drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                particlePBO.image( getSurface( ).getBuffer( ), 0, 0, particlePBO.width, particlePBO.height );
+                getSurface().setDrawMonochrome( false );
+                getSurface().setMinHue( getColorMode().getMinHue() );
+                getSurface().setMaxHue( getColorMode().getMaxHue() );
+
+                // some bug in processing PShader, it flips the shape somehow..
+                if( surface.getClass().equals( ChladniTriangle.class ) ) {
+                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                    PGraphics pg = getSurface().getBuffer();
+                    particlePBO.pushMatrix();
+                    particlePBO.scale( 1.0f, -1.0f );
+                    particlePBO.image( pg, 0, -particlePBO.height, particlePBO.width, particlePBO.height );
+                    particlePBO.popMatrix();
+                } else {
+                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                    particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
+                }
                 break;
             default:
                 System.err.println( "ERROR: Trying to render with unknown RenderMode" );
@@ -210,6 +227,10 @@ public class ChladniParticles {
         if ( mm.isEnabled( ) ) {
             mm.apply( getParticlePBO( ) );
         }
+    }
+
+    private RenderMode getRenderMode () {
+        return renderMode;
     }
 
     public void setRenderMode ( RenderMode _dm ) {
@@ -241,6 +262,7 @@ public class ChladniParticles {
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
         gl2.glPointSize( particleSize );
         gl2.glBegin( GL.GL_POINTS );
+
 
         int index = 0;
         float r, g, b;
@@ -351,6 +373,32 @@ public class ChladniParticles {
             case BACKGROUND_OPACITY:
                 setMotionBlurAmount( value );
                 break;
+            case M:
+                getSurface( ).setM( value );
+                break;
+            case N:
+                getSurface( ).setN( value );
+                break;
+            case JUMPYNESS:
+                setRebuildSpeed( value );
+                break;
+            case PARTICLE_COUNT:
+                setParticleCount( ( int ) value );
+                break;
+            case PARTICLE_OPACITY:
+                setParticleOpacity( value );
+                break;
+            case PARTICLE_SIZE:
+                setParticleSize( value );
+                break;
+            case POLES:
+                getSurface( ).setPoles( ( int ) value );
+                break;
+            case SCALE:
+                getSurface( ).setScale( value );
+                break;
+            default:
+                System.err.println( "ERROR: UNKNOWN VIASUAL PARAMETER" );
         }
     }
 
@@ -412,5 +460,9 @@ public class ChladniParticles {
 
     public BehaviorMode getBehaviorMode() {
         return behaviorMode;
+    }
+
+    public void setIntensity( float _intensity ) {
+        this.getSurface().setIntensity( _intensity );
     }
 }

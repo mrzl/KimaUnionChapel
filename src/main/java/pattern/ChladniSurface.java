@@ -1,7 +1,6 @@
 package pattern;
 
-import main.ControlFrame;
-import processing.core.PApplet;
+import main.Main;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
@@ -10,14 +9,18 @@ import processing.opengl.PShader;
  * Created by mar on 14.12.14.
  */
 public class ChladniSurface implements ChladniSurfaceInterface {
-    protected PApplet p;
+    protected Main p;
     protected PGraphics offscreen;
     protected PShader shader;
     private float n, m;
     private int poles;
     private float scale;
+    private boolean drawMonochrome;
+    private float minHue;
+    private float maxHue;
+    private float intensity;
 
-    public ChladniSurface ( PApplet p, int width, int height ) {
+    public ChladniSurface ( Main p, int width, int height ) {
         this.p = p;
         offscreen = p.createGraphics( width, height, PConstants.P3D );
     }
@@ -52,6 +55,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setM( float m ) {
+        //if( this.getClass().equals( ChladniRectangle.class ) ) {
+        //    p.controlFrame.rectMSlider.setValue( m );
+        //}
         this.m = m;
     }
 
@@ -60,6 +66,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setN ( float n ) {
+        //if( this.getClass().equals( ChladniRectangle.class ) ) {
+        //    p.controlFrame.rectNSlider.setValue( n );
+       // }
         this.n = n;
     }
 
@@ -81,5 +90,37 @@ public class ChladniSurface implements ChladniSurfaceInterface {
 
     public float getScale () {
         return scale;
+    }
+
+    public float getMinHue () {
+        return minHue;
+    }
+
+    public void setMinHue ( float minHue ) {
+        this.minHue = minHue;
+    }
+
+    public float getMaxHue () {
+        return maxHue;
+    }
+
+    public void setMaxHue ( float maxHue ) {
+        this.maxHue = maxHue;
+    }
+
+    public boolean isDrawMonochrome () {
+        return drawMonochrome;
+    }
+
+    public void setDrawMonochrome ( boolean drawMonochrome ) {
+        this.drawMonochrome = drawMonochrome;
+    }
+
+    public float getIntensity () {
+        return intensity;
+    }
+
+    public void setIntensity ( float intensity ) {
+        this.intensity = intensity;
     }
 }
