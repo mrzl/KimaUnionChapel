@@ -1,7 +1,6 @@
 package pattern;
 
 import main.Main;
-import processing.core.PApplet;
 
 import java.io.File;
 
@@ -18,11 +17,21 @@ public class ChladniRectangle extends ChladniSurface {
 
         setM( 10.0f );
         setN( 2.0f );
+
+        setMinHue( 0.0f );
+        setMaxHue( 0.4f );
+        setDrawMonochrome( false );
+        setIntensity( 1.0f );
     }
 
     public void update() {
         this.shader.set( "m", getM() );
-        this.shader.set( "n", getN() );
+        this.shader.set( "n", getN( ) );
+        this.shader.set( "minHue", getMinHue() );
+        this.shader.set( "maxHue", getMaxHue() );
+        this.shader.set( "drawMonochrome", isDrawMonochrome() );
+        this.shader.set( "intensity", getIntensity() );
+
         getBuffer().beginDraw();
 
         getBuffer().shader( this.shader );

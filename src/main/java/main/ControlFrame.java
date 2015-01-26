@@ -23,6 +23,7 @@ public class ControlFrame extends PApplet {
     public Slider particleCountSliderRect, particleCountSliderTriangle, particleCountSliderCircle;
     public Slider particleSizeSliderRect, particleSizeSliderTriangle, particleSizeSliderCircle;
     public Slider backgroundOpacitySliderRect, backgroundOpacitySliderTriangle, backgroundOpacitySliderCircle;
+    public Slider intensitySliderRecht, intensitySliderTriangle, intensitySliderCircle;
     public Range minMaxHue;
 
     public void setup () {
@@ -169,6 +170,44 @@ public class ControlFrame extends PApplet {
                             ChladniParticles p = ( ChladniParticles ) pairs.getValue();
                             p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
                         }
+                    }
+                } );
+
+        generalY += 50;
+
+        intensitySliderRecht = controlP5.addSlider( "intensityRect" )
+                .setRange( 0, 1 )
+                .setSize( 100, 20 )
+                .setPosition( 10, generalY )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setIntensity( controlEvent.getValue() );
+                    }
+                } );
+
+        intensitySliderTriangle = controlP5.addSlider( "intensityTriangle" )
+                .setRange( 0, 1 )
+                .setSize( 100, 20 )
+                .setPosition( 130, generalY )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setIntensity( controlEvent.getValue() );
+                    }
+                } );
+
+        intensitySliderCircle = controlP5.addSlider( "intensityCircle" )
+                .setRange( 0, 1 )
+                .setSize( 100, 20 )
+                .setPosition( 240, generalY )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setIntensity( controlEvent.getValue() );
                     }
                 } );
 

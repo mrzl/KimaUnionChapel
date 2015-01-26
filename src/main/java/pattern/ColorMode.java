@@ -58,4 +58,12 @@ public class ColorMode {
     public ColorModeEnum getColorMode () {
         return colorMode;
     }
+
+    public float getMinHue() {
+        return minHue;
+    }
+
+    public float getMaxHue() {
+        return maxHue;
+    }
 }

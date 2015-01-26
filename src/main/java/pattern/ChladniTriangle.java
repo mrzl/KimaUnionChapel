@@ -23,16 +23,24 @@ public class ChladniTriangle extends ChladniSurface {
         setScale( 1.2f );
         setN( 3.0f );
         setM( 2.0f );
+        setMinHue( 0.0f );
+        setMaxHue( 0.4f );
+        setDrawMonochrome( false );
+        setIntensity( 1.0f );
 
         this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
         this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );
     }
 
     public void update() {
-        this.shader.set( "m", getM() );
-        this.shader.set( "n", getN() );
-        this.shader.set( "scale", getScale() );
-        this.shader.set( "poles", getPoles() );
+        this.shader.set( "m", getM( ) );
+        this.shader.set( "n", getN( ) );
+        this.shader.set( "scale", getScale( ) );
+        this.shader.set( "poles", getPoles( ) );
+        this.shader.set( "minHue", getMinHue() );
+        this.shader.set( "maxHue", getMaxHue() );
+        this.shader.set( "drawMonochrome", isDrawMonochrome() );
+        this.shader.set( "intensity", getIntensity() );
 
         getBuffer().beginDraw();
         getBuffer().background( 255 );

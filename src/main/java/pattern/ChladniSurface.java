@@ -1,7 +1,6 @@
 package pattern;
 
 import main.Main;
-import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
@@ -16,6 +15,10 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     private float n, m;
     private int poles;
     private float scale;
+    private boolean drawMonochrome;
+    private float minHue;
+    private float maxHue;
+    private float intensity;
 
     public ChladniSurface ( Main p, int width, int height ) {
         this.p = p;
@@ -87,5 +90,37 @@ public class ChladniSurface implements ChladniSurfaceInterface {
 
     public float getScale () {
         return scale;
+    }
+
+    public float getMinHue () {
+        return minHue;
+    }
+
+    public void setMinHue ( float minHue ) {
+        this.minHue = minHue;
+    }
+
+    public float getMaxHue () {
+        return maxHue;
+    }
+
+    public void setMaxHue ( float maxHue ) {
+        this.maxHue = maxHue;
+    }
+
+    public boolean isDrawMonochrome () {
+        return drawMonochrome;
+    }
+
+    public void setDrawMonochrome ( boolean drawMonochrome ) {
+        this.drawMonochrome = drawMonochrome;
+    }
+
+    public float getIntensity () {
+        return intensity;
+    }
+
+    public void setIntensity ( float intensity ) {
+        this.intensity = intensity;
     }
 }

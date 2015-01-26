@@ -175,15 +175,22 @@ public class ChladniParticles {
         pgl = particlePBO.beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
+
         switch ( getRenderMode() ) {
             case POINTS:
+                getSurface().setDrawMonochrome( true );
                 drawPoints( );
                 break;
             case LINES:
+                getSurface().setDrawMonochrome( true );
                 drawLines( );
                 break;
             case ORIGINAL:
                 particlePBO.background( 0 );
+                getSurface().setDrawMonochrome( false );
+                getSurface().setMinHue( getColorMode().getMinHue() );
+                getSurface().setMaxHue( getColorMode().getMaxHue() );
+
                 // some bug in processing PShader, it flips the shape somehow..
                 if( surface.getClass().equals( ChladniTriangle.class ) ) {
                     drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
@@ -194,7 +201,6 @@ public class ChladniParticles {
                     particlePBO.popMatrix();
                 } else {
                     drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                    particlePBO.tint( particleOpacity * 255 );
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
                 break;
@@ -256,6 +262,7 @@ public class ChladniParticles {
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
         gl2.glPointSize( particleSize );
         gl2.glBegin( GL.GL_POINTS );
+
 
         int index = 0;
         float r, g, b;
@@ -453,5 +460,9 @@ public class ChladniParticles {
 
     public BehaviorMode getBehaviorMode() {
         return behaviorMode;
+    }
+
+    public void setIntensity( float _intensity ) {
+        this.getSurface().setIntensity( _intensity );
     }
 }
