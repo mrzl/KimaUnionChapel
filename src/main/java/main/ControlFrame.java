@@ -175,6 +175,12 @@ public class ControlFrame extends PApplet {
 
         generalY += 50;
 
+        addIntensitySliders( generalY );
+
+        controlP5.loadProperties();
+    }
+
+    private void addIntensitySliders ( float generalY ) {
         intensitySliderRecht = controlP5.addSlider( "intensityRect" )
                 .setRange( 0, 1 )
                 .setSize( 100, 20 )
@@ -210,8 +216,6 @@ public class ControlFrame extends PApplet {
                         parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setIntensity( controlEvent.getValue() );
                     }
                 } );
-
-        controlP5.loadProperties();
     }
 
     private void createBackgroundOpacitySliders( float generalY ) {
