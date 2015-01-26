@@ -1,5 +1,6 @@
 package pattern;
 
+import main.Main;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -12,7 +13,7 @@ public class ChladniTriangle extends ChladniSurface {
 
     private PImage triangleMask;
 
-    public ChladniTriangle ( PApplet p, int width, int height ) {
+    public ChladniTriangle ( Main p, int width, int height ) {
         super( p, width, height );
 
         this.shader = p.loadShader( "shader" + File.separator + "chladni_circle.glsl" );

@@ -1,5 +1,6 @@
 package pattern;
 
+import main.Main;
 import main.MathUtils;
 import processing.core.PApplet;
 
@@ -10,7 +11,7 @@ import java.io.File;
  */
 public class ChladniCircle extends ChladniSurface {
 
-    public ChladniCircle ( PApplet p, int width, int height ) {
+    public ChladniCircle ( Main p, int width, int height ) {
         super( p, width, height );
 
         this.shader = p.loadShader( "shader" + File.separator + "chladni_real_circle.glsl" );

@@ -1,5 +1,6 @@
 package pattern;
 
+import main.Main;
 import processing.core.PApplet;
 
 import java.io.File;
@@ -9,7 +10,7 @@ import java.io.File;
  */
 public class ChladniRectangle extends ChladniSurface {
 
-    public ChladniRectangle( PApplet p, int width, int height ) {
+    public ChladniRectangle( Main p, int width, int height ) {
         super( p, width, height );
 
         this.shader = p.loadShader( "shader" + File.separator + "chladni_rect.glsl" );

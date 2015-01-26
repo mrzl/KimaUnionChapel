@@ -3,7 +3,7 @@ package pattern;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
-import nano.VisualParameterEnum;
+import midi.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -361,6 +361,32 @@ public class ChladniParticles {
             case BACKGROUND_OPACITY:
                 setMotionBlurAmount( value );
                 break;
+            case M:
+                getSurface( ).setM( value );
+                break;
+            case N:
+                getSurface( ).setN( value );
+                break;
+            case JUMPYNESS:
+                setRebuildSpeed( value );
+                break;
+            case PARTICLE_COUNT:
+                setParticleCount( ( int ) value );
+                break;
+            case PARTICLE_OPACITY:
+                setParticleOpacity( value );
+                break;
+            case PARTICLE_SIZE:
+                setParticleSize( value );
+                break;
+            case POLES:
+                getSurface( ).setPoles( ( int ) value );
+                break;
+            case SCALE:
+                getSurface( ).setScale( value );
+                break;
+            default:
+                System.err.println( "ERROR: UNKNOWN VIASUAL PARAMETER" );
         }
     }
 

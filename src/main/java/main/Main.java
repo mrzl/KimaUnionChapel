@@ -1,7 +1,12 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import nano.*;
+import midi.*;
+import midi.bcr2000.BcrInputParameter;
+import midi.bcr2000.BcrKnobEnum;
+import midi.bcr2000.BcrMapping;
+import midi.bcr2000.BnrController;
+import midi.nanokontrol.NanoKontrolController;
 import osc.*;
 import pattern.ChladniTriangle;
 import pattern.ChladniParticles;
@@ -24,6 +29,7 @@ public class Main extends PApplet {
 
     public SoundController soundController;
     protected NanoKontrolController nanoController;
+    protected BnrController bcrController;
 
     private SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
@@ -99,8 +105,8 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
-
-        nanoController = new NanoKontrolController( this, 0 );
+/*
+        nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
         NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
         VisualParameter visualParameter1 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
@@ -129,7 +135,27 @@ public class Main extends PApplet {
         nanoMapping2.addMapping( nanoParameter22, visualParameter22 );
         nanoMapping2.addMapping( nanoParameter23, visualParameter23 );
         nanoMapping2.addMapping( nanoParameter24, visualParameter24 );
-        nanoController.addMapping( nanoMapping2 );
+        nanoController.addMapping( nanoMapping2 );*/
+
+        bcrController = new BnrController( 0 );
+        BcrMapping bcrMapping1 = new BcrMapping( chladniRect );
+        BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_1_1, 0, 127 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
+        BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_1_2, 0, 127 );
+        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_1_3, 0, 127 );
+        VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
+        BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_1_4, 0, 127 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.M, 0, 10 );
+        BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_5, 0, 127 );
+        VisualParameter vp5 = new VisualParameter( VisualParameterEnum.N, 0, 10 );
+
+        bcrMapping1.addMapping( bcr1, vp1 );
+        bcrMapping1.addMapping( bcr2, vp2 );
+        bcrMapping1.addMapping( bcr3, vp3 );
+        bcrMapping1.addMapping( bcr4, vp4 );
+        bcrMapping1.addMapping( bcr5, vp5 );
+        bcrController.addMapping( bcrMapping1 );
 
         prepareExitHandler( );
     }

@@ -1,5 +1,6 @@
 package pattern;
 
+import main.Main;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -9,14 +10,14 @@ import processing.opengl.PShader;
  * Created by mar on 14.12.14.
  */
 public class ChladniSurface implements ChladniSurfaceInterface {
-    protected PApplet p;
+    protected Main p;
     protected PGraphics offscreen;
     protected PShader shader;
     private float n, m;
     private int poles;
     private float scale;
 
-    public ChladniSurface ( PApplet p, int width, int height ) {
+    public ChladniSurface ( Main p, int width, int height ) {
         this.p = p;
         offscreen = p.createGraphics( width, height, PConstants.P3D );
     }
@@ -51,6 +52,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setM( float m ) {
+        //if( this.getClass().equals( ChladniRectangle.class ) ) {
+        //    p.controlFrame.rectMSlider.setValue( m );
+        //}
         this.m = m;
     }
 
@@ -59,6 +63,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setN ( float n ) {
+        //if( this.getClass().equals( ChladniRectangle.class ) ) {
+        //    p.controlFrame.rectNSlider.setValue( n );
+       // }
         this.n = n;
     }
 
