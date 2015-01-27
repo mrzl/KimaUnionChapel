@@ -6,7 +6,10 @@ import midi.bcr2000.BcrInputParameter;
 import midi.bcr2000.BcrKnobEnum;
 import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BnrController;
+import midi.nanokontrol.NanoInputParameter;
 import midi.nanokontrol.NanoKontrolController;
+import midi.nanokontrol.NanoKontrolMapping;
+import midi.nanokontrol.NanoKontrolSliderEnum;
 import osc.*;
 import pattern.ChladniTriangle;
 import pattern.ChladniParticles;
@@ -24,8 +27,8 @@ public class Main extends PApplet {
 
     public static final String OSX = "Mac";
 
-    protected enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1}
-    protected HashMap< ChladniFormId, ChladniParticles > chladniForms;
+    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1}
+    public HashMap< ChladniFormId, ChladniParticles > chladniForms;
 
     public SoundController soundController;
     protected NanoKontrolController nanoController;
@@ -105,13 +108,13 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
-/*
+
         nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
         NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
-        VisualParameter visualParameter1 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        VisualParameter visualParameter1 = new VisualParameter( VisualParameterEnum.M, 0, 15 );
         NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, 0, 127 );
-        VisualParameter visualParameter2 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
+        VisualParameter visualParameter2 = new VisualParameter( VisualParameterEnum.N, 0, 15 );
         NanoInputParameter nanoParameter3 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_3, 0, 127 );
         VisualParameter visualParameter3 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
         NanoInputParameter nanoParameter4 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_4, 0, 127 );
@@ -122,6 +125,7 @@ public class Main extends PApplet {
         nanoMapping.addMapping( nanoParameter4, visualParameter4 );
         nanoController.addMapping( nanoMapping );
 
+        /*
         NanoKontrolMapping nanoMapping2 = new NanoKontrolMapping(  chladniCircle );
         NanoInputParameter nanoParameter21 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
         VisualParameter visualParameter21 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
@@ -135,8 +139,11 @@ public class Main extends PApplet {
         nanoMapping2.addMapping( nanoParameter22, visualParameter22 );
         nanoMapping2.addMapping( nanoParameter23, visualParameter23 );
         nanoMapping2.addMapping( nanoParameter24, visualParameter24 );
-        nanoController.addMapping( nanoMapping2 );*/
+        nanoController.addMapping( nanoMapping2 );
 
+        */
+
+        /*
         bcrController = new BnrController( 0 );
         BcrMapping bcrMapping1 = new BcrMapping( chladniRect );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_1_1, 0, 127 );
@@ -156,6 +163,8 @@ public class Main extends PApplet {
         bcrMapping1.addMapping( bcr4, vp4 );
         bcrMapping1.addMapping( bcr5, vp5 );
         bcrController.addMapping( bcrMapping1 );
+
+        */
 
         prepareExitHandler( );
     }

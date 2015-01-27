@@ -1,6 +1,7 @@
 package main;
 
 import controlP5.*;
+import midi.VisualParameterEnum;
 import pattern.*;
 import processing.core.PApplet;
 
@@ -19,6 +20,7 @@ public class ControlFrame extends PApplet {
 
     public Slider particleJumpynessSliderRect, particleJumpynessSliderTriangle, particleJumpynessSliderCicle;
     public Slider updateDelaySlider, rectNSlider, rectMSlider;
+    public Slider circleNSlider, circleMSlider, triangleNSlider, triangleMSlider;
     public Slider particleOpacitySliderRect, particleOpacitySliderTriangle, particleOpacitySliderCircle;
     public Slider particleCountSliderRect, particleCountSliderTriangle, particleCountSliderCircle;
     public Slider particleSizeSliderRect, particleSizeSliderTriangle, particleSizeSliderCircle;
@@ -47,7 +49,7 @@ public class ControlFrame extends PApplet {
         } );
 
         float circleY = 120;
-        controlP5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
+        circleNSlider = controlP5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
@@ -57,7 +59,7 @@ public class ControlFrame extends PApplet {
         } );
 
         circleY += 40;
-        controlP5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
+        circleMSlider = controlP5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
@@ -85,7 +87,7 @@ public class ControlFrame extends PApplet {
         } );
 
         float realCircleY = 300;
-        controlP5.addSlider( "realCircleN" ).setRange( 1, 20 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
+        triangleNSlider = controlP5.addSlider( "realCircleN" ).setRange( 1, 20 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
@@ -94,7 +96,7 @@ public class ControlFrame extends PApplet {
             }
         } );
         realCircleY += 40;
-        controlP5.addSlider( "realCircleM" ).setRange( 1, 14 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
+        triangleMSlider = controlP5.addSlider( "realCircleM" ).setRange( 1, 14 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
@@ -450,6 +452,45 @@ public class ControlFrame extends PApplet {
                 parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setRebuildSpeed( controlEvent.getValue( ) );
             }
         } );
+    }
+
+    public static Slider getSliderById ( Main parent, Main.ChladniFormId currentId, VisualParameterEnum visualParameter ) {
+        switch( currentId ) {
+            case RECT1:
+                switch( visualParameter ) {
+                    case M:
+                        return parent.controlFrame.rectMSlider;
+                    case N:
+                        return parent.controlFrame.rectNSlider;
+                }
+            case CIRCLE1:
+                switch( visualParameter ) {
+                    case M:
+                        return parent.controlFrame.circleMSlider;
+                    case N:
+                        return parent.controlFrame.circleNSlider;
+                }
+            case TRIANGLE1:
+                switch( visualParameter ) {
+                    case M:
+                        return parent.controlFrame.triangleMSlider;
+                    case N:
+                        return parent.controlFrame.triangleNSlider;
+                }
+            default:
+                System.err.println( "Somethings wrong with the values mapped to gui controls" );
+
+        }
+        return null;
+    }
+
+    public static Main.ChladniFormId getChladniFormId ( Main parent, ChladniParticles chladniParticles ) {
+        for( Map.Entry< Main.ChladniFormId, ChladniParticles> pa : parent.chladniForms.entrySet() ) {
+            if( pa.getValue().equals( chladniParticles ) ) {
+                return pa.getKey();
+            }
+        }
+        return null;
     }
 
 

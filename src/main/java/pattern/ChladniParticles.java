@@ -1,5 +1,6 @@
 package pattern;
 
+import controlP5.Slider;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
@@ -17,6 +18,9 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import java.util.ArrayList;
+
+import static main.ControlFrame.getChladniFormId;
+import static main.ControlFrame.getSliderById;
 
 /**
  * Created by mar on 14.12.14.
@@ -374,9 +378,17 @@ public class ChladniParticles {
                 setMotionBlurAmount( value );
                 break;
             case M:
+                Main.ChladniFormId currentId = getChladniFormId( p, this );
+                Slider mSlider = getSliderById( p, currentId, visualParameter );
+                mSlider.setValue( value );
+
                 getSurface( ).setM( value );
                 break;
             case N:
+                Main.ChladniFormId currentIdN = getChladniFormId( p, this );
+                Slider nSlider = getSliderById( p, currentIdN, visualParameter );
+                nSlider.setValue( value );
+
                 getSurface( ).setN( value );
                 break;
             case JUMPYNESS:
