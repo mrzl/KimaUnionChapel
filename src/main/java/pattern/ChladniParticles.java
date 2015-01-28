@@ -388,7 +388,6 @@ public class ChladniParticles {
                 Main.ChladniFormId currentIdN = getChladniFormId( p, this );
                 Slider nSlider = getSliderById( p, currentIdN, visualParameter );
                 nSlider.setValue( value );
-
                 getSurface( ).setN( value );
                 break;
             case JUMPYNESS:
