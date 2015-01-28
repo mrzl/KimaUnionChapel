@@ -9,7 +9,7 @@ precision mediump int;
 uniform sampler2D texture;
 uniform vec2 resolution;
 uniform int nthZero;
-uniform int m;
+uniform float m;
 uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity;
 

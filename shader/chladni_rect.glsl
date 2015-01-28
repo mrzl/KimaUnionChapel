@@ -17,6 +17,7 @@ uniform float n;
 uniform vec2 resolution;
 uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity;
+uniform float time;
 
 vec3 rgb2hsv(vec3 c)
 {
