@@ -33,4 +33,8 @@ public class ThresholdShader {
     public void setThreshold ( float threshold ) {
         this.threshold = threshold;
     }
+
+    public PShader getShader () {
+        return this.shader;
+    }
 }

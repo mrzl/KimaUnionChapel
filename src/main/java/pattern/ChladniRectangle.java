@@ -1,5 +1,6 @@
 package pattern;
 
+
 import main.Main;
 
 import java.io.File;
@@ -25,19 +26,18 @@ public class ChladniRectangle extends ChladniSurface {
     }
 
     public void update() {
-        this.shader.set( "m", getM() );
+        this.shader.set( "m", getM( ) );
         this.shader.set( "n", getN( ) );
-        this.shader.set( "minHue", getMinHue() );
-        this.shader.set( "maxHue", getMaxHue() );
-        this.shader.set( "drawMonochrome", isDrawMonochrome() );
+        this.shader.set( "minHue", getMinHue( ) );
+        this.shader.set( "maxHue", getMaxHue( ) );
+        this.shader.set( "drawMonochrome", isDrawMonochrome( ) );
         this.shader.set( "intensity", getIntensity() );
-        this.shader.set( "time", ( p.millis() / 1000.0f ) );
 
         getBuffer().beginDraw();
 
         getBuffer().shader( this.shader );
         getBuffer().rect( 0, 0, getWidth(), getHeight() );
 
-        getBuffer().endDraw();
+        getBuffer( ).endDraw();
     }
 }

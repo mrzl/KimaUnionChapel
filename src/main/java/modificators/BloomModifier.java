@@ -27,6 +27,8 @@ public class BloomModifier {
             thresh.apply( pg );
             blur.apply( pg );
         }
+
+        pg.resetShader();
     }
 
     public void setEnabled( boolean enabled ) {
@@ -35,5 +37,17 @@ public class BloomModifier {
 
     public boolean isEnabled() {
         return this.isEnabled;
+    }
+
+    public void setBlurSize( int blurSize ) {
+        blur.setBlurSize( blurSize );
+    }
+
+    public void setBlurSigma( float sigma ) {
+        blur.setSigma( sigma );
+    }
+
+    public void setThreshold( float threshold ) {
+        thresh.setThreshold( threshold );
     }
 }

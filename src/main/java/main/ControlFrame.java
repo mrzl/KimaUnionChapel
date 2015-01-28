@@ -26,6 +26,9 @@ public class ControlFrame extends PApplet {
     public Slider particleSizeSliderRect, particleSizeSliderTriangle, particleSizeSliderCircle;
     public Slider backgroundOpacitySliderRect, backgroundOpacitySliderTriangle, backgroundOpacitySliderCircle;
     public Slider intensitySliderRecht, intensitySliderTriangle, intensitySliderCircle;
+    public Slider bloomSigmaSliderRect, bloomSigmaSliderTriangle, bloomSigmaSliderCircle;
+    public Slider bloomBlurSizeSliderRect, bloomBlurSizeSliderTriangle, bloomBlurSizeSliderCircle;
+    public Slider bloomThresholdSliderRect, bloomThresholdSliderTriangle, bloomThresholdSliderCircle;
     public Range minMaxHue;
 
     public void setup () {
@@ -121,6 +124,18 @@ public class ControlFrame extends PApplet {
 
         createBackgroundOpacitySliders( generalY );
 
+        generalY += 30;
+
+        createBloomSizeSlidera( generalY );
+
+        generalY += 30;
+
+        createBloomSigmaSliders( generalY );
+
+        generalY += 30;
+
+        createBloomThresholdSliders( generalY );
+
         generalY += 40;
 
         addToggles( generalY );
@@ -180,6 +195,120 @@ public class ControlFrame extends PApplet {
         addIntensitySliders( generalY );
 
         controlP5.loadProperties();
+    }
+
+    private void createBloomThresholdSliders ( float generalY ) {
+        bloomThresholdSliderRect = controlP5.addSlider( "bloomThresholdRect" )
+                .setPosition( 10, generalY )
+                .setSize( 100, 20 )
+                .setRange( 0, 1 )
+                .setValue( 0.1f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
+                    }
+                } );
+
+        bloomThresholdSliderTriangle = controlP5.addSlider( "bloomThresholdTriangle" )
+                .setPosition( 130, generalY )
+                .setSize( 100, 20 )
+                .setRange( 0, 1 )
+                .setValue( 0.1f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
+                    }
+                } );
+
+        bloomThresholdSliderCircle = controlP5.addSlider( "bloomThresholdCircle" )
+                .setPosition( 240, generalY )
+                .setSize( 100, 20 )
+                .setRange( 0, 1 )
+                .setValue( 0.1f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
+                    }
+                } );
+    }
+
+    private void createBloomSigmaSliders ( float generalY ) {
+        bloomSigmaSliderRect = controlP5.addSlider( "bloomSigmaRect" )
+                .setPosition( 10, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 4 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
+                    }
+                } );
+
+        bloomSigmaSliderTriangle = controlP5.addSlider( "bloomSigmaTriangle" )
+                .setPosition( 130, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 4 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
+                    }
+                } );
+
+        bloomSigmaSliderCircle = controlP5.addSlider( "bloomSigmaCircle" )
+                .setPosition( 240, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 4 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
+                    }
+                } );
+    }
+
+    private void createBloomSizeSlidera ( float generalY ) {
+        bloomBlurSizeSliderRect = controlP5.addSlider( "bloomBlurSizeRect" )
+                .setPosition( 10, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 28 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
+                    }
+                } );
+
+        bloomBlurSizeSliderTriangle = controlP5.addSlider( "bloomBlurSizeTriangle" )
+                .setPosition( 130, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 28 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
+                    }
+                } );
+
+        bloomBlurSizeSliderCircle = controlP5.addSlider( "bloomBlurSizeCircle" )
+                .setPosition( 240, generalY )
+                .setSize( 100, 20 )
+                .setRange( 1, 80 )
+                .setValue( 28 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
+                    }
+                } );
     }
 
     private void addIntensitySliders ( float generalY ) {

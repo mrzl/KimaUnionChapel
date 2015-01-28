@@ -2,9 +2,6 @@ package main;
 
 import codeanticode.syphon.SyphonServer;
 import midi.*;
-import midi.bcr2000.BcrInputParameter;
-import midi.bcr2000.BcrKnobEnum;
-import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BnrController;
 import midi.nanokontrol.NanoInputParameter;
 import midi.nanokontrol.NanoKontrolController;
@@ -74,7 +71,7 @@ public class Main extends PApplet {
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
 
 
-        controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 800 );
+        controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 1000 );
 
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima" ) );
 
