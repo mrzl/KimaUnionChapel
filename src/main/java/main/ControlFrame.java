@@ -34,7 +34,7 @@ public class ControlFrame extends PApplet {
     public void setup () {
         size( w, h );
         controlP5 = new ControlP5( this );
-        rectNSlider = controlP5.addSlider( "rectN" ).setRange( 0, 20 ).setSize( 300, 20 ).setPosition( 10, 10 ).setValue( 2.0f ).addListener( new ControlListener( ) {
+        rectNSlider = controlP5.addSlider( "rectN" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, 10 ).setValue( 2.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
@@ -42,7 +42,7 @@ public class ControlFrame extends PApplet {
                 r.setN( controlEvent.getValue( ) );
             }
         } );
-        rectMSlider = controlP5.addSlider( "rectM" ).setRange( 0, 20 ).setSize( 300, 20 ).setPosition( 10, 50 ).setValue( 3.0f ).addListener( new ControlListener( ) {
+        rectMSlider = controlP5.addSlider( "rectM" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, 50 ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 // parent.chladniRect.frequencyChanged( );
@@ -52,7 +52,7 @@ public class ControlFrame extends PApplet {
         } );
 
         float circleY = 120;
-        circleNSlider = controlP5.addSlider( "circleN" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
+        circleNSlider = controlP5.addSlider( "circleN" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
@@ -62,7 +62,7 @@ public class ControlFrame extends PApplet {
         } );
 
         circleY += 40;
-        circleMSlider = controlP5.addSlider( "circleM" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
+        circleMSlider = controlP5.addSlider( "circleM" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniTriangle.frequencyChanged( );
@@ -186,9 +186,7 @@ public class ControlFrame extends PApplet {
                             Map.Entry pairs = ( Map.Entry ) it.next( );
                             ChladniParticles p = ( ChladniParticles ) pairs.getValue();
                             p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
-                            parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
-                            parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
-                            parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
+                            p.getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
                         }
                     }
                 } );

@@ -28,9 +28,9 @@ public class OscParameterDisplay extends PApplet {
         cp5.setAutoDraw( true );
         parameters = new HashMap<>();
 
-        Slider amplitudeSlider1 = cp5.addSlider( "AM1" ).setPosition( 10, 10 ).setSize( 15, 100 ).setRange( 0, 20 ).setValue( 0.0f );
-        Slider amplitudeSlider2 = cp5.addSlider( "AM2" ).setPosition( 45, 10 ).setSize( 15, 100 ).setRange( 0, 20 ).setValue( 0.0f );
-        Slider amplitudeSlider3 = cp5.addSlider( "AM3" ).setPosition( 80, 10 ).setSize( 15, 100 ).setRange( 0, 20 ).setValue( 0.0f );
+        Slider amplitudeSlider1 = cp5.addSlider( "AM1" ).setPosition( 10, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
+        Slider amplitudeSlider2 = cp5.addSlider( "AM2" ).setPosition( 45, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
+        Slider amplitudeSlider3 = cp5.addSlider( "AM3" ).setPosition( 80, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
 
         Slider frequencySlider1 = cp5.addSlider( "FQ1" ).setPosition( 130, 10 ).setSize( 15, 100 ).setRange( 200, 10000 ).setValue( 0.0f );
         Slider frequencySlider2 = cp5.addSlider( "FQ2" ).setPosition( 165, 10 ).setSize( 15, 100 ).setRange( 200, 10000 ).setValue( 0.0f );
