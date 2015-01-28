@@ -186,6 +186,9 @@ public class ControlFrame extends PApplet {
                             Map.Entry pairs = ( Map.Entry ) it.next( );
                             ChladniParticles p = ( ChladniParticles ) pairs.getValue();
                             p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
+                            parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
+                            parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
+                            parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
                         }
                     }
                 } );

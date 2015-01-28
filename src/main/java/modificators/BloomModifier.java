@@ -50,4 +50,8 @@ public class BloomModifier {
     public void setThreshold( float threshold ) {
         thresh.setThreshold( threshold );
     }
+
+    public ThresholdShader getThresholdShader() {
+        return this.thresh;
+    }
 }

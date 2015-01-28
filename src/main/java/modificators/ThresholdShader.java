@@ -13,14 +13,18 @@ public class ThresholdShader {
 
     private PShader shader;
     private float threshold;
+    private float hue;
 
     public ThresholdShader( PApplet p ) {
         this.shader = p.loadShader( "shader" + File.separator + "threshold.glsl" );
         setThreshold( 0.5f );
+        setHue( 1.0f );
     }
 
     public void apply( PGraphics pg ) {
         shader.set( "threshold", getThreshold() );
+        shader.set( "hue", getHue() );
+
         pg.beginDraw();
         pg.filter( shader );
         pg.endDraw();
@@ -36,5 +40,13 @@ public class ThresholdShader {
 
     public PShader getShader () {
         return this.shader;
+    }
+
+    public float getHue () {
+        return hue;
+    }
+
+    public void setHue ( float hue ) {
+        this.hue = hue;
     }
 }
