@@ -75,32 +75,30 @@ public class Main extends PApplet {
 
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima" ) );
 
-        // attack = [0,1}
-        // frequency = [200,10000]
-        // amplitude = [0,0.99]
+
         this.soundController = new SoundController( this, 5001 );
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
-        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, 0.0f, 20f );
+        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 18.0f );
-        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, 0, 20000 );
+        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
         ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
         mappingRect.addMapping( soundMapping11, chladniMapping11 );
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
         soundController.addSoundParameterMapping( mappingRect );
 
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, 0.0f, 20f );
+        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 0.2f, 0.5f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, 200, 500 );
+        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
         soundController.addSoundParameterMapping( mappingTriangle );
 
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, 0.0f, 20.0f );
+        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, 200.0f, 500 );
+        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 10 );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
@@ -108,13 +106,13 @@ public class Main extends PApplet {
 
         nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
-        NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, 0, 127 );
+        NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
         VisualParameter visualParameter1 = new VisualParameter( VisualParameterEnum.M, 0, 15 );
-        NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, 0, 127 );
+        NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
         VisualParameter visualParameter2 = new VisualParameter( VisualParameterEnum.N, 0, 15 );
-        NanoInputParameter nanoParameter3 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_3, 0, 127 );
+        NanoInputParameter nanoParameter3 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_3, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
         VisualParameter visualParameter3 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
-        NanoInputParameter nanoParameter4 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_4, 0, 127 );
+        NanoInputParameter nanoParameter4 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_4, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
         VisualParameter visualParameter4 = new VisualParameter( VisualParameterEnum.BACKGROUND_OPACITY, 0, 255 );
         nanoMapping.addMapping( nanoParameter1, visualParameter1 );
         nanoMapping.addMapping( nanoParameter2, visualParameter2 );
@@ -213,6 +211,14 @@ public class Main extends PApplet {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.doAnomaly( );
+        }
+    }
+
+    public void keyPressed() {
+        if( key == 'd' ) {
+            chladniForms.get( ChladniFormId.RECT1 ).doDrumHit();
+            chladniForms.get( ChladniFormId.CIRCLE1 ).doDrumHit();
+            chladniForms.get( ChladniFormId.TRIANGLE1 ).doDrumHit();
         }
     }
 
