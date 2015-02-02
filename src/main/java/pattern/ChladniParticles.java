@@ -50,6 +50,8 @@ public class ChladniParticles {
     public PGL pgl;
     public GL2 gl2;
 
+    private ParticleSizeTimerThread particleSizeDrumHitThread;
+
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
         this.p = p;
@@ -83,6 +85,8 @@ public class ChladniParticles {
         this.motionBlurAmount = 40;
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
+
+        particleSizeDrumHitThread = new ParticleSizeTimerThread( this, this.getParticleSize( ) );
     }
 
     public void update ( int speed ) {
@@ -319,8 +323,25 @@ public class ChladniParticles {
             frequencyChanged();
         }
 
-        new ParticleSizeTimerThread( this, this.getParticleSize() ).start();
-        this.setParticleSize( getParticleSize() * 2 );
+        if( particleSizeDrumHitThread.running == false ) {
+            float toValue = 0.0f;
+            switch( this.getSurface().getFormId() ) {
+                case RECT1:
+                    toValue = p.controlFrame.particleSizeSliderRect.getValue();
+                    break;
+                case CIRCLE1:
+                    toValue = p.controlFrame.particleSizeSliderCircle.getValue();
+                    break;
+                case TRIANGLE1:
+                    toValue = p.controlFrame.particleSizeSliderTriangle.getValue();
+                    break;
+            }
+            particleSizeDrumHitThread = new ParticleSizeTimerThread( this, toValue );
+            particleSizeDrumHitThread.start( );
+        }
+
+
+        this.setParticleSize( PApplet.min( getParticleSize( ) * 1.5f, 30.0f ) );
     }
 
     public void renderParticlesToScreen ( int x, int y ) {

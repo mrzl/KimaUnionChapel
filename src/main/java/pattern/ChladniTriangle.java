@@ -1,7 +1,6 @@
 package pattern;
 
 import main.Main;
-import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.io.File;
@@ -30,6 +29,8 @@ public class ChladniTriangle extends ChladniSurface {
 
         this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
         this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );
+
+        this.formId = Main.ChladniFormId.TRIANGLE1;
     }
 
     public void update() {

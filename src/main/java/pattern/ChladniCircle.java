@@ -23,6 +23,8 @@ public class ChladniCircle extends ChladniSurface {
         setMaxHue( 0.4f );
         setDrawMonochrome( false );
         setIntensity( 1.0f );
+
+        this.formId = Main.ChladniFormId.CIRCLE1;
     }
 
     public void update() {

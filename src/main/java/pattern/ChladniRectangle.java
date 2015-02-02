@@ -23,6 +23,8 @@ public class ChladniRectangle extends ChladniSurface {
         setMaxHue( 0.4f );
         setDrawMonochrome( false );
         setIntensity( 1.0f );
+
+        this.formId = Main.ChladniFormId.RECT1;
     }
 
     public void update() {

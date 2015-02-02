@@ -5,7 +5,7 @@ package pattern;
  */
 public class ParticleSizeTimerThread extends Thread {
     private ChladniParticles particles;
-    private boolean running;
+    public boolean running;
     private float targetParticleSize;
 
     public ParticleSizeTimerThread( ChladniParticles _particles, float _targetParticleSize ) {
@@ -23,9 +23,8 @@ public class ParticleSizeTimerThread extends Thread {
         while( running ) {
             try {
                 if( particles.getParticleSize() > targetParticleSize ) {
-                    particles.setParticleSize( particles.getParticleSize() * 0.9f );
+                    particles.setParticleSize( particles.getParticleSize() * 0.8f );
                 } else {
-                    System.out.println( "Stopped thread" );
                     running = false;
                 }
 

@@ -19,6 +19,7 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     private float minHue;
     private float maxHue;
     private float intensity;
+    protected Main.ChladniFormId formId;
 
     public ChladniSurface ( Main p, int width, int height ) {
         this.p = p;
@@ -122,5 +123,9 @@ public class ChladniSurface implements ChladniSurfaceInterface {
 
     public void setIntensity ( float intensity ) {
         this.intensity = intensity;
+    }
+
+    public Main.ChladniFormId getFormId() {
+        return this.formId;
     }
 }
