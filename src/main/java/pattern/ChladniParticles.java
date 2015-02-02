@@ -314,6 +314,15 @@ public class ChladniParticles {
         }
     }
 
+    public void doDrumHit() {
+        for( int i = 0; i < 5; i++ ) {
+            frequencyChanged();
+        }
+
+        new ParticleSizeTimerThread( this, this.getParticleSize() ).start();
+        this.setParticleSize( getParticleSize() * 2 );
+    }
+
     public void renderParticlesToScreen ( int x, int y ) {
         p.image( particlePBO, x, y );
     }
