@@ -2,6 +2,7 @@ package osc.debug;
 
 import controlP5.ControlP5;
 import controlP5.Slider;
+import main.KimaConstants;
 import main.Main;
 import osc.SoundInputParameter;
 import osc.SoundInputParameterEnum;
@@ -28,17 +29,17 @@ public class OscParameterDisplay extends PApplet {
         cp5.setAutoDraw( true );
         parameters = new HashMap<>();
 
-        Slider amplitudeSlider1 = cp5.addSlider( "AM1" ).setPosition( 10, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
-        Slider amplitudeSlider2 = cp5.addSlider( "AM2" ).setPosition( 45, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
-        Slider amplitudeSlider3 = cp5.addSlider( "AM3" ).setPosition( 80, 10 ).setSize( 15, 100 ).setRange( 0, 3 ).setValue( 0.0f );
+        Slider amplitudeSlider1 = cp5.addSlider( "AM1" ).setPosition( 10, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f );
+        Slider amplitudeSlider2 = cp5.addSlider( "AM2" ).setPosition( 45, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f );
+        Slider amplitudeSlider3 = cp5.addSlider( "AM3" ).setPosition( 80, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f );
 
-        Slider frequencySlider1 = cp5.addSlider( "FQ1" ).setPosition( 130, 10 ).setSize( 15, 100 ).setRange( 200, 10000 ).setValue( 0.0f );
-        Slider frequencySlider2 = cp5.addSlider( "FQ2" ).setPosition( 165, 10 ).setSize( 15, 100 ).setRange( 200, 10000 ).setValue( 0.0f );
-        Slider frequencySlider3 = cp5.addSlider( "FQ3" ).setPosition( 200, 10 ).setSize( 15, 100 ).setRange( 200, 10000 ).setValue( 0.0f );
+        Slider frequencySlider1 = cp5.addSlider( "FQ1" ).setPosition( 130, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f );
+        Slider frequencySlider2 = cp5.addSlider( "FQ2" ).setPosition( 165, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f );
+        Slider frequencySlider3 = cp5.addSlider( "FQ3" ).setPosition( 200, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f );
 
-        Slider attackSlider1 = cp5.addSlider( "AT1" ).setPosition( 250, 10 ).setSize( 15, 100 ).setRange( 0, 1 ).setValue( 0.0f );
-        Slider attackSlider2 = cp5.addSlider( "AT2" ).setPosition( 285, 10 ).setSize( 15, 100 ).setRange( 0, 1 ).setValue( 0.0f );
-        Slider attackSlider3 = cp5.addSlider( "AT3" ).setPosition( 320, 10 ).setSize( 15, 100 ).setRange( 0, 1 ).setValue( 0.0f );
+        Slider attackSlider1 = cp5.addSlider( "AT1" ).setPosition( 250, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
+        Slider attackSlider2 = cp5.addSlider( "AT2" ).setPosition( 285, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
+        Slider attackSlider3 = cp5.addSlider( "AT3" ).setPosition( 320, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
 
         parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, amplitudeSlider1 );
         parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, amplitudeSlider2 );

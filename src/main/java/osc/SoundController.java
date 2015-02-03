@@ -7,6 +7,7 @@ import oscP5.OscMessage;
 import oscP5.OscP5;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by mrzl on 06.01.2015.
@@ -15,8 +16,7 @@ public class SoundController {
 
     private OscParameterDisplay debugDisplay;
     private ArrayList< SoundParameterMapping > mappings;
-    private SignalFilter frequencyFilter1, frequencyFilter2, frequencyFilter3;
-    private SignalFilter amplitudeFilter1, amplitudeFilter2, amplitudeFilter3;
+    private HashMap< SoundInputParameterEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
     /**
 
@@ -28,17 +28,39 @@ public class SoundController {
 
         debugDisplay = OscParameterDisplay.addControlFrame( p, "OscParameterDebug", 600, 150 );
 
-        frequencyFilter1 = new SignalFilter( p );
-        frequencyFilter2 = new SignalFilter( p );
-        frequencyFilter3 = new SignalFilter( p );
-        amplitudeFilter1 = new SignalFilter( p );
-        amplitudeFilter2 = new SignalFilter( p );
-        amplitudeFilter3 = new SignalFilter( p );
+        filters = new HashMap<>();
+
+        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
+        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
+        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER1 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER2 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER3 ).setEnabled( true );
+
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER1 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER2 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER3 ).setEnabled( true );
+
+        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER3 ).setEnabled( false );
+
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
         updateDelay = 0;
     }
 
+
+    @SuppressWarnings( "unused" )
     public void oscEvent( OscMessage receivedOscMessage ) {
         long timeArrived = System.currentTimeMillis();
         if( timeArrived - lastTimeOscMessageArrived > updateDelay ) {
@@ -49,44 +71,37 @@ public class SoundController {
                 switch ( soundParameterType ) {
                     case FREQUENCY_PARAMETER1:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        value = frequencyFilter1.filterUnitFloat( value );
                         break;
                     case FREQUENCY_PARAMETER2:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        value = frequencyFilter2.filterUnitFloat( value );
                         break;
                     case FREQUENCY_PARAMETER3:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        value = frequencyFilter3.filterUnitFloat( value );
                         break;
                     case AMPLITUDE_PARAMETER1:
                         value = receivedOscMessage.get( 0 ).floatValue();
-                        value = amplitudeFilter1.filterUnitFloat( value );
                         break;
                     case AMPLITUDE_PARAMETER2:
                         value = receivedOscMessage.get( 0 ).floatValue();
-                        value = amplitudeFilter2.filterUnitFloat( value );
                         break;
                     case AMPLITUDE_PARAMETER3:
                         value = receivedOscMessage.get( 0 ).floatValue();
-                        value = amplitudeFilter3.filterUnitFloat( value );
                         break;
                     case ATTACK_PARAMETER1:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        //value = attackFilter1.filterUnitFloat( value );
                         break;
                     case ATTACK_PARAMETER2:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        //value = attackFilter2.filterUnitFloat( value );
                         break;
                     case ATTACK_PARAMETER3:
                         value = receivedOscMessage.get( 0 ).intValue();
-                        //value = attackFilter3.filterUnitFloat( value );
                         break;
                     default:
                         System.err.println( "WARNING: in oscEvent(OscMessage) of SoundController." );
                         throw new UnknownOscParameterException();
                 }
+
+                value = filters.get( soundParameterType ).applyFilter( value );
 
                 debugDisplay.updateParameter( soundParameterType, value );
 
