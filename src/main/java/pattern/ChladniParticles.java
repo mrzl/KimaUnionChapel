@@ -17,6 +17,8 @@ import toxi.geom.Vec2D;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
+import java.io.FileOutputStream;
+import java.net.DatagramSocket;
 import java.util.ArrayList;
 
 import static main.ControlFrame.getChladniFormId;
@@ -341,7 +343,7 @@ public class ChladniParticles {
         }
 
 
-        this.setParticleSize( PApplet.min( getParticleSize( ) * 1.5f, 30.0f ) );
+        this.setParticleSize( PApplet.min( getParticleSize( ) * 2.0f, 30.0f ) );
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
