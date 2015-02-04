@@ -19,7 +19,6 @@ public class OscMessageRangeTest extends PApplet {
     public void setup() {
 
         size(400, 400);
-        frameRate(25);
         oscP5 = new OscP5(this, 5001, OscP5.UDP);
 
         started = millis() ;
@@ -33,9 +32,6 @@ public class OscMessageRangeTest extends PApplet {
     public void draw() {
         background(0);
     }
-
-
-
 
     void oscEvent( OscMessage theOscMessage) {
 
@@ -76,15 +72,15 @@ public class OscMessageRangeTest extends PApplet {
             freq2ma = max( v, freq2ma );
             fre3++;
         }
-        //println("### received an osc message. with address pattern "+theOscMessage.addrPattern());
+
         counter++;
         //println( counter );
         if ( millis() - started > 2000 ) {
-            //println( "attack1: " + att1 + " attack2: " + att2 + " attack3: " + att3 );
-            //println( "amplitude1: " + amp1 + " amplitude2: " + amp2 + " amplitude3: " + amp3 );
-            //println( "frequency1: " + fre1 + " frequency2: " + fre2 + " frequency3: " + fre3 );
-            //println( "overall: " + counter );
-            //exit();
+            println( "attack1: " + att1 + " attack2: " + att2 + " attack3: " + att3 );
+            println( "amplitude1: " + amp1 + " amplitude2: " + amp2 + " amplitude3: " + amp3 );
+            println( "frequency1: " + fre1 + " frequency2: " + fre2 + " frequency3: " + fre3 );
+            println( "overall: " + counter );
+            exit();
         }
 
         println( "FREQ1MIN: " + freq1mi + " FREQ1MAX: " + freq1ma );
@@ -96,4 +92,7 @@ public class OscMessageRangeTest extends PApplet {
         println( "AMPL3MIN: " + ampl3mi + " AMPL3MAX: " + ampl3ma );
     }
 
+    public static void main( String[] args ) {
+        PApplet.main( new String[] { "testing.OscMessageRangeTest" } );
+    }
 }

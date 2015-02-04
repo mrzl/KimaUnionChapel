@@ -8,10 +8,7 @@ import midi.nanokontrol.NanoKontrolController;
 import midi.nanokontrol.NanoKontrolMapping;
 import midi.nanokontrol.NanoKontrolSliderEnum;
 import osc.*;
-import pattern.ChladniTriangle;
-import pattern.ChladniParticles;
-import pattern.ChladniCircle;
-import pattern.ChladniRectangle;
+import pattern.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -24,7 +21,7 @@ public class Main extends PApplet {
 
     public static final String OSX = "Mac";
 
-    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1}
+    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1, HYDROGEN1}
     public HashMap< ChladniFormId, ChladniParticles > chladniForms;
 
     public SoundController soundController;
@@ -43,13 +40,13 @@ public class Main extends PApplet {
         if ( debug ) {
             resolution = 256;
             scaleFactor = 2.0f;
-            overallWidth = ( int ) ( resolution * 3 * scaleFactor );
+            overallWidth = ( int ) ( resolution * 4 * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( overallWidth, overallHeight, PConstants.P3D );
         } else {
             resolution = 256;
             scaleFactor = 4.0f;
-            overallWidth = ( int ) ( resolution * 3 * scaleFactor );
+            overallWidth = ( int ) ( resolution * 4 * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( 1, 1, PConstants.P3D );
         }
@@ -59,16 +56,20 @@ public class Main extends PApplet {
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
         ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
+        HydrogenCircle hydrogenCircle = new HydrogenCircle( this, resolution, resolution );
 
 
         ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
         ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
+        ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 1000 );
+
 
         chladniForms = new HashMap<>( );
         chladniForms.put( ChladniFormId.RECT1, chladniRect );
         chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
+        chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
 
 
         controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 1000 );
@@ -194,6 +195,7 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO( ), 0, 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
         if ( debug ) {

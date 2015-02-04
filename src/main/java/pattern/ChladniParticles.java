@@ -17,8 +17,6 @@ import toxi.geom.Vec2D;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
-import java.io.FileOutputStream;
-import java.net.DatagramSocket;
 import java.util.ArrayList;
 
 import static main.ControlFrame.getChladniFormId;
