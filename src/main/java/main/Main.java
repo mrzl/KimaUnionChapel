@@ -62,7 +62,7 @@ public class Main extends PApplet {
         ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
         ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
-        ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 1000 );
+        ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 10000 );
 
 
         chladniForms = new HashMap<>( );

@@ -185,6 +185,7 @@ public class ControlFrame extends PApplet {
                         while (it.hasNext()) {
                             Map.Entry pairs = ( Map.Entry ) it.next( );
                             ChladniParticles p = ( ChladniParticles ) pairs.getValue();
+                            //p.getSurface().setMinHue( controlEvent.getArrayValue( 0 ) );
                             p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
                             p.getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
                         }
