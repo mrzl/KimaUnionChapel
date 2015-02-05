@@ -14,9 +14,12 @@ import java.util.Map;
  */
 public class ControlFrame extends PApplet {
 
+    public enum CONTROL_STATE { RECTANGLE, TRIANGLE, CIRCLE, HYDRPGEN, ALL }
+
     public static ControlP5 controlP5;
     private Main parent;
     private int w, h;
+    private CONTROL_STATE currentControlState = CONTROL_STATE.RECTANGLE;
 
     public Slider particleJumpynessSliderRect, particleJumpynessSliderTriangle, particleJumpynessSliderCicle;
     public Slider updateDelaySlider, rectNSlider, rectMSlider;
@@ -199,6 +202,14 @@ public class ControlFrame extends PApplet {
         controlP5.loadProperties();
     }
 
+    public void setControlState( CONTROL_STATE _cs ) {
+        this.currentControlState = _cs;
+    }
+
+    public CONTROL_STATE getControlState() {
+        return this.currentControlState;
+    }
+
     private void createBloomThresholdSliders ( float generalY ) {
         bloomThresholdSliderRect = controlP5.addSlider( "bloomThresholdRect" )
                 .setPosition( 10, generalY )
@@ -347,6 +358,7 @@ public class ControlFrame extends PApplet {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
                         parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setIntensity( controlEvent.getValue() );
+                        parent.chladniForms.get( Main.ChladniFormId.HYDROGEN1 ).setIntensity( controlEvent.getValue() );
                     }
                 } );
     }

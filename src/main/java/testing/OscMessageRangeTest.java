@@ -75,6 +75,7 @@ public class OscMessageRangeTest extends PApplet {
 
         counter++;
         //println( counter );
+
         if ( millis() - started > 2000 ) {
             println( "attack1: " + att1 + " attack2: " + att2 + " attack3: " + att3 );
             println( "amplitude1: " + amp1 + " amplitude2: " + amp2 + " amplitude3: " + amp3 );
@@ -83,13 +84,20 @@ public class OscMessageRangeTest extends PApplet {
             exit();
         }
 
-        println( "FREQ1MIN: " + freq1mi + " FREQ1MAX: " + freq1ma );
-        println( "FREQ2MIN: " + freq2mi + " FREQ2MAX: " + freq2ma );
-        println( "FREQ3MIN: " + freq3mi + " FREQ3MAX: " + freq3ma );
+        if( frameCount % 200 == 0 ) {
+            println( "---------------------------------------" );
+            println( "FREQ1MIN: " + freq1mi + " FREQ1MAX: " + freq1ma );
+            println( "FREQ2MIN: " + freq2mi + " FREQ2MAX: " + freq2ma );
+            println( "FREQ3MIN: " + freq3mi + " FREQ3MAX: " + freq3ma );
 
-        println( "AMPL1MIN: " + ampl1mi + " AMPL1MAX: " + ampl1ma );
-        println( "AMPL2MIN: " + ampl2mi + " AMPL2MAX: " + ampl2ma );
-        println( "AMPL3MIN: " + ampl3mi + " AMPL3MAX: " + ampl3ma );
+            println( "AMPL1MIN: " + ampl1mi + " AMPL1MAX: " + ampl1ma );
+            println( "AMPL2MIN: " + ampl2mi + " AMPL2MAX: " + ampl2ma );
+            println( "AMPL3MIN: " + ampl3mi + " AMPL3MAX: " + ampl3ma );
+            println( "---------------------------------------" );
+            println( "overall: " + counter );
+            println( "---------------------------------------" );
+            //counter = 0;
+        }
     }
 
     public static void main( String[] args ) {

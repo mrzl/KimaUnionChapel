@@ -77,29 +77,35 @@ public class Main extends PApplet {
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima" ) );
 
 
+        // VOICE CHANNEL 1
+
         this.soundController = new SoundController( this, 5001 );
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
-        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
+        SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLITUDE_VOICE_MIN, KimaConstants.AMPLITUDE_VOICE_MAX );
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 18.0f );
-        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
+        SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, KimaConstants.FREQUENCY_VOICE_MIN, KimaConstants.FREQUENCY_VOICE_MAX );
         ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
         mappingRect.addMapping( soundMapping11, chladniMapping11 );
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
         soundController.addSoundParameterMapping( mappingRect );
 
+        // ORGAN CHANNEL 2
+
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
+        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_ORGAN_MIN, KimaConstants.AMPLITUDE_ORGAN_MAX );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 0.2f, 0.5f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
+        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
         soundController.addSoundParameterMapping( mappingTriangle );
 
+        // PERCUSSION CHANNEL 3
+
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
+        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
+        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_PERCUSSION_MIN, KimaConstants.FREQUENCY_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 10 );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
