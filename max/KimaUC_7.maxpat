@@ -2861,7 +2861,7 @@
 ,
 													"style" : "",
 													"text" : "autopattr",
-													"varname" : "u275000785"
+													"varname" : "u664000803"
 												}
 
 											}
@@ -4435,7 +4435,7 @@
 ,
 													"style" : "",
 													"text" : "autopattr",
-													"varname" : "u166000784"
+													"varname" : "u494000802"
 												}
 
 											}
@@ -6009,7 +6009,7 @@
 ,
 													"style" : "",
 													"text" : "autopattr",
-													"varname" : "u132000783"
+													"varname" : "u859000801"
 												}
 
 											}
@@ -11909,50 +11909,50 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-53" : [ "live.gain~[6]", "live.gain~", 0 ],
-			"obj-57" : [ "live.gain~[1]", "live.gain~", 0 ],
-			"obj-76" : [ "live.text[11]", "1", 2 ],
-			"obj-101" : [ "live.gain~[4]", "live.gain~", 0 ],
-			"obj-129::obj-15::obj-50" : [ "bypass[3]", "bypass", 0 ],
-			"obj-121" : [ "live.button[2]", "live.button", 0 ],
-			"obj-129::obj-17::obj-55" : [ "Mix[5]", "Mix", 0 ],
-			"obj-129::obj-17::obj-1" : [ "Size[2]", "Size", 0 ],
-			"obj-13" : [ "live.gain~", "live.gain~", 0 ],
-			"obj-129::obj-15::obj-1" : [ "Size", "Size", 0 ],
-			"obj-36" : [ "live.text[3]", "1", 2 ],
-			"obj-102" : [ "live.gain~[5]", "live.gain~", 0 ],
-			"obj-75" : [ "live.gain~[2]", "live.gain~", 0 ],
-			"obj-129::obj-16::obj-26" : [ "Decay[1]", "Decay", 0 ],
-			"obj-129::obj-17::obj-20" : [ "Diffusion[2]", "Diffusion", 0 ],
-			"obj-14" : [ "live.text[1]", "1", 2 ],
-			"obj-129::obj-17::obj-26" : [ "Decay[2]", "Decay", 0 ],
-			"obj-129::obj-16::obj-50" : [ "bypass[4]", "bypass", 0 ],
-			"obj-15" : [ "live.toggle", "live.toggle", 0 ],
-			"obj-129::obj-16::obj-20" : [ "Diffusion[1]", "Diffusion", 0 ],
-			"obj-129::obj-16::obj-25" : [ "Damping[1]", "Damping", 0 ],
-			"obj-129::obj-17::obj-25" : [ "Damping[2]", "Damping", 0 ],
-			"obj-129::obj-15::obj-55" : [ "Mix[3]", "Mix", 0 ],
-			"obj-129::obj-15::obj-25" : [ "Damping", "Damping", 0 ],
-			"obj-113" : [ "live.button", "live.button", 0 ],
-			"obj-129::obj-16::obj-55" : [ "Mix[4]", "Mix", 0 ],
-			"obj-83" : [ "live.text[12]", "1", 2 ],
-			"obj-55" : [ "live.gain~[8]", "live.gain~", 0 ],
-			"obj-70" : [ "live.text[10]", "1", 2 ],
 			"obj-122" : [ "live.button[3]", "live.button", 0 ],
-			"obj-129::obj-15::obj-26" : [ "Decay", "Decay", 0 ],
-			"obj-18" : [ "live.toggle[1]", "live.toggle", 0 ],
-			"obj-129::obj-17::obj-50" : [ "bypass[5]", "bypass", 0 ],
-			"obj-17" : [ "live.text[2]", "1", 2 ],
+			"obj-15" : [ "live.toggle", "live.toggle", 0 ],
 			"obj-60" : [ "live.text[8]", "1", 2 ],
 			"obj-67" : [ "live.text[9]", "1", 2 ],
-			"obj-129::obj-16::obj-1" : [ "Size[1]", "Size", 0 ],
-			"obj-100" : [ "live.gain~[3]", "live.gain~", 0 ],
+			"obj-43" : [ "live.text[4]", "1", 2 ],
 			"obj-69" : [ "live.toggle[2]", "live.toggle", 0 ],
+			"obj-18" : [ "live.toggle[1]", "live.toggle", 0 ],
+			"obj-129::obj-16::obj-1" : [ "Size[1]", "Size", 0 ],
+			"obj-17" : [ "live.text[2]", "1", 2 ],
+			"obj-129::obj-15::obj-1" : [ "Size", "Size", 0 ],
+			"obj-100" : [ "live.gain~[3]", "live.gain~", 0 ],
+			"obj-129::obj-15::obj-25" : [ "Damping", "Damping", 0 ],
+			"obj-129::obj-15::obj-50" : [ "bypass[3]", "bypass", 0 ],
+			"obj-113" : [ "live.button", "live.button", 0 ],
+			"obj-57" : [ "live.gain~[1]", "live.gain~", 0 ],
+			"obj-129::obj-17::obj-50" : [ "bypass[5]", "bypass", 0 ],
+			"obj-36" : [ "live.text[3]", "1", 2 ],
+			"obj-129::obj-16::obj-26" : [ "Decay[1]", "Decay", 0 ],
+			"obj-55" : [ "live.gain~[8]", "live.gain~", 0 ],
+			"obj-101" : [ "live.gain~[4]", "live.gain~", 0 ],
+			"obj-129::obj-15::obj-26" : [ "Decay", "Decay", 0 ],
+			"obj-121" : [ "live.button[2]", "live.button", 0 ],
+			"obj-129::obj-15::obj-55" : [ "Mix[3]", "Mix", 0 ],
+			"obj-129::obj-16::obj-50" : [ "bypass[4]", "bypass", 0 ],
+			"obj-83" : [ "live.text[12]", "1", 2 ],
+			"obj-129::obj-16::obj-20" : [ "Diffusion[1]", "Diffusion", 0 ],
+			"obj-129::obj-16::obj-25" : [ "Damping[1]", "Damping", 0 ],
 			"obj-54" : [ "live.gain~[7]", "live.gain~", 0 ],
+			"obj-102" : [ "live.gain~[5]", "live.gain~", 0 ],
+			"obj-129::obj-17::obj-1" : [ "Size[2]", "Size", 0 ],
+			"obj-129::obj-15::obj-20" : [ "Diffusion", "Diffusion", 0 ],
+			"obj-129::obj-17::obj-55" : [ "Mix[5]", "Mix", 0 ],
+			"obj-14" : [ "live.text[1]", "1", 2 ],
+			"obj-129::obj-16::obj-55" : [ "Mix[4]", "Mix", 0 ],
+			"obj-129::obj-17::obj-20" : [ "Diffusion[2]", "Diffusion", 0 ],
+			"obj-129::obj-17::obj-26" : [ "Decay[2]", "Decay", 0 ],
+			"obj-76" : [ "live.text[11]", "1", 2 ],
+			"obj-13" : [ "live.gain~", "live.gain~", 0 ],
 			"obj-85" : [ "live.toggle[3]", "live.toggle", 0 ],
 			"obj-86" : [ "live.text[13]", "1", 2 ],
-			"obj-129::obj-15::obj-20" : [ "Diffusion", "Diffusion", 0 ],
-			"obj-43" : [ "live.text[4]", "1", 2 ]
+			"obj-70" : [ "live.text[10]", "1", 2 ],
+			"obj-53" : [ "live.gain~[6]", "live.gain~", 0 ],
+			"obj-129::obj-17::obj-25" : [ "Damping[2]", "Damping", 0 ],
+			"obj-75" : [ "live.gain~[2]", "live.gain~", 0 ]
 		}
 ,
 		"dependency_cache" : [ 			{
