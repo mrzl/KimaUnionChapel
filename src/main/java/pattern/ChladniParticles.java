@@ -385,6 +385,9 @@ public class ChladniParticles {
             case SCALE:
                 getSurface( ).setScale( value );
                 break;
+            case DRUM_HIT:
+                doDrumHit();
+                break;
             default:
                 System.err.println( "ERROR: Unknown ChladniPatternParameter type in ChladniPattern" );
         }

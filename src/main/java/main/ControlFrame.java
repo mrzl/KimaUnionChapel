@@ -358,7 +358,6 @@ public class ControlFrame extends PApplet {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
                         parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setIntensity( controlEvent.getValue() );
-                        parent.chladniForms.get( Main.ChladniFormId.HYDROGEN1 ).setIntensity( controlEvent.getValue() );
                     }
                 } );
     }

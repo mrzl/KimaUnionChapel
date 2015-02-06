@@ -12,5 +12,6 @@ public enum ChladniPatternParameterEnum {
     PARTICLE_COUNT,
     PARTICLE_OPACITY,
     POLES,
+    DRUM_HIT,
     SCALE
 }

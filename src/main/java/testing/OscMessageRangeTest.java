@@ -81,10 +81,8 @@ public class OscMessageRangeTest extends PApplet {
             println( "amplitude1: " + amp1 + " amplitude2: " + amp2 + " amplitude3: " + amp3 );
             println( "frequency1: " + fre1 + " frequency2: " + fre2 + " frequency3: " + fre3 );
             println( "overall: " + counter );
-            exit();
-        }
-
-        if( frameCount % 200 == 0 ) {
+            started = millis();
+            //exit();
             println( "---------------------------------------" );
             println( "FREQ1MIN: " + freq1mi + " FREQ1MAX: " + freq1ma );
             println( "FREQ2MIN: " + freq2mi + " FREQ2MAX: " + freq2ma );
@@ -94,9 +92,13 @@ public class OscMessageRangeTest extends PApplet {
             println( "AMPL2MIN: " + ampl2mi + " AMPL2MAX: " + ampl2ma );
             println( "AMPL3MIN: " + ampl3mi + " AMPL3MAX: " + ampl3ma );
             println( "---------------------------------------" );
-            println( "overall: " + counter );
-            println( "---------------------------------------" );
-            //counter = 0;
+            counter = 0;
+
+            att1 = att2 = att3 = amp1 = amp2 = amp3 = fre1 = fre2 = fre3 = 0;
+        }
+
+        if( frameCount % 200 == 0 ) {
+
         }
     }
 

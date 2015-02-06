@@ -42,13 +42,13 @@ public class SoundController {
         filters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
         filters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER1 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER2 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER3 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER3 ).setEnabled( false );
 
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER1 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER2 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER3 ).setEnabled( true );
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER3 ).setEnabled( false );
 
         filters.get( SoundInputParameterEnum.ATTACK_PARAMETER1 ).setEnabled( false );
         filters.get( SoundInputParameterEnum.ATTACK_PARAMETER2 ).setEnabled( false );
@@ -164,6 +164,7 @@ public class SoundController {
                 }
             }
         }
+        //System.out.println( _spsi + " "  + type );
         throw new UnknownOscParameterException();
     }
 }

@@ -23,6 +23,7 @@ public class Main extends PApplet {
 
     public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1, HYDROGEN1}
     public HashMap< ChladniFormId, ChladniParticles > chladniForms;
+    public static final int FORM_COUNT = 3;
 
     public SoundController soundController;
     protected NanoKontrolController nanoController;
@@ -40,13 +41,13 @@ public class Main extends PApplet {
         if ( debug ) {
             resolution = 256;
             scaleFactor = 2.0f;
-            overallWidth = ( int ) ( resolution * 4 * scaleFactor );
+            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( overallWidth, overallHeight, PConstants.P3D );
         } else {
             resolution = 256;
             scaleFactor = 4.0f;
-            overallWidth = ( int ) ( resolution * 4 * scaleFactor );
+            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
             size( 1, 1, PConstants.P3D );
         }
@@ -56,29 +57,28 @@ public class Main extends PApplet {
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
         ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
-        HydrogenCircle hydrogenCircle = new HydrogenCircle( this, resolution, resolution );
+        //HydrogenCircle hydrogenCircle = new HydrogenCircle( this, resolution, resolution );
 
 
         ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
         ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
-        ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 10000 );
+        //ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 10000 );
 
 
         chladniForms = new HashMap<>( );
         chladniForms.put( ChladniFormId.RECT1, chladniRect );
         chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
-        chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
+        //chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
 
 
-        controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 1000 );
+        controlFrame = ControlFrame.addControlFrame( this, "Controls", 450, 1000 );
 
         syphonOutput = new SyphonOutput( this, overallWidth, overallHeight, new SyphonServer( this, "kima" ) );
 
 
         // VOICE CHANNEL 1
-
         this.soundController = new SoundController( this, 5001 );
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
         SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLITUDE_VOICE_MIN, KimaConstants.AMPLITUDE_VOICE_MAX );
@@ -89,23 +89,24 @@ public class Main extends PApplet {
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
         soundController.addSoundParameterMapping( mappingRect );
 
-        // ORGAN CHANNEL 2
-
+        // PERCUSSION CHANNEL 2
         SoundParameterMapping mappingTriangle = new SoundParameterMapping( chladniTriangle );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_ORGAN_MIN, KimaConstants.AMPLITUDE_ORGAN_MAX );
+        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, 0.2f, 0.5f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
+        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER2, KimaConstants.FREQUENCY_PERCUSSION_MIN, KimaConstants.FREQUENCY_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 1.0f, 5.0f );
+        SoundInputParameter soundMapping32 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER2, 0.0f, 1.0f );
+        ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
+        mappingTriangle.addMapping( soundMapping32, chladniMapping32 );
         soundController.addSoundParameterMapping( mappingTriangle );
 
-        // PERCUSSION CHANNEL 3
-
+        // ORGAN CHANNEL 3
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
+        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.AMPLITUDE_ORGAN_MIN, KimaConstants.AMPLITUDE_ORGAN_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_PERCUSSION_MIN, KimaConstants.FREQUENCY_PERCUSSION_MAX );
+        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 10 );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
@@ -201,7 +202,7 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO( ), 0, 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
-        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
+        //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
         if ( debug ) {
