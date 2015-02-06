@@ -370,22 +370,24 @@ public class ChladniParticles {
                 this.setParticleSize( PApplet.min( getParticleSize( ) * 2.0f, 30.0f ) );
                 break;
             case ORIGINAL:
-                /*
+
                 if( backgroundBlendThread.running == false ) {
-                    currentBlendedBackgroundValue = 255;
+
                     backgroundBlendThread = new BackgroundBlendTimerThread( this, 0 );
                     backgroundBlendThread.start( );
                 }
-                */
+                currentBlendedBackgroundValue = 255;
 
+                /* Alternative drum hit
                 if( intensityThread.running == false ) {
                     intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
                     getSurface().setIntensity( 1.0f );
                     intensityThread.start();
 
                 }
-
+                */
                 break;
+
         }
     }
 
