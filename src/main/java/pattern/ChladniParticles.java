@@ -224,6 +224,7 @@ public class ChladniParticles {
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
 
+                // this way of visualizing the attack may not be used. TODO
                 particlePBO.beginDraw( );
                 particlePBO.blendMode( ADD );
                 particlePBO.pushStyle( );
@@ -351,18 +352,7 @@ public class ChladniParticles {
                 }
 
                 if( particleSizeDrumHitThread.running == false ) {
-                    float toValue = 0.0f;
-                    switch( this.getSurface().getFormId() ) {
-                        case RECT1:
-                            toValue = p.controlFrame.particleSizeSliderRect.getValue();
-                            break;
-                        case CIRCLE1:
-                            toValue = p.controlFrame.particleSizeSliderCircle.getValue();
-                            break;
-                        case TRIANGLE1:
-                            toValue = p.controlFrame.particleSizeSliderTriangle.getValue();
-                            break;
-                    }
+                    float toValue = getParticleSize();
                     particleSizeDrumHitThread = new ParticleSizeTimerThread( this, toValue );
                     particleSizeDrumHitThread.start( );
                 }

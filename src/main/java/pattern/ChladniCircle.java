@@ -30,7 +30,7 @@ public class ChladniCircle extends ChladniSurface {
     public void update() {
         int nthZero = ( int ) MathUtils.getNthZeroOfMthBessel( ( int ) ( getM( ) ), getN( ) );
         this.shader.set( "nthZero", nthZero );
-        this.shader.set( "m", getM());
+        this.shader.set( "m", getM() );
         this.shader.set( "minHue", getMinHue() );
         this.shader.set( "maxHue", getMaxHue() );
         this.shader.set( "drawMonochrome", isDrawMonochrome() );

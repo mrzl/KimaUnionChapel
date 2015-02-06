@@ -55,7 +55,7 @@ public class SepBlurShader {
         return sigma;
     }
 
-    public void setSigma ( float sigma ) {
+    public void     setSigma ( float sigma ) {
         this.sigma = sigma;
     }
 }
