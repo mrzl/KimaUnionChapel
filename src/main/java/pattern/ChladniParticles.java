@@ -6,6 +6,9 @@ import modificators.BloomModifier;
 import modificators.MetaBallModifier;
 import midi.VisualParameterEnum;
 import osc.ChladniPatternParameterEnum;
+import pattern.drumhit.BackgroundBlendTimerThread;
+import pattern.drumhit.IntensityTimerThread;
+import pattern.drumhit.ParticleSizeTimerThread;
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PGraphics;
@@ -21,6 +24,8 @@ import java.util.ArrayList;
 
 import static main.ControlFrame.getChladniFormId;
 import static main.ControlFrame.getSliderById;
+import static processing.core.PConstants.ADD;
+import static processing.core.PConstants.BLEND;
 
 /**
  * Created by mar on 14.12.14.
@@ -43,14 +48,17 @@ public class ChladniParticles {
     private float scaleFactor; // only the underlying surface will be rendered smaller
     private float rebuildSpeed, particleSize, particleOpacity;
     private int particleCount;
-    //private boolean doMotionBlur;
     private float motionBlurAmount;
+    private int currentBlendedBackgroundValue;
+
 
     // opengl
     public PGL pgl;
     public GL2 gl2;
 
     private ParticleSizeTimerThread particleSizeDrumHitThread;
+    private BackgroundBlendTimerThread backgroundBlendThread;
+    private IntensityTimerThread intensityThread;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -86,7 +94,11 @@ public class ChladniParticles {
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
 
+        this.currentBlendedBackgroundValue = 0;
+
         particleSizeDrumHitThread = new ParticleSizeTimerThread( this, this.getParticleSize( ) );
+        backgroundBlendThread = new BackgroundBlendTimerThread( this, getCurrentBlendedBackgroundValue() );
+        intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
     }
 
     public void update ( int speed ) {
@@ -211,6 +223,19 @@ public class ChladniParticles {
                     drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
+
+                particlePBO.beginDraw( );
+                particlePBO.blendMode( ADD );
+                particlePBO.pushStyle( );
+
+                particlePBO.noStroke( );
+                particlePBO.fill( currentBlendedBackgroundValue );
+                particlePBO.rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor(), getSurface( ).getBuffer( ).height * getScaleFactor() );
+
+                particlePBO.popStyle( );
+                particlePBO.blendMode( BLEND );
+                particlePBO.endDraw( );
+
                 break;
             default:
                 System.err.println( "ERROR: Trying to render with unknown RenderMode" );
@@ -319,29 +344,49 @@ public class ChladniParticles {
     }
 
     public void doDrumHit() {
-        for( int i = 0; i < 5; i++ ) {
-            frequencyChanged();
+        switch( getRenderMode() ) {
+            case POINTS:
+                for( int i = 0; i < 5; i++ ) {
+                    frequencyChanged();
+                }
+
+                if( particleSizeDrumHitThread.running == false ) {
+                    float toValue = 0.0f;
+                    switch( this.getSurface().getFormId() ) {
+                        case RECT1:
+                            toValue = p.controlFrame.particleSizeSliderRect.getValue();
+                            break;
+                        case CIRCLE1:
+                            toValue = p.controlFrame.particleSizeSliderCircle.getValue();
+                            break;
+                        case TRIANGLE1:
+                            toValue = p.controlFrame.particleSizeSliderTriangle.getValue();
+                            break;
+                    }
+                    particleSizeDrumHitThread = new ParticleSizeTimerThread( this, toValue );
+                    particleSizeDrumHitThread.start( );
+                }
+
+                this.setParticleSize( PApplet.min( getParticleSize( ) * 2.0f, 30.0f ) );
+                break;
+            case ORIGINAL:
+                /*
+                if( backgroundBlendThread.running == false ) {
+                    currentBlendedBackgroundValue = 255;
+                    backgroundBlendThread = new BackgroundBlendTimerThread( this, 0 );
+                    backgroundBlendThread.start( );
+                }
+                */
+
+                if( intensityThread.running == false ) {
+                    intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
+                    getSurface().setIntensity( 1.0f );
+                    intensityThread.start();
+
+                }
+
+                break;
         }
-
-        if( particleSizeDrumHitThread.running == false ) {
-            float toValue = 0.0f;
-            switch( this.getSurface().getFormId() ) {
-                case RECT1:
-                    toValue = p.controlFrame.particleSizeSliderRect.getValue();
-                    break;
-                case CIRCLE1:
-                    toValue = p.controlFrame.particleSizeSliderCircle.getValue();
-                    break;
-                case TRIANGLE1:
-                    toValue = p.controlFrame.particleSizeSliderTriangle.getValue();
-                    break;
-            }
-            particleSizeDrumHitThread = new ParticleSizeTimerThread( this, toValue );
-            particleSizeDrumHitThread.start( );
-        }
-
-
-        this.setParticleSize( PApplet.min( getParticleSize( ) * 2.0f, 30.0f ) );
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
@@ -508,5 +553,13 @@ public class ChladniParticles {
 
     public void setIntensity( float _intensity ) {
         this.getSurface().setIntensity( _intensity );
+    }
+
+    public void setCurrentBlendedBackgroundValue( int value ) {
+        this.currentBlendedBackgroundValue = value;
+    }
+
+    public int getCurrentBlendedBackgroundValue() {
+        return this.currentBlendedBackgroundValue;
     }
 }

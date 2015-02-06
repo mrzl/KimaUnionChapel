@@ -1,17 +1,19 @@
-package pattern;
+package pattern.drumhit;
+
+import pattern.ChladniParticles;
 
 /**
- * Created by mrzl on 02.02.2015.
+ * Created by mrzl on 06.02.2015.
  */
-public class ParticleSizeTimerThread extends Thread {
+public class IntensityTimerThread extends Thread {
     private ChladniParticles particles;
     public boolean running;
-    private float targetParticleSize;
+    private float targetIntensity;
 
-    public ParticleSizeTimerThread( ChladniParticles _particles, float _targetParticleSize ) {
+    public IntensityTimerThread( ChladniParticles _particles, float _targetIntensity ) {
         this.particles = _particles;
         this.running = false;
-        this.targetParticleSize = _targetParticleSize;
+        this.targetIntensity = _targetIntensity;
     }
 
     public void start() {
@@ -22,8 +24,8 @@ public class ParticleSizeTimerThread extends Thread {
     public void run() {
         while( running ) {
             try {
-                if( particles.getParticleSize() > targetParticleSize ) {
-                    particles.setParticleSize( particles.getParticleSize() * 0.8f );
+                if( particles.getSurface().getIntensity() > targetIntensity ) {
+                    particles.getSurface().setIntensity(  particles.getSurface( ).getIntensity( ) * 0.8f );
                 } else {
                     running = false;
                 }
