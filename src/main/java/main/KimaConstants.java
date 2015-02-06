@@ -4,9 +4,6 @@ package main;
  * Created by mrzl on 02.02.2015.
  */
 public class KimaConstants {
-    // attack = [0,1}
-    // frequency = [200,10000]
-    // amplitude = [0,0.99]
     public static final int MIN_FREQUENCY = 430;
     public static final int MAX_FREQUENCY = 4000;
     public static final float MIN_AMPLITUDE = 0.01f;
@@ -29,6 +26,20 @@ public class KimaConstants {
     public static final float FREQUENCY_ORGAN_MAX = 3544;
     public static final float AMPLITUDE_ORGAN_MIN = 0.01f;
     public static final float AMPLITUDE_ORGAN_MAX = 39.99f;
+
+    public static final int RECTANGLE_N_MIN = 1;
+    public static final int RECTANGLE_N_MAX = 9;
+    public static final int RECTANGLE_M_MIN = 0;
+    public static final int RECTANGLE_M_MAX = 11;
+    public static final int TRIANGLE_N = 18;
+    public static final float TRIANGLE_M = 0.0f;
+    public static final int TRIANGLE_POLES = 19;
+    public static final float TRIANGLE_SCALES_MIN = 0.04f;
+    public static final float TRIANGLE_SCALES_MAX = 1.4f;
+    public static final float CIRCLE_N_MIN = 1.0f;
+    public static final float CIRCLE_N_MAX = 10.0f;
+    public static final float CIRCLE_M_MIN = 1.0f;
+    public static final float CIRCLE_M_MAX = 5.94f;
 
     public static final int MIN_MIDI = 0;
     public static final int MAX_MIDI = 127;
