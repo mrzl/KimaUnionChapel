@@ -21,9 +21,9 @@ public class Main extends PApplet {
 
     public static final String OSX = "Mac";
 
-    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1, HYDROGEN1}
+    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1, HYDROGEN1, CIRCLE_RECONSTRUCTION}
     public HashMap< ChladniFormId, ChladniParticles > chladniForms;
-    public static final int FORM_COUNT = 3;
+    public static final int FORM_COUNT = 4;
 
     public SoundController soundController;
     protected NanoKontrolController nanoController;
@@ -58,12 +58,14 @@ public class Main extends PApplet {
         ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
         ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
         //HydrogenCircle hydrogenCircle = new HydrogenCircle( this, resolution, resolution );
+        ChladniCircleReconstructed fakeCircle = new ChladniCircleReconstructed( this, resolution, resolution );
 
 
         ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
         ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
         //ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 10000 );
+        ChladniParticles chladniCircleReconstruction = new ChladniParticles( this, fakeCircle, scaleFactor, 10000 );
 
 
         chladniForms = new HashMap<>( );
@@ -71,6 +73,7 @@ public class Main extends PApplet {
         chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
         //chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
+        chladniForms.put( ChladniFormId.CIRCLE_RECONSTRUCTION, chladniCircleReconstruction );
 
 
         controlFrame = ControlFrame.addControlFrame( this, "Controls", 450, 1000 );
@@ -188,6 +191,7 @@ public class Main extends PApplet {
         // restrict surfaces
         chladniForms.get( ChladniFormId.TRIANGLE1 ).restrictTriangular( );
         chladniForms.get( ChladniFormId.CIRCLE1 ).restrictCircular( ( int ) ( chladniForms.get( ChladniFormId.TRIANGLE1 ).getSurface( ).getWidth( ) * scaleFactor / 2 ) );
+        chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).restrictCircular( (int)(chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().getWidth() * scaleFactor / 2) );
 
         // draw particles
         it = chladniForms.entrySet().iterator();
@@ -203,6 +207,7 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
         if ( debug ) {
@@ -225,10 +230,20 @@ public class Main extends PApplet {
 
     public void keyPressed() {
         if( key == 'd' ) {
-            chladniForms.get( ChladniFormId.RECT1 ).doDrumHit();
-            chladniForms.get( ChladniFormId.CIRCLE1 ).doDrumHit();
-            chladniForms.get( ChladniFormId.TRIANGLE1 ).doDrumHit();
+            Iterator it = chladniForms.entrySet( ).iterator( );
+            while ( it.hasNext( ) ) {
+                Map.Entry pairs = ( Map.Entry ) it.next( );
+                ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                p.doDrumHit();
+            }
+        } if ( key == 's') {
+            chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().getBuffer().save( "ext_.png" );
         }
+    }
+
+    public void mouseMoved() {
+        chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().setM( map( mouseX, 0, width, 0, 10 ) );
+        chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().setN( (int)(map( mouseY, 0, height, 2, 15 ) ) );
     }
 
     private void prepareExitHandler () {
