@@ -1,4 +1,4 @@
-package pattern.drumhit;
+package pattern.attackvisualization;
 
 import pattern.ChladniParticles;
 
@@ -25,7 +25,7 @@ public class IntensityTimerThread extends Thread {
         while( running ) {
             try {
                 if( particles.getSurface().getIntensity() > targetIntensity ) {
-                    particles.getSurface().setIntensity(  particles.getSurface( ).getIntensity( ) * 0.8f );
+                    particles.getSurface().setIntensity( particles.getSurface( ).getIntensity( ) * 0.8f );
                 } else {
                     running = false;
                 }

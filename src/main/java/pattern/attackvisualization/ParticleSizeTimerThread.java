@@ -1,19 +1,19 @@
-package pattern.drumhit;
+package pattern.attackvisualization;
 
 import pattern.ChladniParticles;
 
 /**
- * Created by mrzl on 06.02.2015.
+ * Created by mrzl on 02.02.2015.
  */
-public class BackgroundBlendTimerThread extends Thread {
+public class ParticleSizeTimerThread extends Thread {
     private ChladniParticles particles;
     public boolean running;
-    private float targetBackgroundColor;
+    private float targetParticleSize;
 
-    public BackgroundBlendTimerThread( ChladniParticles _particles, float _targetBackgroundColor ) {
+    public ParticleSizeTimerThread( ChladniParticles _particles, float _targetParticleSize ) {
         this.particles = _particles;
         this.running = false;
-        this.targetBackgroundColor = _targetBackgroundColor;
+        this.targetParticleSize = _targetParticleSize;
     }
 
     public void start() {
@@ -24,8 +24,8 @@ public class BackgroundBlendTimerThread extends Thread {
     public void run() {
         while( running ) {
             try {
-                if( particles.getCurrentBlendedBackgroundValue( ) > targetBackgroundColor ) {
-                    particles.setCurrentBlendedBackgroundValue( ( int ) (particles.getCurrentBlendedBackgroundValue( ) * 0.5f) );
+                if( particles.getParticleSize( ) > targetParticleSize ) {
+                    particles.setParticleSize( particles.getParticleSize() * 0.8f );
                 } else {
                     running = false;
                 }
