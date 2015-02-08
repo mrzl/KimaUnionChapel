@@ -18,6 +18,7 @@ public class SoundController {
     private ArrayList< SoundParameterMapping > mappings;
     private HashMap< SoundInputParameterEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
+
     /**
 
      * @param port
@@ -26,7 +27,7 @@ public class SoundController {
         mappings = new ArrayList<>();
         new OscP5( this, port );
 
-        debugDisplay = OscParameterDisplay.addControlFrame( p, "OscParameterDebug", 600, 150 );
+        //debugDisplay = addControlFrame( "OscParameterDebug", 600, 150 );
 
         filters = new HashMap<>();
 
@@ -62,6 +63,7 @@ public class SoundController {
 
     @SuppressWarnings( "unused" )
     public void oscEvent( OscMessage receivedOscMessage ) {
+        System.out.println( "osc received" );
         long timeArrived = System.currentTimeMillis();
         if( timeArrived - lastTimeOscMessageArrived > updateDelay ) {
             lastTimeOscMessageArrived = timeArrived;
@@ -112,7 +114,7 @@ public class SoundController {
                 }
 
             } catch ( UnknownOscParameterException e ) {
-                //e.printStackTrace( );
+                e.printStackTrace( );
             }
         }
     }

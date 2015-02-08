@@ -82,7 +82,9 @@ public class Main extends PApplet {
 
 
         // VOICE CHANNEL 1
+
         this.soundController = new SoundController( this, 5001 );
+/*
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
         SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLITUDE_VOICE_MIN, KimaConstants.AMPLITUDE_VOICE_MAX );
         ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 18.0f );
@@ -111,6 +113,8 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
+
+        */
 
         nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );

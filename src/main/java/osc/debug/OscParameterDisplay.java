@@ -3,7 +3,6 @@ package osc.debug;
 import controlP5.ControlP5;
 import controlP5.Slider;
 import main.KimaConstants;
-import main.Main;
 import osc.SoundInputParameterEnum;
 import processing.core.PApplet;
 
@@ -15,7 +14,6 @@ import java.util.HashMap;
  */
 public class OscParameterDisplay extends PApplet {
 
-    private Main parent;
     private ControlP5 cp5;
     private HashMap< SoundInputParameterEnum, Slider > parameters;
     private int w, h;
@@ -23,7 +21,6 @@ public class OscParameterDisplay extends PApplet {
     public void setup () {
         size( 600, 300 );
         cp5 = new ControlP5( this );
-        cp5.setAutoDraw( true );
         parameters = new HashMap<>();
 
         Slider amplitudeSlider1 = cp5.addSlider( "AM1" ).setPosition( 10, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f );
@@ -47,6 +44,7 @@ public class OscParameterDisplay extends PApplet {
         parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER1, attackSlider1 );
         parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, attackSlider2 );
         parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, attackSlider3 );
+
     }
 
     public void draw () {
@@ -57,15 +55,14 @@ public class OscParameterDisplay extends PApplet {
         parameters.get( _sip ).setValue( value );
     }
 
-    public OscParameterDisplay ( Main theParent, int theWidth, int theHeight ) {
-        parent = theParent;
+    public OscParameterDisplay ( int theWidth, int theHeight ) {
         w = theWidth;
         h = theHeight;
     }
 
-    public static OscParameterDisplay addControlFrame ( Main pa, String theName, int theWidth, int theHeight ) {
+    public static OscParameterDisplay addControlFrame ( String theName, int theWidth, int theHeight ) {
         Frame f = new Frame( theName );
-        OscParameterDisplay p = new OscParameterDisplay( pa, theWidth, theHeight );
+        OscParameterDisplay p = new OscParameterDisplay( theWidth, theHeight );
         f.add( p );
         p.init( );
         f.setTitle( theName );
