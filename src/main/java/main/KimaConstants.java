@@ -9,8 +9,8 @@ public class KimaConstants {
     public static final float MIN_AMPLITUDE = 0.01f;
     public static final float MAX_AMPLITUDE = 39.99f;
 
-    public static final int MIN_ATTACK = 0;
-    public static final int MAX_ATTACK = 1;
+    public static final int ATTACK_MIN = 0;
+    public static final int ATTACK_MAX = 1;
 
     public static final float FREQUENCY_VOICE_MIN = 430;
     public static final float FREQUENCY_VOICE_MAX = 3937;
@@ -34,7 +34,7 @@ public class KimaConstants {
     public static final int TRIANGLE_N = 18;
     public static final float TRIANGLE_M = 0.0f;
     public static final int TRIANGLE_POLES = 19;
-    public static final float TRIANGLE_SCALES_MIN = 0.04f;
+    public static final float TRIANGLE_SCALES_MIN = 0.26f;
     public static final float TRIANGLE_SCALES_MAX = 1.4f;
     public static final float CIRCLE_N_MIN = 1.0f;
     public static final float CIRCLE_N_MAX = 10.0f;

@@ -21,8 +21,6 @@ public class ChladniCircleReconstructed extends ChladniSurface {
     }
 
     public void update() {
-
-
         getBuffer().beginDraw( );
         getBuffer().pushStyle( );
 

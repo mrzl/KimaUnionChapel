@@ -27,6 +27,7 @@ public class ParticleSizeTimerThread extends Thread {
                 if( particles.getParticleSize( ) > targetParticleSize ) {
                     particles.setParticleSize( particles.getParticleSize() * 0.8f );
                 } else {
+                    //this.yield();
                     running = false;
                 }
 

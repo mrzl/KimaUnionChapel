@@ -4,14 +4,11 @@ import controlP5.ControlP5;
 import controlP5.Slider;
 import main.KimaConstants;
 import main.Main;
-import osc.SoundInputParameter;
 import osc.SoundInputParameterEnum;
 import processing.core.PApplet;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by mrzl on 08.01.2015.
@@ -37,9 +34,9 @@ public class OscParameterDisplay extends PApplet {
         Slider frequencySlider2 = cp5.addSlider( "FQ2" ).setPosition( 165, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f );
         Slider frequencySlider3 = cp5.addSlider( "FQ3" ).setPosition( 200, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f );
 
-        Slider attackSlider1 = cp5.addSlider( "AT1" ).setPosition( 250, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
-        Slider attackSlider2 = cp5.addSlider( "AT2" ).setPosition( 285, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
-        Slider attackSlider3 = cp5.addSlider( "AT3" ).setPosition( 320, 10 ).setSize( 15, 100 ).setRange( KimaConstants.MIN_ATTACK, KimaConstants.MAX_ATTACK ).setValue( 0.0f );
+        Slider attackSlider1 = cp5.addSlider( "AT1" ).setPosition( 250, 10 ).setSize( 15, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f );
+        Slider attackSlider2 = cp5.addSlider( "AT2" ).setPosition( 285, 10 ).setSize( 15, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f );
+        Slider attackSlider3 = cp5.addSlider( "AT3" ).setPosition( 320, 10 ).setSize( 15, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f );
 
         parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, amplitudeSlider1 );
         parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, amplitudeSlider2 );

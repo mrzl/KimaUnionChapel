@@ -56,9 +56,9 @@ public class ChladniParticles {
     public PGL pgl;
     public GL2 gl2;
 
-    private ParticleSizeTimerThread particleSizeDrumHitThread;
-    private BackgroundBlendTimerThread backgroundBlendThread;
-    private IntensityTimerThread intensityThread;
+    //private ParticleSizeTimerThread particleSizeDrumHitThread;
+    //private BackgroundBlendTimerThread backgroundBlendThread;
+    //private IntensityTimerThread intensityThread;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -96,9 +96,11 @@ public class ChladniParticles {
 
         this.currentBlendedBackgroundValue = 0;
 
-        particleSizeDrumHitThread = new ParticleSizeTimerThread( this, this.getParticleSize( ) );
-        backgroundBlendThread = new BackgroundBlendTimerThread( this, getCurrentBlendedBackgroundValue() );
-        intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
+        //particleSizeDrumHitThread = new ParticleSizeTimerThread( this, this.getParticleSize( ) );
+        //particleSizeDrumHitThread.start();
+        //backgroundBlendThread = new BackgroundBlendTimerThread( this, getCurrentBlendedBackgroundValue() );
+        //backgroundBlendThread.start();
+        //intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
     }
 
     public void update ( int speed ) {
@@ -351,21 +353,24 @@ public class ChladniParticles {
                     frequencyChanged();
                 }
 
-                if( particleSizeDrumHitThread.running == false ) {
-                    float toValue = getParticleSize();
-                    particleSizeDrumHitThread = new ParticleSizeTimerThread( this, toValue );
-                    particleSizeDrumHitThread.start( );
-                }
+                //if( particleSizeDrumHitThread.running == false ) {
+                    //particleSizeDrumHitThread = new ParticleSizeTimerThread( this, getParticleSize() );
+                    //particleSizeDrumHitThread.start();
+                //    particleSizeDrumHitThread.running = true;
+                //}
 
                 this.setParticleSize( PApplet.min( getParticleSize( ) * 2.0f, 30.0f ) );
                 break;
             case ORIGINAL:
 
-                if( backgroundBlendThread.running == false ) {
+                //if( backgroundBlendThread.running == false ) {
 
-                    backgroundBlendThread = new BackgroundBlendTimerThread( this, 0 );
-                    backgroundBlendThread.start( );
-                }
+                    //backgroundBlendThread = new BackgroundBlendTimerThread( this, 0 );
+                    //backgroundBlendThread.start();
+                //    backgroundBlendThread.running = true;
+                    //backgroundBlendThread.start( );
+                //}
+
                 currentBlendedBackgroundValue = 255;
 
                 /* Alternative drum hit
