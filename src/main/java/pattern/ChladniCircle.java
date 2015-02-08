@@ -2,6 +2,7 @@ package pattern;
 
 import main.Main;
 import main.MathUtils;
+import processing.core.PApplet;
 
 import java.io.File;
 
@@ -28,7 +29,7 @@ public class ChladniCircle extends ChladniSurface {
     }
 
     public void update() {
-        int nthZero = ( int ) MathUtils.getNthZeroOfMthBessel( ( int ) ( getM( ) ), getN( ) );
+        int nthZero = ( int ) MathUtils.getNthZeroOfMthBessel( ( int ) ( PApplet.abs( getM( ) ) ), PApplet.abs( getN( ) ) );
         this.shader.set( "nthZero", nthZero );
         this.shader.set( "m", getM() );
         this.shader.set( "minHue", getMinHue() );

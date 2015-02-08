@@ -48,7 +48,7 @@ public class ChladniCircleReconstructed extends ChladniSurface {
         }
 
         for( int i = 0; i < getN(); i++ ) {
-            float rot = PConstants.TWO_PI / getN() * i;
+            float rot = PConstants.TWO_PI / (int)(getN() ) * i;
             getBuffer().pushMatrix( );
             getBuffer().translate( getBuffer( ).width / 2, getBuffer( ).height / 2 );
             getBuffer().rotate( rot );

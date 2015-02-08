@@ -84,12 +84,12 @@ public class Main extends PApplet {
         // VOICE CHANNEL 1
 
         this.soundController = new SoundController( this, 5001 );
-/*
+
         SoundParameterMapping mappingRect = new SoundParameterMapping( chladniRect );
         SoundInputParameter soundMapping11 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLITUDE_VOICE_MIN, KimaConstants.AMPLITUDE_VOICE_MAX );
-        ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 18.0f );
+        ChladniPatternParameter chladniMapping11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
         SoundInputParameter soundMapping21 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER1, KimaConstants.FREQUENCY_VOICE_MIN, KimaConstants.FREQUENCY_VOICE_MAX );
-        ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 3.0f, 15.0f );
+        ChladniPatternParameter chladniMapping21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         mappingRect.addMapping( soundMapping11, chladniMapping11 );
         mappingRect.addMapping( soundMapping21, chladniMapping21 );
         soundController.addSoundParameterMapping( mappingRect );
@@ -105,16 +105,26 @@ public class Main extends PApplet {
         soundController.addSoundParameterMapping( mappingTriangle );
 
         // ORGAN CHANNEL 3
+        /*
         SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircle );
         SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.AMPLITUDE_ORGAN_MIN, KimaConstants.AMPLITUDE_ORGAN_MAX );
-        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, 1.0f, 10 );
+        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_M_MIN, KimaConstants.CIRCLE_M_MAX );
         SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
-        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, 2.0f, 10 );
+        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_N_MIN, KimaConstants.CIRCLE_N_MAX );
+        mappingCircle.addMapping( soundMapping13, chladniMapping13 );
+        mappingCircle.addMapping( soundMapping23, chladniMapping23 );
+        soundController.addSoundParameterMapping( mappingCircle );
+        */
+
+        SoundParameterMapping mappingCircle = new SoundParameterMapping( chladniCircleReconstruction );
+        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, KimaConstants.AMPLITUDE_ORGAN_MIN, KimaConstants.AMPLITUDE_ORGAN_MAX );
+        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
+        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
+        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         soundController.addSoundParameterMapping( mappingCircle );
 
-        */
 
         nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );

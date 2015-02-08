@@ -15,7 +15,7 @@ public class KimaConstants {
     public static final float FREQUENCY_VOICE_MIN = 430;
     public static final float FREQUENCY_VOICE_MAX = 3937;
     public static final float AMPLITUDE_VOICE_MIN = 0.01f;
-    public static final float AMPLITUDE_VOICE_MAX = 39.99f;
+    public static final float AMPLITUDE_VOICE_MAX = 20.0f;//39.99f;
 
     public static final float FREQUENCY_PERCUSSION_MIN = 430;
     public static final float FREQUENCY_PERCUSSION_MAX = 2080;
@@ -40,6 +40,10 @@ public class KimaConstants {
     public static final float CIRCLE_N_MAX = 10.0f;
     public static final float CIRCLE_M_MIN = 1.0f;
     public static final float CIRCLE_M_MAX = 5.94f;
+    public static final float CIRCLE_RECONSTRUCTION_N_MIN = 2.0f;
+    public static final float CIRCLE_RECONSTRUCTION_N_MAX = 15.0f;
+    public static final float CIRCLE_RECONSTRUCTION_M_MIN = 0.0f;
+    public static final float CIRCLE_RECONSTRUCTION_M_MAX = 10.0f;
 
     public static final int MIN_MIDI = 0;
     public static final int MAX_MIDI = 127;
