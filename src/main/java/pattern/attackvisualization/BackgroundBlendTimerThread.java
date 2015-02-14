@@ -22,14 +22,21 @@ public class BackgroundBlendTimerThread extends Thread {
     }
 
     public void run() {
-        while( running ) {
-            try {
-                if( particles.getCurrentBlendedBackgroundValue( ) > targetBackgroundColor ) {
-                    particles.setCurrentBlendedBackgroundValue( ( int ) (particles.getCurrentBlendedBackgroundValue( ) * 0.5f) );
-                } else {
-                    running = false;
-                }
+        while( true ) {
+            while ( running ) {
+                try {
+                    if ( particles.getCurrentBlendedBackgroundValue( ) > targetBackgroundColor ) {
+                        particles.setCurrentBlendedBackgroundValue( ( int ) ( particles.getCurrentBlendedBackgroundValue( ) * 0.5f ) );
+                    } else {
+                        running = false;
+                    }
 
+                    Thread.sleep( 100 );
+                } catch ( InterruptedException e ) {
+                    e.printStackTrace( );
+                }
+            }
+            try {
                 Thread.sleep( 100 );
             } catch ( InterruptedException e ) {
                 e.printStackTrace( );

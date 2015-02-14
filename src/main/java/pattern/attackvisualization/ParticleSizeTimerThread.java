@@ -22,15 +22,21 @@ public class ParticleSizeTimerThread extends Thread {
     }
 
     public void run() {
-        while( running ) {
-            try {
-                if( particles.getParticleSize( ) > targetParticleSize ) {
-                    particles.setParticleSize( particles.getParticleSize() * 0.8f );
-                } else {
-                    //this.yield();
-                    running = false;
-                }
+        while ( true ) {
+            while ( running ) {
+                try {
+                    if ( particles.getParticleSize( ) > targetParticleSize ) {
+                        particles.setParticleSize( particles.getParticleSize( ) * 0.8f );
+                    } else {
+                        running = false;
+                    }
 
+                    Thread.sleep( 100 );
+                } catch ( InterruptedException e ) {
+                    e.printStackTrace( );
+                }
+            }
+            try {
                 Thread.sleep( 100 );
             } catch ( InterruptedException e ) {
                 e.printStackTrace( );
