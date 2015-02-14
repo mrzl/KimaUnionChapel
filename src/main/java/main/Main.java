@@ -184,6 +184,10 @@ public class Main extends PApplet {
 
         BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
         VisualParameter vp6 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+        BcrInputParameter bcr7 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
+        VisualParameter vp7 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
+        BcrInputParameter bcr8 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
+        VisualParameter vp8 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
 
         bcrMapping1.addMapping( bcr1, vp1 );
         bcrMapping1.addMapping( bcr2, vp2 );
@@ -191,20 +195,34 @@ public class Main extends PApplet {
         bcrMapping1.addMapping( bcr4, vp4 );
         bcrMapping1.addMapping( bcr5, vp5 );
         bcrMapping1.addMapping( bcr6, vp6 );
+        bcrMapping1.addMapping( bcr7, vp7 );
+        bcrMapping1.addMapping( bcr8, vp8 );
         bcrController.addMapping( bcrMapping1 );
 
         // circle
         BcrMapping bcrMapping2 = new BcrMapping( chladniCircleReconstruction );
         BcrInputParameter bcrc1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
         VisualParameter vpc1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+        BcrInputParameter bcrc2 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
+        VisualParameter vpc2 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
+        BcrInputParameter bcrc3 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
+        VisualParameter vpc3 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
         bcrMapping2.addMapping( bcrc1, vpc1 );
+        bcrMapping2.addMapping( bcrc2, vpc2 );
+        bcrMapping2.addMapping( bcrc3, vpc3 );
         bcrController.addMapping( bcrMapping2 );
 
         // triangle
         BcrMapping bcrMapping3 = new BcrMapping( chladniTriangle );
         BcrInputParameter bcrt1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
         VisualParameter vpt1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+        BcrInputParameter bcrt2 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
+        VisualParameter vpt2 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
+        BcrInputParameter bcrt3 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
+        VisualParameter vpt3 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
         bcrMapping2.addMapping( bcrt1, vpt1 );
+        bcrMapping2.addMapping( bcrt2, vpt2 );
+        bcrMapping2.addMapping( bcrt3, vpt3 );
         bcrController.addMapping( bcrMapping3 );
 
         prepareExitHandler( );
