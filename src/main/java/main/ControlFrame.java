@@ -97,7 +97,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface();
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface();
                 realCircle.setN( controlEvent.getValue( ) );
             }
         } );
@@ -106,7 +106,7 @@ public class ControlFrame extends PApplet {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getSurface();
+                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface();
                 realCircle.setM( controlEvent.getValue( ) );
             }
         } );
@@ -245,7 +245,7 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setThreshold( controlEvent.getValue() );
                     }
                 } );
     }
@@ -283,7 +283,7 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
                     }
                 } );
     }
@@ -321,7 +321,7 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
                     }
                 } );
     }
@@ -359,7 +359,7 @@ public class ControlFrame extends PApplet {
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setIntensity( controlEvent.getValue() );
+                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setIntensity( controlEvent.getValue() );
                     }
                 } );
     }
@@ -382,7 +382,7 @@ public class ControlFrame extends PApplet {
         backgroundOpacitySliderCircle = controlP5.addSlider( "backgroundOpacityCircle" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setMotionBlurAmount( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setMotionBlurAmount( controlEvent.getValue( ) );
             }
         } );
     }
@@ -491,11 +491,11 @@ public class ControlFrame extends PApplet {
                 boolean v = getBoolFromFloat( controlEvent.getValue() );
                 if ( v ) {
                     parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.REGULAR );
-                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setBehaviorMode( BehaviorMode.REGULAR );
                     parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
                 } else {
                     parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
-                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
                     parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
                 }
             }
@@ -524,7 +524,7 @@ public class ControlFrame extends PApplet {
         particleOpacitySliderCircle = controlP5.addSlider( "particleOpacityCircle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( controlEvent.getValue( ) );
             }
         } );
     }
@@ -547,7 +547,7 @@ public class ControlFrame extends PApplet {
         particleCountSliderCircle = controlP5.addSlider( "particleCountCircle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleCount( ( int ) controlEvent.getValue( ) );
             }
         } );
     }
@@ -570,7 +570,7 @@ public class ControlFrame extends PApplet {
         particleSizeSliderCircle = controlP5.addSlider( "particleSizeCircle" ).setRange( 0, 80 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleSize( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleSize( controlEvent.getValue( ) );
             }
         } );
     }
@@ -593,7 +593,7 @@ public class ControlFrame extends PApplet {
         particleJumpynessSliderCicle = controlP5.addSlider( "jumpynessCircle" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setRebuildSpeed( controlEvent.getValue( ) );
+                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setRebuildSpeed( controlEvent.getValue( ) );
             }
         } );
     }
@@ -607,7 +607,7 @@ public class ControlFrame extends PApplet {
                     case N:
                         return parent.controlFrame.rectNSlider;
                 }
-            case CIRCLE1:
+            case CIRCLE_RECONSTRUCTION:
                 switch( visualParameter ) {
                     case M:
                         return parent.controlFrame.circleMSlider;
