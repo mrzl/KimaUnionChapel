@@ -27,6 +27,15 @@ public class KimaConstants {
     public static final float AMPLITUDE_ORGAN_MIN = 0.01f;
     public static final float AMPLITUDE_ORGAN_MAX = 39.99f;
 
+    public static final float PEAK_MIN = 0.0f;
+    public static final float PEAK_MAX = 0.99f;
+
+    public static final float FUNDAMENTAL_MIN = 0.0f;
+    public static final float FUNDAMENTAL_MAX = 1000.0f;
+
+    public static final float NEWNOTE_MIN = 0.0f;
+    public static final float NEWNOTE_MAX = 0.99f;
+
     public static final int RECTANGLE_N_MIN = 1;
     public static final int RECTANGLE_N_MAX = 9;
     public static final int RECTANGLE_M_MIN = 0;
