@@ -6,7 +6,6 @@ import pattern.*;
 import processing.core.PApplet;
 
 import java.awt.*;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -15,157 +14,232 @@ import java.util.Map;
 public class ControlFrame extends PApplet {
 
     public enum CONTROL_STATE { RECTANGLE, TRIANGLE, CIRCLE, HYDRPGEN, ALL }
+    private ChladniParticles selectedParticles;
 
     public static ControlP5 controlP5;
     private Main parent;
     private int w, h;
     private CONTROL_STATE currentControlState = CONTROL_STATE.RECTANGLE;
 
-    public Slider particleJumpynessSliderRect, particleJumpynessSliderTriangle, particleJumpynessSliderCicle;
-    public Slider updateDelaySlider, rectNSlider, rectMSlider;
-    public Slider circleNSlider, circleMSlider, triangleNSlider, triangleMSlider;
-    public Slider particleOpacitySliderRect, particleOpacitySliderTriangle, particleOpacitySliderCircle;
-    public Slider particleCountSliderRect, particleCountSliderTriangle, particleCountSliderCircle;
-    public Slider particleSizeSliderRect, particleSizeSliderTriangle, particleSizeSliderCircle;
-    public Slider backgroundOpacitySliderRect, backgroundOpacitySliderTriangle, backgroundOpacitySliderCircle;
-    public Slider intensitySliderRecht, intensitySliderTriangle, intensitySliderCircle;
-    public Slider bloomSigmaSliderRect, bloomSigmaSliderTriangle, bloomSigmaSliderCircle;
-    public Slider bloomBlurSizeSliderRect, bloomBlurSizeSliderTriangle, bloomBlurSizeSliderCircle;
-    public Slider bloomThresholdSliderRect, bloomThresholdSliderTriangle, bloomThresholdSliderCircle;
+    public Slider particleJumpynessSlider;
+    public Slider triangleScalesSlider;
+    public Slider updateDelaySlider, nSlider;
+    public Slider mSlider;
+    public Slider particleOpacitySlider;
+    public Slider particleCountSlider;
+    public Slider particleSizeSlider;
+    public Slider backgroundOpacitySlider;
+    public Slider intensitySlider;
+    public Slider bloomSigmaSlider;
+    public Slider bloomBlurSizeSlider;
+    public Slider bloomThresholdSlider;
     public Range minMaxHue;
 
     public void setup () {
         size( w, h );
         controlP5 = new ControlP5( this );
-        rectNSlider = controlP5.addSlider( "rectN" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, 10 ).setValue( 2.0f ).addListener( new ControlListener( ) {
+
+        int SLIDER_WIDTH = 300;
+        float Y_POS = 10;
+
+        nSlider = controlP5.addSlider( "N" ).setRange( 0, 15 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 2.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface();
-                r.setN( controlEvent.getValue( ) );
-            }
-        } );
-        rectMSlider = controlP5.addSlider( "rectM" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, 50 ).setValue( 3.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                // parent.chladniRect.frequencyChanged( );
-                ChladniRectangle r = ( ChladniRectangle ) parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getSurface();
-                r.setM( controlEvent.getValue( ) );
+                selectedParticles.getSurface().setN( controlEvent.getValue() );
             }
         } );
 
-        float circleY = 120;
-        circleNSlider = controlP5.addSlider( "circleN" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
+        Y_POS += 40;
+        mSlider = controlP5.addSlider( "M" ).setRange( 0, 15 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 3.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
-                c.setN( controlEvent.getValue( ) );
+                selectedParticles.getSurface().setM( controlEvent.getValue() );
             }
         } );
 
-        circleY += 40;
-        circleMSlider = controlP5.addSlider( "circleM" ).setRange( 0, 15 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
+        Y_POS += 40;
+        triangleScalesSlider = controlP5.addSlider( "TriangleScales" ).setRange( 0, 2 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 1.1f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
-                c.setM( controlEvent.getValue( ) );
-            }
-        } );
-        circleY += 40;
-        controlP5.addSlider( "circlePoles" ).setRange( 0, 40 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 33.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
-                c.setPoles( ( int ) ( controlEvent.getValue( ) ) );
-            }
-        } );
-        circleY += 40;
-        controlP5.addSlider( "circleScale" ).setRange( 0, 2 ).setSize( 300, 20 ).setPosition( 10, circleY ).setValue( 1.1f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniTriangle.frequencyChanged( );
-                ChladniTriangle c = ( ChladniTriangle ) parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getSurface();
-                c.setScale( controlEvent.getValue( ) );
+                selectedParticles.getSurface().setScale( controlEvent.getValue() );
             }
         } );
 
-        float realCircleY = 300;
-        triangleNSlider = controlP5.addSlider( "realCircleN" ).setRange( 1, 20 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 2.0f ).addListener( new ControlListener( ) {
+
+        Y_POS += 80;
+
+        particleJumpynessSlider = controlP5.addSlider( "Jumpyness" ).setRange( 0, 200 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface();
-                realCircle.setN( controlEvent.getValue( ) );
-            }
-        } );
-        realCircleY += 40;
-        triangleMSlider = controlP5.addSlider( "realCircleM" ).setRange( 1, 14 ).setSize( 300, 20 ).setPosition( 10, realCircleY ).setValue( 3.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                //parent.chladniCircle.frequencyChanged( );
-                ChladniCircle realCircle = ( ChladniCircle ) parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface();
-                realCircle.setM( controlEvent.getValue( ) );
+                selectedParticles.setRebuildSpeed( controlEvent.getValue() );
             }
         } );
 
-        float generalY = 400;
-        createJumpynessSliders( generalY );
+        Y_POS += 30;
+        particleSizeSlider = controlP5.addSlider( "ParticleSize" ).setRange( 0, 80 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 3.0f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                selectedParticles.setParticleSize( controlEvent.getValue() );
+            }
+        } );
 
-        generalY += 30;
-        createParticleSizeSliders( generalY );
+        Y_POS += 30;
+        particleCountSlider = controlP5.addSlider( "ParticleCount" ).setRange( 0, 30000 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 10000.0f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                selectedParticles.setParticleCount( ( int ) controlEvent.getValue() );
+            }
+        } );
 
-        generalY += 30;
-        createParticleCountSliders( generalY );
+        Y_POS += 30;
+        particleOpacitySlider = controlP5.addSlider( "ParticleOpacity" ).setRange( 0, 1 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 0.6f ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                selectedParticles.setParticleOpacity( controlEvent.getValue() );
+            }
+        } );
 
-        generalY += 30;
-        createParticleOpacitySliders( generalY );
+        Y_POS += 30;
+        backgroundOpacitySlider = controlP5.addSlider( "BackgroundOpacity" ).setRange( 0, 255 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 40 ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                selectedParticles.setMotionBlurAmount( controlEvent.getValue() );
+            }
+        } );
 
-        generalY += 30;
-
-        createBackgroundOpacitySliders( generalY );
-
-        generalY += 30;
-
-        createBloomSizeSlidera( generalY );
-
-        generalY += 30;
-
-        createBloomSigmaSliders( generalY );
-
-        generalY += 30;
-
-        createBloomThresholdSliders( generalY );
-
-        generalY += 40;
-
-        addToggles( generalY );
-
-        generalY += 50;
-        controlP5.addSlider( "threshold" )
-                .setRange( 0, 1 )
-                .setSize( 300, 20 )
-                .setPosition( 10, generalY )
-                .setValue( 0.2f )
+        Y_POS += 30;
+        bloomBlurSizeSlider = controlP5.addSlider( "BloomBlurSize" )
+                .setPosition( 10, Y_POS )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setRange( 1, 80 )
+                .setValue( 28 )
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.getMetaBallModifier( ).setThreshold( controlEvent.getValue( ) );
+                       selectedParticles.getBloomModifier( ).setBlurSize( ( int ) ( controlEvent.getValue( ) ) );
+                    }
+                } );
+
+        Y_POS += 30;
+        bloomSigmaSlider = controlP5.addSlider( "BloomSigma" )
+                .setPosition( 10, Y_POS )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setRange( 1, 80 )
+                .setValue( 4 )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getBloomModifier().setBlurSigma( controlEvent.getValue( ) );
+                    }
+                } );
+
+        Y_POS += 30;
+        bloomThresholdSlider = controlP5.addSlider( "BloomThreshold" )
+                .setPosition( 10, Y_POS )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setRange( 0, 1 )
+                .setValue( 0.1f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getBloomModifier().setThreshold( controlEvent.getValue( ) );
+                    }
+                } );
+
+        Y_POS += 40;
+
+        controlP5.addToggle( "thresholdToggle" )
+                .setPosition( 10, Y_POS )
+                .setSize( 50, 20 )
+                .setValue( false )
+                .setMode( ControlP5.SWITCH )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getMetaBallModifier().setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                    }
+                } )
+        ;
+
+        controlP5.addToggle( "Color Mode Toggle" )
+                .setPosition( 80, Y_POS )
+                .setSize( 50, 20 )
+                .setValue( false )
+                .setMode( ControlP5.SWITCH )
+                .addListener( new ControlListener( ) {
+
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        if ( getBoolFromFloat( controlEvent.getValue( ) ) ) {
+                            selectedParticles.setColorModeEnum( ColorModeEnum.MOON );
+                        } else {
+                            selectedParticles.setColorModeEnum( ColorModeEnum.VELOCITIES );
                         }
                     }
                 } );
 
-        generalY += 50;
+        controlP5.addToggle( "Bloom Toggle" )
+                .setPosition( 150, Y_POS )
+                .setSize( 50, 20 )
+                .setValue( false )
+                .setMode( ControlP5.SWITCH )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getBloomModifier().setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
+                    }
+                } );
+
+        controlP5.addSlider( "Draw Mode" )
+                .setPosition( 220, Y_POS )
+                .setSize( 50, 20 )
+                .setRange( 0, 1 )
+                .setValue( 0.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        float v = controlEvent.getValue( );
+
+                        if ( v < 0.3f ) {
+                            selectedParticles.setRenderMode( RenderMode.POINTS );
+                        } else if( v > 0.6f ) {
+                            selectedParticles.setRenderMode( RenderMode.LINES );
+                        } else {
+                            selectedParticles.setRenderMode( RenderMode.ORIGINAL );
+                        }
+                    }
+                } );
+
+        controlP5.addToggle( "Behavior Mode" ).setPosition( 300, Y_POS ).setSize( 50, 20 ).setValue( false ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                boolean v = getBoolFromFloat( controlEvent.getValue( ) );
+                if ( v ) {
+                    selectedParticles.setBehaviorMode( BehaviorMode.REGULAR );
+                } else {
+                    selectedParticles.setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
+                }
+            }
+        } );
+
+        Y_POS += 50;
+        controlP5.addSlider( "Threshold" )
+                .setRange( 0, 1 )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
+                .setValue( 0.2f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getMetaBallModifier().setThreshold( controlEvent.getValue() );
+                    }
+                } );
+
+        Y_POS += 50;
         updateDelaySlider = controlP5.addSlider( "updateDelay" )
                 .setRange( 0, 2000 )
-                .setSize( 300, 20 )
-                .setPosition( 10, generalY )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
                 .setValue( 100 )
                 .addListener( new ControlListener( ) {
                     @Override
@@ -174,34 +248,37 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
-        generalY += 50;
+        Y_POS += 50;
 
         minMaxHue = controlP5.addRange( "minHue" )
                 .setRange( 0.0f, 1.0f )
-                .setSize( 300, 20 )
-                .setPosition( 10, generalY )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
                 .setRangeValues( 0.0f, 1.0f )
                 .addListener( new ControlListener( ) {
                     @Override
                     public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.getSurface().setMinHue( controlEvent.getArrayValue( 0 ) );
-                            p.getSurface().setMaxHue( controlEvent.getArrayValue( 1 ) );
-                            //p.getSurface().setMinHue( controlEvent.getArrayValue( 0 ) );
-                            p.getColorMode( ).setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
-                            p.getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
-                        }
+                        selectedParticles.getSurface().setMinHue( controlEvent.getArrayValue( 0 ) );
+                        selectedParticles.getSurface().setMaxHue( controlEvent.getArrayValue( 1 ) );
+                        selectedParticles.getColorMode().setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
+                        selectedParticles.getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
                     }
                 } );
 
-        generalY += 50;
+        Y_POS += 50;
+        intensitySlider = controlP5.addSlider( "Intensity" )
+                .setRange( 0, 1 )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.setIntensity( controlEvent.getValue( ) );
+                    }
+                } );
 
-        addIntensitySliders( generalY );
-
-        controlP5.loadProperties();
+        //controlP5.loadProperties();
     }
 
     public void setControlState( CONTROL_STATE _cs ) {
@@ -212,419 +289,24 @@ public class ControlFrame extends PApplet {
         return this.currentControlState;
     }
 
-    private void createBloomThresholdSliders ( float generalY ) {
-        bloomThresholdSliderRect = controlP5.addSlider( "bloomThresholdRect" )
-                .setPosition( 10, generalY )
-                .setSize( 100, 20 )
-                .setRange( 0, 1 )
-                .setValue( 0.1f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
-                    }
-                } );
 
-        bloomThresholdSliderTriangle = controlP5.addSlider( "bloomThresholdTriangle" )
-                .setPosition( 130, generalY )
-                .setSize( 100, 20 )
-                .setRange( 0, 1 )
-                .setValue( 0.1f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setThreshold( controlEvent.getValue() );
-                    }
-                } );
-
-        bloomThresholdSliderCircle = controlP5.addSlider( "bloomThresholdCircle" )
-                .setPosition( 240, generalY )
-                .setSize( 100, 20 )
-                .setRange( 0, 1 )
-                .setValue( 0.1f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setThreshold( controlEvent.getValue() );
-                    }
-                } );
-    }
-
-    private void createBloomSigmaSliders ( float generalY ) {
-        bloomSigmaSliderRect = controlP5.addSlider( "bloomSigmaRect" )
-                .setPosition( 10, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 4 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
-                    }
-                } );
-
-        bloomSigmaSliderTriangle = controlP5.addSlider( "bloomSigmaTriangle" )
-                .setPosition( 130, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 4 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
-                    }
-                } );
-
-        bloomSigmaSliderCircle = controlP5.addSlider( "bloomSigmaCircle" )
-                .setPosition( 240, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 4 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setBlurSigma( controlEvent.getValue() );
-                    }
-                } );
-    }
-
-    private void createBloomSizeSlidera ( float generalY ) {
-        bloomBlurSizeSliderRect = controlP5.addSlider( "bloomBlurSizeRect" )
-                .setPosition( 10, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 28 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
-                    }
-                } );
-
-        bloomBlurSizeSliderTriangle = controlP5.addSlider( "bloomBlurSizeTriangle" )
-                .setPosition( 130, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 28 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
-                    }
-                } );
-
-        bloomBlurSizeSliderCircle = controlP5.addSlider( "bloomBlurSizeCircle" )
-                .setPosition( 240, generalY )
-                .setSize( 100, 20 )
-                .setRange( 1, 80 )
-                .setValue( 28 )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).getBloomModifier().setBlurSize( ( int )( controlEvent.getValue() ) );
-                    }
-                } );
-    }
-
-    private void addIntensitySliders ( float generalY ) {
-        intensitySliderRecht = controlP5.addSlider( "intensityRect" )
-                .setRange( 0, 1 )
-                .setSize( 100, 20 )
-                .setPosition( 10, generalY )
-                .setValue( 1.0f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setIntensity( controlEvent.getValue() );
-                    }
-                } );
-
-        intensitySliderTriangle = controlP5.addSlider( "intensityTriangle" )
-                .setRange( 0, 1 )
-                .setSize( 100, 20 )
-                .setPosition( 130, generalY )
-                .setValue( 1.0f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setIntensity( controlEvent.getValue() );
-                    }
-                } );
-
-        intensitySliderCircle = controlP5.addSlider( "intensityCircle" )
-                .setRange( 0, 1 )
-                .setSize( 100, 20 )
-                .setPosition( 240, generalY )
-                .setValue( 1.0f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setIntensity( controlEvent.getValue() );
-                    }
-                } );
-    }
-
-    private void createBackgroundOpacitySliders( float generalY ) {
-        backgroundOpacitySliderRect = controlP5.addSlider( "backgroundOpacityRect" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setMotionBlurAmount( controlEvent.getValue( ) );
-            }
-        } );
-
-        backgroundOpacitySliderTriangle = controlP5.addSlider( "backgroundOpacityTriangle" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setMotionBlurAmount( controlEvent.getValue( ) );
-            }
-        } );
-
-        backgroundOpacitySliderCircle = controlP5.addSlider( "backgroundOpacityCircle" ).setRange( 0, 255 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 40 ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setMotionBlurAmount( controlEvent.getValue( ) );
-            }
-        } );
-    }
-
-    private void addToggles ( float generalY ) {
-        controlP5.addToggle( "thresholdToggle" )
-                .setPosition( 10, generalY )
-                .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.getMetaBallModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        }
-                    }
-                } )
-        ;
-
-        controlP5.addToggle( "colorModeToggle" )
-                .setPosition( 80, generalY )
-                .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
-                .addListener( new ControlListener( ) {
-
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        if ( getBoolFromFloat( controlEvent.getValue( ) ) ) {
-                            Iterator it = parent.chladniForms.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pairs = ( Map.Entry ) it.next( );
-                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setColorModeEnum( ColorModeEnum.MOON );
-                            }
-                        } else {
-                            Iterator it = parent.chladniForms.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pairs = ( Map.Entry ) it.next( );
-                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setColorModeEnum( ColorModeEnum.VELOCITIES );
-                            }
-                        }
-                    }
-                } );
-
-        controlP5.addToggle( "bloomToggle" )
-                .setPosition( 150, generalY )
-                .setSize( 50, 20 )
-                .setValue( false )
-                .setMode( ControlP5.SWITCH )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        Iterator it = parent.chladniForms.entrySet().iterator();
-                        while (it.hasNext()) {
-                            Map.Entry pairs = ( Map.Entry ) it.next( );
-                            ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                            p.getBloomModifier( ).setEnabled( getBoolFromFloat( controlEvent.getValue( ) ) );
-                        }
-                    }
-                } );
-
-        controlP5.addSlider( "drawMode" )
-                .setPosition( 220, generalY )
-                .setSize( 50, 20 )
-                .setRange( 0, 1 )
-                .setValue( 0.0f )
-                .addListener( new ControlListener( ) {
-                    @Override
-                    public void controlEvent ( ControlEvent controlEvent ) {
-                        float v = controlEvent.getValue( );
-
-                        if ( v < 0.3f ) {
-                            Iterator it = parent.chladniForms.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pairs = ( Map.Entry ) it.next( );
-                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setRenderMode( RenderMode.POINTS );
-                            }
-                        } else if( v > 0.6f ) {
-                            Iterator it = parent.chladniForms.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pairs = ( Map.Entry ) it.next( );
-                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setRenderMode( RenderMode.LINES );
-                            }
-                        } else {
-                            Iterator it = parent.chladniForms.entrySet().iterator();
-                            while (it.hasNext()) {
-                                Map.Entry pairs = ( Map.Entry ) it.next( );
-                                ChladniParticles p = ( ChladniParticles ) pairs.getValue();
-                                p.setRenderMode( RenderMode.ORIGINAL );
-                            }
-                        }
-                    }
-                } );
-
-        controlP5.addToggle( "behaviorMode" ).setPosition( 300, generalY ).setSize( 50, 20 ).setValue( false ).addListener(new ControlListener() {
-            @Override
-            public void controlEvent( ControlEvent controlEvent ) {
-                boolean v = getBoolFromFloat( controlEvent.getValue() );
-                if ( v ) {
-                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.REGULAR );
-                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setBehaviorMode( BehaviorMode.REGULAR );
-                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.REGULAR );
-                } else {
-                    parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
-                    parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
-                    parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setBehaviorMode( BehaviorMode.CENTER_OUTWARDS );
-                }
-            }
-        });
-    }
 
     private boolean getBoolFromFloat ( float _f ) {
         return _f != 0;
     }
 
-    private void createParticleOpacitySliders ( float generalY ) {
-        particleOpacitySliderRect = controlP5.addSlider( "particleOpacityRect" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( controlEvent.getValue( ) );
-            }
-        } );
 
-        particleOpacitySliderTriangle = controlP5.addSlider( "particleOpacityTriangle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( controlEvent.getValue( ) );
-            }
-        } );
-
-        particleOpacitySliderCircle = controlP5.addSlider( "particleOpacityCircle" ).setRange( 0, 1 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 0.6f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( controlEvent.getValue( ) );
-            }
-        } );
-    }
-
-    private void createParticleCountSliders ( float generalY ) {
-        particleCountSliderRect = controlP5.addSlider( "particleCountRect" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
-            }
-        } );
-
-        particleCountSliderTriangle = controlP5.addSlider( "particleCountTriangle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleCount( ( int ) controlEvent.getValue( ) );
-            }
-        } );
-
-        particleCountSliderCircle = controlP5.addSlider( "particleCountCircle" ).setRange( 0, 30000 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 10000.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleCount( ( int ) controlEvent.getValue( ) );
-            }
-        } );
-    }
-
-    private void createParticleSizeSliders ( float generalY ) {
-        particleSizeSliderRect = controlP5.addSlider( "particleSizeRect" ).setRange( 0, 80 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleSize( controlEvent.getValue( ) );
-            }
-        } );
-
-        particleSizeSliderTriangle = controlP5.addSlider( "particleSizeTriangle" ).setRange( 0, 80 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleSize( controlEvent.getValue( ) );
-            }
-        } );
-
-        particleSizeSliderCircle = controlP5.addSlider( "particleSizeCircle" ).setRange( 0, 80 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 3.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleSize( controlEvent.getValue( ) );
-            }
-        } );
-    }
-
-    private void createJumpynessSliders ( float generalY ) {
-        particleJumpynessSliderRect = controlP5.addSlider( "jumpynessRect" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 10, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.RECT1 ).setRebuildSpeed( controlEvent.getValue( ) );
-            }
-        } );
-
-        particleJumpynessSliderTriangle = controlP5.addSlider( "jumpynessTriangle" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 130, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setRebuildSpeed( controlEvent.getValue( ) );
-            }
-        } );
-
-        particleJumpynessSliderCicle = controlP5.addSlider( "jumpynessCircle" ).setRange( 0, 200 ).setSize( 100, 20 ).setPosition( 250, generalY ).setValue( 30.0f ).addListener( new ControlListener( ) {
-            @Override
-            public void controlEvent ( ControlEvent controlEvent ) {
-                parent.chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setRebuildSpeed( controlEvent.getValue( ) );
-            }
-        } );
-    }
 
     public static Slider getSliderById ( Main parent, Main.ChladniFormId currentId, VisualParameterEnum visualParameter ) {
-        switch( currentId ) {
-            case RECT1:
-                switch( visualParameter ) {
-                    case M:
-                        return parent.controlFrame.rectMSlider;
-                    case N:
-                        return parent.controlFrame.rectNSlider;
-                }
-            case CIRCLE_RECONSTRUCTION:
-                switch( visualParameter ) {
-                    case M:
-                        return parent.controlFrame.circleMSlider;
-                    case N:
-                        return parent.controlFrame.circleNSlider;
-                }
-            case TRIANGLE1:
-                switch( visualParameter ) {
-                    case M:
-                        return parent.controlFrame.triangleMSlider;
-                    case N:
-                        return parent.controlFrame.triangleNSlider;
-                }
+        switch( visualParameter ) {
+            case M:
+                return parent.controlFrame.mSlider;
+            case N:
+                return parent.controlFrame.nSlider;
             default:
                 System.err.println( "Somethings wrong with the values mapped to gui controls" );
-
         }
+
         return null;
     }
 
@@ -650,6 +332,23 @@ public class ControlFrame extends PApplet {
 
     public void saveParameters () {
         this.controlP5.saveProperties(  );
+    }
+
+    public void setPattern( ChladniParticles _pattern ) {
+        this.selectedParticles = _pattern;
+
+        mSlider.setValue( _pattern.getSurface().getM() );
+        nSlider.setValue( _pattern.getSurface().getN() );
+        triangleScalesSlider.setValue( _pattern.getSurface().getScale() );
+        particleJumpynessSlider.setValue( _pattern.getParticleJumpyness( ) );
+        particleOpacitySlider.setValue( _pattern.getParticleOpacity() );
+        particleSizeSlider.setValue( _pattern.getParticleSize() );
+        particleCountSlider.setValue( _pattern.getParticleCount() );
+        backgroundOpacitySlider.setValue( _pattern.getBackgroundOpacity() );
+        intensitySlider.setValue( _pattern.getSurface().getIntensity() );
+        bloomBlurSizeSlider.setValue( _pattern.getBloomModifier().getBlurSize() );
+        bloomSigmaSlider.setValue( _pattern.getBloomModifier().getBlurSigma() );
+        bloomThresholdSlider.setValue( _pattern.getBloomModifier().getThresholdShader().getThreshold() );
     }
 
     public static ControlFrame addControlFrame ( Main pa, String theName, int theWidth, int theHeight ) {
