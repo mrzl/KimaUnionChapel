@@ -54,4 +54,12 @@ public class BloomModifier {
     public ThresholdShader getThresholdShader() {
         return this.thresh;
     }
+
+    public float getBlurSize () {
+        return blur.getBlurSize( );
+    }
+
+    public float getBlurSigma () {
+        return blur.getSigma( );
+    }
 }
