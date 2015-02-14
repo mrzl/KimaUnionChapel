@@ -182,6 +182,14 @@ public class SoundController {
         this.mappings.add( _spm );
     }
 
+    public void removeSoundParameterMapping( SoundParameterMapping _spm ) {
+        this.mappings.remove( _spm );
+    }
+
+    public void clear() {
+        this.mappings.clear();
+    }
+
     public SoundParameterMapping getSoundParameterMapping( int _spmId ) {
         return this.mappings.get( _spmId );
     }
