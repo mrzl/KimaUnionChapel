@@ -18,6 +18,7 @@ public class SoundController {
     private ArrayList< SoundParameterMapping > mappings;
     private HashMap< SoundInputParameterEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
+    private boolean enableDebugOutput = true;
 
     /**
 
@@ -27,7 +28,9 @@ public class SoundController {
         mappings = new ArrayList<>();
         new OscP5( this, port );
 
-        //debugDisplay = addControlFrame( "OscParameterDebug", 600, 150 );
+        if( enableDebugOutput ) {
+            debugDisplay = OscParameterDisplay.addControlFrame( "OscParameterDebug", 900, 150 );
+        }
 
         filters = new HashMap<>();
 
@@ -43,6 +46,18 @@ public class SoundController {
         filters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
         filters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
+        filters.put( SoundInputParameterEnum.PEAK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.PEAK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.PEAK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
+        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
+        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+
         filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER1 ).setEnabled( true );
         filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER2 ).setEnabled( true );
         filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER3 ).setEnabled( true );
@@ -54,6 +69,18 @@ public class SoundController {
         filters.get( SoundInputParameterEnum.ATTACK_PARAMETER1 ).setEnabled( false );
         filters.get( SoundInputParameterEnum.ATTACK_PARAMETER2 ).setEnabled( false );
         filters.get( SoundInputParameterEnum.ATTACK_PARAMETER3 ).setEnabled( false );
+
+        filters.get( SoundInputParameterEnum.PEAK_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.PEAK_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.PEAK_PARAMETER3 ).setEnabled( false );
+
+        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3 ).setEnabled( false );
+
+        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER1 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER2 ).setEnabled( false );
+        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER3 ).setEnabled( false );
 
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
@@ -97,6 +124,33 @@ public class SoundController {
                     case ATTACK_PARAMETER3:
                         value = receivedOscMessage.get( 0 ).intValue();
                         break;
+                    case PEAK_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case PEAK_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case PEAK_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case FUNDAMENTAL_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case FUNDAMENTAL_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case FUNDAMENTAL_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).floatValue( );
+                        break;
+                    case NEWNOTE_PARAMETER1:
+                        value = receivedOscMessage.get( 0 ).stringValue( ) == "bang" ? 1 : 0;
+                        break;
+                    case NEWNOTE_PARAMETER2:
+                        value = receivedOscMessage.get( 0 ).stringValue( ) == "bang" ? 1 : 0;
+                        break;
+                    case NEWNOTE_PARAMETER3:
+                        value = receivedOscMessage.get( 0 ).stringValue( ) == "bang" ? 1 : 0;
+                        break;
                     default:
                         System.err.println( "WARNING: in oscEvent(OscMessage) of SoundController." );
                         throw new UnknownOscParameterException();
@@ -104,7 +158,9 @@ public class SoundController {
 
                 value = filters.get( soundParameterType ).applyFilter( value );
 
-                //debugDisplay.updateParameter( soundParameterType, value );
+                if( enableDebugOutput ) {
+                    debugDisplay.updateParameter( soundParameterType, value );
+                }
 
                 SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
 
@@ -150,6 +206,24 @@ public class SoundController {
                 return SoundInputParameterEnum.FREQUENCY_PARAMETER2;
             case "/frequency3":
                 return SoundInputParameterEnum.FREQUENCY_PARAMETER3;
+            case "/peak1":
+                return SoundInputParameterEnum.PEAK_PARAMETER1;
+            case "/peak2":
+                return SoundInputParameterEnum.PEAK_PARAMETER2;
+            case "/peak3":
+                return SoundInputParameterEnum.PEAK_PARAMETER3;
+            case "/fundamental1":
+                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1;
+            case "/fundamental2":
+                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2;
+            case "/fundamental3":
+                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3;
+            case "/newnote1":
+                return SoundInputParameterEnum.NEWNOTE_PARAMETER1;
+            case "/newnote2":
+                return SoundInputParameterEnum.NEWNOTE_PARAMETER2;
+            case "/newnote3":
+                return SoundInputParameterEnum.NEWNOTE_PARAMETER3;
             default:
                 System.err.println( "ERROR: Unknown Osc Signal: " + _spsi + " from SoundController" );
                 throw new UnknownOscParameterException();
