@@ -71,7 +71,7 @@ public class Main extends PApplet {
         ChladniParticles chladniCircleReconstruction = new ChladniParticles( this, fakeCircle, scaleFactor, 10000 );
 
 
-        chladniForms = new HashMap<>( );
+        chladniForms = new HashMap<>();
         chladniForms.put( ChladniFormId.RECT1, chladniRect );
         //chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
@@ -225,6 +225,9 @@ public class Main extends PApplet {
         bcrMapping2.addMapping( bcrt3, vpt3 );
         bcrController.addMapping( bcrMapping3 );
 
+
+
+        controlFrame.setPattern( chladniRect );
         prepareExitHandler( );
     }
 
@@ -386,6 +389,12 @@ public class Main extends PApplet {
             addSoundMappingForChapter1Part2( );
         } if( key == '3') {
             addSoundMappingForChapter1Part3( );
+        } if( key == '7') {
+            controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
+        } if( key == '8') {
+            controlFrame.setPattern( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
+        } if( key == '9') {
+            controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         }
     }
 
