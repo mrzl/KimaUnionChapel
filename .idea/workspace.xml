@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eff3ad5e-f5ef-4a52-add0-a3d7b841a202" name="Default" comment="Moves the intensity sliders into an separate function">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pattern/attackvisualization/BackgroundBlendTimerThread.java" afterPath="$PROJECT_DIR$/src/main/java/pattern/attackvisualization/BackgroundBlendTimerThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/midi/bcr2000/BnrController.java" afterPath="$PROJECT_DIR$/src/main/java/midi/bcr2000/BnrController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" afterPath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pattern/attackvisualization/ParticleSizeTimerThread.java" afterPath="$PROJECT_DIR$/src/main/java/pattern/attackvisualization/ParticleSizeTimerThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" afterPath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controlP5.ser" afterPath="$PROJECT_DIR$/controlP5.ser" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="99ed9a2a-b492-45cc-a29c-27d7f79e4733" name="Rejected commit: Default" comment="Moves the intensity sliders into an separate function" />
@@ -43,8 +38,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6086331" vertical-offset="3045" max-vertical-offset="6749">
-              <caret line="204" column="31" selection-start-line="204" selection-start-column="31" selection-end-line="204" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.26618704" vertical-offset="3300" max-vertical-offset="7055">
+              <caret line="205" column="72" selection-start-line="205" selection-start-column="72" selection-end-line="205" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -63,8 +58,8 @@
       <file leaf-file-name="BnrController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/midi/bcr2000/BnrController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1434" max-vertical-offset="2142">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2652">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1379,16 +1374,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/midi/bcr2000/BnrController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1434" max-vertical-offset="2142">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="2652">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6086331" vertical-offset="3045" max-vertical-offset="6749">
-          <caret line="204" column="31" selection-start-line="204" selection-start-column="31" selection-end-line="204" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.26618704" vertical-offset="3300" max-vertical-offset="7055">
+          <caret line="205" column="72" selection-start-line="205" selection-start-column="72" selection-end-line="205" selection-end-column="72" />
           <folding />
         </state>
       </provider>
