@@ -56,9 +56,6 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setM( float m ) {
-        //if( this.getClass().equals( ChladniRectangle.class ) ) {
-        //    p.controlFrame.rectMSlider.setValue( m );
-        //}
         this.m = m;
     }
 
@@ -67,9 +64,6 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     }
 
     public void setN ( float n ) {
-        //if( this.getClass().equals( ChladniRectangle.class ) ) {
-        //    p.controlFrame.rectNSlider.setValue( n );
-       // }
         this.n = n;
     }
 
