@@ -2,6 +2,9 @@ package main;
 
 import codeanticode.syphon.SyphonServer;
 import midi.*;
+import midi.bcr2000.BcrInputParameter;
+import midi.bcr2000.BcrKnobEnum;
+import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BnrController;
 import midi.nanokontrol.NanoInputParameter;
 import midi.nanokontrol.NanoKontrolController;
@@ -163,8 +166,10 @@ public class Main extends PApplet {
 
         */
 
-        /*
+
         bcrController = new BnrController( 0 );
+
+        // rect
         BcrMapping bcrMapping1 = new BcrMapping( chladniRect );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_1_1, 0, 127 );
         VisualParameter vp1 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
@@ -177,14 +182,30 @@ public class Main extends PApplet {
         BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_5, 0, 127 );
         VisualParameter vp5 = new VisualParameter( VisualParameterEnum.N, 0, 10 );
 
+        BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
+        VisualParameter vp6 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+
         bcrMapping1.addMapping( bcr1, vp1 );
         bcrMapping1.addMapping( bcr2, vp2 );
         bcrMapping1.addMapping( bcr3, vp3 );
         bcrMapping1.addMapping( bcr4, vp4 );
         bcrMapping1.addMapping( bcr5, vp5 );
+        bcrMapping1.addMapping( bcr6, vp6 );
         bcrController.addMapping( bcrMapping1 );
 
-        */
+        // circle
+        BcrMapping bcrMapping2 = new BcrMapping( chladniCircleReconstruction );
+        BcrInputParameter bcrc1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
+        VisualParameter vpc1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+        bcrMapping2.addMapping( bcrc1, vpc1 );
+        bcrController.addMapping( bcrMapping2 );
+
+        // triangle
+        BcrMapping bcrMapping3 = new BcrMapping( chladniTriangle );
+        BcrInputParameter bcrt1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
+        VisualParameter vpt1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
+        bcrMapping2.addMapping( bcrt1, vpt1 );
+        bcrController.addMapping( bcrMapping3 );
 
         prepareExitHandler( );
     }
@@ -344,9 +365,9 @@ public class Main extends PApplet {
         } if( key == '1') {
             addSoundMappingForChapter1Part1();
         } if( key == '2') {
-            addSoundMappingForChapter1Part2();
+            addSoundMappingForChapter1Part2( );
         } if( key == '3') {
-            addSoundMappingForChapter1Part3();
+            addSoundMappingForChapter1Part3( );
         }
     }
 
