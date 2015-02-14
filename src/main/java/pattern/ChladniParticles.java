@@ -59,6 +59,7 @@ public class ChladniParticles {
     private ParticleSizeTimerThread particleSizeDrumHitThread;
     private BackgroundBlendTimerThread backgroundBlendThread;
     private IntensityTimerThread intensityThread;
+    private float backgroundOpacity;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -568,5 +569,21 @@ public class ChladniParticles {
 
     public int getCurrentBlendedBackgroundValue() {
         return this.currentBlendedBackgroundValue;
+    }
+
+    public float getParticleJumpyness () {
+        return rebuildSpeed;
+    }
+
+    public float getParticleOpacity () {
+        return particleOpacity;
+    }
+
+    public int getParticleCount () {
+        return particleCount;
+    }
+
+    public float getBackgroundOpacity () {
+        return backgroundOpacity;
     }
 }
