@@ -1,7 +1,5 @@
 package midi.bcr2000;
 
-import midi.nanokontrol.NanoKontrolMapping;
-import midi.nanokontrol.NanoKontrolSliderEnum;
 import themidibus.ControlChange;
 import themidibus.MidiBus;
 
@@ -24,7 +22,15 @@ public class BnrController {
     }
 
     public void addMapping( BcrMapping _m ) {
-        mappings.add( _m );
+        this.mappings.add( _m );
+    }
+
+    public void removeMapping( BcrMapping _m ) {
+        this.mappings.remove( _m );
+    }
+
+    public void clear() {
+        this.mappings.clear();
     }
 
     public void controllerChange ( ControlChange change ) {
@@ -102,6 +108,10 @@ public class BnrController {
                 return BcrKnobEnum.KNOB_4_7;
             case 104:
                 return BcrKnobEnum.KNOB_4_8;
+            case 65:
+                return BcrKnobEnum.BUTTON_1_1;
+            case 66:
+                return BcrKnobEnum.BUTTON_1_2;
             default:
                 System.err.println( "ERROR: Buttons not yet mapped, something is wrong." );
                 return BcrKnobEnum.BUTTON_1_1;
