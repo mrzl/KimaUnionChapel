@@ -10,9 +10,12 @@ import processing.core.PApplet;
 public class OscMessageRangeTest extends PApplet {
 
     OscP5 oscP5;
-    int att1, att2, att3, amp1, amp2, amp3, fre1, fre2, fre3;
+    int att1, att2, att3, amp1, amp2, amp3, fre1, fre2, fre3, peak1, peak2, peak3, fun1, fun2, fun3;
     float ampl1mi, ampl2mi, ampl3mi, ampl1ma, ampl2ma, ampl3ma;
     int freq1mi, freq2mi, freq3mi, freq1ma, freq2ma, freq3ma;
+    float peak1mi, peak2mi, peak3mi, peak1ma, peak2ma, peak3ma;
+    float fun1mi, fun2mi, fun3mi, fun1ma, fun2ma, fun3ma;
+    float nn1mi, nn2mi, nn3mi, nn1ma, nn2ma, nn3ma;
     long started;
     int counter = 0;
 
@@ -27,6 +30,12 @@ public class OscMessageRangeTest extends PApplet {
         ampl1ma = ampl2ma = ampl3ma = 0.0f;
         freq1mi = freq2mi = freq3mi = 100000;
         freq1ma = freq2ma = freq3ma = 0;
+        peak1mi = peak2mi = peak3mi = 1000.0f;
+        peak1ma = peak2ma = peak3ma = 0.0f;
+        fun1mi = fun2mi = fun3mi = 1000.0f;
+        fun1ma = fun2ma = fun3ma = 0.0f;
+
+
     }
 
     public void draw() {
@@ -71,6 +80,36 @@ public class OscMessageRangeTest extends PApplet {
             freq2mi = min( v, freq2mi );
             freq2ma = max( v, freq2ma );
             fre3++;
+        } else if (theOscMessage.checkAddrPattern("/peak1")==true) {
+            float v = theOscMessage.get(0).floatValue( );
+            peak1mi = min( v, peak1mi);
+            peak1ma = max( v, peak1ma );
+            peak1++;
+        } else if (theOscMessage.checkAddrPattern("/peak2")==true) {
+            float v = theOscMessage.get(0).floatValue( );
+            peak2mi = min( v, peak2mi );
+            peak2ma = max( v, peak2ma );
+            peak2++;
+        } else if (theOscMessage.checkAddrPattern("/peak3")==true) {
+            float v = theOscMessage.get(0).floatValue();
+            peak3mi = min( v, peak3mi );
+            peak3ma = max( v, peak3ma );
+            peak3++;
+        } else if (theOscMessage.checkAddrPattern("/fundamental1")==true) {
+            float v = theOscMessage.get(0).floatValue( );
+            fun1mi = min( v, fun1mi);
+            fun1ma = max( v, fun1ma );
+            fun1++;
+        } else if (theOscMessage.checkAddrPattern("/fundamental2")==true) {
+            float v = theOscMessage.get(0).floatValue( );
+            fun2mi = min( v, fun2mi );
+            fun2ma = max( v, fun2ma );
+            fun2++;
+        } else if (theOscMessage.checkAddrPattern("/fundamental3")==true) {
+            float v = theOscMessage.get(0).floatValue();
+            fun3mi = min( v, fun3mi );
+            fun3ma = max( v, fun3ma );
+            fun3++;
         }
 
         counter++;
@@ -80,6 +119,8 @@ public class OscMessageRangeTest extends PApplet {
             println( "attack1: " + att1 + " attack2: " + att2 + " attack3: " + att3 );
             println( "amplitude1: " + amp1 + " amplitude2: " + amp2 + " amplitude3: " + amp3 );
             println( "frequency1: " + fre1 + " frequency2: " + fre2 + " frequency3: " + fre3 );
+            println( "peak1: " + peak1 + " peak2: " + peak2 + " peak3: " + peak3 );
+            println( "fundamental1: " + fun1 + " fundamental2: " + fun2 + " fundamental3: " + fun3 );
             println( "overall: " + counter );
             started = millis();
             //exit();
@@ -91,10 +132,18 @@ public class OscMessageRangeTest extends PApplet {
             println( "AMPL1MIN: " + ampl1mi + " AMPL1MAX: " + ampl1ma );
             println( "AMPL2MIN: " + ampl2mi + " AMPL2MAX: " + ampl2ma );
             println( "AMPL3MIN: " + ampl3mi + " AMPL3MAX: " + ampl3ma );
+
+            println( "PEAK1MIN: " + peak1mi + " PEAK1MAX: " + peak1ma );
+            println( "PEAK2MIN: " + peak2mi + " PEAK2MAX: " + peak2ma );
+            println( "PEAK3MIN: " + peak3mi + " PEAK3MAX: " + peak3ma );
+
+            println( "FUNDAMENTAL1MIN: " + fun1mi + " FUNDAMENTAL1MAX: " + fun1ma);
+            println( "FUNDAMENTAL2MIN: " + fun2mi + " FUNDAMENTAL2MAX: " + fun2ma );
+            println( "FUNDAMENTAL3MIN: " + fun3mi + " FUNDAMENTAL3MAX: " + fun3ma );
             println( "---------------------------------------" );
             counter = 0;
 
-            att1 = att2 = att3 = amp1 = amp2 = amp3 = fre1 = fre2 = fre3 = 0;
+            att1 = att2 = att3 = amp1 = amp2 = amp3 = fre1 = fre2 = fre3 = peak1 = peak2 = peak3 = fun1 = fun2 = fun3 = 0;
         }
 
         if( frameCount % 200 == 0 ) {
