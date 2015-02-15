@@ -441,30 +441,20 @@ public class ChladniParticles {
         switch ( visualParameter ) {
             case MIN_HUE:
                 getColorMode( ).setRangeMin( value );
-                p.controlFrame.minMaxHue.setRangeValues( value, p.controlFrame.minMaxHue.getArrayValue( )[ 1 ] );
                 break;
             case MAX_HUE:
                 getColorMode( ).setRangeMax( value );
-                p.controlFrame.minMaxHue.setRangeValues( p.controlFrame.minMaxHue.getArrayValue( )[ 0 ], value );
                 break;
             case UPDATE_DELAY:
                 p.soundController.setUpdateDelay( ( long ) value );
-                p.controlFrame.updateDelaySlider.setValue( value );
                 break;
             case BACKGROUND_OPACITY:
                 setMotionBlurAmount( value );
                 break;
             case M:
-                Main.ChladniFormId currentId = getChladniFormId( p, this );
-                Slider mSlider = getSliderById( p, currentId, visualParameter );
-                mSlider.setValue( value );
-
                 getSurface( ).setM( value );
                 break;
             case N:
-                Main.ChladniFormId currentIdN = getChladniFormId( p, this );
-                Slider nSlider = getSliderById( p, currentIdN, visualParameter );
-                nSlider.setValue( value );
                 getSurface( ).setN( value );
                 break;
             case JUMPYNESS:
