@@ -1,6 +1,5 @@
 package pattern;
 
-import controlP5.Slider;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
@@ -22,8 +21,6 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import java.util.ArrayList;
 
-import static main.ControlFrame.getChladniFormId;
-import static main.ControlFrame.getSliderById;
 import static processing.core.PConstants.ADD;
 import static processing.core.PConstants.BLEND;
 
@@ -59,7 +56,6 @@ public class ChladniParticles {
     private ParticleSizeTimerThread particleSizeDrumHitThread;
     private BackgroundBlendTimerThread backgroundBlendThread;
     private IntensityTimerThread intensityThread;
-    private float backgroundOpacity;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -216,14 +212,14 @@ public class ChladniParticles {
 
                 // some bug in processing PShader, it flips the shape somehow..
                 if( surface.getClass().equals( ChladniTriangle.class ) ) {
-                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                    //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     PGraphics pg = getSurface().getBuffer();
                     particlePBO.pushMatrix();
                     particlePBO.scale( 1.0f, -1.0f );
                     particlePBO.image( pg, 0, -particlePBO.height, particlePBO.width, particlePBO.height );
                     particlePBO.popMatrix();
                 } else {
-                    drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                    //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
 
@@ -264,9 +260,10 @@ public class ChladniParticles {
         if ( mm.isEnabled( ) ) {
             mm.apply( getParticlePBO( ) );
         }
+
     }
 
-    private RenderMode getRenderMode () {
+    public RenderMode getRenderMode () {
         return renderMode;
     }
 
@@ -446,7 +443,7 @@ public class ChladniParticles {
                 getColorMode( ).setRangeMax( value );
                 break;
             case UPDATE_DELAY:
-                p.soundController.setUpdateDelay( ( long ) value );
+                p.oscController.setUpdateDelay( ( long ) value );
                 break;
             case BACKGROUND_OPACITY:
                 setMotionBlurAmount( value );
@@ -574,6 +571,6 @@ public class ChladniParticles {
     }
 
     public float getBackgroundOpacity () {
-        return backgroundOpacity;
+        return motionBlurAmount;
     }
 }
