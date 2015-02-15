@@ -1,7 +1,7 @@
 package main;
 
 import controlP5.*;
-import osc.SoundInputParameterEnum;
+import osc.OscParameterInputEnum;
 import pattern.*;
 import processing.core.PApplet;
 
@@ -9,6 +9,8 @@ import java.awt.*;
 import java.util.HashMap;
 
 /**
+ * The ControlFrame creates and handles everything on the control window.
+ * Slider values are being updated upon received messages from the OscController.
  * Created by mar on 15.12.14.
  */
 public class ControlFrame extends PApplet {
@@ -34,13 +36,7 @@ public class ControlFrame extends PApplet {
     public Slider drawModeSlider;
     public Range minMaxHue;
 
-    private Slider amplitudeSlider1, amplitudeSlider2, amplitudeSlider3;
-    private Slider frequencySlider1, frequencySlider2, frequencySlider3;
-    private Slider attackSlider1, attackSlider2, attackSlider3;
-    private Slider peakSlider1, peakSlider2, peakSlider3;
-    private Slider fundamentalSlider1, fundamentalSlider2, fundamentalSlider3;
-    private Slider newnoteSlider1, newnoteSlider2, newnoteSlider3;
-    private HashMap< SoundInputParameterEnum, Slider > parameters;
+    private HashMap< OscParameterInputEnum, Slider > parameters;
 
     public void setup () {
         size( w, h );
@@ -50,134 +46,134 @@ public class ControlFrame extends PApplet {
         int X_POS = 10;
         int INCR = 20;
         int WIDTH = 10;
-        amplitudeSlider1 = controlP5.addSlider( "AM1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider amplitudeSlider1 = controlP5.addSlider( "AM1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        frequencySlider1 = controlP5.addSlider( "FQ1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider frequencySlider1 = controlP5.addSlider( "FQ1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        attackSlider1 = controlP5.addSlider( "AT1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider attackSlider1 = controlP5.addSlider( "AT1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        peakSlider1 = controlP5.addSlider( "PK1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider peakSlider1 = controlP5.addSlider( "PK1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        fundamentalSlider1 = controlP5.addSlider( "FU1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider fundamentalSlider1 = controlP5.addSlider( "FU1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        newnoteSlider1 = controlP5.addSlider( "NN1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider newnoteSlider1 = controlP5.addSlider( "NN1" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR + 5;
-        amplitudeSlider2 = controlP5.addSlider( "AM2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider amplitudeSlider2 = controlP5.addSlider( "AM2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        frequencySlider2 = controlP5.addSlider( "FQ2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider frequencySlider2 = controlP5.addSlider( "FQ2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        attackSlider2 = controlP5.addSlider( "AT2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider attackSlider2 = controlP5.addSlider( "AT2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        peakSlider2 = controlP5.addSlider( "PK2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider peakSlider2 = controlP5.addSlider( "PK2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        fundamentalSlider2 = controlP5.addSlider( "FU2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider fundamentalSlider2 = controlP5.addSlider( "FU2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
                 System.out.println( controlEvent.getValue( ) );
             }
         } );
         X_POS += INCR;
-        newnoteSlider2 = controlP5.addSlider( "NN2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider newnoteSlider2 = controlP5.addSlider( "NN2" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR + 5;
-        amplitudeSlider3 = controlP5.addSlider( "AM3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider amplitudeSlider3 = controlP5.addSlider( "AM3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        frequencySlider3 = controlP5.addSlider( "FQ3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider frequencySlider3 = controlP5.addSlider( "FQ3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        attackSlider3 = controlP5.addSlider( "AT3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider attackSlider3 = controlP5.addSlider( "AT3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        peakSlider3 = controlP5.addSlider( "PK3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider peakSlider3 = controlP5.addSlider( "PK3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
-        fundamentalSlider3 = controlP5.addSlider( "FU3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider fundamentalSlider3 = controlP5.addSlider( "FU3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
         X_POS += INCR;
 
-        newnoteSlider3 = controlP5.addSlider( "NN3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
+        Slider newnoteSlider3 = controlP5.addSlider( "NN3" ).setPosition( X_POS, 10 ).setSize( WIDTH, 100 ).setRange( KimaConstants.NEWNOTE_MIN, KimaConstants.NEWNOTE_MAX ).setValue( 0.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
             }
         } );
 
-        parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, amplitudeSlider1 );
-        parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, amplitudeSlider2 );
-        parameters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, amplitudeSlider3 );
-        parameters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER1, frequencySlider1 );
-        parameters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER2, frequencySlider2 );
-        parameters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER3, frequencySlider3 );
-        parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER1, attackSlider1 );
-        parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, attackSlider2 );
-        parameters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, attackSlider3 );
-        parameters.put( SoundInputParameterEnum.PEAK_PARAMETER1, peakSlider1 );
-        parameters.put( SoundInputParameterEnum.PEAK_PARAMETER2, peakSlider2 );
-        parameters.put( SoundInputParameterEnum.PEAK_PARAMETER3, peakSlider3 );
-        parameters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1, fundamentalSlider1 );
-        parameters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2, fundamentalSlider2 );
-        parameters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3, fundamentalSlider3 );
-        parameters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER1, newnoteSlider1 );
-        parameters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER2, newnoteSlider2 );
-        parameters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER3, newnoteSlider3 );
+        parameters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER1, amplitudeSlider1 );
+        parameters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER2, amplitudeSlider2 );
+        parameters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER3, amplitudeSlider3 );
+        parameters.put( OscParameterInputEnum.FREQUENCY_PARAMETER1, frequencySlider1 );
+        parameters.put( OscParameterInputEnum.FREQUENCY_PARAMETER2, frequencySlider2 );
+        parameters.put( OscParameterInputEnum.FREQUENCY_PARAMETER3, frequencySlider3 );
+        parameters.put( OscParameterInputEnum.ATTACK_PARAMETER1, attackSlider1 );
+        parameters.put( OscParameterInputEnum.ATTACK_PARAMETER2, attackSlider2 );
+        parameters.put( OscParameterInputEnum.ATTACK_PARAMETER3, attackSlider3 );
+        parameters.put( OscParameterInputEnum.PEAK_PARAMETER1, peakSlider1 );
+        parameters.put( OscParameterInputEnum.PEAK_PARAMETER2, peakSlider2 );
+        parameters.put( OscParameterInputEnum.PEAK_PARAMETER3, peakSlider3 );
+        parameters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, fundamentalSlider1 );
+        parameters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2, fundamentalSlider2 );
+        parameters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3, fundamentalSlider3 );
+        parameters.put( OscParameterInputEnum.NEWNOTE_PARAMETER1, newnoteSlider1 );
+        parameters.put( OscParameterInputEnum.NEWNOTE_PARAMETER2, newnoteSlider2 );
+        parameters.put( OscParameterInputEnum.NEWNOTE_PARAMETER3, newnoteSlider3 );
 
         for( Slider s : parameters.values() ) {
             //s.getCaptionLabel().set( "" );
@@ -216,7 +212,7 @@ public class ControlFrame extends PApplet {
         particleJumpynessSlider = controlP5.addSlider( "Jumpyness" ).setRange( 0, 200 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 30.0f ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                selectedParticles.setRebuildSpeed( controlEvent.getValue() );
+                selectedParticles.setParticleJumpyness( controlEvent.getValue( ) );
             }
         } );
 
@@ -423,7 +419,6 @@ public class ControlFrame extends PApplet {
                     }
                 } );
 
-        //controlP5.loadProperties();
     }
 
     private boolean getBoolFromFloat ( float _f ) {
@@ -469,7 +464,7 @@ public class ControlFrame extends PApplet {
         }
     }
 
-    public void updateOscParameters ( SoundInputParameterEnum _sip, float value ) {
+    public void updateOscParameters ( OscParameterInputEnum _sip, float value ) {
         parameters.get( _sip ).setValue( value );
     }
 
@@ -477,10 +472,6 @@ public class ControlFrame extends PApplet {
         parent = theParent;
         w = theWidth;
         h = theHeight;
-    }
-
-    public void saveParameters () {
-        this.controlP5.saveProperties(  );
     }
 
     public void setPattern( ChladniParticles _pattern ) {

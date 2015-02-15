@@ -44,14 +44,23 @@ public class Main extends PApplet {
 
     private int resolution;
     private float scaleFactor;
+    private boolean debug = true;
 
     public void setup () {
         int overallWidth, overallHeight;
-        resolution = 256;
-        scaleFactor = 0.5f;
-        overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
-        overallHeight = ( int ) ( resolution * scaleFactor );
-        size( overallWidth, overallHeight, PConstants.P3D );
+        if ( debug ) {
+            resolution = 256;
+            scaleFactor = 2.0f;
+            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
+            overallHeight = ( int ) ( resolution * scaleFactor );
+            size( overallWidth, overallHeight, PConstants.P3D );
+        } else {
+            resolution = 256;
+            scaleFactor = 4.0f;
+            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
+            overallHeight = ( int ) ( resolution * scaleFactor );
+            size( 1, 1, PConstants.P3D );
+        }
 
         noSmooth( );
 
@@ -169,12 +178,12 @@ public class Main extends PApplet {
         oscController.clear( );
 
         // PERCUSSION CHANNEL 2
-        SoundParameterMapping mappingTriangle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
+        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        SoundInputParameter soundMapping32 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
+        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
         ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
+        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
@@ -182,26 +191,33 @@ public class Main extends PApplet {
         oscController.addSoundParameterMapping( mappingTriangle );
 
         // ORGAN CHANNEL 3
-        SoundParameterMapping mappingCircle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscInputParameter soundMapping23 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         oscController.addSoundParameterMapping( mappingCircle );
+
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM, 0 );
+        }
     }
 
     void addSoundMappingForChapter1Part2() {
         oscController.clear();
 
         // PERCUSSION CHANNEL 2
-        SoundParameterMapping mappingTriangle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
+        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        SoundInputParameter soundMapping32 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
+        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
         ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
+        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
@@ -209,26 +225,47 @@ public class Main extends PApplet {
         oscController.addSoundParameterMapping( mappingTriangle );
 
         // ORGAN CHANNEL 3
-        SoundParameterMapping mappingCircle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
-        SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscInputParameter soundMapping23 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         oscController.addSoundParameterMapping( mappingCircle );
+
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM, 0 );
+        }
+
     }
 
     void addSoundMappingForChapter1Part3() {
         oscController.clear();
 
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.setParticleJumpyness( 40.0f );
+            p.setParticleSize( 3.0f );
+            p.setParticleCount( 10500 );
+            p.setParticleOpacity( 0.23f );
+            p.setBackgroundOpacity( 255 );
+            p.setIntensity( 1.0f );
+            p.setRenderMode( RenderMode.ORIGINAL );
+        }
+
         // PERCUSSION CHANNEL 2
-        SoundParameterMapping mappingTriangle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        SoundInputParameter soundMapping12 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
+        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        SoundInputParameter soundMapping32 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
+        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
         ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        SoundInputParameter soundMapping22 = new SoundInputParameter( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
+        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
@@ -236,14 +273,72 @@ public class Main extends PApplet {
         oscController.addSoundParameterMapping( mappingTriangle );
 
         // ORGAN CHANNEL 3
-        SoundParameterMapping mappingCircle = new SoundParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        SoundInputParameter soundMapping13 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
+        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        SoundInputParameter soundMapping33 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER3, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MIN );
+        OscInputParameter soundMapping33 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER3, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MIN );
         ChladniPatternParameter chladniMapping33 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping33, chladniMapping33 );
         oscController.addSoundParameterMapping( mappingCircle );
+
+        it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM, 0 );
+        }
+    }
+
+    void addSoundMappingForChapter2Part1() {
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.setParticleJumpyness( 40.0f );
+            p.setParticleSize( 3.0f );
+            p.setParticleCount( 10500 );
+            p.setParticleOpacity( 0.23f );
+            p.setBackgroundOpacity( 40 );
+            p.setIntensity( 1.0f );
+            p.setRenderMode( RenderMode.POINTS );
+        }
+
+
+        // VIOLA - CIRCLE - CHANNEL 1
+        OscParameterMapping mappingViolaCircleChannel2 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        ChladniPatternParameter cip11 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
+        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER1, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
+        ChladniPatternParameter cip12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
+
+        mappingViolaCircleChannel2.addMapping( sin11, cip11 );
+        mappingViolaCircleChannel2.addMapping( sin12, cip12 );
+
+        oscController.addSoundParameterMapping( mappingViolaCircleChannel2 );
+
+        // CELLO - SQUARE - CHANNEL 2
+
+        // ORGAN - TRIANGLE - CHANNEL 3
+
+
+        it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI, 0 );
+        }
+    }
+
+    void addSoundMappingForChapter2Part2() {
+
+
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI, 0 );
+        }
     }
 
     public void draw () {
@@ -289,6 +384,13 @@ public class Main extends PApplet {
         if ( System.getProperty( "os.name" ).startsWith( OSX ) ) {
             syphonOutput.send( );
         }
+
+        it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.doAnomaly();
+        }
     }
 
     public void keyPressed() {
@@ -297,11 +399,15 @@ public class Main extends PApplet {
         } if ( key == 's') {
             chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().getBuffer().save( "ext_.png" );
         } if( key == '1') {
-            addSoundMappingForChapter1Part1();
+            addSoundMappingForChapter1Part1( );
         } if( key == '2') {
             addSoundMappingForChapter1Part2( );
         } if( key == '3') {
             addSoundMappingForChapter1Part3( );
+        } if( key == '4') {
+            addSoundMappingForChapter2Part1( );
+        } if( key == '5') {
+            addSoundMappingForChapter2Part2( );
         } if( key == '7') {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
         } if( key == '8') {
@@ -309,13 +415,18 @@ public class Main extends PApplet {
         } if( key == '9') {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         }
+
+        if ( key == ESC ) {
+            key = 0;
+            System.exit( 1 );
+        }
     }
 
 
     private void prepareExitHandler () {
         Runtime.getRuntime( ).addShutdownHook( new Thread( new Runnable( ) {
             public void run () {
-                controlFrame.saveParameters( );
+                //controlFrame.saveParameters( );
                 System.out.println( "Shutdown successfull" );
             }
         } ) );

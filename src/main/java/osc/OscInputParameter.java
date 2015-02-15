@@ -3,11 +3,11 @@ package osc;
 /**
  * Created by mrzl on 07.01.2015.
  */
-public class SoundInputParameter {
-    private SoundInputParameterEnum soundParameterType;
+public class OscInputParameter {
+    private OscParameterInputEnum soundParameterType;
     private float min, max;
 
-    public SoundInputParameter( SoundInputParameterEnum type, float min, float max ) {
+    public OscInputParameter ( OscParameterInputEnum type, float min, float max ) {
         this.min = min;
         this.max = max;
         this.soundParameterType = type;
@@ -29,7 +29,7 @@ public class SoundInputParameter {
         this.max = _max;
     }
 
-    public SoundInputParameterEnum getType() {
+    public OscParameterInputEnum getType() {
         return this.soundParameterType;
     }
 }

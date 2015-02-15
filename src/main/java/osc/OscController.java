@@ -15,8 +15,8 @@ import java.util.HashMap;
 public class OscController extends PApplet {
 
     private Main p;
-    private ArrayList< SoundParameterMapping > mappings;
-    private HashMap< SoundInputParameterEnum, SignalFilterWrapper > filters;
+    private ArrayList< OscParameterMapping > mappings;
+    private HashMap< OscParameterInputEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
 
     /**
@@ -31,53 +31,53 @@ public class OscController extends PApplet {
 
         filters = new HashMap<>();
 
-        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.FREQUENCY_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FREQUENCY_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FREQUENCY_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FREQUENCY_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.AMPLITUDE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.AMPLITUDE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.ATTACK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.ATTACK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.ATTACK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.ATTACK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.put( SoundInputParameterEnum.PEAK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.PEAK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.PEAK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.PEAK_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.PEAK_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.PEAK_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
-        filters.put( SoundInputParameterEnum.NEWNOTE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.NEWNOTE_PARAMETER1, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.NEWNOTE_PARAMETER2, new SignalFilterWrapper( new SignalFilter( p ) ) );
+        filters.put( OscParameterInputEnum.NEWNOTE_PARAMETER3, new SignalFilterWrapper( new SignalFilter( p ) ) );
 
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER1 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER2 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.FREQUENCY_PARAMETER3 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.FREQUENCY_PARAMETER1 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.FREQUENCY_PARAMETER2 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.FREQUENCY_PARAMETER3 ).setEnabled( true );
 
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER1 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER2 ).setEnabled( true );
-        filters.get( SoundInputParameterEnum.AMPLITUDE_PARAMETER3 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.AMPLITUDE_PARAMETER1 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.AMPLITUDE_PARAMETER2 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.AMPLITUDE_PARAMETER3 ).setEnabled( true );
 
-        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER1 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER2 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.ATTACK_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.ATTACK_PARAMETER1 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.ATTACK_PARAMETER2 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.ATTACK_PARAMETER3 ).setEnabled( false );
 
-        filters.get( SoundInputParameterEnum.PEAK_PARAMETER1 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.PEAK_PARAMETER2 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.PEAK_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER1 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER2 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER3 ).setEnabled( false );
 
-        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3 ).setEnabled( false );
 
-        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER1 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER2 ).setEnabled( false );
-        filters.get( SoundInputParameterEnum.NEWNOTE_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.NEWNOTE_PARAMETER1 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.NEWNOTE_PARAMETER2 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.NEWNOTE_PARAMETER3 ).setEnabled( false );
 
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
@@ -91,7 +91,7 @@ public class OscController extends PApplet {
         if( timeArrived - lastTimeOscMessageArrived > updateDelay ) {
             lastTimeOscMessageArrived = timeArrived;
             try {
-                SoundInputParameterEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
+                OscParameterInputEnum soundParameterType = getParameterFromStringIdentifier( receivedOscMessage.addrPattern() );
                 float value;
                 switch ( soundParameterType ) {
                     case FREQUENCY_PARAMETER1:
@@ -157,10 +157,10 @@ public class OscController extends PApplet {
 
                 p.controlFrame.updateOscParameters( soundParameterType, value );
 
-                SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
+                OscInputParameter oscInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
 
-                for ( SoundParameterMapping m : mappings ) {
-                    m.soundInputParameterReceived( soundInputParameter, value );
+                for ( OscParameterMapping m : mappings ) {
+                    m.soundInputParameterReceived( oscInputParameter, value );
                 }
 
             } catch ( UnknownOscParameterException e ) {
@@ -173,11 +173,11 @@ public class OscController extends PApplet {
         this.updateDelay = _updateDelay;
     }
 
-    public void addSoundParameterMapping( SoundParameterMapping _spm ) {
+    public void addSoundParameterMapping( OscParameterMapping _spm ) {
         this.mappings.add( _spm );
     }
 
-    public void removeSoundParameterMapping( SoundParameterMapping _spm ) {
+    public void removeSoundParameterMapping( OscParameterMapping _spm ) {
         this.mappings.remove( _spm );
     }
 
@@ -185,58 +185,58 @@ public class OscController extends PApplet {
         this.mappings.clear();
     }
 
-    public SoundParameterMapping getSoundParameterMapping( int _spmId ) {
+    public OscParameterMapping getSoundParameterMapping( int _spmId ) {
         return this.mappings.get( _spmId );
     }
 
-    private SoundInputParameterEnum getParameterFromStringIdentifier( String _spsi ) throws UnknownOscParameterException {
+    private OscParameterInputEnum getParameterFromStringIdentifier( String _spsi ) throws UnknownOscParameterException {
         switch( _spsi ) {
             case "/attack1":
-                return SoundInputParameterEnum.ATTACK_PARAMETER1;
+                return OscParameterInputEnum.ATTACK_PARAMETER1;
             case "/attack2":
-                return SoundInputParameterEnum.ATTACK_PARAMETER2;
+                return OscParameterInputEnum.ATTACK_PARAMETER2;
             case "/attack3":
-                return SoundInputParameterEnum.ATTACK_PARAMETER3;
+                return OscParameterInputEnum.ATTACK_PARAMETER3;
             case "/amplitude1":
-                return SoundInputParameterEnum.AMPLITUDE_PARAMETER1;
+                return OscParameterInputEnum.AMPLITUDE_PARAMETER1;
             case "/amplitude2":
-                return SoundInputParameterEnum.AMPLITUDE_PARAMETER2;
+                return OscParameterInputEnum.AMPLITUDE_PARAMETER2;
             case "/amplitude3":
-                return SoundInputParameterEnum.AMPLITUDE_PARAMETER3;
+                return OscParameterInputEnum.AMPLITUDE_PARAMETER3;
             case "/frequency1":
-                return SoundInputParameterEnum.FREQUENCY_PARAMETER1;
+                return OscParameterInputEnum.FREQUENCY_PARAMETER1;
             case "/frequency2":
-                return SoundInputParameterEnum.FREQUENCY_PARAMETER2;
+                return OscParameterInputEnum.FREQUENCY_PARAMETER2;
             case "/frequency3":
-                return SoundInputParameterEnum.FREQUENCY_PARAMETER3;
+                return OscParameterInputEnum.FREQUENCY_PARAMETER3;
             case "/peak1":
-                return SoundInputParameterEnum.PEAK_PARAMETER1;
+                return OscParameterInputEnum.PEAK_PARAMETER1;
             case "/peak2":
-                return SoundInputParameterEnum.PEAK_PARAMETER2;
+                return OscParameterInputEnum.PEAK_PARAMETER2;
             case "/peak3":
-                return SoundInputParameterEnum.PEAK_PARAMETER3;
+                return OscParameterInputEnum.PEAK_PARAMETER3;
             case "/fundamental1":
-                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER1;
+                return OscParameterInputEnum.FUNDAMENTAL_PARAMETER1;
             case "/fundamental2":
-                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER2;
+                return OscParameterInputEnum.FUNDAMENTAL_PARAMETER2;
             case "/fundamental3":
-                return SoundInputParameterEnum.FUNDAMENTAL_PARAMETER3;
+                return OscParameterInputEnum.FUNDAMENTAL_PARAMETER3;
             case "/newnote1":
-                return SoundInputParameterEnum.NEWNOTE_PARAMETER1;
+                return OscParameterInputEnum.NEWNOTE_PARAMETER1;
             case "/newnote2":
-                return SoundInputParameterEnum.NEWNOTE_PARAMETER2;
+                return OscParameterInputEnum.NEWNOTE_PARAMETER2;
             case "/newnote3":
-                return SoundInputParameterEnum.NEWNOTE_PARAMETER3;
+                return OscParameterInputEnum.NEWNOTE_PARAMETER3;
             default:
                 System.err.println( "ERROR: Unknown Osc Signal: " + _spsi + " from SoundController" );
                 throw new UnknownOscParameterException();
         }
     }
 
-    private SoundInputParameter getParameterFromString( String _spsi ) throws UnknownOscParameterException {
-        SoundInputParameterEnum type = getParameterFromStringIdentifier( _spsi );
-        for( SoundParameterMapping m : mappings ) {
-            for( SoundInputParameter p : m.getInputParameters() ) {
+    private OscInputParameter getParameterFromString( String _spsi ) throws UnknownOscParameterException {
+        OscParameterInputEnum type = getParameterFromStringIdentifier( _spsi );
+        for( OscParameterMapping m : mappings ) {
+            for( OscInputParameter p : m.getInputParameters() ) {
                 if( p.getType() == type  ) {
                     return p;
                 }

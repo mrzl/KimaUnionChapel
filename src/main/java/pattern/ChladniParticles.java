@@ -401,7 +401,7 @@ public class ChladniParticles {
                 getSurface( ).setN( value );
                 break;
             case JUMPYNESS:
-                setRebuildSpeed( value );
+                setParticleJumpyness( value );
                 break;
             case PARTICLE_COUNT:
                 setParticleCount( ( int ) value );
@@ -457,7 +457,7 @@ public class ChladniParticles {
                 p.controlFrame.nSlider.setValue( value );
                 break;
             case JUMPYNESS:
-                setRebuildSpeed( value );
+                setParticleJumpyness( value );
                 p.controlFrame.particleJumpynessSlider.setValue( value );
                 break;
             case PARTICLE_COUNT:
@@ -480,9 +480,13 @@ public class ChladniParticles {
                 p.controlFrame.triangleScalesSlider.setValue( value );
                 break;
             case MARE_UNDARUM:
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 System.err.println( "Setting Mare Undarum parameters." );
                 break;
             case AXIS_MUNDI:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
                 System.err.println( "Setting Axis Mundi parameters." );
                 break;
             case AURORA:
@@ -497,7 +501,7 @@ public class ChladniParticles {
         return particlePBO;
     }
 
-    public void setRebuildSpeed ( float _rebuildSpeed ) {
+    public void setParticleJumpyness ( float _rebuildSpeed ) {
         this.rebuildSpeed = _rebuildSpeed;
     }
 
@@ -579,5 +583,9 @@ public class ChladniParticles {
 
     public float getBackgroundOpacity () {
         return motionBlurAmount;
+    }
+
+    public void setBackgroundOpacity( float value) {
+        this.motionBlurAmount = value;
     }
 }

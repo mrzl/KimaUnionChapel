@@ -8,15 +8,15 @@ import java.util.ArrayList;
 /**
  * Created by mrzl on 06.01.2015.
  */
-public class SoundParameterMapping {
+public class OscParameterMapping {
 
-    private ArrayList< SoundInputParameter > sips;
+    private ArrayList< OscInputParameter > sips;
     private ArrayList< ChladniPatternParameter > cpps;
     private ArrayList< Integer > updateDelays;
 
     private ChladniParticles chladniParticles;
 
-    public SoundParameterMapping( ChladniParticles _chladniParticles ) {
+    public OscParameterMapping ( ChladniParticles _chladniParticles ) {
         sips = new ArrayList<>(  );
         cpps = new ArrayList<>(  );
         updateDelays = new ArrayList<>();
@@ -24,17 +24,17 @@ public class SoundParameterMapping {
         this.chladniParticles = _chladniParticles;
     }
 
-    public void addMapping( SoundInputParameter _sip, ChladniPatternParameter _cpp ) {
+    public void addMapping( OscInputParameter _sip, ChladniPatternParameter _cpp ) {
         this.sips.add( _sip );
         this.cpps.add( _cpp );
     }
 
-    public ArrayList< SoundInputParameter > getInputParameters() {
+    public ArrayList< OscInputParameter > getInputParameters() {
         return sips;
     }
 
-    public void soundInputParameterReceived( SoundInputParameter _parameter, float value ) {
-        for( SoundInputParameter s : sips ) {
+    public void soundInputParameterReceived( OscInputParameter _parameter, float value ) {
+        for( OscInputParameter s : sips ) {
             if( s.getType().equals( _parameter.getType() ) ) {
                 ChladniPatternParameter chladniPatternParameter = cpps.get( sips.indexOf( s ) );
                 float mappedValue = PApplet.map( value, _parameter.getMin(), _parameter.getMax(), chladniPatternParameter.getMin(), chladniPatternParameter.getMax() );

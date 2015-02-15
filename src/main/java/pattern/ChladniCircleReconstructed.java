@@ -62,5 +62,7 @@ public class ChladniCircleReconstructed extends ChladniSurface {
         blurShader.setBlurSize( 96 );
         blurShader.setSigma( PApplet.map( getM(), 0, 10, 10, 2 ) );
         blurShader.apply( getBuffer() );
+
+
     }
 }
