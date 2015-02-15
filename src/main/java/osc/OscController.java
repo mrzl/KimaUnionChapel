@@ -2,9 +2,9 @@ package osc;
 
 import filter.SignalFilter;
 import main.Main;
-import osc.debug.OscParameterDisplay;
 import oscP5.OscMessage;
 import oscP5.OscP5;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,25 +12,22 @@ import java.util.HashMap;
 /**
  * Created by mrzl on 06.01.2015.
  */
-public class OscController {
+public class OscController extends PApplet {
 
-    private OscParameterDisplay debugDisplay;
+    private Main p;
     private ArrayList< SoundParameterMapping > mappings;
     private HashMap< SoundInputParameterEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
-    private boolean enableDebugOutput = true;
 
     /**
 
      * @param port
      */
     public OscController ( Main p, int port ) {
-        mappings = new ArrayList<>();
+        this.p = p;
         new OscP5( this, port );
 
-        if( enableDebugOutput ) {
-            debugDisplay = OscParameterDisplay.addControlFrame( "OscParameterDebug", 900, 150 );
-        }
+        mappings = new ArrayList<>();
 
         filters = new HashMap<>();
 
@@ -158,9 +155,7 @@ public class OscController {
 
                 value = filters.get( soundParameterType ).applyFilter( value );
 
-                if( enableDebugOutput ) {
-                    debugDisplay.updateParameter( soundParameterType, value );
-                }
+                p.controlFrame.updateOscParameters( soundParameterType, value );
 
                 SoundInputParameter soundInputParameter = getParameterFromString( receivedOscMessage.addrPattern() );
 
