@@ -257,6 +257,7 @@ public class Main extends PApplet {
             p.setBackgroundOpacity( 255 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.ORIGINAL );
+            p.getBloomModifier().setEnabled( false );
         }
 
         // PERCUSSION CHANNEL 2
@@ -302,6 +303,7 @@ public class Main extends PApplet {
             p.setBackgroundOpacity( 40 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.POINTS );
+            p.getBloomModifier().setEnabled( false );
         }
 
 
@@ -338,6 +340,25 @@ public class Main extends PApplet {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI, 0 );
+        }
+    }
+
+    void addSoundMappingChapter3() {
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.setParticleJumpyness( 40.0f );
+            p.setParticleSize( 3.0f );
+            p.setParticleCount( 10500 );
+            p.setParticleOpacity( 0.23f );
+            p.setBackgroundOpacity( 40 );
+            p.setIntensity( 1.0f );
+            p.setRenderMode( RenderMode.POINTS );
+            p.getBloomModifier().setEnabled( true );
+            p.getBloomModifier().setBlurSize( 42 );
+            p.getBloomModifier().setBlurSigma( 8.0f );
+            p.getBloomModifier().setThreshold( 0.01f );
         }
     }
 
@@ -408,6 +429,8 @@ public class Main extends PApplet {
             addSoundMappingForChapter2Part1( );
         } if( key == '5') {
             addSoundMappingForChapter2Part2( );
+        } if( key == '6') {
+            addSoundMappingChapter3( );
         } if( key == '7') {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
         } if( key == '8') {
