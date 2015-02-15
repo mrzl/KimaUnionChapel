@@ -13,13 +13,11 @@ import java.util.Map;
  */
 public class ControlFrame extends PApplet {
 
-    public enum CONTROL_STATE { RECTANGLE, TRIANGLE, CIRCLE, HYDRPGEN, ALL }
     private ChladniParticles selectedParticles;
 
     public static ControlP5 controlP5;
     private Main parent;
     private int w, h;
-    private CONTROL_STATE currentControlState = CONTROL_STATE.RECTANGLE;
 
     public Slider particleJumpynessSlider;
     public Slider triangleScalesSlider;
@@ -281,23 +279,13 @@ public class ControlFrame extends PApplet {
         //controlP5.loadProperties();
     }
 
-    public void setControlState( CONTROL_STATE _cs ) {
-        this.currentControlState = _cs;
-    }
-
-    public CONTROL_STATE getControlState() {
-        return this.currentControlState;
-    }
-
-
-
     private boolean getBoolFromFloat ( float _f ) {
         return _f != 0;
     }
 
 
 
-    public static Slider getSliderById ( Main parent, Main.ChladniFormId currentId, VisualParameterEnum visualParameter ) {
+    public static Slider getSliderById ( Main parent, VisualParameterEnum visualParameter ) {
         switch( visualParameter ) {
             case M:
                 return parent.controlFrame.mSlider;
@@ -322,6 +310,21 @@ public class ControlFrame extends PApplet {
 
     public void draw () {
         background( 0 );
+
+        if( selectedParticles != null ) {
+            mSlider.setValue( selectedParticles.getSurface( ).getM( ) );
+            nSlider.setValue( selectedParticles.getSurface( ).getN( ) );
+            triangleScalesSlider.setValue( selectedParticles.getSurface( ).getScale( ) );
+            particleJumpynessSlider.setValue( selectedParticles.getParticleJumpyness( ) );
+            particleOpacitySlider.setValue( selectedParticles.getParticleOpacity( ) );
+            particleSizeSlider.setValue( selectedParticles.getParticleSize( ) );
+            particleCountSlider.setValue( selectedParticles.getParticleCount( ) );
+            backgroundOpacitySlider.setValue( selectedParticles.getBackgroundOpacity( ) );
+            intensitySlider.setValue( selectedParticles.getSurface( ).getIntensity( ) );
+            bloomBlurSizeSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSize( ) );
+            bloomSigmaSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSigma( ) );
+            bloomThresholdSlider.setValue( selectedParticles.getBloomModifier( ).getThresholdShader( ).getThreshold( ) );
+        }
     }
 
     public ControlFrame ( Main theParent, int theWidth, int theHeight ) {
