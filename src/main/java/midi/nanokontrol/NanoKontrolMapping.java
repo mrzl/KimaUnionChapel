@@ -32,7 +32,7 @@ public class NanoKontrolMapping {
             if( nip.getType().equals( _nkse ) ) {
                 VisualParameter _vp = vp.get( index );
                 float v = PApplet.map( value, nip.getMin(), nip.getMax(), _vp.getMin(), _vp.getMax() );
-                chladniParticles.parameterChanged( vp.get( index ).getType(), v );
+                chladniParticles.parameterChangedFromBcrController( vp.get( index ).getType( ), v );
             }
             index++;
         }

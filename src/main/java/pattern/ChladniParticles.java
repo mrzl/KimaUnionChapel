@@ -352,9 +352,6 @@ public class ChladniParticles {
                 }
 
                 if( particleSizeDrumHitThread.running == false ) {
-                    //particleSizeDrumHitThread = new ParticleSizeTimerThread( this, getParticleSize() );
-                    //particleSizeDrumHitThread.start();
-                    //particleSizeDrumHitThread.notify();
                     particleSizeDrumHitThread.running = true;
                 }
 
@@ -363,11 +360,7 @@ public class ChladniParticles {
             case ORIGINAL:
 
                 if( backgroundBlendThread.running == false ) {
-
-                   // backgroundBlendThread = new BackgroundBlendTimerThread( this, 0 );
-                    //backgroundBlendThread.start();
                     backgroundBlendThread.running = true;
-                    //backgroundBlendThread.start( );
                 }
 
                 currentBlendedBackgroundValue = 255;
@@ -381,7 +374,6 @@ public class ChladniParticles {
                 }
                 */
                 break;
-
         }
     }
 
@@ -400,7 +392,7 @@ public class ChladniParticles {
         }
     }
 
-    public void parameterChanged ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
+    public void parameterChangedFromOscController ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
         switch ( chladniPatternParameter ) {
             case M:
                 getSurface( ).setM( value );
@@ -434,11 +426,18 @@ public class ChladniParticles {
         }
     }
 
-    public void parameterChanged ( VisualParameterEnum visualParameter, float value ) {
+    public void parameterChangedFromBcrController ( VisualParameterEnum visualParameter, float value ) {
         switch ( visualParameter ) {
             case MIN_HUE:
                 getColorMode( ).setRangeMin( value );
                 break;
+            case INTENSITY:
+                setIntensity( value );
+                p.controlFrame.intensitySlider.setValue( value );
+                break;
+            case THRESHOLD:
+                getBloomModifier().setThreshold( value );
+                p.controlFrame.bloomThresholdSlider.setValue( value );
             case MAX_HUE:
                 getColorMode( ).setRangeMax( value );
                 break;
@@ -447,30 +446,38 @@ public class ChladniParticles {
                 break;
             case BACKGROUND_OPACITY:
                 setMotionBlurAmount( value );
+                p.controlFrame.backgroundOpacitySlider.setValue( value );
                 break;
             case M:
                 getSurface( ).setM( value );
+                p.controlFrame.mSlider.setValue( value );
                 break;
             case N:
                 getSurface( ).setN( value );
+                p.controlFrame.nSlider.setValue( value );
                 break;
             case JUMPYNESS:
                 setRebuildSpeed( value );
+                p.controlFrame.particleJumpynessSlider.setValue( value );
                 break;
             case PARTICLE_COUNT:
                 setParticleCount( ( int ) value );
+                p.controlFrame.particleCountSlider.setValue( value );
                 break;
             case PARTICLE_OPACITY:
                 setParticleOpacity( value );
+                p.controlFrame.particleOpacitySlider.setValue( value );
                 break;
             case PARTICLE_SIZE:
                 setParticleSize( value );
+                p.controlFrame.particleSizeSlider.setValue( value );
                 break;
             case POLES:
                 getSurface( ).setPoles( ( int ) value );
                 break;
             case SCALE:
                 getSurface( ).setScale( value );
+                p.controlFrame.triangleScalesSlider.setValue( value );
                 break;
             case MARE_UNDARUM:
                 System.err.println( "Setting Mare Undarum parameters." );

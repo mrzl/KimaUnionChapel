@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by mrzl on 22.01.2015.
  */
-public class BnrController {
+public class BcrController {
     private MidiBus midi;
     private ArrayList< BcrMapping > mappings;
 
-    public BnrController( int nanoControlIdentifier ) {
+    public BcrController ( int nanoControlIdentifier ) {
         this.mappings = new ArrayList<>( );
         for( String s : MidiBus.availableInputs() ) {
             System.out.println(s);

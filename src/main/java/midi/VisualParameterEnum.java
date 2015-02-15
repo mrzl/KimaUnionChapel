@@ -20,5 +20,7 @@ public enum VisualParameterEnum {
     PARTICLE_COUNT,
     PARTICLE_OPACITY,
     POLES,
-    SCALE
+    SCALE,
+    INTENSITY,
+    THRESHOLD
 }

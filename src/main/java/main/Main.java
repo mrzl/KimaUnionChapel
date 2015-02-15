@@ -5,7 +5,7 @@ import midi.*;
 import midi.bcr2000.BcrInputParameter;
 import midi.bcr2000.BcrKnobEnum;
 import midi.bcr2000.BcrMapping;
-import midi.bcr2000.BnrController;
+import midi.bcr2000.BcrController;
 import midi.nanokontrol.NanoInputParameter;
 import midi.nanokontrol.NanoKontrolController;
 import midi.nanokontrol.NanoKontrolMapping;
@@ -18,7 +18,14 @@ import processing.core.PConstants;
 import java.util.*;
 
 /**
+ * Main class of the Kima Software. Everything is controlled from here.
+ *
+ * setup(): setup of all objects, controllers, etc
+ * draw(): main loop, where everything is updated.
+ *
+ * main changelog:
  * Created by mar on 13.12.14.
+ *
  */
 public class Main extends PApplet {
 
@@ -30,30 +37,21 @@ public class Main extends PApplet {
 
     public OscController oscController;
     protected NanoKontrolController nanoController;
-    protected BnrController bcrController;
+    protected BcrController bcrController;
 
-    private SyphonOutput syphonOutput;
+    protected SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
 
     private int resolution;
     private float scaleFactor;
-    private boolean debug = true;
 
     public void setup () {
         int overallWidth, overallHeight;
-        if ( debug ) {
-            resolution = 256;
-            scaleFactor = 2.0f;
-            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
-            overallHeight = ( int ) ( resolution * scaleFactor );
-            size( overallWidth, overallHeight, PConstants.P3D );
-        } else {
-            resolution = 256;
-            scaleFactor = 4.0f;
-            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
-            overallHeight = ( int ) ( resolution * scaleFactor );
-            size( 1, 1, PConstants.P3D );
-        }
+        resolution = 256;
+        scaleFactor = 0.5f;
+        overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
+        overallHeight = ( int ) ( resolution * scaleFactor );
+        size( overallWidth, overallHeight, PConstants.P3D );
 
         noSmooth( );
 
@@ -103,8 +101,7 @@ public class Main extends PApplet {
         nanoMapping.addMapping( nanoParameter4, visualParameter4 );
         nanoController.addMapping( nanoMapping );
 
-
-        bcrController = new BnrController( 0 );
+        bcrController = new BcrController( 0 );
 
         // rect
         BcrMapping bcrMapping1 = new BcrMapping( chladniRect );
@@ -217,11 +214,8 @@ public class Main extends PApplet {
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
         SoundInputParameter soundMapping23 = new SoundInputParameter( SoundInputParameterEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
-        SoundInputParameter soundMapping33 = new SoundInputParameter( SoundInputParameterEnum.ATTACK_PARAMETER3, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MIN );
-        ChladniPatternParameter chladniMapping33 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
-        //mappingCircle.addMapping( soundMapping33, chladniMapping33 );
         oscController.addSoundParameterMapping( mappingCircle );
     }
 
@@ -288,21 +282,12 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
-        if ( debug ) {
-            image( syphonOutput.getBuffer( ), 0, 0 );
-        }
+
+        image( syphonOutput.getBuffer( ), 0, 0 );
 
         // send syphon texture
         if ( System.getProperty( "os.name" ).startsWith( OSX ) ) {
             syphonOutput.send( );
-        }
-
-        // do anomalies in order to avoid too strong clustering on black areas
-        it = chladniForms.entrySet( ).iterator( );
-        while ( it.hasNext( ) ) {
-            Map.Entry pairs = ( Map.Entry ) it.next( );
-            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-            //p.doAnomaly( );
         }
     }
 

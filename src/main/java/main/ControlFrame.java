@@ -432,8 +432,6 @@ public class ControlFrame extends PApplet {
 
     public void draw () {
         background( 0 );
-
-
         stroke( 255 );
         text( "Channel 1 - Voice", 10, 140 );
         text( "Channel 2 - Perc.", 140, 140 );

@@ -38,7 +38,7 @@ public class SoundParameterMapping {
             if( s.getType().equals( _parameter.getType() ) ) {
                 ChladniPatternParameter chladniPatternParameter = cpps.get( sips.indexOf( s ) );
                 float mappedValue = PApplet.map( value, _parameter.getMin(), _parameter.getMax(), chladniPatternParameter.getMin(), chladniPatternParameter.getMax() );
-                chladniParticles.parameterChanged( chladniPatternParameter.getType(), mappedValue );
+                chladniParticles.parameterChangedFromOscController( chladniPatternParameter.getType( ), mappedValue );
             }
         }
     }
