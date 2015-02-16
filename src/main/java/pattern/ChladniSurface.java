@@ -50,6 +50,10 @@ public class ChladniSurface implements ChladniSurfaceInterface {
         return offscreen;
     }
 
+    public void setBuffer( PGraphics pg ) {
+        this.offscreen = pg;
+    }
+
     @Override
     public void update () {
         System.err.println( "Calling ChladniSurface.update() without extending it." );

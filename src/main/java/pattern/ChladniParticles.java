@@ -1,5 +1,6 @@
 package pattern;
 
+import filter.shader.BrightnessIncreaseShader;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
@@ -90,6 +91,7 @@ public class ChladniParticles {
         this.motionBlurAmount = 40;
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
+
 
         this.currentBlendedBackgroundValue = 0;
 
@@ -198,6 +200,7 @@ public class ChladniParticles {
         switch ( getRenderMode() ) {
             case POINTS:
                 getSurface().setDrawMonochrome( true );
+
                 drawPoints( );
                 break;
             case LINES:
@@ -222,6 +225,8 @@ public class ChladniParticles {
                     //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
                 }
+
+
 
                 // this way of visualizing the attack may not be used. TODO
                 particlePBO.beginDraw( );

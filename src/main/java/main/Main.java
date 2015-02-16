@@ -258,6 +258,9 @@ public class Main extends PApplet {
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
+
+            p.getColorMode().setRange( 0, 0.06f );
+            p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
 
         // PERCUSSION CHANNEL 2
@@ -304,6 +307,9 @@ public class Main extends PApplet {
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.POINTS );
             p.getBloomModifier().setEnabled( false );
+
+            p.getColorMode().setRange( 0, 0.3f );
+            p.setColorModeEnum( ColorModeEnum.MOON );
         }
 
 
@@ -359,6 +365,9 @@ public class Main extends PApplet {
             p.getBloomModifier().setBlurSize( 42 );
             p.getBloomModifier().setBlurSigma( 8.0f );
             p.getBloomModifier().setThreshold( 0.01f );
+
+            p.getColorMode().setRange( 0.06f, 1 );
+            p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
     }
 
