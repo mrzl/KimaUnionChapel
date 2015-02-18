@@ -403,6 +403,8 @@ public class ControlFrame extends PApplet {
                         selectedParticles.getSurface().setMaxHue( controlEvent.getArrayValue( 1 ) );
                         selectedParticles.getColorMode().setRange( controlEvent.getArrayValue( 0 ), controlEvent.getArrayValue( 1 ) );
                         selectedParticles.getBloomModifier().getThresholdShader().setHue( controlEvent.getArrayValue( 0 ) );
+                        selectedParticles.getOpacityToHueShader().setMinHue( controlEvent.getArrayValue( 0 ) );
+                        selectedParticles.getOpacityToHueShader().setMaxHue( controlEvent.getArrayValue( 1 ) );
                     }
                 } );
 

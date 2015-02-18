@@ -177,6 +177,26 @@ public class Main extends PApplet {
 
         oscController.clear( );
 
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.setParticleJumpyness( 40.0f );
+            p.setParticleSize( 3.0f );
+            p.setParticleCount( 10500 );
+            p.setParticleOpacity( 0.23f );
+            p.setBackgroundOpacity( 255 );
+            p.setIntensity( 1.0f );
+            p.setRenderMode( RenderMode.ORIGINAL );
+            p.getBloomModifier().setEnabled( false );
+            p.getOpacityToHueShader().setEnabled( false );
+
+
+            p.getColorMode().setRange( 0, 0.06f );
+            p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+        }
+
+
         // PERCUSSION CHANNEL 2
         OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
         OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
@@ -200,7 +220,7 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         oscController.addSoundParameterMapping( mappingCircle );
 
-        Iterator it = chladniForms.entrySet().iterator();
+        it = chladniForms.entrySet().iterator();
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
@@ -211,6 +231,25 @@ public class Main extends PApplet {
     void addSoundMappingForChapter1Part2() {
         oscController.clear();
 
+        Iterator it = chladniForms.entrySet().iterator();
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            p.setParticleJumpyness( 40.0f );
+            p.setParticleSize( 3.0f );
+            p.setParticleCount( 10500 );
+            p.setParticleOpacity( 0.23f );
+            p.setBackgroundOpacity( 255 );
+            p.setIntensity( 1.0f );
+            p.setRenderMode( RenderMode.ORIGINAL );
+            p.getBloomModifier().setEnabled( false );
+            p.getOpacityToHueShader().setEnabled( false );
+
+
+            p.getColorMode().setRange( 0, 0.06f );
+            p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+        }
+
         // PERCUSSION CHANNEL 2
         OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
         OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
@@ -234,7 +273,7 @@ public class Main extends PApplet {
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         oscController.addSoundParameterMapping( mappingCircle );
 
-        Iterator it = chladniForms.entrySet().iterator();
+        it = chladniForms.entrySet().iterator();
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
@@ -258,6 +297,8 @@ public class Main extends PApplet {
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
+            p.getOpacityToHueShader().setEnabled( false );
+
 
             p.getColorMode().setRange( 0, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
@@ -306,7 +347,8 @@ public class Main extends PApplet {
             p.setBackgroundOpacity( 40 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.POINTS );
-            p.getBloomModifier().setEnabled( false );
+            p.getBloomModifier( ).setEnabled( false );
+            p.getOpacityToHueShader().setEnabled( false );
 
             p.getColorMode().setRange( 0, 0.3f );
             p.setColorModeEnum( ColorModeEnum.MOON );
@@ -365,6 +407,9 @@ public class Main extends PApplet {
             p.getBloomModifier().setBlurSize( 42 );
             p.getBloomModifier().setBlurSigma( 8.0f );
             p.getBloomModifier().setThreshold( 0.01f );
+            p.getOpacityToHueShader().setEnabled( true );
+            p.getOpacityToHueShader().setMinHue( 0.0f );
+            p.getOpacityToHueShader().setMaxHue( 0.12f );
 
             p.getColorMode().setRange( 0.06f, 1 );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );

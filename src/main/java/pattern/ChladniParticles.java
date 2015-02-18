@@ -1,6 +1,6 @@
 package pattern;
 
-import filter.shader.BrightnessIncreaseShader;
+import filter.shader.OpacityToHueShader;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
@@ -42,6 +42,7 @@ public class ChladniParticles {
     private BehaviorMode behaviorMode;
     private BloomModifier bm;
     private MetaBallModifier mm;
+    private OpacityToHueShader opacityToHue;
 
     private float scaleFactor; // only the underlying surface will be rendered smaller
     private float rebuildSpeed, particleSize, particleOpacity;
@@ -100,6 +101,8 @@ public class ChladniParticles {
         backgroundBlendThread = new BackgroundBlendTimerThread( this, getCurrentBlendedBackgroundValue() );
         backgroundBlendThread.start();
         intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
+
+        opacityToHue = new OpacityToHueShader( p );
     }
 
     public void update ( int speed ) {
@@ -265,6 +268,8 @@ public class ChladniParticles {
         if ( mm.isEnabled( ) ) {
             mm.apply( getParticlePBO( ) );
         }
+
+        opacityToHue.apply( getParticlePBO() );
 
     }
 
@@ -592,5 +597,9 @@ public class ChladniParticles {
 
     public void setBackgroundOpacity( float value) {
         this.motionBlurAmount = value;
+    }
+
+    public OpacityToHueShader getOpacityToHueShader () {
+        return opacityToHue;
     }
 }
