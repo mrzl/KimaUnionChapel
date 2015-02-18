@@ -449,7 +449,12 @@ public class ControlFrame extends PApplet {
             bloomBlurSizeSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSize( ) );
             bloomSigmaSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSigma( ) );
             bloomThresholdSlider.setValue( selectedParticles.getBloomModifier( ).getThresholdShader( ).getThreshold( ) );
-            minMaxHue.setRangeValues( selectedParticles.getColorMode().getMinHue(), selectedParticles.getColorMode().getMaxHue() );
+            if( selectedParticles.getOpacityToHueShader().isEnabled() ) {
+                 minMaxHue.setRangeValues( selectedParticles.getOpacityToHueShader().getMinHue(), selectedParticles.getOpacityToHueShader().getMaxHue() );
+            } else {
+                minMaxHue.setRangeValues( selectedParticles.getColorMode().getMinHue(), selectedParticles.getColorMode().getMaxHue() );
+            }
+
 
             float renderModeValue = 0;
             switch ( selectedParticles.getRenderMode() ) {
@@ -492,7 +497,11 @@ public class ControlFrame extends PApplet {
         bloomBlurSizeSlider.setValue( _pattern.getBloomModifier().getBlurSize() );
         bloomSigmaSlider.setValue( _pattern.getBloomModifier().getBlurSigma() );
         bloomThresholdSlider.setValue( _pattern.getBloomModifier().getThresholdShader().getThreshold() );
-        minMaxHue.setRangeValues( _pattern.getColorMode().getMinHue(), _pattern.getColorMode().getMaxHue() );
+        if( selectedParticles.getOpacityToHueShader().isEnabled() ) {
+            minMaxHue.setRangeValues( _pattern.getOpacityToHueShader().getMinHue(), _pattern.getOpacityToHueShader().getMaxHue() );
+        } else {
+            minMaxHue.setRangeValues( _pattern.getColorMode().getMinHue(), _pattern.getColorMode().getMaxHue() );
+        }
 
         float renderModeValue = 0;
         switch ( _pattern.getRenderMode() ) {
