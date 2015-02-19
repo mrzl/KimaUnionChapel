@@ -1,4 +1,4 @@
-package main;
+package main.transitions;
 
 import pattern.ChladniParticles;
 
