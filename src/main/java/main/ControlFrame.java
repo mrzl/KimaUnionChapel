@@ -36,6 +36,7 @@ public class ControlFrame extends PApplet {
     public Slider drawModeSlider;
     public Slider contrastSlider;
     public Slider brightnessSlider;
+    public Slider saturationSlider;
     public Range minMaxHue;
 
     public Toggle colorModeToggle;
@@ -248,7 +249,7 @@ public class ControlFrame extends PApplet {
         backgroundOpacitySlider = controlP5.addSlider( "BackgroundOpacity" ).setRange( 0, 255 ).setSize( SLIDER_WIDTH, 20 ).setPosition( 10, Y_POS ).setValue( 40 ).addListener( new ControlListener( ) {
             @Override
             public void controlEvent ( ControlEvent controlEvent ) {
-                selectedParticles.setMotionBlurAmount( controlEvent.getValue() );
+                selectedParticles.setBackgroundOpacity( controlEvent.getValue( ) );
             }
         } );
 
@@ -441,7 +442,21 @@ public class ControlFrame extends PApplet {
                 } );
 
         Y_POS += 50;
-        brightnessPatternSlider = controlP5.addSlider( "Brightness" )
+
+        saturationSlider = controlP5.addSlider( "Saturation" )
+                .setRange( 0, 1 )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getSurface().setSaturation( controlEvent.getValue() );
+                    }
+                } );
+
+        Y_POS += 50;
+        brightnessPatternSlider = controlP5.addSlider( "Brightness Foundation" )
                 .setRange( 0, 1 )
                 .setSize( SLIDER_WIDTH, 20 )
                 .setPosition( 10, Y_POS )
@@ -534,7 +549,7 @@ public class ControlFrame extends PApplet {
         particleOpacitySlider.setValue( _pattern.getParticleOpacity() );
         particleSizeSlider.setValue( _pattern.getParticleSize() );
         particleCountSlider.setValue( _pattern.getParticleCount() );
-        backgroundOpacitySlider.setValue( _pattern.getBackgroundOpacity() );
+        backgroundOpacitySlider.setValue( _pattern.getBackgroundOpacity( ) );
         brightnessPatternSlider.setValue( _pattern.getSurface( ).getIntensity( ) );
         bloomBlurSizeSlider.setValue( _pattern.getBloomModifier().getBlurSize() );
         bloomSigmaSlider.setValue( _pattern.getBloomModifier().getBlurSigma() );

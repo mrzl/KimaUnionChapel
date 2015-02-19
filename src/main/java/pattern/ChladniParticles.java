@@ -50,7 +50,7 @@ public class ChladniParticles {
     private float scaleFactor; // only the underlying surface will be rendered smaller
     private float rebuildSpeed, particleSize, particleOpacity;
     private int particleCount;
-    private float motionBlurAmount;
+    private float backgroundOpacity;
     private int currentBlendedBackgroundValue;
 
 
@@ -92,7 +92,7 @@ public class ChladniParticles {
 
         this.colorMode = new ColorMode( );
         this.colorMode.setColorMode( ColorModeEnum.VELOCITIES );
-        this.motionBlurAmount = 40;
+        this.backgroundOpacity = 40;
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
 
@@ -106,7 +106,7 @@ public class ChladniParticles {
         intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
 
         opacityToHue = new OpacityToHueShader( p );
-        increaser = new BrightnessIncreaseShader2( p, particlePBO.width, particlePBO.height );
+        increaser = new BrightnessIncreaseShader2( p, getParticlePBO().width, getParticlePBO().height );
     }
 
     public void update ( int speed ) {
@@ -121,9 +121,9 @@ public class ChladniParticles {
 
         while ( particles.size( ) < particleCount ) {
             if( behaviorMode == BehaviorMode.REGULAR ) {
-                particles.add(new Vec2D(p.random(particlePBO.width), p.random(particlePBO.height)));
+                particles.add(new Vec2D(p.random(getParticlePBO().width), p.random(getParticlePBO().height)));
             } else if ( behaviorMode == BehaviorMode.CENTER_OUTWARDS ) {
-                particles.add(new Vec2D(particlePBO.width / 2, particlePBO.height / 2));
+                particles.add(new Vec2D(getParticlePBO().width / 2, getParticlePBO().height / 2));
             }
 
             velocities.add( 1.0f );
@@ -131,8 +131,8 @@ public class ChladniParticles {
         }
         if( behaviorMode == BehaviorMode.CENTER_OUTWARDS ) {
             for (Vec2D v : particles) {
-                Vec2D center = new Vec2D(particlePBO.width / 2, particlePBO.height / 2);
-                Vec2D trans = v.sub(center).normalize().scale(PApplet.map(p.dist(particlePBO.width / 2, particlePBO.height / 2, v.x, v.y), 0, particlePBO.width / 2, 0, 0.6f));
+                Vec2D center = new Vec2D(getParticlePBO().width / 2, getParticlePBO().height / 2);
+                Vec2D trans = v.sub(center).normalize().scale(PApplet.map(p.dist(getParticlePBO().width / 2, getParticlePBO().height / 2, v.x, v.y), 0, getParticlePBO().width / 2, 0, 0.6f));
                 v.addSelf(trans);
             }
         }
@@ -160,10 +160,10 @@ public class ChladniParticles {
     }
 
     private void limitParticleToBufferSize( Vec2D v ) {
-        if( v.x >= particlePBO.width ) v.x = p.random( particlePBO.width );
-        if( v.x < 0 ) v.x = p.random( particlePBO.width );
-        if( v.y >= particlePBO.height ) v.y = p.random( particlePBO.height );
-        if( v.y < 0 ) v.y = p.random( particlePBO.height );
+        if( v.x >= getParticlePBO().width ) v.x = p.random( getParticlePBO().width );
+        if( v.x < 0 ) v.x = p.random( getParticlePBO().width );
+        if( v.y >= getParticlePBO().height ) v.y = p.random( getParticlePBO().height );
+        if( v.y < 0 ) v.y = p.random( getParticlePBO().height );
     }
 
     public void setParticleCount ( int _particleCount ) {
@@ -174,8 +174,8 @@ public class ChladniParticles {
         for ( Vec2D v : particles ) {
             float rad = p.dist( v.x, v.y, particlePBO.width / 2, particlePBO.height / 2 );
             if ( rad >= radius ) {
-                v.x = p.random( particlePBO.width );
-                v.y = p.random( particlePBO.height );
+                v.x = p.random( getParticlePBO().width );
+                v.y = p.random( getParticlePBO().height );
             }
         }
     }
@@ -185,22 +185,22 @@ public class ChladniParticles {
         PImage im = c.getMastk( );
         im.loadPixels( );
         for ( Vec2D v : particles ) {
-            int x = ( int ) p.map( v.x, 0, particlePBO.width, 0, im.width );
-            int y = ( int ) p.map( v.y, 0, particlePBO.height, 0, im.height );
+            int x = ( int ) p.map( v.x, 0, getParticlePBO().width, 0, im.width );
+            int y = ( int ) p.map( v.y, 0, getParticlePBO().height, 0, im.height );
             int index = x + y * im.width;
             if ( index < im.pixels.length - 1 && index >= 0 ) {
                 int col = im.pixels[ index ] & 0xFF;
                 if ( col < 1 ) {
-                    v.x = p.random( particlePBO.width );
-                    v.y = p.random( particlePBO.height );
+                    v.x = p.random( getParticlePBO().width );
+                    v.y = p.random( getParticlePBO().height );
                 }
             }
         }
     }
 
     public void render () {
-        particlePBO.beginDraw( );
-        pgl = particlePBO.beginPGL( );
+        getParticlePBO().beginDraw( );
+        pgl = getParticlePBO().beginPGL( );
         gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
 
@@ -215,7 +215,7 @@ public class ChladniParticles {
                 drawLines( );
                 break;
             case ORIGINAL:
-                particlePBO.background( 0 );
+                getParticlePBO().background( 0 );
                 getSurface().setDrawMonochrome( false );
                 getSurface().setMinHue( getColorMode().getMinHue() );
                 getSurface().setMaxHue( getColorMode().getMaxHue() );
@@ -224,29 +224,29 @@ public class ChladniParticles {
                 if( surface.getClass().equals( ChladniTriangle.class ) ) {
                     //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                     PGraphics pg = getSurface().getBuffer();
-                    particlePBO.pushMatrix();
-                    particlePBO.scale( 1.0f, -1.0f );
-                    particlePBO.image( pg, 0, -particlePBO.height, particlePBO.width, particlePBO.height );
-                    particlePBO.popMatrix();
+                    getParticlePBO().pushMatrix( );
+                    getParticlePBO().scale( 1.0f, -1.0f );
+                    getParticlePBO().image( pg, 0, -getParticlePBO().height, getParticlePBO().width, getParticlePBO().height );
+                    getParticlePBO().popMatrix( );
                 } else {
                     //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                    particlePBO.image( getSurface().getBuffer(), 0, 0, particlePBO.width, particlePBO.height );
+                    getParticlePBO().image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO().width, getParticlePBO().height );
                 }
 
 
 
                 // this way of visualizing the attack may not be used. TODO
-                particlePBO.beginDraw( );
-                particlePBO.blendMode( ADD );
-                particlePBO.pushStyle( );
+                getParticlePBO().beginDraw( );
+                getParticlePBO().blendMode( ADD );
+                getParticlePBO().pushStyle( );
 
-                particlePBO.noStroke( );
-                particlePBO.fill( currentBlendedBackgroundValue );
-                particlePBO.rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor(), getSurface( ).getBuffer( ).height * getScaleFactor() );
+                getParticlePBO().noStroke( );
+                getParticlePBO().fill( currentBlendedBackgroundValue );
+                getParticlePBO().rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor( ), getSurface( ).getBuffer( ).height * getScaleFactor( ) );
 
-                particlePBO.popStyle( );
-                particlePBO.blendMode( BLEND );
-                particlePBO.endDraw( );
+                getParticlePBO().popStyle( );
+                getParticlePBO().blendMode( BLEND );
+                getParticlePBO().endDraw( );
 
                 break;
             default:
@@ -255,8 +255,8 @@ public class ChladniParticles {
         }
 
         gl2.glEnd( );
-        particlePBO.endPGL( );
-        particlePBO.endDraw( );
+        getParticlePBO().endPGL( );
+        getParticlePBO().endDraw( );
 
         if ( bm.isEnabled( ) ) {
             bm.apply( getParticlePBO( ) );
@@ -287,7 +287,7 @@ public class ChladniParticles {
     }
 
     private void drawLines () {
-        particlePBO.background( 0, motionBlurAmount );
+        getParticlePBO().background( 0, getBackgroundOpacity( ) );
 
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
@@ -305,7 +305,15 @@ public class ChladniParticles {
     }
 
     private void drawPoints () {
-        particlePBO.background( 0, motionBlurAmount );
+        if( getBloomModifier().isEnabled() ) {
+           getParticlePBO().background( 0, getBackgroundOpacity() );
+        } else {
+            getParticlePBO( ).pushStyle( );
+            getParticlePBO( ).noStroke( );
+            getParticlePBO( ).fill( 0, getBackgroundOpacity( ) );
+            getParticlePBO( ).rect( 0, 0, getParticlePBO( ).width, getParticlePBO( ).height );
+            getParticlePBO( ).popStyle( );
+        }
 
         gl2.glEnable( GL.GL_BLEND );
         gl2.glBlendFunc( GL.GL_SRC_ALPHA, GL.GL_ONE );
@@ -340,7 +348,7 @@ public class ChladniParticles {
                     b = 1;
             }
 
-            gl2.glColor4f( r, g, b, particleOpacity );
+            gl2.glColor4f( r, g, b, getParticleOpacity() );
             gl2.glVertex2f( v.x, v.y );
             index++;
         }
@@ -393,7 +401,7 @@ public class ChladniParticles {
     }
 
     public void renderParticlesToScreen ( int x, int y ) {
-        p.image( particlePBO, x, y );
+        p.image( getParticlePBO(), x, y );
     }
 
     public void drawOriginal ( int x, int y, int w, int h ) {
@@ -460,7 +468,7 @@ public class ChladniParticles {
                 p.oscController.setUpdateDelay( ( long ) value );
                 break;
             case BACKGROUND_OPACITY:
-                setMotionBlurAmount( value );
+                setBackgroundOpacity( value );
                 p.controlFrame.backgroundOpacitySlider.setValue( value );
                 break;
             case M:
@@ -552,14 +560,6 @@ public class ChladniParticles {
         return mm;
     }
 
-    public float getMotionBlurAmount () {
-        return this.motionBlurAmount;
-    }
-
-    public void setMotionBlurAmount ( float _motionBlurAmount ) {
-        this.motionBlurAmount = _motionBlurAmount;
-    }
-
     public ColorMode getColorMode () {
         return colorMode;
     }
@@ -597,11 +597,11 @@ public class ChladniParticles {
     }
 
     public float getBackgroundOpacity () {
-        return motionBlurAmount;
+        return backgroundOpacity;
     }
 
     public void setBackgroundOpacity( float value) {
-        this.motionBlurAmount = value;
+        this.backgroundOpacity = value;
     }
 
     public OpacityToHueShader getOpacityToHueShader () {

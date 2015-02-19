@@ -197,6 +197,7 @@ public class Main extends PApplet {
 
             p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+            p.getSurface().setDrawMonochrome( false );
         }
 
 
@@ -254,6 +255,7 @@ public class Main extends PApplet {
 
             p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+            p.getSurface().setDrawMonochrome( false );
         }
 
         // PERCUSSION CHANNEL 2
@@ -311,6 +313,7 @@ public class Main extends PApplet {
 
             p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+            p.getSurface().setDrawMonochrome( false );
         }
 
         // PERCUSSION CHANNEL 2
@@ -352,8 +355,8 @@ public class Main extends PApplet {
             p.setParticleJumpyness( 40.0f );
             p.setParticleSize( 3.0f );
             p.setParticleCount( 10500 );
-            p.setParticleOpacity( 0.23f );
-            p.setBackgroundOpacity( 40 );
+            p.setParticleOpacity( 0.07f );
+            p.setBackgroundOpacity( 6 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.POINTS );
             p.getBloomModifier( ).setEnabled( false );
@@ -364,6 +367,7 @@ public class Main extends PApplet {
 
             p.getColorMode().setRange( 0, 0.3f );
             p.setColorModeEnum( ColorModeEnum.VELOCITIES );
+            p.getSurface().setDrawMonochrome( true );
         }
 
 
@@ -428,6 +432,7 @@ public class Main extends PApplet {
 
             p.getColorMode().setRange( 0.06f, 1 );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
+            p.getSurface().setDrawMonochrome( false );
         }
     }
 
