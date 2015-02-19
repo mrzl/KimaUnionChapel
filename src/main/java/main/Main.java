@@ -518,6 +518,7 @@ public class Main extends PApplet {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         }
 
+        
         long duration = 1000;
         switch( key ) {
             case 'a':
