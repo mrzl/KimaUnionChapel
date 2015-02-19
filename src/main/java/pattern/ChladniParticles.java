@@ -1,5 +1,6 @@
 package pattern;
 
+import filter.shader.BrightnessIncreaseShader2;
 import filter.shader.OpacityToHueShader;
 import main.Main;
 import modificators.BloomModifier;
@@ -43,6 +44,8 @@ public class ChladniParticles {
     private BloomModifier bm;
     private MetaBallModifier mm;
     private OpacityToHueShader opacityToHue;
+
+    private BrightnessIncreaseShader2 increaser;
 
     private float scaleFactor; // only the underlying surface will be rendered smaller
     private float rebuildSpeed, particleSize, particleOpacity;
@@ -103,6 +106,7 @@ public class ChladniParticles {
         intensityThread = new IntensityTimerThread( this, getSurface().getIntensity() );
 
         opacityToHue = new OpacityToHueShader( p );
+        increaser = new BrightnessIncreaseShader2( p, particlePBO.width, particlePBO.height );
     }
 
     public void update ( int speed ) {
@@ -271,6 +275,7 @@ public class ChladniParticles {
 
         opacityToHue.apply( getParticlePBO() );
 
+        increaser.apply( getParticlePBO() );
     }
 
     public RenderMode getRenderMode () {
@@ -601,5 +606,13 @@ public class ChladniParticles {
 
     public OpacityToHueShader getOpacityToHueShader () {
         return opacityToHue;
+    }
+
+    public BrightnessIncreaseShader2 getBrightnessContrastShader () {
+        return increaser;
+    }
+
+    public void setBrightnessContrastShader ( BrightnessIncreaseShader2 increaser ) {
+        this.increaser = increaser;
     }
 }

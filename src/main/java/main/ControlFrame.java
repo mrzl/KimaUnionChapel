@@ -34,6 +34,8 @@ public class ControlFrame extends PApplet {
     public Slider bloomBlurSizeSlider;
     public Slider bloomThresholdSlider;
     public Slider drawModeSlider;
+    public Slider contrastSlider;
+    public Slider brightnessSlider;
     public Range minMaxHue;
 
     private HashMap< OscParameterInputEnum, Slider > parameters;
@@ -409,6 +411,34 @@ public class ControlFrame extends PApplet {
                 } );
 
         Y_POS += 50;
+
+        brightnessSlider = controlP5.addSlider( "Brightness" )
+                .setRange( 0, 10 )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
+                .setValue( 2.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getBrightnessContrastShader().setBrightness( controlEvent.getValue() );
+                    }
+                } );
+
+        Y_POS += 30;
+
+        contrastSlider = controlP5.addSlider( "Contrast" )
+                .setRange( 0, 10 )
+                .setSize( SLIDER_WIDTH, 20 )
+                .setPosition( 10, Y_POS )
+                .setValue( 1.0f )
+                .addListener( new ControlListener( ) {
+                    @Override
+                    public void controlEvent ( ControlEvent controlEvent ) {
+                        selectedParticles.getBrightnessContrastShader().setContrast( controlEvent.getValue() );
+                    }
+                } );
+
+        Y_POS += 50;
         intensitySlider = controlP5.addSlider( "Intensity" )
                 .setRange( 0, 1 )
                 .setSize( SLIDER_WIDTH, 20 )
@@ -420,6 +450,13 @@ public class ControlFrame extends PApplet {
                         selectedParticles.setIntensity( controlEvent.getValue( ) );
                     }
                 } );
+
+        Toggle t = controlP5.addToggle( "ContrastBrightness" ).setPosition( 10, Y_POS + 30 ).setSize( 20, 20 ).addListener( new ControlListener( ) {
+            @Override
+            public void controlEvent ( ControlEvent controlEvent ) {
+                selectedParticles.getBrightnessContrastShader().setEnabled( getBoolFromFloat( controlEvent.getValue() ) );
+            }
+        } );
 
     }
 
@@ -454,6 +491,8 @@ public class ControlFrame extends PApplet {
             } else {
                 minMaxHue.setRangeValues( selectedParticles.getColorMode().getMinHue(), selectedParticles.getColorMode().getMaxHue() );
             }
+            contrastSlider.setValue( selectedParticles.getBrightnessContrastShader().getContrast() );
+            brightnessSlider.setValue( selectedParticles.getBrightnessContrastShader().getBrightness() );
 
 
             float renderModeValue = 0;
@@ -502,6 +541,9 @@ public class ControlFrame extends PApplet {
         } else {
             minMaxHue.setRangeValues( _pattern.getColorMode().getMinHue(), _pattern.getColorMode().getMaxHue() );
         }
+
+        contrastSlider.setValue( _pattern.getBrightnessContrastShader().getContrast() );
+        brightnessSlider.setValue( _pattern.getBrightnessContrastShader().getBrightness() );
 
         float renderModeValue = 0;
         switch ( _pattern.getRenderMode() ) {

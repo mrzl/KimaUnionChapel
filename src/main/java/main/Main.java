@@ -190,6 +190,8 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setBrightness( 0.0f );
+            p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
             p.getColorMode().setRange( 0, 0.06f );
@@ -244,6 +246,8 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setBrightness( 0.0f );
+            p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
             p.getColorMode().setRange( 0, 0.06f );
@@ -298,6 +302,8 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setBrightness( 0.0f );
+            p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
             p.getColorMode().setRange( 0, 0.06f );
@@ -349,6 +355,8 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.POINTS );
             p.getBloomModifier( ).setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setBrightness( 0.0f );
+            p.getBrightnessContrastShader().setContrast( 1.0f );
 
             p.getColorMode().setRange( 0, 0.3f );
             p.setColorModeEnum( ColorModeEnum.MOON );
@@ -410,6 +418,8 @@ public class Main extends PApplet {
             p.getOpacityToHueShader().setEnabled( true );
             p.getOpacityToHueShader().setMinHue( 0.0f );
             p.getOpacityToHueShader().setMaxHue( 0.12f );
+            p.getBrightnessContrastShader().setBrightness( 0.0f );
+            p.getBrightnessContrastShader().setContrast( 1.0f );
 
             p.getColorMode().setRange( 0.06f, 1 );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
