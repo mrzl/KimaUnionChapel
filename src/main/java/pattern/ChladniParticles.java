@@ -305,6 +305,8 @@ public class ChladniParticles {
     }
 
     private void drawPoints () {
+        // TODO: This is a hacky way to fix the issue, something is wrong here.
+        // It seems like the background opacity was never really working before, but it obviously did..
         if( getBloomModifier().isEnabled() ) {
            getParticlePBO().background( 0, getBackgroundOpacity() );
         } else {

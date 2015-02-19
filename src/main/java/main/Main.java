@@ -1,6 +1,9 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
+import main.transitions.ColorShiftThread;
+import main.transitions.ColorState;
+import main.transitions.ColorTransition;
 import midi.*;
 import midi.bcr2000.BcrInputParameter;
 import midi.bcr2000.BcrKnobEnum;
@@ -171,9 +174,11 @@ public class Main extends PApplet {
 
         controlFrame.setPattern( chladniRect );
         prepareExitHandler( );
+
+        addSoundMappingForPart1Chapter1( );
     }
 
-    void addSoundMappingForChapter1Part1() {
+    void addSoundMappingForPart1Chapter1 () {
 
         oscController.clear( );
 
@@ -232,7 +237,7 @@ public class Main extends PApplet {
         }
     }
 
-    void addSoundMappingForChapter1Part2() {
+    void addSoundMappingForPart1Chapter2 () {
         oscController.clear();
 
         Iterator it = chladniForms.entrySet().iterator();
@@ -290,7 +295,7 @@ public class Main extends PApplet {
 
     }
 
-    void addSoundMappingForChapter1Part3() {
+    void addSoundMappingForPart1Chapter3 () {
         oscController.clear();
 
         Iterator it = chladniForms.entrySet().iterator();
@@ -347,7 +352,7 @@ public class Main extends PApplet {
         }
     }
 
-    void addSoundMappingForChapter2Part1() {
+    void addSoundMappingForPart2Chapter1 () {
         Iterator it = chladniForms.entrySet().iterator();
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
@@ -396,7 +401,7 @@ public class Main extends PApplet {
         }
     }
 
-    void addSoundMappingForChapter2Part2() {
+    void addSoundMappingForPart2Chapter2 () {
 
 
         Iterator it = chladniForms.entrySet().iterator();
@@ -407,7 +412,7 @@ public class Main extends PApplet {
         }
     }
 
-    void addSoundMappingChapter3() {
+    void addSoundMappingPart3Chapter1 () {
         Iterator it = chladniForms.entrySet().iterator();
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
@@ -434,11 +439,6 @@ public class Main extends PApplet {
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
             p.getSurface().setDrawMonochrome( false );
         }
-    }
-
-    private void startColorTransition( ChladniParticles pattern, float startHue, float startBrightness, float startSaturation, float endHue, float endBrightness, float endSaturation, long durationMillis ) {
-        ColorShiftThread cst = new ColorShiftThread( pattern, startHue, startBrightness, startSaturation, endHue, endBrightness, endSaturation, durationMillis );
-        cst.start();
     }
 
     public void draw () {
@@ -499,17 +499,17 @@ public class Main extends PApplet {
         } if ( key == 's') {
             chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().getBuffer().save( "ext_.png" );
         } if( key == '1') {
-            addSoundMappingForChapter1Part1( );
+            addSoundMappingForPart1Chapter1( );
         } if( key == '2') {
-            addSoundMappingForChapter1Part2( );
+            addSoundMappingForPart1Chapter2( );
         } if( key == '3') {
-            addSoundMappingForChapter1Part3( );
+            addSoundMappingForPart1Chapter3( );
         } if( key == '4') {
-            addSoundMappingForChapter2Part1( );
+            addSoundMappingForPart2Chapter1( );
         } if( key == '5') {
-            addSoundMappingForChapter2Part2( );
+            addSoundMappingForPart2Chapter2( );
         } if( key == '6') {
-            addSoundMappingChapter3( );
+            addSoundMappingPart3Chapter1( );
         } if( key == '7') {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
         } if( key == '8') {
@@ -518,14 +518,31 @@ public class Main extends PApplet {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         }
 
+        long duration = 1000;
         switch( key ) {
             case 'a':
-                startColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), 0.561f, 0.212f, 0.961f, 0.586f, 1.0f, 0.96f, 2000 );
-                startColorTransition( chladniForms.get( ChladniFormId.RECT1 ), 0.694f, 0.486f, 0.855f, 0.597f, 0.502f, 0.851f, 2000 );
+                ColorState colorStateCircleFrom = new ColorState().setHue( 202 ).setSaturation( 54 ).setBrightness( 245 );
+                ColorState colorStateCircleTo = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
+                ColorTransition transitionCircle = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, duration );
+                transitionCircle.start();
+
+                ColorState rectFrom = new ColorState().setHue( 250 ).setSaturation( 124 ).setBrightness( 218 );
+                ColorState rectTo = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
+                ColorTransition transitionRect = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom, rectTo, duration );
+                transitionRect.start();
+
                 break;
             case 's':
-                startColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), 0.586f, 1.0f, 0.96f, 0.561f, 0.212f, 0.961f, 2000 );
-                startColorTransition( chladniForms.get( ChladniFormId.RECT1 ), 0.597f, 0.502f, 0.851f, 0.694f, 0.486f, 0.855f, 2000 );
+                ColorState colorStateCircleFrom1 = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
+                ColorState colorStateCircleTo1 = new ColorState().setHue( 54 ).setSaturation( 255 ).setBrightness( 231 );
+                ColorTransition transitionCircle1 = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom1, colorStateCircleTo1, duration );
+                transitionCircle1.start();
+
+                ColorState rectFrom2 = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
+                ColorState rectTo2 = new ColorState().setHue( 210 ).setSaturation( 82 ).setBrightness( 205 );
+                ColorTransition transitionRect2 = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom2, rectTo2, duration );
+                transitionRect2.start();
+                break;
         }
 
         if ( key == ESC ) {
@@ -533,6 +550,8 @@ public class Main extends PApplet {
             System.exit( 1 );
         }
     }
+
+
 
 
     private void prepareExitHandler () {
