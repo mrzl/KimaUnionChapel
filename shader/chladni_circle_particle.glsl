@@ -78,15 +78,13 @@ void main(void) {
 
   	lum = 3.0*lum*lum - 2.0*lum*lum*lum;
 
- if( rand( position ) > lum ) {
+  if( rand( position ) > lum ) {
     lum = 1.0;
   } else {
     lum = 0.0;
   }
 
     gl_FragColor = vec4(lum, lum, lum, 1.0);
-
-
 
 
   	/*gl_FragColor = vec4(.5+.5*sin(3000.0*iGlobalTime),

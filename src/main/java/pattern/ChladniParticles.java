@@ -91,7 +91,7 @@ public class ChladniParticles {
         this.behaviorMode = BehaviorMode.REGULAR;
 
         this.colorMode = new ColorMode( );
-        this.colorMode.setColorMode( ColorModeEnum.MOON );
+        this.colorMode.setColorMode( ColorModeEnum.VELOCITIES );
         this.motionBlurAmount = 40;
         this.bm = new BloomModifier( p );
         this.mm = new MetaBallModifier( p );
@@ -444,17 +444,17 @@ public class ChladniParticles {
     public void parameterChangedFromBcrController ( VisualParameterEnum visualParameter, float value ) {
         switch ( visualParameter ) {
             case MIN_HUE:
-                getColorMode( ).setRangeMin( value );
+                getColorMode( ).setMinHue( value );
                 break;
             case INTENSITY:
                 setIntensity( value );
-                p.controlFrame.intensitySlider.setValue( value );
+                p.controlFrame.brightnessPatternSlider.setValue( value );
                 break;
             case THRESHOLD:
                 getBloomModifier().setThreshold( value );
                 p.controlFrame.bloomThresholdSlider.setValue( value );
             case MAX_HUE:
-                getColorMode( ).setRangeMax( value );
+                getColorMode( ).setMaxHue( value );
                 break;
             case UPDATE_DELAY:
                 p.oscController.setUpdateDelay( ( long ) value );

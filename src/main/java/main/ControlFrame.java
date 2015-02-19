@@ -29,7 +29,7 @@ public class ControlFrame extends PApplet {
     public Slider particleCountSlider;
     public Slider particleSizeSlider;
     public Slider backgroundOpacitySlider;
-    public Slider intensitySlider;
+    public Slider brightnessPatternSlider;
     public Slider bloomSigmaSlider;
     public Slider bloomBlurSizeSlider;
     public Slider bloomThresholdSlider;
@@ -37,6 +37,8 @@ public class ControlFrame extends PApplet {
     public Slider contrastSlider;
     public Slider brightnessSlider;
     public Range minMaxHue;
+
+    public Toggle colorModeToggle;
 
     private HashMap< OscParameterInputEnum, Slider > parameters;
 
@@ -304,10 +306,10 @@ public class ControlFrame extends PApplet {
                 } )
         ;
 
-        controlP5.addToggle( "Color Mode Toggle" )
+        colorModeToggle = controlP5.addToggle( "Color Mode Toggle" )
                 .setPosition( 80, Y_POS )
                 .setSize( 50, 20 )
-                .setValue( false )
+                .setValue( true )
                 .setMode( ControlP5.SWITCH )
                 .addListener( new ControlListener( ) {
 
@@ -439,7 +441,7 @@ public class ControlFrame extends PApplet {
                 } );
 
         Y_POS += 50;
-        intensitySlider = controlP5.addSlider( "Intensity" )
+        brightnessPatternSlider = controlP5.addSlider( "Brightness" )
                 .setRange( 0, 1 )
                 .setSize( SLIDER_WIDTH, 20 )
                 .setPosition( 10, Y_POS )
@@ -461,6 +463,7 @@ public class ControlFrame extends PApplet {
     }
 
     private boolean getBoolFromFloat ( float _f ) {
+        // TODO: this is disgusting
         return _f != 0;
     }
 
@@ -482,7 +485,7 @@ public class ControlFrame extends PApplet {
             particleSizeSlider.setValue( selectedParticles.getParticleSize( ) );
             particleCountSlider.setValue( selectedParticles.getParticleCount( ) );
             backgroundOpacitySlider.setValue( selectedParticles.getBackgroundOpacity( ) );
-            intensitySlider.setValue( selectedParticles.getSurface( ).getIntensity( ) );
+            brightnessPatternSlider.setValue( selectedParticles.getSurface( ).getIntensity( ) );
             bloomBlurSizeSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSize( ) );
             bloomSigmaSlider.setValue( selectedParticles.getBloomModifier( ).getBlurSigma( ) );
             bloomThresholdSlider.setValue( selectedParticles.getBloomModifier( ).getThresholdShader( ).getThreshold( ) );
@@ -532,7 +535,7 @@ public class ControlFrame extends PApplet {
         particleSizeSlider.setValue( _pattern.getParticleSize() );
         particleCountSlider.setValue( _pattern.getParticleCount() );
         backgroundOpacitySlider.setValue( _pattern.getBackgroundOpacity() );
-        intensitySlider.setValue( _pattern.getSurface().getIntensity() );
+        brightnessPatternSlider.setValue( _pattern.getSurface( ).getIntensity( ) );
         bloomBlurSizeSlider.setValue( _pattern.getBloomModifier().getBlurSize() );
         bloomSigmaSlider.setValue( _pattern.getBloomModifier().getBlurSigma() );
         bloomThresholdSlider.setValue( _pattern.getBloomModifier().getThresholdShader().getThreshold() );
@@ -541,6 +544,12 @@ public class ControlFrame extends PApplet {
         } else {
             minMaxHue.setRangeValues( _pattern.getColorMode().getMinHue(), _pattern.getColorMode().getMaxHue() );
         }
+/*
+        if( _pattern.getColorMode().getColorMode() == ColorModeEnum.MOON ) {
+            colorModeToggle.setValue( false );
+        } else {
+            colorModeToggle.setValue( true );
+        }*/
 
         contrastSlider.setValue( _pattern.getBrightnessContrastShader().getContrast() );
         brightnessSlider.setValue( _pattern.getBrightnessContrastShader().getBrightness() );

@@ -188,13 +188,14 @@ public class Main extends PApplet {
             p.setBackgroundOpacity( 255 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.ORIGINAL );
-            p.getBloomModifier().setEnabled( false );
-            p.getOpacityToHueShader().setEnabled( false );
+            p.getBloomModifier( ).setEnabled( false );
+            p.getOpacityToHueShader( ).setEnabled( false );
+            p.getBrightnessContrastShader().setEnabled( true );
             p.getBrightnessContrastShader().setBrightness( 0.0f );
             p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
-            p.getColorMode().setRange( 0, 0.06f );
+            p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
 
@@ -244,13 +245,14 @@ public class Main extends PApplet {
             p.setBackgroundOpacity( 255 );
             p.setIntensity( 1.0f );
             p.setRenderMode( RenderMode.ORIGINAL );
-            p.getBloomModifier().setEnabled( false );
+            p.getBloomModifier( ).setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setEnabled( true );
             p.getBrightnessContrastShader().setBrightness( 0.0f );
             p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
-            p.getColorMode().setRange( 0, 0.06f );
+            p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
 
@@ -302,11 +304,12 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.ORIGINAL );
             p.getBloomModifier().setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setEnabled( true );
             p.getBrightnessContrastShader().setBrightness( 0.0f );
             p.getBrightnessContrastShader().setContrast( 1.0f );
 
 
-            p.getColorMode().setRange( 0, 0.06f );
+            p.getColorMode().setRange( 0.06f, 0.06f );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
 
@@ -355,11 +358,12 @@ public class Main extends PApplet {
             p.setRenderMode( RenderMode.POINTS );
             p.getBloomModifier( ).setEnabled( false );
             p.getOpacityToHueShader().setEnabled( false );
+            p.getBrightnessContrastShader().setEnabled( true );
             p.getBrightnessContrastShader().setBrightness( 0.0f );
             p.getBrightnessContrastShader().setContrast( 1.0f );
 
             p.getColorMode().setRange( 0, 0.3f );
-            p.setColorModeEnum( ColorModeEnum.MOON );
+            p.setColorModeEnum( ColorModeEnum.VELOCITIES );
         }
 
 
@@ -418,12 +422,18 @@ public class Main extends PApplet {
             p.getOpacityToHueShader().setEnabled( true );
             p.getOpacityToHueShader().setMinHue( 0.0f );
             p.getOpacityToHueShader().setMaxHue( 0.12f );
+            p.getBrightnessContrastShader().setEnabled( true );
             p.getBrightnessContrastShader().setBrightness( 0.0f );
             p.getBrightnessContrastShader().setContrast( 1.0f );
 
             p.getColorMode().setRange( 0.06f, 1 );
             p.setColorModeEnum( ColorModeEnum.MONOCHROME );
         }
+    }
+
+    private void startColorTransition( ChladniParticles pattern, float startHue, float startBrightness, float startSaturation, float endHue, float endBrightness, float endSaturation, long durationMillis ) {
+        ColorShiftThread cst = new ColorShiftThread( pattern, startHue, startBrightness, startSaturation, endHue, endBrightness, endSaturation, durationMillis );
+        cst.start();
     }
 
     public void draw () {
@@ -501,6 +511,16 @@ public class Main extends PApplet {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
         } if( key == '9') {
             controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        }
+
+        switch( key ) {
+            case 'a':
+                startColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), 0.561f, 0.212f, 0.961f, 0.586f, 1.0f, 0.96f, 2000 );
+                startColorTransition( chladniForms.get( ChladniFormId.RECT1 ), 0.694f, 0.486f, 0.855f, 0.597f, 0.502f, 0.851f, 2000 );
+                break;
+            case 's':
+                startColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), 0.586f, 1.0f, 0.96f, 0.561f, 0.212f, 0.961f, 2000 );
+                startColorTransition( chladniForms.get( ChladniFormId.RECT1 ), 0.597f, 0.502f, 0.851f, 0.694f, 0.486f, 0.855f, 2000 );
         }
 
         if ( key == ESC ) {

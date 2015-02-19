@@ -18,6 +18,7 @@ uniform vec2 resolution;
 uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity;
 uniform float time;
+uniform float saturation;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -54,7 +55,7 @@ void main(void) {
   if( drawMonochrome ) {
     finalColor = vec3( fin );
   } else {
-    finalColor = hsv2rgb( vec3( mapped, 1.0, fin * intensity ) );
+    finalColor = hsv2rgb( vec3( mapped, saturation, fin * intensity ) );
   }
 
   gl_FragColor = vec4( finalColor, 1.0 );

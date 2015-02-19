@@ -26,6 +26,7 @@ public class ChladniTriangle extends ChladniSurface {
         setMaxHue( 0.4f );
         setDrawMonochrome( false );
         setIntensity( 1.0f );
+        setSaturation( 1.0f );
 
         this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
         this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );
@@ -42,6 +43,7 @@ public class ChladniTriangle extends ChladniSurface {
         this.shader.set( "maxHue", getMaxHue() );
         this.shader.set( "drawMonochrome", isDrawMonochrome() );
         this.shader.set( "intensity", getIntensity() );
+        this.shader.set( "saturation", getSaturation() );
 
         getBuffer().beginDraw();
         getBuffer().background( 255 );

@@ -19,6 +19,7 @@ uniform float scale;
 uniform int poles;
 uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity;
+uniform float saturation;
 
 float ripple(float dist, float shift)
 {
@@ -83,7 +84,7 @@ void main(void) {
   	if( drawMonochrome) {
   	  finalColor = vec3( lum, lum, lum );
   	} else {
-  	  finalColor = hsv2rgb( vec3( mapped, 1.0, lum * intensity ) );
+  	  finalColor = hsv2rgb( vec3( mapped, saturation, lum * intensity ) );
   	}
 
     gl_FragColor = vec4(finalColor, 1.0);

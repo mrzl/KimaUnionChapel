@@ -23,6 +23,7 @@ public class ChladniRectangle extends ChladniSurface {
         setMaxHue( 0.4f );
         setDrawMonochrome( false );
         setIntensity( 1.0f );
+        setSaturation( 1.0f );
 
         this.formId = Main.ChladniFormId.RECT1;
     }
@@ -34,6 +35,7 @@ public class ChladniRectangle extends ChladniSurface {
         this.shader.set( "maxHue", getMaxHue( ) );
         this.shader.set( "drawMonochrome", isDrawMonochrome( ) );
         this.shader.set( "intensity", getIntensity() );
+        this.shader.set( "saturation", getSaturation() );
 
         getBuffer().beginDraw();
 

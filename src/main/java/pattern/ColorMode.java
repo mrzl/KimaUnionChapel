@@ -17,11 +17,11 @@ public class ColorMode {
         minHue = maxHue = 0.0f;
     }
 
-    public void setRangeMin( float min ) {
+    public void setMinHue( float min ) {
         this.minHue = min;
     }
 
-    public void setRangeMax( float max ) {
+    public void setMaxHue( float max ) {
         this.maxHue = max;
     }
 

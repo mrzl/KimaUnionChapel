@@ -21,6 +21,8 @@ public class ChladniCircleReconstructed extends ChladniSurface {
 
         setM( 3.0f );
         setN( 2.0f );
+        setIntensity( 1.0f );
+        setSaturation( 1.0f );
     }
 
     public void update() {
@@ -34,7 +36,7 @@ public class ChladniCircleReconstructed extends ChladniSurface {
             getBuffer().fill( 255 );
         }else {
             getBuffer().colorMode( PConstants.HSB );
-            getBuffer( ).fill( getMinHue( ) * 255, 255, 255 );
+            getBuffer( ).fill( getMinHue( ) * 255, getSaturation() * 255.0f, getIntensity() * 255 );
         }
 
         getBuffer().ellipse( getBuffer().width/2, getBuffer().height/2, getBuffer().width, getBuffer().height );
