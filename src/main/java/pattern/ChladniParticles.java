@@ -308,7 +308,7 @@ public class ChladniParticles {
         // TODO: This is a hacky way to fix the issue, something is wrong here.
         // It seems like the background opacity was never really working before, but it obviously did..
         if( getBloomModifier().isEnabled() ) {
-           getParticlePBO().background( 0, getBackgroundOpacity() );
+           getParticlePBO().background( 0, getBackgroundOpacity( ) );
         } else {
             getParticlePBO( ).pushStyle( );
             getParticlePBO( ).noStroke( );
@@ -504,18 +504,71 @@ public class ChladniParticles {
                 getSurface( ).setScale( value );
                 p.controlFrame.triangleScalesSlider.setValue( value );
                 break;
-            case MARE_UNDARUM:
+
+            case MARE_UNDARUM_1:
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
-                System.err.println( "Setting Mare Undarum parameters." );
+                p.getTransitionController().select( this, visualParameter );
                 break;
-            case AXIS_MUNDI:
+            case MARE_UNDARUM_2:
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case MARE_UNDARUM_3:
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AXIS_MUNDI_1:
                 setRenderMode( RenderMode.POINTS );
                 p.controlFrame.drawModeSlider.setValue( 0.2f );
-                System.err.println( "Setting Axis Mundi parameters." );
+                p.getTransitionController().select( this, visualParameter );
                 break;
-            case AURORA:
-                System.err.println( "Setting Aurora parameters." );
+            case AXIS_MUNDI_2:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AXIS_MUNDI_3:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AXIS_MUNDI_4:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_1:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_2:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_3:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_4:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_5:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
+                break;
+            case AURORA_6:
+                setRenderMode( RenderMode.POINTS );
+                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                p.getTransitionController().select( this, visualParameter );
                 break;
             default:
                 System.err.println( "ERROR: UNKNOWN VIASUAL PARAMETER" );

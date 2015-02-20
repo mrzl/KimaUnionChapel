@@ -1,18 +1,15 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import main.transitions.ColorShiftThread;
 import main.transitions.ColorState;
 import main.transitions.ColorTransition;
+import main.transitions.TransitionController;
 import midi.*;
 import midi.bcr2000.BcrInputParameter;
 import midi.bcr2000.BcrKnobEnum;
 import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BcrController;
-import midi.nanokontrol.NanoInputParameter;
 import midi.nanokontrol.NanoKontrolController;
-import midi.nanokontrol.NanoKontrolMapping;
-import midi.nanokontrol.NanoKontrolSliderEnum;
 import osc.*;
 import pattern.*;
 import processing.core.PApplet;
@@ -44,6 +41,7 @@ public class Main extends PApplet {
 
     protected SyphonOutput syphonOutput;
     public ControlFrame controlFrame;
+    public TransitionController transitions;
 
     private int resolution;
     private float scaleFactor;
@@ -97,6 +95,9 @@ public class Main extends PApplet {
         /* creating osc message controller */
         this.oscController = new OscController( this, 5001 );
 
+        transitions = new TransitionController( this, oscController );
+
+        /*
         nanoController = new NanoKontrolController( 0 );
         NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
         NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
@@ -112,6 +113,7 @@ public class Main extends PApplet {
         nanoMapping.addMapping( nanoParameter3, visualParameter3 );
         nanoMapping.addMapping( nanoParameter4, visualParameter4 );
         nanoController.addMapping( nanoMapping );
+        */
 
         bcrController = new BcrController( 0 );
 
@@ -128,358 +130,82 @@ public class Main extends PApplet {
         BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_5, 0, 127 );
         VisualParameter vp5 = new VisualParameter( VisualParameterEnum.N, 0, 10 );
 
-        BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
-        VisualParameter vp6 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
-        BcrInputParameter bcr7 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
-        VisualParameter vp7 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
-        BcrInputParameter bcr8 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
-        VisualParameter vp8 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
-
         bcrMapping1.addMapping( bcr1, vp1 );
         bcrMapping1.addMapping( bcr2, vp2 );
         bcrMapping1.addMapping( bcr3, vp3 );
         bcrMapping1.addMapping( bcr4, vp4 );
         bcrMapping1.addMapping( bcr5, vp5 );
-        bcrMapping1.addMapping( bcr6, vp6 );
-        bcrMapping1.addMapping( bcr7, vp7 );
-        bcrMapping1.addMapping( bcr8, vp8 );
+        addChapterSkip( bcrMapping1 );
+
         bcrController.addMapping( bcrMapping1 );
 
         // circle
         BcrMapping bcrMapping2 = new BcrMapping( chladniCircleReconstruction );
-        BcrInputParameter bcrc1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
-        VisualParameter vpc1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
-        BcrInputParameter bcrc2 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
-        VisualParameter vpc2 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
-        BcrInputParameter bcrc3 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
-        VisualParameter vpc3 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
-        bcrMapping2.addMapping( bcrc1, vpc1 );
-        bcrMapping2.addMapping( bcrc2, vpc2 );
-        bcrMapping2.addMapping( bcrc3, vpc3 );
+        addChapterSkip( bcrMapping2 );
         bcrController.addMapping( bcrMapping2 );
 
         // triangle
         BcrMapping bcrMapping3 = new BcrMapping( chladniTriangle );
-        BcrInputParameter bcrt1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
-        VisualParameter vpt1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM, 0, 2000 );
-        BcrInputParameter bcrt2 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
-        VisualParameter vpt2 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI, 0, 2000 );
-        BcrInputParameter bcrt3 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
-        VisualParameter vpt3 = new VisualParameter( VisualParameterEnum.AURORA, 0, 2000 );
-        bcrMapping2.addMapping( bcrt1, vpt1 );
-        bcrMapping2.addMapping( bcrt2, vpt2 );
-        bcrMapping2.addMapping( bcrt3, vpt3 );
+        addChapterSkip( bcrMapping3 );
         bcrController.addMapping( bcrMapping3 );
 
 
         controlFrame.setPattern( chladniRect );
         prepareExitHandler( );
 
-        addSoundMappingForPart1Chapter1( );
-    }
-
-    void addSoundMappingForPart1Chapter1 () {
-        oscController.clear( );
-        selectPart( VisualParameterEnum.MARE_UNDARUM );
-
-
-        // PERCUSSION CHANNEL 2
-        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
-        ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
-        ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
-        mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
-        mappingTriangle.addMapping( soundMapping32, chladniMapping32 );
-        oscController.addSoundParameterMapping( mappingTriangle );
-
-        // ORGAN CHANNEL 3
-        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
-        OscInputParameter soundMapping23 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
-        mappingCircle.addMapping( soundMapping13, chladniMapping13 );
-        mappingCircle.addMapping( soundMapping23, chladniMapping23 );
-        oscController.addSoundParameterMapping( mappingCircle );
-    }
-
-    void addSoundMappingForPart1Chapter2 () {
-        oscController.clear();
-        selectPart( VisualParameterEnum.MARE_UNDARUM );
-
-        // PERCUSSION CHANNEL 2
-        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
-        ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
-        ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
-        mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
-        mappingTriangle.addMapping( soundMapping32, chladniMapping32 );
-        oscController.addSoundParameterMapping( mappingTriangle );
-
-        // ORGAN CHANNEL 3
-        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
-        OscInputParameter soundMapping23 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping23 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_RECONSTRUCTION_N_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_N_MAX );
-        mappingCircle.addMapping( soundMapping13, chladniMapping13 );
-        mappingCircle.addMapping( soundMapping23, chladniMapping23 );
-        oscController.addSoundParameterMapping( mappingCircle );
-    }
-
-    void addSoundMappingForPart1Chapter3 () {
-        oscController.clear();
-
-        // PERCUSSION CHANNEL 2
-        OscParameterMapping mappingTriangle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter soundMapping12 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER2, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
-        ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER2, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
-        ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
-        mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
-        mappingTriangle.addMapping( soundMapping32, chladniMapping32 );
-        oscController.addSoundParameterMapping( mappingTriangle );
-
-        // ORGAN CHANNEL 3
-        OscParameterMapping mappingCircle = new OscParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        OscInputParameter soundMapping33 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER3, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MIN );
-        ChladniPatternParameter chladniMapping33 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        mappingCircle.addMapping( soundMapping13, chladniMapping13 );
-        mappingCircle.addMapping( soundMapping33, chladniMapping33 );
-        oscController.addSoundParameterMapping( mappingCircle );
-
-        selectPart( VisualParameterEnum.MARE_UNDARUM );
-    }
-
-    void addSoundMappingForPart2Chapter1 () {
-        oscController.clear();
-        selectPart( VisualParameterEnum.AXIS_MUNDI );
-
-        // CELLO - SQUARE - CHANNEL 1
-        OscParameterMapping chelloRectChannel1 = new OscParameterMapping( chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        chelloRectChannel1.addMapping( sin11, cpp11 );
-        chelloRectChannel1.addMapping( sin12, cpp12 );
-
-        // VIOLA - CIRCLE - CHANNEL 2
-        OscParameterMapping violaCIrcleChannel2 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        OscInputParameter sin21 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        OscInputParameter sin22 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cip22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        violaCIrcleChannel2.addMapping( sin21, cip21 );
-        violaCIrcleChannel2.addMapping( sin22, cip22 );
-
-        // ORGAN - TRIANGLE - CHANNEL 3
-        OscParameterMapping organTriangleChannel3 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip31 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        organTriangleChannel3.addMapping( sin31, cip31 );
-
-        oscController.addSoundParameterMapping( chelloRectChannel1 );
-        oscController.addSoundParameterMapping( violaCIrcleChannel2 );
-        oscController.addSoundParameterMapping( organTriangleChannel3 );
-    }
-
-    void addSoundMappingForPart2Chapter2 () {
-        oscController.clear();
-        selectPart( VisualParameterEnum.AXIS_MUNDI );
-
-        // CELLO - SQUARE - CHANNEL 1
-        OscParameterMapping chelloRectChannel1 = new OscParameterMapping( chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        chelloRectChannel1.addMapping( sin11, cpp11 );
-        chelloRectChannel1.addMapping( sin12, cpp12 );
-
-        // VIOLA - CIRCLE - CHANNEL 2
-        OscParameterMapping violaCIrcleChannel2 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        OscInputParameter sin21 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        OscInputParameter sin22 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cip22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        violaCIrcleChannel2.addMapping( sin21, cip21 );
-        violaCIrcleChannel2.addMapping( sin22, cip22 );
-
-        // ORGAN - TRIANGLE - CHANNEL 3
-        OscParameterMapping organTriangleChannel3 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip31 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        organTriangleChannel3.addMapping( sin31, cip31 );
-
-        oscController.addSoundParameterMapping( chelloRectChannel1 );
-        oscController.addSoundParameterMapping( violaCIrcleChannel2 );
-        oscController.addSoundParameterMapping( organTriangleChannel3 );
-    }
-
-
-
-    void addSoundMappingForPart2Chapter3() {
-        oscController.clear();
-        selectPart( VisualParameterEnum.AXIS_MUNDI );
-
-        // CELLO - SQUARE - CHANNEL 1
-        OscParameterMapping chelloRectChannel1 = new OscParameterMapping( chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        chelloRectChannel1.addMapping( sin11, cpp11 );
-        chelloRectChannel1.addMapping( sin12, cpp12 );
-
-        // VIOLA - CIRCLE - CHANNEL 2
-        OscParameterMapping violaCIrcleChannel2 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
-        OscInputParameter sin21 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        OscInputParameter sin22 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cip22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        violaCIrcleChannel2.addMapping( sin21, cip21 );
-        violaCIrcleChannel2.addMapping( sin22, cip22 );
-
-        // ORGAN - TRIANGLE - CHANNEL 3
-        OscParameterMapping organTriangleChannel3 = new OscParameterMapping( this.chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cip31 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        organTriangleChannel3.addMapping( sin31, cip31 );
-
-        oscController.addSoundParameterMapping( chelloRectChannel1 );
-        oscController.addSoundParameterMapping( violaCIrcleChannel2 );
-        oscController.addSoundParameterMapping( organTriangleChannel3 );
-    }
-
-    void addSoundMappingPart3Chapter1 () {
-        oscController.clear();
-        selectPart( VisualParameterEnum.AURORA );
-
-        // VOICE - TRIANGLE - CHANNEL 1
-        OscParameterMapping voiceTriangleChannel1 = new OscParameterMapping( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
-        voiceTriangleChannel1.addMapping( sin11, cpp11 );
-
-        // ORGAN - SQUARE - CHANNEL 3
-        OscParameterMapping organRectChannel3 = new OscParameterMapping( chladniForms.get( ChladniFormId.RECT1 ) );
-        OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp31 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin32 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
-        ChladniPatternParameter cpp32 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
-        organRectChannel3.addMapping( sin31, cpp31 );
-        organRectChannel3.addMapping( sin32, cpp32 );
-
-        oscController.addSoundParameterMapping( voiceTriangleChannel1);
-        oscController.addSoundParameterMapping( organRectChannel3 );
-    }
-
-    void addSoundMappingPart3Chapter2() {
-        addSoundMappingPart3Chapter1();
-    }
-    void addSoundMappingPart3Chapter3() {
-        addSoundMappingPart3Chapter1();
-    }
-
-    private void selectPart( VisualParameterEnum part ) {
-        Iterator it = chladniForms.entrySet().iterator();
+        Iterator it = chladniForms.entrySet( ).iterator( );
         while ( it.hasNext( ) ) {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-            p.parameterChangedFromBcrController( part, 0 );
+            p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM_1, 0 );
         }
+    }
 
-        switch (part ) {
-            case AXIS_MUNDI:
-                it = chladniForms.entrySet().iterator();
-                while ( it.hasNext( ) ) {
-                    Map.Entry pairs = ( Map.Entry ) it.next( );
-                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-                    p.setParticleJumpyness( 40.0f );
-                    p.setParticleSize( 3.0f );
-                    p.setParticleCount( 10500 );
-                    p.setParticleOpacity( 0.07f );
-                    p.setBackgroundOpacity( 6 );
-                    p.setIntensity( 1.0f );
-                    p.setRenderMode( RenderMode.POINTS );
-                    p.getBloomModifier( ).setEnabled( false );
-                    p.getOpacityToHueShader().setEnabled( false );
-                    p.getBrightnessContrastShader().setEnabled( true );
-                    p.getBrightnessContrastShader().setBrightness( 0.0f );
-                    p.getBrightnessContrastShader().setContrast( 1.0f );
+    private void addChapterSkip( BcrMapping _m ) {
+        BcrInputParameter pb1 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_1, 0, 127 );
+        VisualParameter pv1 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM_1, 0, 2000 );
+        BcrInputParameter pb2 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_2, 0, 127 );
+        VisualParameter pv2 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM_2, 0, 2000 );
+        BcrInputParameter pb3 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_3, 0, 127 );
+        VisualParameter pv3 = new VisualParameter( VisualParameterEnum.MARE_UNDARUM_3, 0, 2000 );
+        BcrInputParameter pb4 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_4, 0, 127 );
+        VisualParameter pv4 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI_1, 0, 2000 );
+        BcrInputParameter pb5 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_5, 0, 127 );
+        VisualParameter pv5 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI_2, 0, 2000 );
+        BcrInputParameter pb6 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_6, 0, 127 );
+        VisualParameter pv6 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI_3, 0, 2000 );
+        BcrInputParameter pb7 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_7, 0, 127 );
+        VisualParameter pv7 = new VisualParameter( VisualParameterEnum.AXIS_MUNDI_4, 0, 2000 );
+        BcrInputParameter pb8 = new BcrInputParameter( BcrKnobEnum.BUTTON_1_8, 0, 127 );
+        VisualParameter pv8 = new VisualParameter( VisualParameterEnum.AURORA_1, 0, 2000 );
+        BcrInputParameter pb9 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_1, 0, 127 );
+        VisualParameter pv9 = new VisualParameter( VisualParameterEnum.AURORA_2, 0, 2000 );
+        BcrInputParameter pb10 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_2, 0, 127 );
+        VisualParameter pv10 = new VisualParameter( VisualParameterEnum.AURORA_3, 0, 2000 );
+        BcrInputParameter pb11 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_3, 0, 127 );
+        VisualParameter pv11 = new VisualParameter( VisualParameterEnum.AURORA_4, 0, 2000 );
+        BcrInputParameter pb12 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_4, 0, 127 );
+        VisualParameter pv12 = new VisualParameter( VisualParameterEnum.AURORA_5, 0, 2000 );
+        BcrInputParameter pb13 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_5, 0, 127 );
+        VisualParameter pv13 = new VisualParameter( VisualParameterEnum.AURORA_6, 0, 2000 );
 
-                    p.getColorMode().setRange( 0, 0.3f );
-                    p.setColorModeEnum( ColorModeEnum.VELOCITIES );
-                    p.getSurface().setDrawMonochrome( true );
-                }
-                break;
-            case MARE_UNDARUM:
-                it = chladniForms.entrySet().iterator();
-                while ( it.hasNext( ) ) {
-                    Map.Entry pairs = ( Map.Entry ) it.next( );
-                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-                    p.setParticleJumpyness( 40.0f );
-                    p.setParticleSize( 3.0f );
-                    p.setParticleCount( 10500 );
-                    p.setParticleOpacity( 0.23f );
-                    p.setBackgroundOpacity( 255 );
-                    p.setIntensity( 1.0f );
-                    p.setRenderMode( RenderMode.ORIGINAL );
-                    p.getBloomModifier().setEnabled( false );
-                    p.getOpacityToHueShader().setEnabled( false );
-                    p.getBrightnessContrastShader().setEnabled( true );
-                    p.getBrightnessContrastShader().setBrightness( 0.0f );
-                    p.getBrightnessContrastShader().setContrast( 1.0f );
+        _m.addMapping( pb1, pv1 );
+        _m.addMapping( pb2, pv2 );
+        _m.addMapping( pb3, pv3 );
+        _m.addMapping( pb4, pv4 );
+        _m.addMapping( pb5, pv5 );
+        _m.addMapping( pb6, pv6 );
+        _m.addMapping( pb7, pv7 );
+        _m.addMapping( pb8, pv8 );
+        _m.addMapping( pb9, pv9 );
+        _m.addMapping( pb10, pv10 );
+        _m.addMapping( pb11, pv11 );
+        _m.addMapping( pb12, pv12 );
+        _m.addMapping( pb13, pv13 );
+    }
 
-
-                    p.getColorMode().setRange( 0.06f, 0.06f );
-                    p.setColorModeEnum( ColorModeEnum.MONOCHROME );
-                    p.getSurface().setDrawMonochrome( false );
-                }
-                break;
-            case AURORA:
-                it = chladniForms.entrySet().iterator();
-                while ( it.hasNext( ) ) {
-                    Map.Entry pairs = ( Map.Entry ) it.next( );
-                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
-                    p.setParticleJumpyness( 40.0f );
-                    p.setParticleSize( 3.0f );
-                    p.setParticleCount( 10500 );
-                    p.setParticleOpacity( 0.23f );
-                    p.setBackgroundOpacity( 40 );
-                    p.setIntensity( 1.0f );
-                    p.setRenderMode( RenderMode.POINTS );
-                    p.getBloomModifier().setEnabled( true );
-                    p.getBloomModifier().setBlurSize( 42 );
-                    p.getBloomModifier().setBlurSigma( 8.0f );
-                    p.getBloomModifier().setThreshold( 0.01f );
-                    p.getOpacityToHueShader().setEnabled( true );
-                    p.getOpacityToHueShader().setMinHue( 0.0f );
-                    p.getOpacityToHueShader().setMaxHue( 0.12f );
-                    p.getBrightnessContrastShader().setEnabled( true );
-                    p.getBrightnessContrastShader().setBrightness( 0.0f );
-                    p.getBrightnessContrastShader().setContrast( 1.0f );
-
-                    p.getColorMode().setRange( 0.06f, 1 );
-                    p.setColorModeEnum( ColorModeEnum.MONOCHROME );
-                    p.getSurface().setDrawMonochrome( false );
-                }
-                break;
-        }
+    public TransitionController getTransitionController() {
+        return transitions;
     }
 
     public void draw () {
@@ -536,43 +262,99 @@ public class Main extends PApplet {
 
     public void keyPressed() {
         if( key == 'd' ) {
-            controlFrame.selectedParticles.doDrumHit();
-        } if( key == '7') {
-            controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
-        } if( key == '8') {
-            controlFrame.setPattern( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
-        } if( key == '9') {
-            controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+            controlFrame.selectedParticles.doDrumHit( );
         }
 
         long duration = 1000;
         switch( key ) {
+            case '7':
+                controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
+                break;
+            case '8':
+                controlFrame.setPattern( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
+                break;
+            case '9':
+                controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+                break;
             case 'q':
-                addSoundMappingForPart1Chapter1( );
+                Iterator it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM_1, 0 );
+                }
                 break;
             case 'w':
-                addSoundMappingForPart1Chapter2( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM_2, 0 );
+                }
                 break;
             case 'e':
-                addSoundMappingForPart1Chapter3( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM_3, 0 );
+                }
                 break;
             case 'r':
-                addSoundMappingForPart2Chapter1( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI_1, 0 );
+                }
                 break;
             case 't':
-                addSoundMappingForPart2Chapter2( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI_2, 0 );
+                }
                 break;
             case 'z':
-                addSoundMappingForPart2Chapter3();
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI_3, 0 );
+                }
                 break;
             case 'u':
-                addSoundMappingPart3Chapter1( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AXIS_MUNDI_4, 0 );
+                }
                 break;
             case 'i':
-                addSoundMappingPart3Chapter2( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_1, 0 );
+                }
                 break;
             case 'o':
-                addSoundMappingPart3Chapter3( );
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_2, 0 );
+                }
+                break;
+            case 'p':
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_3, 0 );
+                }
                 break;
             case 'a':
                 ColorState colorStateCircleFrom = new ColorState().setHue( 202 ).setSaturation( 54 ).setBrightness( 245 );
@@ -597,11 +379,9 @@ public class Main extends PApplet {
                 ColorTransition transitionRect2 = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom2, rectTo2, duration );
                 transitionRect2.start();
                 break;
-        }
-
-        if ( key == ESC ) {
-            key = 0;
-            System.exit( 1 );
+            case ESC:
+                key = 0;
+                System.exit( 1 );
         }
     }
 
