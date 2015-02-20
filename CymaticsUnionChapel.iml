@@ -11,15 +11,31 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="core" level="project" />
-    <orderEntry type="library" name="peasycam" level="project" />
-    <orderEntry type="library" name="toxiclibscore" level="project" />
-    <orderEntry type="library" name="jl1.0" level="project" />
-    <orderEntry type="library" name="controlP5" level="project" />
-    <orderEntry type="library" name="oscP5" level="project" />
-    <orderEntry type="library" name="Syphon" level="project" />
-    <orderEntry type="library" name="jscience" level="project" />
-    <orderEntry type="library" name="themidibus" level="project" />
+    <orderEntry type="library" exported="" name="core" level="project" />
+    <orderEntry type="library" exported="" name="peasycam" level="project" />
+    <orderEntry type="library" exported="" name="toxiclibscore" level="project" />
+    <orderEntry type="library" exported="" name="jl1.0" level="project" />
+    <orderEntry type="library" exported="" name="controlP5" level="project" />
+    <orderEntry type="library" exported="" name="oscP5" level="project" />
+    <orderEntry type="library" exported="" name="Syphon" level="project" />
+    <orderEntry type="library" exported="" name="jscience" level="project" />
+    <orderEntry type="library" exported="" name="themidibus" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libs" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/libs" />
+        </NATIVE>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/libs" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>
-
