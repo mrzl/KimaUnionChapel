@@ -43,7 +43,7 @@ void main(void) {
 
   vec3 hueColorOfInput = rgb2hsv( col0.xyz );
 
-  float hueVal = map(hueColorOfInput.z, 0, 1, minHue, maxHue);
+  float hueVal = map(hueColorOfInput.z, 0.0, 1.0, minHue, maxHue);
   //float satVal = map(hueColorOfInput.z,  );
   vec3 finalColor = hsv2rgb( vec3(hueVal, 1.0, hueColorOfInput.z + 0.3 ) );
 
