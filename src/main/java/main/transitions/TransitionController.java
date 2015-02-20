@@ -78,27 +78,6 @@ public class TransitionController {
 
     private void selectPart( ChladniParticles particles, VisualParameterEnum part ) {
         switch (part ) {
-            case AXIS_MUNDI_1:
-            case AXIS_MUNDI_2:
-            case AXIS_MUNDI_3:
-            case AXIS_MUNDI_4:
-                particles.setParticleJumpyness( 40.0f );
-                particles.setParticleSize( 3.0f );
-                particles.setParticleCount( 10500 );
-                particles.setParticleOpacity( 0.07f );
-                particles.setBackgroundOpacity( 6 );
-                particles.setIntensity( 1.0f );
-                particles.setRenderMode( RenderMode.POINTS );
-                particles.getBloomModifier( ).setEnabled( false );
-                particles.getOpacityToHueShader().setEnabled( false );
-                particles.getBrightnessContrastShader().setEnabled( true );
-                particles.getBrightnessContrastShader().setBrightness( 0.0f );
-                particles.getBrightnessContrastShader().setContrast( 1.0f );
-
-                particles.getColorMode().setRange( 0, 0.3f );
-                particles.setColorModeEnum( ColorModeEnum.VELOCITIES );
-                particles.getSurface().setDrawMonochrome( true );
-                break;
             case MARE_UNDARUM_1:
             case MARE_UNDARUM_2:
             case MARE_UNDARUM_3:
@@ -118,6 +97,27 @@ public class TransitionController {
                 particles.getColorMode().setRange( 0.06f, 0.06f );
                 particles.setColorModeEnum( ColorModeEnum.MONOCHROME );
                 particles.getSurface().setDrawMonochrome( false );
+                break;
+            case AXIS_MUNDI_1:
+            case AXIS_MUNDI_2:
+            case AXIS_MUNDI_3:
+            case AXIS_MUNDI_4:
+                particles.setParticleJumpyness( 40.0f );
+                particles.setParticleSize( 3.0f );
+                particles.setParticleCount( 10500 );
+                particles.setParticleOpacity( 0.07f );
+                particles.setBackgroundOpacity( 6 );
+                particles.setIntensity( 1.0f );
+                particles.setRenderMode( RenderMode.POINTS );
+                particles.getBloomModifier( ).setEnabled( false );
+                particles.getOpacityToHueShader().setEnabled( false );
+                particles.getBrightnessContrastShader().setEnabled( true );
+                particles.getBrightnessContrastShader().setBrightness( 0.0f );
+                particles.getBrightnessContrastShader().setContrast( 1.03f );
+
+                particles.getColorMode().setRange( 0, 0.3f );
+                particles.setColorModeEnum( ColorModeEnum.VELOCITIES );
+                particles.getSurface().setDrawMonochrome( true );
                 break;
             case AURORA_1:
             case AURORA_2:
