@@ -1,7 +1,8 @@
-package main.transitions;
+package main.transitions.pieces;
 
 import main.KimaConstants;
 import main.Main;
+import main.transitions.TransitionController;
 import osc.*;
 
 /**
@@ -42,5 +43,12 @@ public class AxisMundiChapter1  extends Piece implements PieceInterface {
         getTransitionController().getOscController().addSoundParameterMapping( chelloRectChannel1 );
         getTransitionController().getOscController().addSoundParameterMapping( violaCircleChannel2 );
         getTransitionController().getOscController().addSoundParameterMapping( organTriangleChannel3 );
+
+        startColorTransition();
+    }
+
+    @Override
+    public void startColorTransition () {
+
     }
 }

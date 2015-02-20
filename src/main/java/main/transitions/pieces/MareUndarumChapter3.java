@@ -1,7 +1,8 @@
-package main.transitions;
+package main.transitions.pieces;
 
 import main.KimaConstants;
 import main.Main;
+import main.transitions.TransitionController;
 import osc.*;
 
 /**
@@ -37,5 +38,12 @@ public class MareUndarumChapter3 extends Piece implements PieceInterface {
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping33, chladniMapping33 );
         getTransitionController().getOscController( ).addSoundParameterMapping( mappingCircle );
+
+        startColorTransition();
+    }
+
+    @Override
+    public void startColorTransition () {
+
     }
 }

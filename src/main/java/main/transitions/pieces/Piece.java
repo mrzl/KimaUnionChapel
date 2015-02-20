@@ -1,4 +1,6 @@
-package main.transitions;
+package main.transitions.pieces;
+
+import main.transitions.TransitionController;
 
 /**
  * Created by mrzl on 20.02.2015.

@@ -1,4 +1,4 @@
-package main.transitions;
+package main.transitions.color;
 
 /**
  * Created by mrzl on 19.02.2015.

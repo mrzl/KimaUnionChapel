@@ -1,14 +1,12 @@
 package main.transitions;
 
 import main.Main;
+import main.transitions.pieces.*;
 import midi.VisualParameterEnum;
 import osc.OscController;
 import pattern.ChladniParticles;
 import pattern.ColorModeEnum;
 import pattern.RenderMode;
-
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by mrzl on 20.02.2015.

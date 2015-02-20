@@ -1,8 +1,8 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import main.transitions.ColorState;
-import main.transitions.ColorTransition;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import main.transitions.TransitionController;
 import midi.*;
 import midi.bcr2000.BcrInputParameter;
@@ -356,19 +356,8 @@ public class Main extends PApplet {
                     p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_3, 0 );
                 }
                 break;
-            case 'a':
-                ColorState colorStateCircleFrom = new ColorState().setHue( 202 ).setSaturation( 54 ).setBrightness( 245 );
-                ColorState colorStateCircleTo = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
-                ColorTransition transitionCircle = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, duration );
-                transitionCircle.start();
-
-                ColorState rectFrom = new ColorState().setHue( 250 ).setSaturation( 124 ).setBrightness( 218 );
-                ColorState rectTo = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
-                ColorTransition transitionRect = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom, rectTo, duration );
-                transitionRect.start();
-
-                break;
             case 's':
+                // color shift inbetween mare undarum chapter 1 and chapter 2
                 ColorState colorStateCircleFrom1 = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
                 ColorState colorStateCircleTo1 = new ColorState().setHue( 54 ).setSaturation( 255 ).setBrightness( 231 );
                 ColorTransition transitionCircle1 = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom1, colorStateCircleTo1, duration );
@@ -384,9 +373,6 @@ public class Main extends PApplet {
                 System.exit( 1 );
         }
     }
-
-
-
 
     private void prepareExitHandler () {
         Runtime.getRuntime( ).addShutdownHook( new Thread( new Runnable( ) {

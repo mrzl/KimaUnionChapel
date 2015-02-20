@@ -1,15 +1,16 @@
-package main.transitions;
+package main.transitions.pieces;
 
 import main.KimaConstants;
 import main.Main;
+import main.transitions.TransitionController;
 import osc.*;
 
 /**
  * Created by mrzl on 20.02.2015.
  */
-public class AuroraChapter3  extends Piece implements PieceInterface {
+public class AuroraChapter6 extends Piece implements PieceInterface {
 
-    public AuroraChapter3 ( TransitionController _tc ) {
+    public AuroraChapter6 ( TransitionController _tc ) {
         super( _tc );
     }
 
@@ -32,5 +33,12 @@ public class AuroraChapter3  extends Piece implements PieceInterface {
 
         getTransitionController().getOscController().addSoundParameterMapping( voiceTriangleChannel1 );
         getTransitionController().getOscController().addSoundParameterMapping( organRectChannel3 );
+
+        startColorTransition();
+    }
+
+    @Override
+    public void startColorTransition () {
+
     }
 }

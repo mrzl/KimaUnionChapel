@@ -1,7 +1,10 @@
-package main.transitions;
+package main.transitions.pieces;
 
 import main.KimaConstants;
 import main.Main;
+import main.transitions.TransitionController;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import osc.*;
 
 /**
@@ -37,5 +40,21 @@ public class MareUndarumChapter1 extends Piece implements PieceInterface {
         mappingCircle.addMapping( soundMapping13, chladniMapping13 );
         mappingCircle.addMapping( soundMapping23, chladniMapping23 );
         getTransitionController().getOscController().addSoundParameterMapping( mappingCircle );
+
+        startColorTransition();
+    }
+
+    @Override
+    public void startColorTransition() {
+        long durationMillis = 5000;
+        ColorState colorStateCircleFrom = new ColorState().setHue( 202 ).setSaturation( 54 ).setBrightness( 245 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        transitionCircle.start();
+
+        ColorState rectFrom = new ColorState().setHue( 250 ).setSaturation( 124 ).setBrightness( 218 );
+        ColorState rectTo = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start();
     }
 }
