@@ -162,7 +162,6 @@ public class OscController extends PApplet {
                 for ( OscParameterMapping m : mappings ) {
                     m.soundInputParameterReceived( oscInputParameter, value );
                 }
-
             } catch ( UnknownOscParameterException e ) {
                 //e.printStackTrace( );
             }

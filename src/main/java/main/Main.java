@@ -23,7 +23,6 @@ import java.util.*;
  * setup(): setup of all objects, controllers, etc
  * draw(): main loop, where everything is updated.
  *
- * main changelog:
  * Created by mar on 13.12.14.
  *
  */

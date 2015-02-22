@@ -328,7 +328,7 @@ public class ChladniParticles {
         for ( Vec2D v : particles ) {
             switch ( colorMode.getColorMode( ) ) {
                 case VELOCITIES:
-                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed, ColorMapping.HUE );
+                    colorMode.setVelocity( velocities.get( index ) / rebuildSpeed, ColorMapping.HUE );
                     r = colorMode.red;
                     g = colorMode.green;
                     b = colorMode.blue;
@@ -339,7 +339,7 @@ public class ChladniParticles {
                     b = 1;
                     break;
                 case MOON:
-                    colorMode.setVelocity( 1.0f - velocities.get( index ) / rebuildSpeed, ColorMapping.SATURATION );
+                    colorMode.setVelocity( velocities.get( index ) / rebuildSpeed, ColorMapping.SATURATION );
                     r = colorMode.red;
                     g = colorMode.green;
                     b = colorMode.blue;
