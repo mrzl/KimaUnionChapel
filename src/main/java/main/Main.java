@@ -357,13 +357,13 @@ public class Main extends PApplet {
                 break;
             case 's':
                 // color shift inbetween mare undarum chapter 1 and chapter 2
-                ColorState colorStateCircleFrom1 = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
-                ColorState colorStateCircleTo1 = new ColorState().setHue( 54 ).setSaturation( 255 ).setBrightness( 231 );
+                ColorState colorStateCircleFrom1 = new ColorState().setHue( 211, 211 ).setSaturation( 255 ).setBrightness( 244 );
+                ColorState colorStateCircleTo1 = new ColorState().setHue( 54, 54 ).setSaturation( 255 ).setBrightness( 231 );
                 ColorTransition transitionCircle1 = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom1, colorStateCircleTo1, duration );
                 transitionCircle1.start();
 
-                ColorState rectFrom2 = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
-                ColorState rectTo2 = new ColorState().setHue( 210 ).setSaturation( 82 ).setBrightness( 205 );
+                ColorState rectFrom2 = new ColorState().setHue( 215, 215 ).setSaturation( 128 ).setBrightness( 217 );
+                ColorState rectTo2 = new ColorState().setHue( 210, 210 ).setSaturation( 82 ).setBrightness( 205 );
                 ColorTransition transitionRect2 = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom2, rectTo2, duration );
                 transitionRect2.start();
                 break;

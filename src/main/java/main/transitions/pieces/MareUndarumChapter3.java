@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import osc.*;
 
 /**
@@ -44,6 +46,17 @@ public class MareUndarumChapter3 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
+        ColorState colorStateCircleFrom = new ColorState().setHue( 41, 41 ).setSaturation( 246 ).setBrightness( 196 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 41, 41 ).setSaturation( 245 ).setBrightness( 177 );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        transitionCircle.start();
 
+        ColorState rectFrom = new ColorState().setHue( 47, 47 ).setSaturation( 240 ).setBrightness( 221 );
+        ColorState rectTo = new ColorState().setHue( 52, 52 ).setSaturation( 255 ).setBrightness( 201 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start();
+
+        transitions.add( transitionCircle );
+        transitions.add( transitionRect );
     }
 }

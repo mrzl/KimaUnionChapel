@@ -4,7 +4,7 @@ package main.transitions.color;
  * Created by mrzl on 19.02.2015.
  */
 public class ColorState {
-    private float hue, saturation, brightness;
+    private float minHue, maxHue, saturation, brightness;
 
     public ColorState () {
     }
@@ -19,14 +19,18 @@ public class ColorState {
      * @param sat the saturation color in 0 - 255
      * @param bri the brightness colr in 0 - 255
      */
-    public ColorState ( float hue, float sat, float bri ) {
-        setHue( hue );
+    public ColorState ( float minHue, float maxHue, float sat, float bri ) {
+        setHue( minHue, maxHue );
         setSaturation( sat );
         setBrightness( bri );
     }
 
-    public float getHue () {
-        return hue;
+    public float getMinHue () {
+        return minHue;
+    }
+
+    public float getMaxHue() {
+        return maxHue;
     }
 
     /**
@@ -35,9 +39,17 @@ public class ColorState {
      * @param hue the hue parameter in the range of 0-360°
      * @return ColorState the instance of this class
      */
-    public ColorState setHue ( float hue ) {
-        checkInputHue( hue );
-        this.hue = getNormalizedHue( hue );
+    public ColorState setHue ( float minHue, float maxHue ) {
+        checkInputHue( minHue );
+        checkInputHue( maxHue );
+        this.minHue = getNormalizedHue( minHue );
+        this.maxHue = getNormalizedHue( maxHue );
+        return this;
+    }
+
+    public ColorState setNormalizedHue( float minHue, float maxHue ) {
+        this.minHue = minHue;
+        this.maxHue = maxHue;
         return this;
     }
 

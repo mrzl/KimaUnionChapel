@@ -46,15 +46,17 @@ public class MareUndarumChapter1 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition() {
-        long durationMillis = 5000;
-        ColorState colorStateCircleFrom = new ColorState().setHue( 202 ).setSaturation( 54 ).setBrightness( 245 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 211 ).setSaturation( 255 ).setBrightness( 244 );
+        ColorState colorStateCircleFrom = new ColorState().setHue( 202, 202 ).setSaturation( 54 ).setBrightness( 245 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 211, 211 ).setSaturation( 255 ).setBrightness( 244 );
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionCircle.start();
 
-        ColorState rectFrom = new ColorState().setHue( 250 ).setSaturation( 124 ).setBrightness( 218 );
-        ColorState rectTo = new ColorState().setHue( 215 ).setSaturation( 128 ).setBrightness( 217 );
+        ColorState rectFrom = new ColorState().setHue( 250, 250 ).setSaturation( 124 ).setBrightness( 218 );
+        ColorState rectTo = new ColorState().setHue( 215, 215 ).setSaturation( 128 ).setBrightness( 217 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
+
+        transitions.add( transitionCircle );
+        transitions.add( transitionRect );
     }
 }

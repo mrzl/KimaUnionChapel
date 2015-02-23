@@ -49,6 +49,24 @@ public class AxisMundiChapter1  extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.0f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.0f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( 0.0f );
 
+       /* durationMillis = 100;
+        ColorState colorStateTriangleFrom = new ColorState().setHue( 11 ).setSaturation( 250 ).setBrightness( 113 );
+        ColorState colorStateTriangleTo = new ColorState().setHue( 11 ).setSaturation( 250 ).setBrightness( 113 );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
+        transitionTriangle.start( );
+
+        ColorState circleFrom = new ColorState().setHue( 21 ).setSaturation( 252 ).setBrightness( 155 );
+        ColorState circleTo = new ColorState().setHue( 21 ).setSaturation( 252 ).setBrightness( 155 );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), circleFrom, circleTo, durationMillis );
+        transitionCircle.start( );
+
+        ColorState rectFrom = new ColorState().setHue( 56 ).setSaturation( 244 ).setBrightness( 166 );
+        ColorState rectTo = new ColorState().setHue( 56 ).setSaturation( 244 ).setBrightness( 166 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start();*/
     }
 }

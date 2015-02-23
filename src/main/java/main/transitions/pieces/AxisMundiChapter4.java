@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import osc.*;
 
 /**
@@ -49,6 +51,27 @@ public class AxisMundiChapter4  extends Piece implements PieceInterface  {
 
     @Override
     public void startColorTransition () {
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( 0.09f );
 
+        ColorState colorStateTriangleFrom = new ColorState().setNormalizedHue( 0.68f, 0.89f ).setSaturation( 241 ).setBrightness( 143 );
+        ColorState colorStateTriangleTo = new ColorState().setNormalizedHue( 0.68f, 0.89f ).setSaturation( 241 ).setBrightness( 143 );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
+        transitionTriangle.start( );
+
+        ColorState circleFrom = new ColorState().setNormalizedHue( 0.70f, 0.86f ).setSaturation( 242 ).setBrightness( 164 );
+        ColorState circleTo = new ColorState().setNormalizedHue( 0.70f, 0.86f ).setSaturation( 242 ).setBrightness( 164 );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), circleFrom, circleTo, durationMillis );
+        transitionCircle.start( );
+
+        ColorState rectFrom = new ColorState().setNormalizedHue( 0.73f, 1.0f ).setSaturation( 245 ).setBrightness( 151 );
+        ColorState rectTo = new ColorState().setNormalizedHue( 0.73f, 1.0f ).setSaturation( 245 ).setBrightness( 151 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start( );
+
+        transitions.add( transitionCircle );
+        transitions.add( transitionRect );
+        transitions.add( transitionTriangle );
     }
 }

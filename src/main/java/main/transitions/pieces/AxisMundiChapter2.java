@@ -3,12 +3,14 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import osc.*;
 
 /**
  * Created by mrzl on 20.02.2015.
  */
-public class AxisMundiChapter2  extends Piece implements PieceInterface {
+public class AxisMundiChapter2 extends Piece implements PieceInterface {
 
     public AxisMundiChapter2 ( TransitionController _tc ) {
         super( _tc );
@@ -17,7 +19,7 @@ public class AxisMundiChapter2  extends Piece implements PieceInterface {
     @Override
     public void select () {
         // CELLO - SQUARE - CHANNEL 1
-        OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
+        OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController( ).getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
         OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
         OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
@@ -26,7 +28,7 @@ public class AxisMundiChapter2  extends Piece implements PieceInterface {
         chelloRectChannel1.addMapping( sin12, cpp12 );
 
         // VIOLA - CIRCLE - CHANNEL 2
-        OscParameterMapping violaCircleChannel2 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        OscParameterMapping violaCircleChannel2 = new OscParameterMapping( getTransitionController( ).getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         OscInputParameter sin21 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter cip21 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         OscInputParameter sin22 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
@@ -35,20 +37,41 @@ public class AxisMundiChapter2  extends Piece implements PieceInterface {
         violaCircleChannel2.addMapping( sin22, cip22 );
 
         // ORGAN - TRIANGLE - CHANNEL 3
-        OscParameterMapping organTriangleChannel3 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ) );
+        OscParameterMapping organTriangleChannel3 = new OscParameterMapping( getTransitionController( ).getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ) );
         OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter cip31 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
         organTriangleChannel3.addMapping( sin31, cip31 );
 
-        getTransitionController().getOscController().addSoundParameterMapping( chelloRectChannel1 );
-        getTransitionController().getOscController().addSoundParameterMapping( violaCircleChannel2 );
-        getTransitionController().getOscController().addSoundParameterMapping( organTriangleChannel3 );
+        getTransitionController( ).getOscController( ).addSoundParameterMapping( chelloRectChannel1 );
+        getTransitionController( ).getOscController( ).addSoundParameterMapping( violaCircleChannel2 );
+        getTransitionController( ).getOscController( ).addSoundParameterMapping( organTriangleChannel3 );
 
-        startColorTransition();
+        startColorTransition( );
     }
 
     @Override
     public void startColorTransition () {
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( 0.09f );
 
+        ColorState colorStateTriangleFrom = new ColorState().setNormalizedHue( 0.0f, 0.29f ).setSaturation( 250 ).setBrightness( 113 );
+        ColorState colorStateTriangleTo = new ColorState().setNormalizedHue( 0.0f, 0.29f ).setSaturation( 244 ).setBrightness( 166 );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
+        transitionTriangle.start( );
+
+        ColorState circleFrom = new ColorState().setNormalizedHue( 0.02f, 0.18f ).setSaturation( 252 ).setBrightness( 155 );
+        ColorState circleTo = new ColorState().setNormalizedHue( 0.02f, 0.18f ).setSaturation( 252 ).setBrightness( 155 );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), circleFrom, circleTo, durationMillis );
+        transitionCircle.start( );
+
+        ColorState rectFrom = new ColorState().setNormalizedHue( 0.03f, 0.17f ).setSaturation( 244 ).setBrightness( 166 );
+        ColorState rectTo = new ColorState().setNormalizedHue( 0.03f, 0.17f ).setSaturation( 244 ).setBrightness( 166 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start();
+
+        transitions.add( transitionCircle );
+        transitions.add( transitionRect );
+        transitions.add( transitionTriangle );
     }
 }

@@ -14,54 +14,70 @@ import pattern.RenderMode;
 public class TransitionController {
     private Main p;
     private OscController osc;
+    private Piece currentPiece;
 
     public TransitionController( Main p, OscController _osc) {
         this.p = p;
         this.osc = _osc;
+        this.currentPiece = new Piece( this );
     }
 
     public void select (  ChladniParticles particles, VisualParameterEnum selectedPiece ) {
         osc.clear( );
         selectPart( particles, selectedPiece );
+        currentPiece.stopColorTransitioning();
         switch( selectedPiece ) {
             case AXIS_MUNDI_1:
-                new AxisMundiChapter1( this ).select();
+                currentPiece = new AxisMundiChapter1( this );
+                currentPiece.select();
                 break;
             case AXIS_MUNDI_2:
-                new AxisMundiChapter2( this ).select();
+                currentPiece = new AxisMundiChapter2( this );
+                currentPiece.select();
                 break;
             case AXIS_MUNDI_3:
-                new AxisMundiChapter3( this ).select();
+                currentPiece = new AxisMundiChapter3( this );
+                currentPiece.select();
                 break;
             case AXIS_MUNDI_4:
-                new AxisMundiChapter4( this ).select();
+                currentPiece = new AxisMundiChapter4( this );
+                currentPiece.select();
                 break;
             case MARE_UNDARUM_1:
-                new MareUndarumChapter1( this ).select();
+                currentPiece = new MareUndarumChapter1( this );
+                currentPiece.select();
                 break;
             case MARE_UNDARUM_2:
-                new MareUndarumChapter2( this ).select();
+                currentPiece = new MareUndarumChapter2( this );
+                currentPiece.select();
                 break;
             case MARE_UNDARUM_3:
-                new MareUndarumChapter3( this ).select();
+                currentPiece = new MareUndarumChapter3( this );
+                currentPiece.select();
                 break;
             case AURORA_1:
-                new AuroraChapter1( this ).select();
+                currentPiece = new AuroraChapter1( this );
+                currentPiece.select();
                 break;
             case AURORA_2:
-                new AuroraChapter2( this ).select();
+                currentPiece = new AuroraChapter2( this );
+                currentPiece.select();
                 break;
             case AURORA_3:
-                new AuroraChapter3( this ).select();
+                currentPiece = new AuroraChapter3( this );
+                currentPiece.select();
                 break;
             case AURORA_4:
-                new AuroraChapter4( this ).select();
+                currentPiece = new AuroraChapter4( this );
+                currentPiece.select();
                 break;
             case AURORA_5:
-                new AuroraChapter5( this ).select();
+                currentPiece = new AuroraChapter5( this );
+                currentPiece.select();
                 break;
             case AURORA_6:
-                new AuroraChapter6( this ).select();
+                currentPiece = new AuroraChapter6( this );
+                currentPiece.select();
                 break;
             default:
                 //System.err.println( "Wrong ID in TransitionController" );

@@ -14,10 +14,14 @@ public class ColorTransition {
         this.from = _from;
         this.to = _to;
 
-        cst = new ColorShiftThread( pattern, from.getHue(), from.getSaturation(), from.getBrightness(), to.getHue(), to.getSaturation(), to.getBrightness(), duration );
+        cst = new ColorShiftThread( pattern, from.getMinHue( ), from.getMaxHue(), from.getSaturation(), from.getBrightness(), to.getMinHue( ), to.getMaxHue(), to.getSaturation(), to.getBrightness(), duration );
     }
 
     public void start() {
         cst.start();
+    }
+
+    public void stop() {
+        cst.running = false;
     }
 }
