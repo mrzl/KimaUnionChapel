@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.color.ColorState;
+import main.transitions.color.ColorTransition;
 import osc.*;
 
 /**
@@ -39,6 +41,17 @@ public class AuroraChapter3  extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
+        ColorState colorStateCircleFrom = new ColorState().setHue( 30, 30 ).setSaturation( 240 ).setBrightness( 155 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 30, 30 ).setSaturation( 240 ).setBrightness( 155 );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        transitionTriangle.start( );
 
+        ColorState rectFrom = new ColorState().setHue( 207, 207 ).setSaturation( 235 ).setBrightness( 128 );
+        ColorState rectTo = new ColorState().setHue( 207, 207 ).setSaturation( 235 ).setBrightness( 128 );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        transitionRect.start();
+
+        transitions.add( transitionTriangle );
+        transitions.add( transitionRect );
     }
 }

@@ -355,6 +355,30 @@ public class Main extends PApplet {
                     p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_3, 0 );
                 }
                 break;
+            case 'j':
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_4, 0 );
+                }
+                break;
+            case 'k':
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_5, 0 );
+                }
+                break;
+            case 'l':
+                it = chladniForms.entrySet( ).iterator( );
+                while ( it.hasNext( ) ) {
+                    Map.Entry pairs = ( Map.Entry ) it.next( );
+                    ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+                    p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_6, 0 );
+                }
+                break;
             case 's':
                 // color shift inbetween mare undarum chapter 1 and chapter 2
                 ColorState colorStateCircleFrom1 = new ColorState().setHue( 211, 211 ).setSaturation( 255 ).setBrightness( 244 );
