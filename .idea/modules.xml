@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CymaticsUnionChapel.iml" filepath="$PROJECT_DIR$/CymaticsUnionChapel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KimaUnionChapel.iml" filepath="$PROJECT_DIR$/KimaUnionChapel.iml" />
     </modules>
   </component>
 </project>
-
