@@ -22,5 +22,7 @@ public enum VisualParameterEnum {
     POLES,
     SCALE,
     INTENSITY,
-    THRESHOLD
+    THRESHOLD,
+    BLOOM_SIZE,
+    BLOOM_SIGMA
 }

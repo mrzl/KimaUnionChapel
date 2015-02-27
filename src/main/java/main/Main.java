@@ -117,26 +117,14 @@ public class Main extends PApplet {
 
         bcrController = new BcrController( 0 );
 
+        addBcrControllerMappingForRect( bcrController );
+        addBcrControllerMappingForTriangle( bcrController );
+        addBcrControllerMappingForCircle( bcrController );
+
+
         // rect
         BcrMapping bcrMapping1 = new BcrMapping( chladniRect );
-        BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_1_1, 0, 127 );
-        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
-        BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_1_2, 0, 127 );
-        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
-        BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_1_3, 0, 127 );
-        VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
-        BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_1_4, 0, 127 );
-        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.M, 0, 10 );
-        BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_5, 0, 127 );
-        VisualParameter vp5 = new VisualParameter( VisualParameterEnum.N, 0, 10 );
-
-        bcrMapping1.addMapping( bcr1, vp1 );
-        bcrMapping1.addMapping( bcr2, vp2 );
-        bcrMapping1.addMapping( bcr3, vp3 );
-        bcrMapping1.addMapping( bcr4, vp4 );
-        bcrMapping1.addMapping( bcr5, vp5 );
         addChapterSkip( bcrMapping1 );
-
         bcrController.addMapping( bcrMapping1 );
 
         // circle
@@ -159,6 +147,98 @@ public class Main extends PApplet {
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.parameterChangedFromBcrController( VisualParameterEnum.MARE_UNDARUM_1, 0 );
         }
+    }
+
+    private void addBcrControllerMappingForRect(BcrController bcr ) {
+        BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.RECT1 ) );
+        BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_2_1, 0, 127 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 2000 );
+        BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_2_2, 0, 127 );
+        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 1 );
+        BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_2_3, 0, 127 );
+        VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_2_4, 0, 127 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_2_5, 0, 127 );
+        VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
+        BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_2_6, 0, 127 );
+        VisualParameter vp6 = new VisualParameter( VisualParameterEnum.PARTICLE_OPACITY, 0, 1 );
+        BcrInputParameter bcr7 = new BcrInputParameter( BcrKnobEnum.KNOB_2_7, 0, 127 );
+        VisualParameter vp7 = new VisualParameter( VisualParameterEnum.BLOOM_SIGMA, 0, 80 );
+        BcrInputParameter bcr8 = new BcrInputParameter( BcrKnobEnum.KNOB_2_8, 0, 127 );
+        VisualParameter vp8 = new VisualParameter( VisualParameterEnum.BLOOM_SIZE, 0, 80 );
+
+        bcrMapping1.addMapping( bcr1, vp1 );
+        bcrMapping1.addMapping( bcr2, vp2 );
+        bcrMapping1.addMapping( bcr3, vp3 );
+        bcrMapping1.addMapping( bcr4, vp4 );
+        bcrMapping1.addMapping( bcr5, vp5 );
+        bcrMapping1.addMapping( bcr6, vp6 );
+        bcrMapping1.addMapping( bcr7, vp7 );
+        bcrMapping1.addMapping( bcr8, vp8 );
+
+        bcr.addMapping( bcrMapping1 );
+    }
+
+    private void addBcrControllerMappingForTriangle( BcrController bcr ) {
+        BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
+        BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_3_1, 0, 127 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.SCALE, 0, 2000 );
+        // SECOND KNOB HAS NO FUNCTION
+        BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_3_3, 0, 127 );
+        VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_3_4, 0, 127 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_3_5, 0, 127 );
+        VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
+        BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_3_6, 0, 127 );
+        VisualParameter vp6 = new VisualParameter( VisualParameterEnum.PARTICLE_OPACITY, 0, 1 );
+        BcrInputParameter bcr7 = new BcrInputParameter( BcrKnobEnum.KNOB_3_7, 0, 127 );
+        VisualParameter vp7 = new VisualParameter( VisualParameterEnum.BLOOM_SIGMA, 0, 80 );
+        BcrInputParameter bcr8 = new BcrInputParameter( BcrKnobEnum.KNOB_3_8, 0, 127 );
+        VisualParameter vp8 = new VisualParameter( VisualParameterEnum.BLOOM_SIZE, 0, 80 );
+
+        bcrMapping1.addMapping( bcr1, vp1 );
+        bcrMapping1.addMapping( bcr2, vp2 );
+        bcrMapping1.addMapping( bcr3, vp3 );
+        bcrMapping1.addMapping( bcr4, vp4 );
+        bcrMapping1.addMapping( bcr5, vp5 );
+        bcrMapping1.addMapping( bcr6, vp6 );
+        bcrMapping1.addMapping( bcr7, vp7 );
+        bcrMapping1.addMapping( bcr8, vp8 );
+
+        bcr.addMapping( bcrMapping1 );
+    }
+
+    private void addBcrControllerMappingForCircle( BcrController bcr ) {
+        BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_4_1, 0, 127 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 2000 );
+        BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_4_2, 0, 127 );
+        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 1 );
+        BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_4_3, 0, 127 );
+        VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
+        BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_4_4, 0, 127 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_4_5, 0, 127 );
+        VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
+        BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_4_6, 0, 127 );
+        VisualParameter vp6 = new VisualParameter( VisualParameterEnum.PARTICLE_OPACITY, 0, 1 );
+        BcrInputParameter bcr7 = new BcrInputParameter( BcrKnobEnum.KNOB_4_7, 0, 127 );
+        VisualParameter vp7 = new VisualParameter( VisualParameterEnum.BLOOM_SIGMA, 0, 80 );
+        BcrInputParameter bcr8 = new BcrInputParameter( BcrKnobEnum.KNOB_4_8, 0, 127 );
+        VisualParameter vp8 = new VisualParameter( VisualParameterEnum.BLOOM_SIZE, 0, 80 );
+
+        bcrMapping1.addMapping( bcr1, vp1 );
+        bcrMapping1.addMapping( bcr2, vp2 );
+        bcrMapping1.addMapping( bcr3, vp3 );
+        bcrMapping1.addMapping( bcr4, vp4 );
+        bcrMapping1.addMapping( bcr5, vp5 );
+        bcrMapping1.addMapping( bcr6, vp6 );
+        bcrMapping1.addMapping( bcr7, vp7 );
+        bcrMapping1.addMapping( bcr8, vp8 );
+
+        bcr.addMapping( bcrMapping1 );
     }
 
     private void addChapterSkip( BcrMapping _m ) {
@@ -188,6 +268,7 @@ public class Main extends PApplet {
         VisualParameter pv12 = new VisualParameter( VisualParameterEnum.AURORA_5, 0, 2000 );
         BcrInputParameter pb13 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_5, 0, 127 );
         VisualParameter pv13 = new VisualParameter( VisualParameterEnum.AURORA_6, 0, 2000 );
+
 
         _m.addMapping( pb1, pv1 );
         _m.addMapping( pb2, pv2 );

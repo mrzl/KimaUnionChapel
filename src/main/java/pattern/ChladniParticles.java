@@ -513,6 +513,14 @@ public class ChladniParticles {
                 getSurface( ).setScale( value );
                 p.controlFrame.triangleScalesSlider.setValue( value );
                 break;
+            case BLOOM_SIGMA:
+                getBloomModifier().setBlurSigma( value );
+                p.controlFrame.bloomSigmaSlider.setValue( value );
+                break;
+            case BLOOM_SIZE:
+                getBloomModifier().setBlurSize( ( int ) value );
+                p.controlFrame.bloomSigmaSlider.setValue( value );
+                break;
 
             case MARE_UNDARUM_1:
                 setRenderMode( RenderMode.ORIGINAL );
