@@ -18,9 +18,13 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
     @Override
     public void select () {
-        // VOICE - TRIANGLE - CHANNEL 1
+        enableRect();
+        disableTriangle();
+        enableCircle();
+
+        // VOICE - TRIANGLE - CHANNEL 2
         OscParameterMapping voiceTriangleChannel1 = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
+        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
         voiceTriangleChannel1.addMapping( sin11, cpp11 );
 
@@ -41,6 +45,8 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
+        selectCustomAuroraParameters();
+
         ColorState colorStateCircleFrom = new ColorState().setHue( 60, 60 ).setSaturation( 206 ).setBrightness( 234 );
         ColorState colorStateCircleTo = new ColorState().setHue( 60, 60 ).setSaturation( 206 ).setBrightness( 234 );
         ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );

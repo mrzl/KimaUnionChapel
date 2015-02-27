@@ -6,5 +6,6 @@ package main.transitions.pieces;
 public abstract interface PieceInterface {
     public void select();
     public void startColorTransition();
+    // TODO: Implement this..
     public void stopColorTransitioning();
 }

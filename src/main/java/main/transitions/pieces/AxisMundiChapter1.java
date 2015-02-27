@@ -16,6 +16,8 @@ public class AxisMundiChapter1  extends Piece implements PieceInterface {
 
     @Override
     public void select () {
+
+
         // CELLO - SQUARE - CHANNEL 1
         OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
         OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );

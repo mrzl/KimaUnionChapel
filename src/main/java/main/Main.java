@@ -45,9 +45,10 @@ public class Main extends PApplet {
     private int resolution;
     private float scaleFactor;
     private boolean debug = true;
+    int overallWidth, overallHeight;
 
     public void setup () {
-        int overallWidth, overallHeight;
+
         if ( debug ) {
             resolution = 256;
             scaleFactor = 2.0f;
@@ -66,16 +67,16 @@ public class Main extends PApplet {
 
         ChladniRectangle rect = new ChladniRectangle( this, resolution, resolution );
         ChladniTriangle circle = new ChladniTriangle( this, resolution, resolution );
-        //ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
+        ChladniCircle realCircle = new ChladniCircle( this, resolution, resolution );
         //HydrogenCircle hydrogenCircle = new HydrogenCircle( this, resolution, resolution );
-        ChladniCircleReconstructed fakeCircle = new ChladniCircleReconstructed( this, resolution, resolution );
+        //ChladniCircleReconstructed fakeCircle = new ChladniCircleReconstructed( this, resolution, resolution );
 
 
         ChladniParticles chladniRect = new ChladniParticles( this, rect, scaleFactor, 10000 );
         ChladniParticles chladniTriangle = new ChladniParticles( this, circle, scaleFactor, 10000 );
-        //ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
+        ChladniParticles chladniCircle = new ChladniParticles( this, realCircle, scaleFactor, 10000 );
         //ChladniParticles hydrogenWave = new ChladniParticles( this, hydrogenCircle, scaleFactor, 10000 );
-        ChladniParticles chladniCircleReconstruction = new ChladniParticles( this, fakeCircle, scaleFactor, 10000 );
+        //ChladniParticles chladniCircleReconstruction = new ChladniParticles( this, fakeCircle, scaleFactor, 10000 );
 
 
         chladniForms = new HashMap<>();
@@ -83,7 +84,7 @@ public class Main extends PApplet {
         //chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
         //chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
-        chladniForms.put( ChladniFormId.CIRCLE_RECONSTRUCTION, chladniCircleReconstruction );
+        chladniForms.put( ChladniFormId.CIRCLE_RECONSTRUCTION, chladniCircle );
 
         /* creating control window */
         this.controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 1000 );
@@ -139,7 +140,7 @@ public class Main extends PApplet {
         bcrController.addMapping( bcrMapping1 );
 
         // circle
-        BcrMapping bcrMapping2 = new BcrMapping( chladniCircleReconstruction );
+        BcrMapping bcrMapping2 = new BcrMapping( chladniCircle );
         addChapterSkip( bcrMapping2 );
         bcrController.addMapping( bcrMapping2 );
 
@@ -208,6 +209,10 @@ public class Main extends PApplet {
     }
 
     public void draw () {
+        frame.setResizable( true );
+        if( debug ) {
+            frame.setSize( overallWidth + 20, overallHeight + 40 );
+        }
         if ( frameCount % 40 == 0 ) {
             if( frame != null ) frame.setTitle( frameRate + "" );
             System.gc();

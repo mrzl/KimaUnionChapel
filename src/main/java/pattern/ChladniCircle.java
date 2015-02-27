@@ -26,7 +26,7 @@ public class ChladniCircle extends ChladniSurface {
         setIntensity( 1.0f );
         setSaturation( 1.0f );
 
-        this.formId = Main.ChladniFormId.CIRCLE1;
+        this.formId = Main.ChladniFormId.CIRCLE_RECONSTRUCTION;
     }
 
     public void update() {
@@ -37,6 +37,7 @@ public class ChladniCircle extends ChladniSurface {
         this.shader.set( "maxHue", getMaxHue() );
         this.shader.set( "drawMonochrome", isDrawMonochrome() );
         this.shader.set( "intensity", getIntensity() );
+        this.shader.set( "saturation", getSaturation() );
 
         getBuffer().beginDraw();
         getBuffer().background( 0 );

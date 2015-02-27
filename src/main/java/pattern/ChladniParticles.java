@@ -53,6 +53,8 @@ public class ChladniParticles {
     private float backgroundOpacity;
     private int currentBlendedBackgroundValue;
 
+    private boolean disabled;
+
 
     // opengl
     public PGL pgl;
@@ -107,6 +109,8 @@ public class ChladniParticles {
 
         opacityToHue = new OpacityToHueShader( p );
         increaser = new BrightnessIncreaseShader2( p, getParticlePBO().width, getParticlePBO().height );
+
+        disabled = false;
     }
 
     public void update ( int speed ) {
@@ -199,83 +203,88 @@ public class ChladniParticles {
     }
 
     public void render () {
-        getParticlePBO().beginDraw( );
-        pgl = getParticlePBO().beginPGL( );
-        gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
-
-
-        switch ( getRenderMode() ) {
-            case POINTS:
-                getSurface().setDrawMonochrome( true );
-
-                drawPoints( );
-                break;
-            case LINES:
-                getSurface().setDrawMonochrome( true );
-                drawLines( );
-                break;
-            case ORIGINAL:
-                getParticlePBO().background( 0 );
-                getSurface().setDrawMonochrome( false );
-                getSurface().setMinHue( getColorMode().getMinHue() );
-                getSurface().setMaxHue( getColorMode().getMaxHue() );
-
-                // some bug in processing PShader, it flips the shape somehow..
-                if( surface.getClass().equals( ChladniTriangle.class ) ) {
-                    //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                    PGraphics pg = getSurface().getBuffer();
-                    getParticlePBO().pushMatrix( );
-                    getParticlePBO().scale( 1.0f, -1.0f );
-                    getParticlePBO().image( pg, 0, -getParticlePBO().height, getParticlePBO().width, getParticlePBO().height );
-                    getParticlePBO().popMatrix( );
-                } else {
-                    //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
-                    getParticlePBO().image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO().width, getParticlePBO().height );
-                }
-
-
-
-                // this way of visualizing the attack may not be used. TODO
-                getParticlePBO().beginDraw( );
-                getParticlePBO().blendMode( ADD );
-                getParticlePBO().pushStyle( );
-
-                getParticlePBO().noStroke( );
-                getParticlePBO().fill( currentBlendedBackgroundValue );
-                getParticlePBO().rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor( ), getSurface( ).getBuffer( ).height * getScaleFactor( ) );
-
-                getParticlePBO().popStyle( );
-                getParticlePBO().blendMode( BLEND );
-                getParticlePBO().endDraw( );
-
-                break;
-            default:
-                System.err.println( "ERROR: Trying to render with unknown RenderMode" );
-                break;
-        }
-
-        gl2.glEnd( );
-        getParticlePBO().endPGL( );
-        getParticlePBO().endDraw( );
-
-        if ( bm.isEnabled( ) ) {
-            bm.apply( getParticlePBO( ) );
+        if( !isDisabled() ) {
             getParticlePBO( ).beginDraw( );
-            getParticlePBO( ).blendMode( PConstants.ADD );
+            pgl = getParticlePBO( ).beginPGL( );
+            gl2 = ( ( PJOGL ) pgl ).gl.getGL2( );
 
-            getParticlePBO( ).image( getParticlePBO( ), 0, 0 );
 
-            getParticlePBO( ).blendMode( PConstants.BLEND );
+            switch ( getRenderMode( ) ) {
+                case POINTS:
+                    getSurface( ).setDrawMonochrome( true );
+
+                    drawPoints( );
+                    break;
+                case LINES:
+                    getSurface( ).setDrawMonochrome( true );
+                    drawLines( );
+                    break;
+                case ORIGINAL:
+                    getParticlePBO( ).background( 0 );
+                    getSurface( ).setDrawMonochrome( false );
+                    getSurface( ).setMinHue( getColorMode( ).getMinHue( ) );
+                    getSurface( ).setMaxHue( getColorMode( ).getMaxHue( ) );
+
+                    // some bug in processing PShader, it flips the shape somehow..
+                    if ( surface.getClass( ).equals( ChladniTriangle.class ) ) {
+                        //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                        PGraphics pg = getSurface( ).getBuffer( );
+                        getParticlePBO( ).pushMatrix( );
+                        getParticlePBO( ).scale( 1.0f, -1.0f );
+                        getParticlePBO( ).image( pg, 0, -getParticlePBO( ).height, getParticlePBO( ).width, getParticlePBO( ).height );
+                        getParticlePBO( ).popMatrix( );
+                    } else {
+                        //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                        getParticlePBO( ).image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO( ).width, getParticlePBO( ).height );
+                    }
+
+
+                    // this way of visualizing the attack may not be used. TODO
+                    getParticlePBO( ).beginDraw( );
+                    getParticlePBO( ).blendMode( ADD );
+                    getParticlePBO( ).pushStyle( );
+
+                    getParticlePBO( ).noStroke( );
+                    getParticlePBO( ).fill( currentBlendedBackgroundValue );
+                    getParticlePBO( ).rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor( ), getSurface( ).getBuffer( ).height * getScaleFactor( ) );
+
+                    getParticlePBO( ).popStyle( );
+                    getParticlePBO( ).blendMode( BLEND );
+                    getParticlePBO( ).endDraw( );
+
+                    break;
+                default:
+                    System.err.println( "ERROR: Trying to render with unknown RenderMode" );
+                    break;
+            }
+
+            gl2.glEnd( );
+            getParticlePBO( ).endPGL( );
             getParticlePBO( ).endDraw( );
+
+            if ( bm.isEnabled( ) ) {
+                bm.apply( getParticlePBO( ) );
+                getParticlePBO( ).beginDraw( );
+                getParticlePBO( ).blendMode( PConstants.ADD );
+
+                getParticlePBO( ).image( getParticlePBO( ), 0, 0 );
+
+                getParticlePBO( ).blendMode( PConstants.BLEND );
+                getParticlePBO( ).endDraw( );
+            }
+
+            if ( mm.isEnabled( ) ) {
+                mm.apply( getParticlePBO( ) );
+            }
+
+            opacityToHue.apply( getParticlePBO( ) );
+
+            increaser.apply( getParticlePBO( ) );
+        } else {
+            getParticlePBO().beginDraw();
+            getParticlePBO().background( 0 );
+            getParticlePBO().endDraw();
         }
-
-        if ( mm.isEnabled( ) ) {
-            mm.apply( getParticlePBO( ) );
-        }
-
-        opacityToHue.apply( getParticlePBO() );
-
-        increaser.apply( getParticlePBO() );
     }
 
     public RenderMode getRenderMode () {
@@ -669,5 +678,13 @@ public class ChladniParticles {
 
     public void setBrightnessContrastShader ( BrightnessIncreaseShader2 increaser ) {
         this.increaser = increaser;
+    }
+
+    public boolean isDisabled () {
+        return disabled;
+    }
+
+    public void setDisabled( boolean disabled ) {
+        this.disabled = disabled;
     }
 }
