@@ -199,7 +199,7 @@ public class Main extends PApplet {
         VisualParameter vp8 = new VisualParameter( VisualParameterEnum.BLOOM_SIZE, 0, 80 );
 
         bcrMapping1.addMapping( bcr1, vp1 );
-        bcrMapping1.addMapping( bcr2, vp2 );
+        //bcrMapping1.addMapping( bcr2, vp2 );
         bcrMapping1.addMapping( bcr3, vp3 );
         bcrMapping1.addMapping( bcr4, vp4 );
         bcrMapping1.addMapping( bcr5, vp5 );
