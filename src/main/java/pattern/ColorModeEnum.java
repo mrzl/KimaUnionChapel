@@ -6,5 +6,6 @@ package pattern;
 public enum ColorModeEnum {
     MONOCHROME,
     VELOCITIES,
-    MOON
+    MOON,
+    GRAYSCALE_MAPPING
 }

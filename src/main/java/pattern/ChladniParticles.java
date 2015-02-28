@@ -21,6 +21,7 @@ import toxi.geom.Vec2D;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
+import java.awt.*;
 import java.util.ArrayList;
 
 import static processing.core.PConstants.ADD;
@@ -157,6 +158,8 @@ public class ChladniParticles {
                 limitParticleToBufferSize( v );
 
                 velocities.set( index, jumpyNess );
+
+                //this.grayScaleValues.set( index, surf )
 
                 index++;
             }
@@ -334,6 +337,7 @@ public class ChladniParticles {
 
         int index = 0;
         float r, g, b;
+
         for ( Vec2D v : particles ) {
             switch ( colorMode.getColorMode( ) ) {
                 case VELOCITIES:
@@ -352,6 +356,18 @@ public class ChladniParticles {
                     r = colorMode.red;
                     g = colorMode.green;
                     b = colorMode.blue;
+                    break;
+                case GRAYSCALE_MAPPING:
+                    // TODO: this is awfully hacked in here.
+                    int x = ( int ) (v.x() / scaleFactor);
+                    int y = ( int ) (v.y() / scaleFactor);
+                    int color = getSurface().get( x, y );
+                    float hue = p.map( color, 255, 127, getColorMode().getMinHue(), getColorMode().getMaxHue() );
+                    int rgb = Color.HSBtoRGB( hue, getSurface().getSaturation(), getSurface().getIntensity() );
+
+                    r = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
+                    g = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
+                    b = ( rgb & 0xFF ) / 255.0f;
                     break;
                 default:
                     r = 1;

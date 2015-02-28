@@ -477,9 +477,13 @@ public class Main extends PApplet {
                 ColorTransition transitionRect2 = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom2, rectTo2, duration );
                 transitionRect2.start();
                 break;
+            case 'g':
+                chladniForms.get( ChladniFormId.RECT1 ).setColorModeEnum( ColorModeEnum.GRAYSCALE_MAPPING );
+                break;
             case ESC:
                 key = 0;
                 System.exit( 1 );
+                break;
         }
     }
 
