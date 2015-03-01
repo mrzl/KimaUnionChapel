@@ -115,7 +115,7 @@ public class Main extends PApplet {
         nanoController.addMapping( nanoMapping );
         */
 
-        bcrController = new BcrController( 0 );
+        bcrController = new BcrController( 1 );
 
         addBcrControllerMappingForRect( bcrController );
         addBcrControllerMappingForTriangle( bcrController );
@@ -137,8 +137,13 @@ public class Main extends PApplet {
         addChapterSkip( bcrMapping3 );
         bcrController.addMapping( bcrMapping3 );
 
+        // general controls
+        addGeneralBcrControllerMappings( bcrController );
 
-        controlFrame.setPattern( chladniRect );
+        if( controlFrame != null ) {
+            controlFrame.setPattern( chladniRect );
+        }
+
         prepareExitHandler( );
 
         Iterator it = chladniForms.entrySet( ).iterator( );
@@ -149,16 +154,40 @@ public class Main extends PApplet {
         }
     }
 
+    void addGeneralBcrControllerMappings( BcrController bcr ) {
+        Iterator it = chladniForms.entrySet( ).iterator( );
+        while ( it.hasNext( ) ) {
+            Map.Entry pairs = ( Map.Entry ) it.next( );
+            ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
+            BcrMapping mapping = new BcrMapping( p );
+            BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_1_1, 0, 127 );
+            VisualParameter vp1 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 100 );
+            BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_1_2, 0, 127 );
+            VisualParameter vp2 = new VisualParameter( VisualParameterEnum.INTENSITY, 0, 1 );
+            BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_1_3, 0, 127 );
+            VisualParameter vp3 = new VisualParameter( VisualParameterEnum.CONTRAST, 0, 3 );
+            BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_1_4, 0, 127 );
+            VisualParameter vp4 = new VisualParameter( VisualParameterEnum.BRIGHTNESS, 0, 1 );
+
+            mapping.addMapping( bcr1, vp1 );
+            mapping.addMapping( bcr2, vp2 );
+            mapping.addMapping( bcr3, vp3 );
+            mapping.addMapping( bcr4, vp4 );
+
+            bcr.addMapping( mapping );
+        }
+    }
+
     private void addBcrControllerMappingForRect(BcrController bcr ) {
         BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.RECT1 ) );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_2_1, 0, 127 );
-        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 2000 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 20 );
         BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_2_2, 0, 127 );
-        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 1 );
+        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 20 );
         BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_2_3, 0, 127 );
         VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
         BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_2_4, 0, 127 );
-        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
         BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_2_5, 0, 127 );
         VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
         BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_2_6, 0, 127 );
@@ -183,12 +212,12 @@ public class Main extends PApplet {
     private void addBcrControllerMappingForTriangle( BcrController bcr ) {
         BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_3_1, 0, 127 );
-        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.SCALE, 0, 2000 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.SCALE, 0, 2 );
         // SECOND KNOB HAS NO FUNCTION
         BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_3_3, 0, 127 );
         VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
         BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_3_4, 0, 127 );
-        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
         BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_3_5, 0, 127 );
         VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
         BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_3_6, 0, 127 );
@@ -213,13 +242,13 @@ public class Main extends PApplet {
     private void addBcrControllerMappingForCircle( BcrController bcr ) {
         BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_4_1, 0, 127 );
-        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 2000 );
+        VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 20 );
         BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_4_2, 0, 127 );
-        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 1 );
+        VisualParameter vp2 = new VisualParameter( VisualParameterEnum.N, 0, 20 );
         BcrInputParameter bcr3 = new BcrInputParameter( BcrKnobEnum.KNOB_4_3, 0, 127 );
         VisualParameter vp3 = new VisualParameter( VisualParameterEnum.MIN_HUE, 0, 1 );
         BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_4_4, 0, 127 );
-        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 10 );
+        VisualParameter vp4 = new VisualParameter( VisualParameterEnum.MAX_HUE, 0, 1 );
         BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_4_5, 0, 127 );
         VisualParameter vp5 = new VisualParameter( VisualParameterEnum.JUMPYNESS, 0, 40 );
         BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_4_6, 0, 127 );

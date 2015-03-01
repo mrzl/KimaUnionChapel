@@ -24,5 +24,8 @@ public enum VisualParameterEnum {
     INTENSITY,
     THRESHOLD,
     BLOOM_SIZE,
-    BLOOM_SIGMA
+    BLOOM_SIGMA,
+
+    CONTRAST,
+    BRIGHTNESS
 }

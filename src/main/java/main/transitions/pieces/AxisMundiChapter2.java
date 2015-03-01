@@ -18,6 +18,11 @@ public class AxisMundiChapter2 extends Piece implements PieceInterface {
 
     @Override
     public void select () {
+
+        enableCircle();
+        enableTriangle();
+        enableRect();
+
         // CELLO - SQUARE - CHANNEL 1
         OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController( ).getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
         OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER1, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
@@ -55,18 +60,18 @@ public class AxisMundiChapter2 extends Piece implements PieceInterface {
         getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.09f );
         getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setParticleOpacity( 0.09f );
 
-        ColorState colorStateTriangleFrom = new ColorState().setNormalizedHue( 0.0f, 0.29f ).setSaturation( 250 ).setBrightness( 113 );
-        ColorState colorStateTriangleTo = new ColorState().setNormalizedHue( 0.0f, 0.29f ).setSaturation( 244 ).setBrightness( 166 );
+        ColorState colorStateTriangleFrom = new ColorState().setHue( 0, 20 ).setSaturation( 99 ).setBrightness( 87 );
+        ColorState colorStateTriangleTo = new ColorState().setHue( 44, 288 ).setSaturation( 68 ).setBrightness( 98 );
         ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
         transitionTriangle.start( );
 
-        ColorState circleFrom = new ColorState().setNormalizedHue( 0.02f, 0.18f ).setSaturation( 252 ).setBrightness( 155 );
-        ColorState circleTo = new ColorState().setNormalizedHue( 0.02f, 0.18f ).setSaturation( 252 ).setBrightness( 155 );
+        ColorState circleFrom = new ColorState().setHue( 11, 31 ).setSaturation( 78 ).setBrightness( 99 );
+        ColorState circleTo = new ColorState().setHue( 195, 313 ).setSaturation( 89 ).setBrightness( 98 );
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), circleFrom, circleTo, durationMillis );
         transitionCircle.start( );
 
-        ColorState rectFrom = new ColorState().setNormalizedHue( 0.03f, 0.17f ).setSaturation( 244 ).setBrightness( 166 );
-        ColorState rectTo = new ColorState().setNormalizedHue( 0.03f, 0.17f ).setSaturation( 244 ).setBrightness( 166 );
+        ColorState rectFrom = new ColorState().setHue( 30, 66 ).setSaturation( 68 ).setBrightness( 98 );
+        ColorState rectTo = new ColorState().setHue( 238, 159 ).setSaturation( 80 ).setBrightness( 97 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 

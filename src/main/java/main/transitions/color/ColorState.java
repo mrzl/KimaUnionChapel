@@ -90,7 +90,7 @@ public class ColorState {
     }
 
     private float getNormalizedSatBr( float range0255 ) {
-        return range0255 / 255.0f;
+        return range0255 / 100.0f;
     }
 
     private void checkInputHue( float _h ){
@@ -104,7 +104,7 @@ public class ColorState {
     }
 
     private void checkInputBrightness( float _b ){
-        if( _b < 0.0f || _b > 255.0 ) {
+        if( _b < 0.0f || _b > 100.0 ) {
             try {
                 throw new ColorInputRangeException( "The passed Brightness/Saturation range exceeded the limit: " + _b );
             } catch ( ColorInputRangeException e ) {

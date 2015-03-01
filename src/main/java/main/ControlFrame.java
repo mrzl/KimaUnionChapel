@@ -487,7 +487,7 @@ public class ControlFrame extends PApplet {
         stroke( 255 );
         text( "Channel 1 - Voice", 10, 140 );
         text( "Channel 2 - Perc.", 140, 140 );
-        text( "Channel 1 - Organ", 270, 140 );
+        text( "Channel 3 - Organ", 270, 140 );
         line( 128, 5, 128, 140 );
         line( 253, 5, 253, 140 );
 
@@ -511,6 +511,9 @@ public class ControlFrame extends PApplet {
             }
             contrastSlider.setValue( selectedParticles.getBrightnessContrastShader().getContrast() );
             brightnessSlider.setValue( selectedParticles.getBrightnessContrastShader().getBrightness() );
+            updateDelaySlider.setValue( parent.oscController.getUpdateDelay() );
+            saturationSlider.setValue( selectedParticles.getSurface().getSaturation() );
+            //brightnessPatternSlider.setValue( selectedParticles.getIntensity() );
 
 
             float renderModeValue = 0;

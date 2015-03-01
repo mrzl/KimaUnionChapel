@@ -50,17 +50,17 @@ public class MareUndarumChapter3 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        ColorState colorStateCircleFrom = new ColorState().setHue( 41, 41 ).setSaturation( 246 ).setBrightness( 196 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 41, 41 ).setSaturation( 245 ).setBrightness( 177 );
+        ColorState colorStateCircleFrom = new ColorState().setHue( 41, 41 ).setSaturation( 50 ).setBrightness( 99 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 41, 41 ).setSaturation( 70 ).setBrightness( 99 );
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionCircle.start();
 
-        ColorState rectFrom = new ColorState().setHue( 47, 47 ).setSaturation( 240 ).setBrightness( 221 );
-        ColorState rectTo = new ColorState().setHue( 52, 52 ).setSaturation( 255 ).setBrightness( 201 );
-        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
-        transitionRect.start();
+        ColorState rectFrom = new ColorState().setHue( 47, 47 ).setSaturation( 29 ).setBrightness( 99 );
+        ColorState rectTo = new ColorState().setHue( 52, 52 ).setSaturation( 55 ).setBrightness( 99 );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), rectFrom, rectTo, durationMillis );
+        transitionTriangle.start( );
 
         transitions.add( transitionCircle );
-        transitions.add( transitionRect );
+        transitions.add( transitionTriangle );
     }
 }

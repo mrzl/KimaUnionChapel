@@ -47,13 +47,13 @@ public class AuroraChapter4  extends Piece implements PieceInterface {
     public void startColorTransition () {
         selectCustomAuroraParameters();
 
-        ColorState colorStateCircleFrom = new ColorState().setHue( 53, 53 ).setSaturation( 255 ).setBrightness( 129 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 53, 53 ).setSaturation( 255 ).setBrightness( 129 );
+        ColorState colorStateCircleFrom = new ColorState().setHue( 53, 53 ).setSaturation( 99 ).setBrightness( 100 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 56, 56 ).setSaturation( 60 ).setBrightness( 98 );
         ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionTriangle.start( );
 
-        ColorState rectFrom = new ColorState().setHue( 207, 207 ).setSaturation( 251 ).setBrightness( 194 );
-        ColorState rectTo = new ColorState().setHue( 207, 207 ).setSaturation( 251 ).setBrightness( 194 );
+        ColorState rectFrom = new ColorState().setHue( 207, 207 ).setSaturation( 47 ).setBrightness( 100 );
+        ColorState rectTo = new ColorState().setHue( 198, 198 ).setSaturation( 35 ).setBrightness( 99 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 

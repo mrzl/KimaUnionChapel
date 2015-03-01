@@ -19,6 +19,7 @@ uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity;
 uniform float time;
 uniform float saturation;
+uniform float l;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -45,7 +46,7 @@ float map(float value, float start1, float stop1, float start2, float stop2) {
 
 void main(void) {
   vec2 position = ( gl_FragCoord.xy / resolution.xy );
-  float chladni = cos( n * M_PI * position.x ) * cos( m * M_PI * position.y ) - cos( m * M_PI * position.x ) * cos( n * M_PI * position.y );
+  float chladni = cos( n * M_PI * position.x / l ) * cos( m * M_PI * position.y / l ) - cos( m * M_PI * position.x / l ) * cos( n * M_PI * position.y / l );
 
   float fin = abs(chladni);
 

@@ -36,6 +36,7 @@ public class ChladniRectangle extends ChladniSurface {
         this.shader.set( "drawMonochrome", isDrawMonochrome( ) );
         this.shader.set( "intensity", getIntensity() );
         this.shader.set( "saturation", getSaturation() );
+        this.shader.set( "l", (float)(1.0f) );
 
         getBuffer().beginDraw();
 

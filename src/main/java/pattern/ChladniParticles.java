@@ -64,6 +64,7 @@ public class ChladniParticles {
     private ParticleSizeTimerThread particleSizeDrumHitThread;
     private BackgroundBlendTimerThread backgroundBlendThread;
     private IntensityTimerThread intensityThread;
+    private float intensity;
 
     public ChladniParticles ( Main p, ChladniSurface surface, float scaleFactor, int particleCount ) {
         this.surface = surface;
@@ -223,7 +224,9 @@ public class ChladniParticles {
                     drawLines( );
                     break;
                 case ORIGINAL:
+
                     getParticlePBO( ).background( 0 );
+
                     getSurface( ).setDrawMonochrome( false );
                     getSurface( ).setMinHue( getColorMode( ).getMinHue( ) );
                     getSurface( ).setMaxHue( getColorMode( ).getMaxHue( ) );
@@ -235,7 +238,7 @@ public class ChladniParticles {
                         getParticlePBO( ).pushMatrix( );
                         getParticlePBO( ).scale( 1.0f, -1.0f );
                         getParticlePBO( ).image( pg, 0, -getParticlePBO( ).height, getParticlePBO( ).width, getParticlePBO( ).height );
-                        getParticlePBO( ).popMatrix( );
+                        getParticlePBO( ).popMatrix();
                     } else {
                         //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                         getParticlePBO( ).image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO( ).width, getParticlePBO( ).height );
@@ -243,6 +246,7 @@ public class ChladniParticles {
 
 
                     // this way of visualizing the attack may not be used. TODO
+                    /*
                     getParticlePBO( ).beginDraw( );
                     getParticlePBO( ).blendMode( ADD );
                     getParticlePBO( ).pushStyle( );
@@ -254,6 +258,7 @@ public class ChladniParticles {
                     getParticlePBO( ).popStyle( );
                     getParticlePBO( ).blendMode( BLEND );
                     getParticlePBO( ).endDraw( );
+                    */
 
                     break;
                 default:
@@ -345,6 +350,16 @@ public class ChladniParticles {
                     r = colorMode.red;
                     g = colorMode.green;
                     b = colorMode.blue;
+                    float[] hsb = new float[3];
+                    Color.RGBtoHSB( ( int ) ( r * 255 ), ( int ) ( g*255 ), ( int ) ( b*255 ), hsb );
+                    hsb[1] = getSurface().getSaturation();
+
+                    int rgb = Color.HSBtoRGB( hsb[0], hsb[1], hsb[2] );
+                    //System.out.println( hsb[ 0] +" "+ hsb[1] +" " + hsb[2] );
+                    r = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
+                    g = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
+                    b = ( rgb & 0xFF ) / 255.0f;
+
                     break;
                 case MONOCHROME:
                     r = 1;
@@ -363,11 +378,11 @@ public class ChladniParticles {
                     int y = ( int ) (v.y() / scaleFactor);
                     int color = getSurface().get( x, y );
                     float hue = p.map( color, 255, 127, getColorMode().getMinHue(), getColorMode().getMaxHue() );
-                    int rgb = Color.HSBtoRGB( hue, getSurface().getSaturation(), getSurface().getIntensity() );
+                    int rgb1 = Color.HSBtoRGB( hue, getSurface().getSaturation(), getSurface().getIntensity() );
 
-                    r = ( ( rgb >> 16 ) & 0xFF ) / 255.0f;
-                    g = ( ( rgb >> 8 ) & 0xFF ) / 255.0f;
-                    b = ( rgb & 0xFF ) / 255.0f;
+                    r = ( ( rgb1 >> 16 ) & 0xFF ) / 255.0f;
+                    g = ( ( rgb1 >> 8 ) & 0xFF ) / 255.0f;
+                    b = ( rgb1 & 0xFF ) / 255.0f;
                     break;
                 default:
                     r = 1;
@@ -480,16 +495,18 @@ public class ChladniParticles {
         switch ( visualParameter ) {
             case MIN_HUE:
                 getColorMode( ).setMinHue( value );
+                getOpacityToHueShader().setMinHue( value );
                 break;
             case INTENSITY:
                 setIntensity( value );
-                p.controlFrame.brightnessPatternSlider.setValue( value );
+                //p.controlFrame.brightnessPatternSlider.setValue( value );
                 break;
             case THRESHOLD:
                 getBloomModifier().setThreshold( value );
                 p.controlFrame.bloomThresholdSlider.setValue( value );
             case MAX_HUE:
                 getColorMode( ).setMaxHue( value );
+                getOpacityToHueShader().setMaxHue( value );
                 break;
             case UPDATE_DELAY:
                 p.oscController.setUpdateDelay( ( long ) value );
@@ -500,42 +517,48 @@ public class ChladniParticles {
                 break;
             case M:
                 getSurface( ).setM( value );
-                p.controlFrame.mSlider.setValue( value );
+                //p.controlFrame.mSlider.setValue( value );
                 break;
             case N:
                 getSurface( ).setN( value );
-                p.controlFrame.nSlider.setValue( value );
+                //p.controlFrame.nSlider.setValue( value );
                 break;
             case JUMPYNESS:
                 setParticleJumpyness( value );
-                p.controlFrame.particleJumpynessSlider.setValue( value );
+                //p.controlFrame.particleJumpynessSlider.setValue( value );
                 break;
             case PARTICLE_COUNT:
                 setParticleCount( ( int ) value );
-                p.controlFrame.particleCountSlider.setValue( value );
+                //p.controlFrame.particleCountSlider.setValue( value );
                 break;
             case PARTICLE_OPACITY:
                 setParticleOpacity( value );
-                p.controlFrame.particleOpacitySlider.setValue( value );
+                //p.controlFrame.particleOpacitySlider.setValue( value );
                 break;
             case PARTICLE_SIZE:
                 setParticleSize( value );
-                p.controlFrame.particleSizeSlider.setValue( value );
+                //p.controlFrame.particleSizeSlider.setValue( value );
                 break;
             case POLES:
                 getSurface( ).setPoles( ( int ) value );
                 break;
             case SCALE:
                 getSurface( ).setScale( value );
-                p.controlFrame.triangleScalesSlider.setValue( value );
+                //p.controlFrame.triangleScalesSlider.setValue( value );
                 break;
             case BLOOM_SIGMA:
                 getBloomModifier().setBlurSigma( value );
-                p.controlFrame.bloomSigmaSlider.setValue( value );
+                //p.controlFrame.bloomSigmaSlider.setValue( value );
                 break;
             case BLOOM_SIZE:
                 getBloomModifier().setBlurSize( ( int ) value );
-                p.controlFrame.bloomSigmaSlider.setValue( value );
+                //p.controlFrame.bloomBlurSizeSlider.setValue( value );
+                break;
+            case CONTRAST:
+                getBrightnessContrastShader().setContrast( value );
+                break;
+            case BRIGHTNESS:
+                getBrightnessContrastShader().setBrightness( value );
                 break;
 
             case MARE_UNDARUM_1:
@@ -710,5 +733,9 @@ public class ChladniParticles {
 
     public void setDisabled( boolean disabled ) {
         this.disabled = disabled;
+    }
+
+    public float getIntensity () {
+        return intensity;
     }
 }

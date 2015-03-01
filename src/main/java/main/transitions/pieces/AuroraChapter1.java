@@ -40,6 +40,7 @@ public class AuroraChapter1  extends Piece implements PieceInterface {
         getTransitionController().getOscController().addSoundParameterMapping( voiceTriangleChannel1 );
         getTransitionController().getOscController().addSoundParameterMapping( organRectChannel3 );
 
+        durationMillis = 100;
         startColorTransition();
     }
 
@@ -47,14 +48,13 @@ public class AuroraChapter1  extends Piece implements PieceInterface {
     public void startColorTransition () {
         selectCustomAuroraParameters();
 
-
-        ColorState colorStateCircleFrom = new ColorState().setHue( 23, 23 ).setSaturation( 255 ).setBrightness( 125 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 23, 23 ).setSaturation( 255 ).setBrightness( 125 );
+        ColorState colorStateCircleFrom = new ColorState().setHue( 23, 23 ).setSaturation( 100 ).setBrightness( 98 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 26, 26 ).setSaturation( 85 ).setBrightness( 98 );
         ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionTriangle.start( );
 
-        ColorState rectFrom = new ColorState().setHue( 222, 222 ).setSaturation( 234 ).setBrightness( 111 );
-        ColorState rectTo = new ColorState().setHue( 222, 222 ).setSaturation( 234 ).setBrightness( 111 );
+        ColorState rectFrom = new ColorState().setHue( 222, 222 ).setSaturation( 100 ).setBrightness( 98 );
+        ColorState rectTo = new ColorState().setHue( 215, 215 ).setSaturation( 96 ).setBrightness( 90 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 

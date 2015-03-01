@@ -34,6 +34,7 @@ public class BcrController {
     }
 
     public void controllerChange ( ControlChange change ) {
+        System.out.println(change);
         BcrKnobEnum vpe = getParameter( change );
 
         for( BcrMapping m : mappings ) {
@@ -43,22 +44,23 @@ public class BcrController {
 
     private BcrKnobEnum getParameter ( ControlChange change ) {
         int number = change.number();
+        System.out.println( "getpara: " + number );
         switch ( number ) {
-            case 9:
+            case 1:
                 return BcrKnobEnum.KNOB_1_1;
-            case 10:
+            case 2:
                 return BcrKnobEnum.KNOB_1_2;
-            case 11:
+            case 3:
                 return BcrKnobEnum.KNOB_1_3;
-            case 12:
+            case 4:
                 return BcrKnobEnum.KNOB_1_4;
-            case 13:
+            case 5:
                 return BcrKnobEnum.KNOB_1_5;
-            case 14:
+            case 6:
                 return BcrKnobEnum.KNOB_1_6;
-            case 15:
+            case 7:
                 return BcrKnobEnum.KNOB_1_7;
-            case 16:
+            case 8:
                 return BcrKnobEnum.KNOB_1_8;
             case 81:
                 return BcrKnobEnum.KNOB_2_1;

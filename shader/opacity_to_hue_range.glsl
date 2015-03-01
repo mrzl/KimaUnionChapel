@@ -13,6 +13,7 @@ varying vec4 vertColor;
 varying vec4 vertTexCoord;
 uniform float minHue;
 uniform float maxHue;
+uniform float saturation;
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -43,9 +44,9 @@ void main(void) {
 
   vec3 hueColorOfInput = rgb2hsv( col0.xyz );
 
-  float hueVal = map(hueColorOfInput.z, 0.0, 1.0, minHue, maxHue);
+  float hueVal = map(col0.x, 0.0, 1.0, minHue, maxHue);
   //float satVal = map(hueColorOfInput.z,  );
-  vec3 finalColor = hsv2rgb( vec3(hueVal, 1.0, hueColorOfInput.z + 0.3 ) );
+  vec3 finalColor = hsv2rgb( vec3(hueVal, 0.5f, hueColorOfInput.z ) );
 
   gl_FragColor = vec4( finalColor, 1.0 );
 }

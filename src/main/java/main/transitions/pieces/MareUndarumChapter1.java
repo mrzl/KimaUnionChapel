@@ -29,7 +29,7 @@ public class MareUndarumChapter1 extends Piece implements PieceInterface {
         ChladniPatternParameter chladniMapping12 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
         OscInputParameter soundMapping32 = new OscInputParameter( OscParameterInputEnum.ATTACK_PARAMETER1, KimaConstants.ATTACK_MIN, KimaConstants.ATTACK_MAX );
         ChladniPatternParameter chladniMapping32 = new ChladniPatternParameter( ChladniPatternParameterEnum.DRUM_HIT, 0.0f, 1.0f );
-        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLITUDE_PERCUSSION_MIN, KimaConstants.AMPLITUDE_PERCUSSION_MAX );
+        OscInputParameter soundMapping22 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
         ChladniPatternParameter chladniMapping22 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         mappingTriangle.addMapping( soundMapping12, chladniMapping12 );
         mappingTriangle.addMapping( soundMapping22, chladniMapping22 );
@@ -51,13 +51,13 @@ public class MareUndarumChapter1 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition() {
-        ColorState colorStateCircleFrom = new ColorState().setHue( 202, 202 ).setSaturation( 54 ).setBrightness( 245 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 211, 211 ).setSaturation( 255 ).setBrightness( 244 );
+        ColorState colorStateCircleFrom = new ColorState().setHue( 202, 202 ).setSaturation( 28 ).setBrightness( 95 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 211, 211 ).setSaturation( 9 ).setBrightness( 99 );
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionCircle.start();
 
-        ColorState rectFrom = new ColorState().setHue( 250, 250 ).setSaturation( 124 ).setBrightness( 218 );
-        ColorState rectTo = new ColorState().setHue( 215, 215 ).setSaturation( 128 ).setBrightness( 217 );
+        ColorState rectFrom = new ColorState().setHue( 250, 250 ).setSaturation( 30 ).setBrightness( 91 );
+        ColorState rectTo = new ColorState().setHue( 215, 215 ).setSaturation( 29 ).setBrightness( 92 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 

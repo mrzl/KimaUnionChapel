@@ -67,13 +67,13 @@ public class OscController extends PApplet {
         filters.get( OscParameterInputEnum.ATTACK_PARAMETER2 ).setEnabled( false );
         filters.get( OscParameterInputEnum.ATTACK_PARAMETER3 ).setEnabled( false );
 
-        filters.get( OscParameterInputEnum.PEAK_PARAMETER1 ).setEnabled( false );
-        filters.get( OscParameterInputEnum.PEAK_PARAMETER2 ).setEnabled( false );
-        filters.get( OscParameterInputEnum.PEAK_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER1 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER2 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.PEAK_PARAMETER3 ).setEnabled( true );
 
-        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1 ).setEnabled( false );
-        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2 ).setEnabled( false );
-        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3 ).setEnabled( false );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER1 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2 ).setEnabled( true );
+        filters.get( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3 ).setEnabled( true );
 
         filters.get( OscParameterInputEnum.NEWNOTE_PARAMETER1 ).setEnabled( false );
         filters.get( OscParameterInputEnum.NEWNOTE_PARAMETER2 ).setEnabled( false );
@@ -243,5 +243,9 @@ public class OscController extends PApplet {
         }
         //System.out.println( _spsi + " "  + type );
         throw new UnknownOscParameterException();
+    }
+
+    public long getUpdateDelay () {
+        return updateDelay;
     }
 }
