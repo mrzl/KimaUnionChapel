@@ -45,7 +45,7 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        selectCustomAuroraParameters();
+        //selectCustomAuroraParameters();
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );

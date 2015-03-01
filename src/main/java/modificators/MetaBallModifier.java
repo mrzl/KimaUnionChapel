@@ -1,6 +1,7 @@
 package modificators;
 
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
 
@@ -18,7 +19,9 @@ public class MetaBallModifier {
     private float thresholdValue;
     private boolean enabled;
 
-    public MetaBallModifier( PApplet p ) {
+    PGraphics fbo;
+
+    public MetaBallModifier( PApplet p, int w, int h ) {
         this.p = p;
         this.blur = p.loadShader( "shader" + File.separator + "blur.glsl" );
         this.threshold = p.loadShader( "shader" + File.separator + "threshold.glsl" );
@@ -27,10 +30,15 @@ public class MetaBallModifier {
         setThreshold( 0.1f );
 
         setEnabled( false );
+
+        fbo = p.createGraphics( w, h, PConstants.P3D );
     }
 
     public void apply( PGraphics buffer ) {
         if( isEnabled() ) {
+            fbo.beginDraw();
+            fbo.image( buffer, 0, 0);
+            fbo.endDraw();
             threshold.set( "threshold", thresholdValue );
 
             for ( int i = 0; i < blurStrength; i++ ) {

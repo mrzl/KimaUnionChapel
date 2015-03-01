@@ -1,5 +1,6 @@
 package filter.shader;
 
+import pattern.ChladniSurface;
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.opengl.PShader;
@@ -21,9 +22,10 @@ public class OpacityToHueShader {
         setMaxHue( 0.5f );
     }
 
-    public void apply ( PGraphics pg ) {
+    public void apply ( PGraphics pg, ChladniSurface surf ) {
         shader.set( "minHue", getMinHue( ) );
         shader.set( "maxHue", getMaxHue( ) );
+        shader.set( "saturation", surf.getSaturation() );
         this.shader.set( "resolution", ( float )( pg.width ), ( float )( pg.height ) );
 
         if( isEnabled() ) {

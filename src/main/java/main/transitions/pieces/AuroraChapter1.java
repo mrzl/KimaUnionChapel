@@ -40,13 +40,12 @@ public class AuroraChapter1  extends Piece implements PieceInterface {
         getTransitionController().getOscController().addSoundParameterMapping( voiceTriangleChannel1 );
         getTransitionController().getOscController().addSoundParameterMapping( organRectChannel3 );
 
-        durationMillis = 100;
         startColorTransition();
     }
 
     @Override
     public void startColorTransition () {
-        selectCustomAuroraParameters();
+        //selectCustomAuroraParameters();
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 23, 23 ).setSaturation( 100 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 26, 26 ).setSaturation( 85 ).setBrightness( 98 );

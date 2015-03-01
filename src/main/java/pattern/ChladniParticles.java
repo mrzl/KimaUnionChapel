@@ -6,6 +6,7 @@ import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
 import midi.VisualParameterEnum;
+import modificators.SepBlurShader;
 import osc.ChladniPatternParameterEnum;
 import pattern.attackvisualization.BackgroundBlendTimerThread;
 import pattern.attackvisualization.IntensityTimerThread;
@@ -45,6 +46,9 @@ public class ChladniParticles {
     private BloomModifier bm;
     private MetaBallModifier mm;
     private OpacityToHueShader opacityToHue;
+
+    // testing
+    private SepBlurShader blur;
 
     private BrightnessIncreaseShader2 increaser;
 
@@ -98,7 +102,7 @@ public class ChladniParticles {
         this.colorMode.setColorMode( ColorModeEnum.VELOCITIES );
         this.backgroundOpacity = 40;
         this.bm = new BloomModifier( p );
-        this.mm = new MetaBallModifier( p );
+        this.mm = new MetaBallModifier( p, getParticlePBO().width, getParticlePBO().height );
 
 
         this.currentBlendedBackgroundValue = 0;
@@ -111,6 +115,8 @@ public class ChladniParticles {
 
         opacityToHue = new OpacityToHueShader( p );
         increaser = new BrightnessIncreaseShader2( p, getParticlePBO().width, getParticlePBO().height );
+
+        blur = new SepBlurShader( p );
 
         disabled = false;
     }
@@ -272,6 +278,7 @@ public class ChladniParticles {
 
             if ( bm.isEnabled( ) ) {
                 bm.apply( getParticlePBO( ) );
+                /*
                 getParticlePBO( ).beginDraw( );
                 getParticlePBO( ).blendMode( PConstants.ADD );
 
@@ -279,13 +286,14 @@ public class ChladniParticles {
 
                 getParticlePBO( ).blendMode( PConstants.BLEND );
                 getParticlePBO( ).endDraw( );
+                */
             }
 
             if ( mm.isEnabled( ) ) {
                 mm.apply( getParticlePBO( ) );
             }
 
-            opacityToHue.apply( getParticlePBO( ) );
+            opacityToHue.apply( getParticlePBO( ), getSurface() );
 
             increaser.apply( getParticlePBO( ) );
         } else {
@@ -597,33 +605,33 @@ public class ChladniParticles {
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_1:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_2:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_3:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_4:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_5:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_6:
-                setRenderMode( RenderMode.POINTS );
-                p.controlFrame.drawModeSlider.setValue( 0.2f );
+                setRenderMode( RenderMode.ORIGINAL );
+                p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             default:

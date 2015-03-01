@@ -139,19 +139,21 @@ public class TransitionController {
                 particles.setParticleSize( 3.0f );
                 particles.setParticleCount( 10500 );
                 particles.setParticleOpacity( 0.23f );
-                particles.setBackgroundOpacity( 40 );
+                particles.setBackgroundOpacity( 255 );
                 particles.setIntensity( 1.0f );
-                particles.setRenderMode( RenderMode.POINTS );
+                particles.setRenderMode( RenderMode.ORIGINAL );
                 particles.getBloomModifier().setEnabled( true );
-                particles.getBloomModifier().setBlurSize( 42 );
-                particles.getBloomModifier().setBlurSigma( 8.0f );
+                particles.getBloomModifier().setBlurSize( 80 );
+                particles.getBloomModifier().setBlurSigma( 12.6f );
                 particles.getBloomModifier().setThreshold( 0.01f );
-                particles.getOpacityToHueShader().setEnabled( true );
+                particles.getOpacityToHueShader().setEnabled( false );
                 particles.getOpacityToHueShader().setMinHue( 0.0f );
                 particles.getOpacityToHueShader().setMaxHue( 0.12f );
                 particles.getBrightnessContrastShader().setEnabled( true );
                 particles.getBrightnessContrastShader().setBrightness( 0.0f );
-                particles.getBrightnessContrastShader().setContrast( 1.0f );
+                particles.getBrightnessContrastShader().setContrast( 1.22f );
+
+                particles.setIntensity( 0.84f );
 
                 particles.getColorMode().setRange( 0.06f, 1 );
                 particles.setColorModeEnum( ColorModeEnum.MONOCHROME );

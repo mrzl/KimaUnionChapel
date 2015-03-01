@@ -24,7 +24,7 @@ public class BloomModifier {
 
     public void apply( PGraphics pg ) {
         if( isEnabled() ) {
-            thresh.apply( pg );
+            //thresh.apply( pg );
             blur.apply( pg );
         }
 

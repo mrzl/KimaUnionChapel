@@ -46,7 +46,7 @@ void main(void) {
 
   float hueVal = map(col0.x, 0.0, 1.0, minHue, maxHue);
   //float satVal = map(hueColorOfInput.z,  );
-  vec3 finalColor = hsv2rgb( vec3(hueVal, 0.5f, hueColorOfInput.z ) );
+  vec3 finalColor = hsv2rgb( vec3(hueVal, saturation, hueColorOfInput.z ) );
 
   gl_FragColor = vec4( finalColor, 1.0 );
 }
