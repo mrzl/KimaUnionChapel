@@ -24,6 +24,7 @@ public class ChladniRectangle extends ChladniSurface {
         setDrawMonochrome( false );
         setIntensity( 1.0f );
         setSaturation( 1.0f );
+        setCutoff( 0.0f );
 
         this.formId = Main.ChladniFormId.RECT1;
     }
@@ -37,6 +38,7 @@ public class ChladniRectangle extends ChladniSurface {
         this.shader.set( "intensity", getIntensity() );
         this.shader.set( "saturation", getSaturation() );
         this.shader.set( "l", (float)(1.0f) );
+        this.shader.set( "cutoff", getCutoff() );
 
         getBuffer().beginDraw();
 

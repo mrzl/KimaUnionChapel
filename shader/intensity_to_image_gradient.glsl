@@ -3,24 +3,18 @@ precision mediump float;
 precision mediump int;
 #endif
 
-#define PROCESSING_COLOR_SHADER
-#define M_PI 3.1415926535897932384626433832795
+#define PROCESSING_TEXTURE_SHADER
 
 uniform sampler2D texture;
 uniform vec2 texOffset;
+uniform vec2 resolution;
 
 varying vec4 vertColor;
 varying vec4 vertTexCoord;
-
-uniform float m;
-uniform float n;
-uniform vec2 resolution;
-uniform bool drawMonochrome;
-uniform float minHue, maxHue, intensity;
-uniform float time;
-uniform float saturation;
-uniform float l;
-uniform float cutoff;
+uniform float gradientR[100];
+uniform float gradientG[100];
+uniform float gradientB[100];
+uniform float gradientA[100];
 
 vec3 rgb2hsv(vec3 c)
 {
@@ -47,26 +41,14 @@ float map(float value, float start1, float stop1, float start2, float stop2) {
 
 void main(void) {
   vec2 position = ( gl_FragCoord.xy / resolution.xy );
-  float chladni = cos( n * M_PI * position.x / l ) * cos( m * M_PI * position.y / l ) - cos( m * M_PI * position.x / l ) * cos( n * M_PI * position.y / l );
+  vec4 col0 = texture2D(texture, position);
 
-  float fin = abs(chladni);
+  vec3 hueColorOfInput = rgb2hsv( col0.xyz );
 
-  float mapped = map( fin, 0.0, 1.0, minHue, maxHue );
-  vec3 finalColor;
+  int gradientIndex = int(hueColorOfInput.z * 100);
 
-  if( drawMonochrome ) {
-    finalColor = vec3( fin );
-  } else {
-    vec3 hsbColor = vec3( mapped, saturation, 1.0 - (fin * intensity) );
-    hsbColor.z = clamp( hsbColor.z, cutoff, 1.0 );
-    hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0, 1 );
-    hsbColor.x = map( fin, cutoff, 1.0, minHue, maxHue );
+  //float satVal = map(hueColorOfInput.z,  );
+  vec3 finalColor = vec3(gradientR[gradientIndex], gradientG[gradientIndex], gradientB[gradientIndex] );
 
-    finalColor = hsv2rgb( hsbColor );
-  }
-
-
-  //finalColor = vec3(mapped);
-
-  gl_FragColor = vec4( finalColor, 1.0 );
+  gl_FragColor = vec4( finalColor, gradientA[gradientIndex] );
 }

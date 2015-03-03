@@ -1,7 +1,7 @@
 package pattern;
 
-import filter.shader.BrightnessIncreaseShader2;
-import filter.shader.OpacityToHueShader;
+import filter.shader.*;
+import main.ImageGradient;
 import main.Main;
 import modificators.BloomModifier;
 import modificators.MetaBallModifier;
@@ -23,10 +23,9 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.glu.GLU;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
-import static processing.core.PConstants.ADD;
-import static processing.core.PConstants.BLEND;
 
 /**
  * Created by mar on 14.12.14.
@@ -57,6 +56,11 @@ public class ChladniParticles {
     private int particleCount;
     private float backgroundOpacity;
     private int currentBlendedBackgroundValue;
+
+    private ImageGradient imageGradient;
+    private IntensityToImageGradientShader imageGradientFilter;
+    private DirectionalBlur directionalBlur;
+    private DirectionalBlur2 directionalBlur2;
 
     private boolean disabled;
 
@@ -118,6 +122,12 @@ public class ChladniParticles {
 
         blur = new SepBlurShader( p );
 
+        imageGradient = new ImageGradient( p.loadImage("media" + File.separator + "gradient2.png") );
+        imageGradientFilter = new IntensityToImageGradientShader( p, imageGradient );
+
+        directionalBlur = new DirectionalBlur( p );
+        directionalBlur2 = new DirectionalBlur2( p, getSurface() );
+
         disabled = false;
     }
 
@@ -144,8 +154,8 @@ public class ChladniParticles {
         if( behaviorMode == BehaviorMode.CENTER_OUTWARDS ) {
             for (Vec2D v : particles) {
                 Vec2D center = new Vec2D(getParticlePBO().width / 2, getParticlePBO().height / 2);
-                Vec2D trans = v.sub(center).normalize().scale(PApplet.map(p.dist(getParticlePBO().width / 2, getParticlePBO().height / 2, v.x, v.y), 0, getParticlePBO().width / 2, 0, 0.6f));
-                v.addSelf(trans);
+                Vec2D trans = v.sub(center).normalize().scale(10);
+                v.addSelf( trans );
             }
         }
 
@@ -225,12 +235,29 @@ public class ChladniParticles {
 
                     drawPoints( );
                     break;
-                case LINES:
+                case IMAGE_GRADIENT:
+                    //getParticlePBO( ).background( 0 );
+
                     getSurface( ).setDrawMonochrome( true );
-                    drawLines( );
+                    getSurface( ).setMinHue( getColorMode( ).getMinHue( ) );
+                    getSurface( ).setMaxHue( getColorMode( ).getMaxHue( ) );
+
+                    // some bug in processing PShader, it flips the shape somehow..
+                    if ( surface.getClass( ).equals( ChladniTriangle.class ) ) {
+                        //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                        PGraphics pg = getSurface( ).getBuffer( );
+                        getParticlePBO( ).pushMatrix( );
+                        getParticlePBO( ).scale( 1.0f, -1.0f );
+                        getParticlePBO( ).image( pg, 0, -getParticlePBO( ).height, getParticlePBO( ).width, getParticlePBO( ).height );
+                        getParticlePBO( ).popMatrix();
+                    } else {
+                        //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
+                        getParticlePBO( ).image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO( ).width, getParticlePBO( ).height );
+                    }
+
+                    //imageGradientFilter.apply( getParticlePBO() );
                     break;
                 case ORIGINAL:
-
                     getParticlePBO( ).background( 0 );
 
                     getSurface( ).setDrawMonochrome( false );
@@ -249,23 +276,6 @@ public class ChladniParticles {
                         //drawOriginal( 0, 0, ( int ) ( getSurface( ).getWidth( ) ), ( int ) ( getSurface( ).getHeight( ) ) );
                         getParticlePBO( ).image( getSurface( ).getBuffer( ), 0, 0, getParticlePBO( ).width, getParticlePBO( ).height );
                     }
-
-
-                    // this way of visualizing the attack may not be used. TODO
-                    /*
-                    getParticlePBO( ).beginDraw( );
-                    getParticlePBO( ).blendMode( ADD );
-                    getParticlePBO( ).pushStyle( );
-
-                    getParticlePBO( ).noStroke( );
-                    getParticlePBO( ).fill( currentBlendedBackgroundValue );
-                    getParticlePBO( ).rect( 0, 0, getSurface( ).getBuffer( ).width * getScaleFactor( ), getSurface( ).getBuffer( ).height * getScaleFactor( ) );
-
-                    getParticlePBO( ).popStyle( );
-                    getParticlePBO( ).blendMode( BLEND );
-                    getParticlePBO( ).endDraw( );
-                    */
-
                     break;
                 default:
                     System.err.println( "ERROR: Trying to render with unknown RenderMode" );
@@ -278,7 +288,7 @@ public class ChladniParticles {
 
             if ( bm.isEnabled( ) ) {
                 bm.apply( getParticlePBO( ) );
-                /*
+
                 getParticlePBO( ).beginDraw( );
                 getParticlePBO( ).blendMode( PConstants.ADD );
 
@@ -286,7 +296,7 @@ public class ChladniParticles {
 
                 getParticlePBO( ).blendMode( PConstants.BLEND );
                 getParticlePBO( ).endDraw( );
-                */
+
             }
 
             if ( mm.isEnabled( ) ) {
@@ -296,11 +306,17 @@ public class ChladniParticles {
             opacityToHue.apply( getParticlePBO( ), getSurface() );
 
             increaser.apply( getParticlePBO( ) );
+
+            directionalBlur2.apply( getParticlePBO() );
         } else {
             getParticlePBO().beginDraw();
             getParticlePBO().background( 0 );
             getParticlePBO().endDraw();
         }
+    }
+
+    public DirectionalBlur2 getDirectionalBlur2() {
+        return directionalBlur2;
     }
 
     public RenderMode getRenderMode () {
@@ -392,6 +408,7 @@ public class ChladniParticles {
                     g = ( ( rgb1 >> 8 ) & 0xFF ) / 255.0f;
                     b = ( rgb1 & 0xFF ) / 255.0f;
                     break;
+
                 default:
                     r = 1;
                     g = 1;
@@ -568,7 +585,18 @@ public class ChladniParticles {
             case BRIGHTNESS:
                 getBrightnessContrastShader().setBrightness( value );
                 break;
-
+            case BLUR_DIRECTION:
+                getDirectionalBlur2().setDirection( value );
+                System.out.println( "blur direction: " + value );
+                break;
+            case BLUR_STRENGTH:
+                getDirectionalBlur2().setRadius( value );
+                System.out.println( "blur strength: " + value );
+                break;
+            case CUTOFF:
+                getSurface().setCutoff( value );
+                System.out.println( "cutoff: " + value );
+                break;
             case MARE_UNDARUM_1:
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
@@ -605,33 +633,39 @@ public class ChladniParticles {
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_1:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_2:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_3:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_4:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_5:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             case AURORA_6:
-                setRenderMode( RenderMode.ORIGINAL );
+                setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
+                p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
                 break;
             default:

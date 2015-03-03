@@ -20,6 +20,8 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     private float maxHue;
     private float intensity;
     private float saturation;
+    private float cutoff;
+
     protected Main.ChladniFormId formId;
 
     public ChladniSurface ( Main p, int width, int height ) {
@@ -134,5 +136,13 @@ public class ChladniSurface implements ChladniSurfaceInterface {
 
     public void setSaturation ( float saturation ) {
         this.saturation = saturation;
+    }
+
+    public float getCutoff () {
+        return cutoff;
+    }
+
+    public void setCutoff ( float cutoff ) {
+        this.cutoff = cutoff;
     }
 }

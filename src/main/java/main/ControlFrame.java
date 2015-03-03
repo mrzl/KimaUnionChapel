@@ -348,8 +348,6 @@ public class ControlFrame extends PApplet {
 
                         if ( v < 0.3f ) {
                             selectedParticles.setRenderMode( RenderMode.POINTS );
-                        } else if( v > 0.6f ) {
-                            selectedParticles.setRenderMode( RenderMode.LINES );
                         } else {
                             selectedParticles.setRenderMode( RenderMode.ORIGINAL );
                         }
@@ -524,8 +522,8 @@ public class ControlFrame extends PApplet {
                 case POINTS:
                     renderModeValue = 0.2f;
                     break;
-                case LINES:
-                    renderModeValue = 0.7f;
+                case IMAGE_GRADIENT:
+                    renderModeValue = 0.5f;
                     break;
             }
             drawModeSlider.setValue( renderModeValue );
@@ -580,8 +578,8 @@ public class ControlFrame extends PApplet {
             case POINTS:
                 renderModeValue = 0.2f;
                 break;
-            case LINES:
-                renderModeValue = 0.7f;
+            case IMAGE_GRADIENT:
+                renderModeValue = 0.5f;
                 break;
         }
         drawModeSlider.setValue( renderModeValue );

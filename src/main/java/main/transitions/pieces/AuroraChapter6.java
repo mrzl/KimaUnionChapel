@@ -22,17 +22,20 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
         disableTriangle();
         enableCircle();
 
-        // VOICE - TRIANGLE - CHANNEL 2
-        OscParameterMapping voiceTriangleChannel1 = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.TRIANGLE1 ) );
+        // VOICE - CIRCLE - CHANNEL 2
+        OscParameterMapping voiceTriangleChannel1 = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ) );
         OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER2, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
-        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
+        ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_M_MIN, KimaConstants.CIRCLE_M_MAX );
+        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
+        ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.CIRCLE_N_MIN, KimaConstants.CIRCLE_N_MAX );
         voiceTriangleChannel1.addMapping( sin11, cpp11 );
+        voiceTriangleChannel1.addMapping( sin12, cpp12 );
 
         // ORGAN - SQUARE - CHANNEL 3
         OscParameterMapping organRectChannel3 = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ) );
         OscInputParameter sin31 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter cpp31 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin32 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER3, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
+        OscInputParameter sin32 = new OscInputParameter( OscParameterInputEnum.FREQUENCY_PARAMETER3, KimaConstants.FREQUENCY_ORGAN_MIN, KimaConstants.FREQUENCY_ORGAN_MAX );
         ChladniPatternParameter cpp32 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         organRectChannel3.addMapping( sin31, cpp31 );
         organRectChannel3.addMapping( sin32, cpp32 );
@@ -49,15 +52,15 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
-        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
-        transitionTriangle.start( );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        transitionCircle.start( );
 
         ColorState rectFrom = new ColorState().setHue( 190, 190 ).setSaturation( 24 ).setBrightness( 98 );
         ColorState rectTo = new ColorState().setHue( 190, 190 ).setSaturation( 24 ).setBrightness( 98 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
-        transitions.add( transitionTriangle );
+        transitions.add( transitionCircle );
         transitions.add( transitionRect );
     }
 }

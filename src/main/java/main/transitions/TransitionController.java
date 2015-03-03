@@ -97,12 +97,14 @@ public class TransitionController {
                 particles.setParticleOpacity( 0.23f );
                 particles.setBackgroundOpacity( 255 );
                 particles.setIntensity( 1.0f );
-                particles.setRenderMode( RenderMode.ORIGINAL );
+                particles.setRenderMode( RenderMode.ORIGINAL);
                 particles.getBloomModifier().setEnabled( false );
                 particles.getOpacityToHueShader().setEnabled( false );
                 particles.getBrightnessContrastShader().setEnabled( true );
                 particles.getBrightnessContrastShader().setBrightness( 0.0f );
                 particles.getBrightnessContrastShader().setContrast( 1.0f );
+                particles.getSurface().setCutoff( 0.0f );
+                particles.getDirectionalBlur2().setEnabled( false );
 
                 particles.getColorMode().setRange( 0.06f, 0.06f );
                 particles.setColorModeEnum( ColorModeEnum.MONOCHROME );
@@ -124,6 +126,8 @@ public class TransitionController {
                 particles.getBrightnessContrastShader().setEnabled( true );
                 particles.getBrightnessContrastShader().setBrightness( 0.0f );
                 particles.getBrightnessContrastShader().setContrast( 1.03f );
+                particles.getSurface().setCutoff( 0.0f );
+                particles.getDirectionalBlur2().setEnabled( false );
 
                 particles.getColorMode().setRange( 0, 0.3f );
                 particles.setColorModeEnum( ColorModeEnum.VELOCITIES );
@@ -141,8 +145,8 @@ public class TransitionController {
                 particles.setParticleOpacity( 0.23f );
                 particles.setBackgroundOpacity( 255 );
                 particles.setIntensity( 1.0f );
-                particles.setRenderMode( RenderMode.ORIGINAL );
-                particles.getBloomModifier().setEnabled( true );
+                particles.setRenderMode( RenderMode.IMAGE_GRADIENT );
+                particles.getBloomModifier().setEnabled( false );
                 particles.getBloomModifier().setBlurSize( 80 );
                 particles.getBloomModifier().setBlurSigma( 12.6f );
                 particles.getBloomModifier().setThreshold( 0.01f );
@@ -151,7 +155,11 @@ public class TransitionController {
                 particles.getOpacityToHueShader().setMaxHue( 0.12f );
                 particles.getBrightnessContrastShader().setEnabled( true );
                 particles.getBrightnessContrastShader().setBrightness( 0.0f );
-                particles.getBrightnessContrastShader().setContrast( 1.22f );
+                particles.getBrightnessContrastShader().setContrast( 1.0f );
+                particles.getSurface().setCutoff( 0.8f );
+                particles.getDirectionalBlur2().setEnabled( true );
+                particles.getDirectionalBlur2().setDirection( 2.27f );
+                particles.getDirectionalBlur2().setRadius( 0.087f );
 
                 particles.setIntensity( 0.84f );
 

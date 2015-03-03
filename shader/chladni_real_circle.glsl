@@ -12,6 +12,7 @@ uniform int nthZero;
 uniform float m;
 uniform bool drawMonochrome;
 uniform float minHue, maxHue, intensity, saturation;
+uniform float cutoff;
 
 float j0(float x) {
 	float ax;
@@ -185,7 +186,13 @@ void main() {
       if( drawMonochrome ) {
         finalColor = vec3( finalValue, finalValue, finalValue );
       } else {
-        finalColor = hsv2rgb( vec3(mapped, saturation, finalValue * intensity) );
+        //finalColor = hsv2rgb( vec3(mapped, saturation, finalValue * intensity) );
+        	vec3 hsbColor = vec3( mapped, saturation, 1.0 - (finalValue * intensity) );
+            hsbColor.z = clamp( hsbColor.z, cutoff, 1.0 );
+            hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0, 1 );
+            hsbColor.x = map( finalValue, cutoff, 1.0, minHue, maxHue );
+
+            finalColor = hsv2rgb( hsbColor );
       }
 
       gl_FragColor = vec4(finalColor, 1.0);

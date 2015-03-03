@@ -38,6 +38,7 @@ public class ChladniCircle extends ChladniSurface {
         this.shader.set( "drawMonochrome", isDrawMonochrome() );
         this.shader.set( "intensity", getIntensity() );
         this.shader.set( "saturation", getSaturation() );
+        this.shader.set( "cutoff", getCutoff() );
 
         getBuffer().beginDraw();
         getBuffer().background( 0 );

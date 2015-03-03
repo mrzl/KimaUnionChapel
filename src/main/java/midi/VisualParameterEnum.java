@@ -27,5 +27,9 @@ public enum VisualParameterEnum {
     BLOOM_SIGMA,
 
     CONTRAST,
-    BRIGHTNESS
+    BRIGHTNESS,
+
+    BLUR_DIRECTION,
+    BLUR_STRENGTH,
+    CUTOFF
 }

@@ -22,12 +22,12 @@ public class KimaConstants {
     public static final float AMPLITUDE_PERCUSSION_MIN = 0.01f;
     public static final float AMPLITUDE_PERCUSSION_MAX = 39.99f;
 
-    public static final float FREQUENCY_ORGAN_MIN = 430;
+    public static final float FREQUENCY_ORGAN_MIN = 230;
     public static final float FREQUENCY_ORGAN_MAX = 3544;
     public static final float AMPLITUDE_ORGAN_MIN = 0.01f;
     public static final float AMPLITUDE_ORGAN_MAX = 39.99f;
 
-    public static final float PEAK_MIN = 0.0f;
+    public static final float PEAK_MIN = -0.1f;
     public static final float PEAK_MAX = 0.99f;
 
     public static final float FUNDAMENTAL_MIN = 0.0f;

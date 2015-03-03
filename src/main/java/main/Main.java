@@ -9,7 +9,6 @@ import midi.bcr2000.BcrInputParameter;
 import midi.bcr2000.BcrKnobEnum;
 import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BcrController;
-import midi.nanokontrol.NanoKontrolController;
 import osc.*;
 import pattern.*;
 import processing.core.PApplet;
@@ -35,7 +34,6 @@ public class Main extends PApplet {
     public static final int FORM_COUNT = 3;
 
     public OscController oscController;
-    protected NanoKontrolController nanoController;
     protected BcrController bcrController;
 
     protected SyphonOutput syphonOutput;
@@ -97,23 +95,6 @@ public class Main extends PApplet {
 
         transitions = new TransitionController( this, oscController );
 
-        /*
-        nanoController = new NanoKontrolController( 0 );
-        NanoKontrolMapping nanoMapping = new NanoKontrolMapping( chladniRect );
-        NanoInputParameter nanoParameter1 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_1, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
-        VisualParameter visualParameter1 = new VisualParameter( VisualParameterEnum.M, 0, 15 );
-        NanoInputParameter nanoParameter2 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_2, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
-        VisualParameter visualParameter2 = new VisualParameter( VisualParameterEnum.N, 0, 15 );
-        NanoInputParameter nanoParameter3 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_3, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
-        VisualParameter visualParameter3 = new VisualParameter( VisualParameterEnum.UPDATE_DELAY, 0, 2000 );
-        NanoInputParameter nanoParameter4 = new NanoInputParameter( NanoKontrolSliderEnum.SLIDER_4, KimaConstants.MIN_MIDI, KimaConstants.MAX_MIDI );
-        VisualParameter visualParameter4 = new VisualParameter( VisualParameterEnum.BACKGROUND_OPACITY, 0, 255 );
-        nanoMapping.addMapping( nanoParameter1, visualParameter1 );
-        nanoMapping.addMapping( nanoParameter2, visualParameter2 );
-        nanoMapping.addMapping( nanoParameter3, visualParameter3 );
-        nanoMapping.addMapping( nanoParameter4, visualParameter4 );
-        nanoController.addMapping( nanoMapping );
-        */
 
         bcrController = new BcrController( 1 );
 
@@ -298,6 +279,13 @@ public class Main extends PApplet {
         BcrInputParameter pb13 = new BcrInputParameter( BcrKnobEnum.BUTTON_2_5, 0, 127 );
         VisualParameter pv13 = new VisualParameter( VisualParameterEnum.AURORA_6, 0, 2000 );
 
+        BcrInputParameter pb14 = new BcrInputParameter( BcrKnobEnum.KNOB_1_7, 0, 127 );
+        VisualParameter pv14 = new VisualParameter( VisualParameterEnum.BLUR_DIRECTION, 0, TWO_PI );
+        BcrInputParameter pb15 = new BcrInputParameter( BcrKnobEnum.KNOB_1_8, 0, 127 );
+        VisualParameter pv15 = new VisualParameter( VisualParameterEnum.BLUR_STRENGTH, 0, 1 );
+        BcrInputParameter pb16 = new BcrInputParameter( BcrKnobEnum.KNOB_1_6, 0, 127 );
+        VisualParameter pv16 = new VisualParameter( VisualParameterEnum.CUTOFF, 0, 1 );
+
 
         _m.addMapping( pb1, pv1 );
         _m.addMapping( pb2, pv2 );
@@ -312,13 +300,21 @@ public class Main extends PApplet {
         _m.addMapping( pb11, pv11 );
         _m.addMapping( pb12, pv12 );
         _m.addMapping( pb13, pv13 );
+        _m.addMapping( pb14, pv14 );
+        _m.addMapping( pb15, pv15 );
+        _m.addMapping( pb16, pv16 );
     }
 
     public TransitionController getTransitionController() {
         return transitions;
     }
 
+    float auroraDirectionBlurDirection = 0.0f;
+
     public void draw () {
+
+
+
         frame.setResizable( true );
         if( debug ) {
             frame.setSize( overallWidth + 20, overallHeight + 40 );
@@ -334,6 +330,8 @@ public class Main extends PApplet {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.update( 1 );
+            auroraDirectionBlurDirection += 0.005f;
+            p.getDirectionalBlur2().setDirection( auroraDirectionBlurDirection );
         }
 
         // restrict surfaces
@@ -508,6 +506,12 @@ public class Main extends PApplet {
                 break;
             case 'g':
                 chladniForms.get( ChladniFormId.RECT1 ).setColorModeEnum( ColorModeEnum.GRAYSCALE_MAPPING );
+                break;
+            case 'n':
+                chladniForms.get( ChladniFormId.RECT1 ).getDirectionalBlur2().getOriginal().save( "testout.png" );
+                chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO().save( "triangle1.png" );
+                chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION).getParticlePBO().save( "circle1.png" );
+
                 break;
             case ESC:
                 key = 0;
