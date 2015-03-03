@@ -48,7 +48,7 @@ public class AuroraChapter3  extends Piece implements PieceInterface {
         //selectCustomAuroraParameters();
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 30, 30 ).setSaturation( 76 ).setBrightness( 98 );
-        ColorState colorStateCircleTo = new ColorState().setHue( 53, 53 ).setSaturation( 99 ).setBrightness( 100 );
+        ColorState colorStateCircleTo = new ColorState().setHue( 45, 45 ).setSaturation( 99 ).setBrightness( 100 );
         ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionTriangle.start( );
 

@@ -96,7 +96,7 @@ public class Main extends PApplet {
         transitions = new TransitionController( this, oscController );
 
 
-        bcrController = new BcrController( 1 );
+        bcrController = new BcrController( 0 );
 
         addBcrControllerMappingForRect( bcrController );
         addBcrControllerMappingForTriangle( bcrController );

@@ -14,9 +14,12 @@ public class BcrController {
 
     public BcrController ( int nanoControlIdentifier ) {
         this.mappings = new ArrayList<>( );
+        System.out.println( "Available MIDI Inputs: " );
         for( String s : MidiBus.availableInputs() ) {
             System.out.println(s);
         }
+        System.out.println( "Selected " + nanoControlIdentifier );
+        System.out.println( "-----------------------" );
 
         this.midi = new MidiBus( this, nanoControlIdentifier, -1 );
     }

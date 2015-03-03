@@ -47,7 +47,7 @@ float map(float value, float start1, float stop1, float start2, float stop2) {
 
 void main(void) {
   vec2 position = ( gl_FragCoord.xy / resolution.xy );
-  float chladni = cos( n * M_PI * position.x / l ) * cos( m * M_PI * position.y / l ) - cos( m * M_PI * position.x / l ) * cos( n * M_PI * position.y / l );
+  float chladni = sin( n * M_PI * position.x / l ) * sin( m * M_PI * position.y / l ) - sin( m * M_PI * position.x / l ) * sin( n * M_PI * position.y / l );
 
   float fin = abs(chladni);
 
@@ -59,7 +59,7 @@ void main(void) {
   } else {
     vec3 hsbColor = vec3( mapped, saturation, 1.0 - (fin * intensity) );
     hsbColor.z = clamp( hsbColor.z, cutoff, 1.0 );
-    hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0, 1 );
+    hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0.0, 1.0 );
     hsbColor.x = map( fin, cutoff, 1.0, minHue, maxHue );
 
     finalColor = hsv2rgb( hsbColor );

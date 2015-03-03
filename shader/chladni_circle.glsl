@@ -90,7 +90,7 @@ void main(void) {
 
   	  vec3 hsbColor = vec3( mapped, saturation, 1.0 - (lum * intensity) );
 	  hsbColor.z = clamp( hsbColor.z, cutoff, 1.0 );
-	  hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0, 1 );
+	  hsbColor.z = map( hsbColor.z, cutoff, 1.0, 0.0, 1.0 );
 	  hsbColor.x = map( lum, cutoff, 1.0, minHue, maxHue );
 	  finalColor = hsv2rgb( hsbColor );
 
