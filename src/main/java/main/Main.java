@@ -29,7 +29,7 @@ public class Main extends PApplet {
 
     public static final String OSX = "Mac";
 
-    public enum ChladniFormId {RECT1, TRIANGLE1, CIRCLE1, HYDROGEN1, CIRCLE_RECONSTRUCTION}
+    public enum ChladniFormId {RECT1, TRIANGLE1, HYDROGEN1, CIRCLE1}
     public HashMap< ChladniFormId, ChladniParticles > chladniForms;
     public static final int FORM_COUNT = 3;
 
@@ -82,7 +82,7 @@ public class Main extends PApplet {
         //chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
         chladniForms.put( ChladniFormId.TRIANGLE1, chladniTriangle );
         //chladniForms.put( ChladniFormId.HYDROGEN1, hydrogenWave );
-        chladniForms.put( ChladniFormId.CIRCLE_RECONSTRUCTION, chladniCircle );
+        chladniForms.put( ChladniFormId.CIRCLE1, chladniCircle );
 
         /* creating control window */
         this.controlFrame = ControlFrame.addControlFrame( this, "Controls", 400, 1000 );
@@ -221,7 +221,7 @@ public class Main extends PApplet {
     }
 
     private void addBcrControllerMappingForCircle( BcrController bcr ) {
-        BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        BcrMapping bcrMapping1 = new BcrMapping( chladniForms.get( ChladniFormId.CIRCLE1 ) );
         BcrInputParameter bcr1 = new BcrInputParameter( BcrKnobEnum.KNOB_4_1, 0, 127 );
         VisualParameter vp1 = new VisualParameter( VisualParameterEnum.M, 0, 20 );
         BcrInputParameter bcr2 = new BcrInputParameter( BcrKnobEnum.KNOB_4_2, 0, 127 );
@@ -337,7 +337,7 @@ public class Main extends PApplet {
         // restrict surfaces
         chladniForms.get( ChladniFormId.TRIANGLE1 ).restrictTriangular( );
         //chladniForms.get( ChladniFormId.CIRCLE1 ).restrictCircular( ( int ) ( chladniForms.get( ChladniFormId.TRIANGLE1 ).getSurface( ).getWidth( ) * scaleFactor / 2 ) );
-        chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).restrictCircular( (int)(chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getSurface().getWidth() * scaleFactor / 2) );
+        chladniForms.get( ChladniFormId.CIRCLE1 ).restrictCircular( (int)(chladniForms.get( ChladniFormId.CIRCLE1 ).getSurface().getWidth() * scaleFactor / 2) );
 
         // draw particles
         it = chladniForms.entrySet().iterator();
@@ -353,7 +353,7 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
-        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
+        syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
 
 
@@ -386,7 +386,7 @@ public class Main extends PApplet {
                 controlFrame.setPattern( chladniForms.get( ChladniFormId.TRIANGLE1 ) );
                 break;
             case '9':
-                controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+                controlFrame.setPattern( chladniForms.get( ChladniFormId.CIRCLE1 ) );
                 break;
             case 'q':
                 Iterator it = chladniForms.entrySet( ).iterator( );
@@ -492,25 +492,13 @@ public class Main extends PApplet {
                     p.parameterChangedFromBcrController( VisualParameterEnum.AURORA_6, 0 );
                 }
                 break;
-            case 's':
-                // color shift inbetween mare undarum chapter 1 and chapter 2
-                ColorState colorStateCircleFrom1 = new ColorState().setHue( 211, 211 ).setSaturation( 255 ).setBrightness( 244 );
-                ColorState colorStateCircleTo1 = new ColorState().setHue( 54, 54 ).setSaturation( 255 ).setBrightness( 231 );
-                ColorTransition transitionCircle1 = new ColorTransition( chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom1, colorStateCircleTo1, duration );
-                transitionCircle1.start();
-
-                ColorState rectFrom2 = new ColorState().setHue( 215, 215 ).setSaturation( 128 ).setBrightness( 217 );
-                ColorState rectTo2 = new ColorState().setHue( 210, 210 ).setSaturation( 82 ).setBrightness( 205 );
-                ColorTransition transitionRect2 = new ColorTransition( chladniForms.get( ChladniFormId.RECT1 ), rectFrom2, rectTo2, duration );
-                transitionRect2.start();
-                break;
             case 'g':
                 chladniForms.get( ChladniFormId.RECT1 ).setColorModeEnum( ColorModeEnum.GRAYSCALE_MAPPING );
                 break;
             case 'n':
                 chladniForms.get( ChladniFormId.RECT1 ).getDirectionalBlur2().getOriginal().save( "testout.png" );
                 chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO().save( "triangle1.png" );
-                chladniForms.get( ChladniFormId.CIRCLE_RECONSTRUCTION).getParticlePBO().save( "circle1.png" );
+                chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO().save( "circle1.png" );
 
                 break;
             case ESC:

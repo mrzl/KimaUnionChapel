@@ -59,10 +59,10 @@ public class Piece {
     }
 
     protected void disableCircle() {
-        getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setDisabled( true );
+        getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setDisabled( true );
     }
 
     protected void enableCircle() {
-        getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ).setDisabled( false );
+        getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setDisabled( false );
     }
 }

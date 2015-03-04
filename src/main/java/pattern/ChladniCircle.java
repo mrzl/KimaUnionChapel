@@ -26,7 +26,7 @@ public class ChladniCircle extends ChladniSurface {
         setIntensity( 1.0f );
         setSaturation( 1.0f );
 
-        this.formId = Main.ChladniFormId.CIRCLE_RECONSTRUCTION;
+        this.formId = Main.ChladniFormId.CIRCLE1;
     }
 
     public void update() {

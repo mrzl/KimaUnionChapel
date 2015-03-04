@@ -36,7 +36,7 @@ public class MareUndarumChapter2 extends Piece implements PieceInterface {
         getTransitionController().getOscController( ).addSoundParameterMapping( mappingTriangle );
 
         // ORGAN CHANNEL 3
-        OscParameterMapping mappingCircle = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ) );
+        OscParameterMapping mappingCircle = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.CIRCLE1 ) );
         OscInputParameter soundMapping13 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
         ChladniPatternParameter chladniMapping13 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.CIRCLE_RECONSTRUCTION_M_MIN, KimaConstants.CIRCLE_RECONSTRUCTION_M_MAX );
         OscInputParameter soundMapping23 = new OscInputParameter( OscParameterInputEnum.PEAK_PARAMETER3, KimaConstants.PEAK_MIN, KimaConstants.PEAK_MAX );
@@ -52,7 +52,7 @@ public class MareUndarumChapter2 extends Piece implements PieceInterface {
     public void startColorTransition () {
         ColorState colorStateCircleFrom = new ColorState().setHue( 57, 57 ).setSaturation( 20 ).setBrightness( 100 );
         ColorState colorStateCircleTo = new ColorState().setHue( 48, 48 ).setSaturation( 30 ).setBrightness( 99 );
-        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE_RECONSTRUCTION ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionCircle.start();
 
         ColorState rectFrom = new ColorState().setHue( 210, 210 ).setSaturation( 16 ).setBrightness( 85 );
