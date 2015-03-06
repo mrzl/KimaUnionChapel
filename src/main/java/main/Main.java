@@ -1,8 +1,6 @@
 package main;
 
 import codeanticode.syphon.SyphonServer;
-import main.transitions.color.ColorState;
-import main.transitions.color.ColorTransition;
 import main.transitions.TransitionController;
 import midi.*;
 import midi.bcr2000.BcrInputParameter;
@@ -42,11 +40,13 @@ public class Main extends PApplet {
 
     private int resolution;
     private float scaleFactor;
-    private boolean debug = true;
+    //public static boolean debug = true;
+    public static int RENDER_HEIGHT = 100;
     int overallWidth, overallHeight;
 
     public void setup () {
 
+        /*
         if ( debug ) {
             resolution = 256;
             scaleFactor = 2.0f;
@@ -58,8 +58,15 @@ public class Main extends PApplet {
             scaleFactor = 4.0f;
             overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
             overallHeight = ( int ) ( resolution * scaleFactor );
-            size( 1, 1, PConstants.P3D );
+            size( 300, 100, PConstants.P3D );
         }
+        */
+
+        resolution = 256;
+        scaleFactor = 4.0f;
+        overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
+        overallHeight = ( int ) ( resolution * scaleFactor );
+        size( RENDER_HEIGHT * 3, RENDER_HEIGHT, PConstants.P3D );
 
         noSmooth( );
 
@@ -312,13 +319,10 @@ public class Main extends PApplet {
     float auroraDirectionBlurDirection = 0.0f;
 
     public void draw () {
-
-
-
         frame.setResizable( true );
-        if( debug ) {
-            frame.setSize( overallWidth + 20, overallHeight + 40 );
-        }
+        //if( debug ) {
+        //    frame.setSize( overallWidth + 20, overallHeight + 40 );
+       // }
         if ( frameCount % 40 == 0 ) {
             if( frame != null ) frame.setTitle( frameRate + "" );
             System.gc();
@@ -355,9 +359,13 @@ public class Main extends PApplet {
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
-
-
-        image( syphonOutput.getBuffer( ), 0, 0 );
+/*
+        if( !debug ) {
+            image( syphonOutput.getBuffer( ), 0, 0, 300, 100 );
+        } else {
+            image( syphonOutput.getBuffer(), 0, 0, 512 * 3, 512 );
+        }
+*/
 
         // send syphon texture
         if ( System.getProperty( "os.name" ).startsWith( OSX ) ) {
@@ -376,8 +384,6 @@ public class Main extends PApplet {
         if( key == 'd' ) {
             controlFrame.selectedParticles.doDrumHit( );
         }
-
-        long duration = 1000;
         switch( key ) {
             case '7':
                 controlFrame.setPattern( chladniForms.get( ChladniFormId.RECT1 ) );
@@ -496,9 +502,10 @@ public class Main extends PApplet {
                 chladniForms.get( ChladniFormId.RECT1 ).setColorModeEnum( ColorModeEnum.GRAYSCALE_MAPPING );
                 break;
             case 'n':
-                chladniForms.get( ChladniFormId.RECT1 ).getDirectionalBlur2().getOriginal().save( "testout.png" );
-                chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO().save( "triangle1.png" );
-                chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO().save( "circle1.png" );
+                this.syphonOutput.getBuffer().save( "all_" + Utils.timestamp() + ".png" );
+                chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO().save( "rect_" + Utils.timestamp() + ".png" );
+                chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO().save( "triangle_" + Utils.timestamp() + ".png" );
+                chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO().save( "circle_" + Utils.timestamp() + ".png" );
 
                 break;
             case ESC:
@@ -518,6 +525,10 @@ public class Main extends PApplet {
     }
 
     public static void main ( String[] args ) {
+        for( String s : args ) {
+            System.out.println( s );
+        }
+        System.exit( 1 );
         PApplet.main( new String[]{ "main.Main" } );
     }
 }
