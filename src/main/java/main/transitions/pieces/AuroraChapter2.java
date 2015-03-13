@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.blur.DirectionBlurTransition;
+import main.transitions.blur.DirectionalBlurState;
 import main.transitions.color.ColorState;
 import main.transitions.color.ColorTransition;
 import osc.*;
@@ -57,7 +59,21 @@ public class AuroraChapter2  extends Piece implements PieceInterface {
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
+        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.08f );
+        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.16f );
+
+        DirectionBlurTransition blurTransitionTriangle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
+        blurTransitionTriangle.start( );
+
+        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.08f );
+        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.16f );
+
+        DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
+        blurTransitionRect.start( );
+
         transitions.add( transitionTriangle );
         transitions.add( transitionRect );
+        transitions.add( blurTransitionTriangle );
+        transitions.add( blurTransitionRect );
     }
 }

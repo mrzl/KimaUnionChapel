@@ -27,6 +27,7 @@ public class ChladniTriangle extends ChladniSurface {
         setDrawMonochrome( false );
         setIntensity( 1.0f );
         setSaturation( 1.0f );
+        setUseGradient( false );
 
         this.triangleMask = p.loadImage( "media" + File.separator + "triangle.png" );
         this.triangleMask.resize( ( int ) getWidth( ), ( int ) getHeight( ) );

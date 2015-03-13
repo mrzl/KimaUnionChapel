@@ -21,6 +21,8 @@ public class ChladniSurface implements ChladniSurfaceInterface {
     private float intensity;
     private float saturation;
     private float cutoff;
+    private PGraphics gradient;
+    private boolean useGradient;
 
     protected Main.ChladniFormId formId;
 
@@ -144,5 +146,21 @@ public class ChladniSurface implements ChladniSurfaceInterface {
 
     public void setCutoff ( float cutoff ) {
         this.cutoff = cutoff;
+    }
+
+    public PGraphics getGradient () {
+        return this.gradient;
+    }
+
+    public void setGradient ( PGraphics gradient ) {
+        this.gradient = gradient;
+    }
+
+    public boolean isUseGradient () {
+        return useGradient;
+    }
+
+    public void setUseGradient ( boolean useGradient ) {
+        this.useGradient = useGradient;
     }
 }

@@ -25,6 +25,7 @@ public class ChladniCircle extends ChladniSurface {
         setDrawMonochrome( false );
         setIntensity( 1.0f );
         setSaturation( 1.0f );
+        setUseGradient( false );
 
         this.formId = Main.ChladniFormId.CIRCLE1;
     }

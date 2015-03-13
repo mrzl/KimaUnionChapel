@@ -40,33 +40,14 @@ public class Main extends PApplet {
 
     private int resolution;
     private float scaleFactor;
-    //public static boolean debug = true;
-    public static int RENDER_HEIGHT = 100;
     int overallWidth, overallHeight;
 
     public void setup () {
-
-        /*
-        if ( debug ) {
-            resolution = 256;
-            scaleFactor = 2.0f;
-            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
-            overallHeight = ( int ) ( resolution * scaleFactor );
-            size( overallWidth, overallHeight, PConstants.P3D );
-        } else {
-            resolution = 256;
-            scaleFactor = 4.0f;
-            overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
-            overallHeight = ( int ) ( resolution * scaleFactor );
-            size( 300, 100, PConstants.P3D );
-        }
-        */
-
         resolution = 256;
         scaleFactor = 4.0f;
         overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
         overallHeight = ( int ) ( resolution * scaleFactor );
-        size( RENDER_HEIGHT * 3, RENDER_HEIGHT, PConstants.P3D );
+        size( 300, 100, PConstants.P3D );
 
         noSmooth( );
 
@@ -320,9 +301,7 @@ public class Main extends PApplet {
 
     public void draw () {
         frame.setResizable( true );
-        //if( debug ) {
-        //    frame.setSize( overallWidth + 20, overallHeight + 40 );
-       // }
+
         if ( frameCount % 40 == 0 ) {
             if( frame != null ) frame.setTitle( frameRate + "" );
             System.gc();
@@ -359,13 +338,8 @@ public class Main extends PApplet {
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.endDraw( );
-/*
-        if( !debug ) {
-            image( syphonOutput.getBuffer( ), 0, 0, 300, 100 );
-        } else {
-            image( syphonOutput.getBuffer(), 0, 0, 512 * 3, 512 );
-        }
-*/
+
+        image( syphonOutput.getBuffer(), 0, 0, width, height );
 
         // send syphon texture
         if ( System.getProperty( "os.name" ).startsWith( OSX ) ) {
@@ -528,7 +502,7 @@ public class Main extends PApplet {
         for( String s : args ) {
             System.out.println( s );
         }
-        System.exit( 1 );
+        //System.exit( 1 );
         PApplet.main( new String[]{ "main.Main" } );
     }
 }

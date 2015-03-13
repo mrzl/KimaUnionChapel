@@ -109,6 +109,7 @@ public class TransitionController {
                 particles.getColorMode().setRange( 0.06f, 0.06f );
                 particles.setColorModeEnum( ColorModeEnum.MONOCHROME );
                 particles.getSurface().setDrawMonochrome( false );
+                particles.getSurface().setUseGradient( false );
                 break;
             case AXIS_MUNDI_1:
             case AXIS_MUNDI_2:
@@ -132,6 +133,8 @@ public class TransitionController {
                 particles.getColorMode().setRange( 0, 0.3f );
                 particles.setColorModeEnum( ColorModeEnum.VELOCITIES );
                 particles.getSurface().setDrawMonochrome( true );
+
+                particles.getSurface().setUseGradient( false );
                 break;
             case AURORA_1:
             case AURORA_2:
@@ -160,6 +163,7 @@ public class TransitionController {
                 particles.getDirectionalBlur2().setEnabled( true );
                 particles.getDirectionalBlur2().setDirection( 2.27f );
                 particles.getDirectionalBlur2().setRadius( 0.087f );
+                particles.getSurface().setUseGradient( true );
 
                 particles.setIntensity( 0.84f );
 

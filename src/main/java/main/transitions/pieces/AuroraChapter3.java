@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.blur.DirectionBlurTransition;
+import main.transitions.blur.DirectionalBlurState;
 import main.transitions.color.ColorState;
 import main.transitions.color.ColorTransition;
 import osc.*;
@@ -45,7 +47,7 @@ public class AuroraChapter3  extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        //selectCustomAuroraParameters();
+        selectCustomAuroraParameters();
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 30, 30 ).setSaturation( 76 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 45, 45 ).setSaturation( 99 ).setBrightness( 100 );
@@ -57,7 +59,21 @@ public class AuroraChapter3  extends Piece implements PieceInterface {
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
+        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.16f );
+        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.24f );
+
+        DirectionBlurTransition blurTransitionTriangle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
+        blurTransitionTriangle.start( );
+
+        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.16f );
+        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.24f );
+
+        DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
+        blurTransitionRect.start( );
+
         transitions.add( transitionTriangle );
         transitions.add( transitionRect );
+        transitions.add( blurTransitionTriangle );
+        transitions.add( blurTransitionRect );
     }
 }

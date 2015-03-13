@@ -3,6 +3,8 @@ package main.transitions.pieces;
 import main.KimaConstants;
 import main.Main;
 import main.transitions.TransitionController;
+import main.transitions.blur.DirectionBlurTransition;
+import main.transitions.blur.DirectionalBlurState;
 import main.transitions.color.ColorState;
 import main.transitions.color.ColorTransition;
 import osc.*;
@@ -48,7 +50,7 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        //selectCustomAuroraParameters();
+        selectCustomAuroraParameters();
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
@@ -60,7 +62,21 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
+        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.38f );
+        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.45f );
+
+        DirectionBlurTransition blurTransitionCircle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
+        blurTransitionCircle.start( );
+
+        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.38f );
+        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.45f );
+
+        DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
+        blurTransitionRect.start( );
+
         transitions.add( transitionCircle );
         transitions.add( transitionRect );
+        transitions.add( blurTransitionCircle );
+        transitions.add( blurTransitionRect );
     }
 }

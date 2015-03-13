@@ -62,6 +62,8 @@ public class ChladniParticles {
     private DirectionalBlur directionalBlur;
     private DirectionalBlur2 directionalBlur2;
 
+    private PImage gradient;
+
     private boolean disabled;
 
 
@@ -127,6 +129,15 @@ public class ChladniParticles {
 
         directionalBlur = new DirectionalBlur( p );
         directionalBlur2 = new DirectionalBlur2( p, getSurface() );
+
+        gradient = p.loadImage( "media" + File.separator + "gradient2.png" );
+        gradient.resize( getParticlePBO().width, getParticlePBO().height );
+        //PGraphics gradientBuffer = p.createGraphics( getParticlePBO().width, getParticlePBO().height, PConstants.P3D );
+        //gradientBuffer.beginDraw();
+        //gradientBuffer.image( gradient, 0, 0, gradientBuffer.width, gradientBuffer.height );
+        //gradientBuffer.endDraw();
+        //getSurface().setGradient( gradient );
+        getSurface().setUseGradient( false );
 
         disabled = false;
     }
@@ -307,6 +318,12 @@ public class ChladniParticles {
 
             increaser.apply( getParticlePBO( ) );
 
+            if( getSurface().isUseGradient() ) {
+                getParticlePBO( ).beginDraw( );
+                getParticlePBO( ).mask( gradient );
+                getParticlePBO( ).endDraw( );
+            }
+
             directionalBlur2.apply( getParticlePBO() );
         } else {
             getParticlePBO().beginDraw();
@@ -349,7 +366,7 @@ public class ChladniParticles {
         // TODO: This is a hacky way to fix the issue, something is wrong here.
         // It seems like the background opacity was never really working before, but it obviously did..
         if( getBloomModifier().isEnabled() ) {
-           getParticlePBO().background( 0, getBackgroundOpacity( ) );
+            getParticlePBO().background( 0, getBackgroundOpacity( ) );
         } else {
             getParticlePBO( ).pushStyle( );
             getParticlePBO( ).noStroke( );

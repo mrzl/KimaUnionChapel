@@ -60,7 +60,7 @@ public class ColorShiftThread extends Thread {
 
                 if( percentage > 1.0f ) {
                     running = false;
-                    System.out.println( "Done." );
+                    System.out.println( "Done color shift." );
                 }
 
                 Thread.sleep( 5 );

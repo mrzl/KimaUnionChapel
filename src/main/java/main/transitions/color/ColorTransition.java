@@ -1,11 +1,12 @@
 package main.transitions.color;
 
+import main.transitions.TransitionInterface;
 import pattern.ChladniParticles;
 
 /**
  * Created by mrzl on 19.02.2015.
  */
-public class ColorTransition {
+public class ColorTransition implements TransitionInterface {
 
     private ColorShiftThread cst;
     private ColorState from, to;
