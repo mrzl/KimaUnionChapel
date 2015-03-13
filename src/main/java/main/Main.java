@@ -8,6 +8,7 @@ import midi.bcr2000.BcrKnobEnum;
 import midi.bcr2000.BcrMapping;
 import midi.bcr2000.BcrController;
 import osc.*;
+import oscP5.OscMessage;
 import pattern.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -41,6 +42,8 @@ public class Main extends PApplet {
     private int resolution;
     private float scaleFactor;
     int overallWidth, overallHeight;
+
+    long fadeOutStart;
 
     public void setup () {
         resolution = 256;
@@ -315,6 +318,15 @@ public class Main extends PApplet {
             p.update( 1 );
             auroraDirectionBlurDirection += 0.005f;
             p.getDirectionalBlur2().setDirection( auroraDirectionBlurDirection );
+
+            // fade out
+            if( oscController.shouldFadeOut() ) {
+                //fadeOutStart = System.currentTimeMillis();
+                //p.setDisabled( true );
+            } else {
+                fadeOutStart = System.currentTimeMillis();
+                //p.setDisabled( false );
+            }
         }
 
         // restrict surfaces
@@ -332,11 +344,18 @@ public class Main extends PApplet {
 
         // draw everything on the syphon buffer
         syphonOutput.beginDraw( );
+        long opacity = (System.currentTimeMillis() - fadeOutStart) / 5;
+
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO( ), 0, 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
+        //syphonOutput.getBuffer().tint( 0, 120 );
+        syphonOutput.getBuffer().noStroke();
+        syphonOutput.getBuffer().fill( 0, opacity );
+        syphonOutput.getBuffer().rect( 0, 0, syphonOutput.getBuffer().width, syphonOutput.getBuffer().height );
+        //syphonOutput.getBuffer().noTint();
         syphonOutput.endDraw( );
 
         image( syphonOutput.getBuffer(), 0, 0, width, height );
@@ -481,6 +500,9 @@ public class Main extends PApplet {
                 chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO().save( "triangle_" + Utils.timestamp() + ".png" );
                 chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO().save( "circle_" + Utils.timestamp() + ".png" );
 
+                break;
+            case 'v':
+                oscController.oscEvent( new OscMessage( "test" ) );
                 break;
             case ESC:
                 key = 0;

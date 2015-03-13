@@ -27,6 +27,7 @@ public class Piece {
 
     public void select() {
         System.err.println( "ERROR: not overwritten select method." );
+        System.exit( 1 );
     }
 
     public void stopColorTransitioning () {
