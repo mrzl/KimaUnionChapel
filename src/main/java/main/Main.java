@@ -12,7 +12,9 @@ import oscP5.OscMessage;
 import pattern.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
+import processing.core.PImage;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -44,6 +46,7 @@ public class Main extends PApplet {
     int overallWidth, overallHeight;
 
     long fadeOutStart;
+    PImage gradientLine, gradientSquare;
 
     public void setup () {
         resolution = 256;
@@ -51,6 +54,9 @@ public class Main extends PApplet {
         overallWidth = ( int ) ( resolution * FORM_COUNT * scaleFactor );
         overallHeight = ( int ) ( resolution * scaleFactor );
         size( 300, 100, PConstants.P3D );
+
+        gradientLine = loadImage( "media" + File.separator + "gradient_line.png" );
+        gradientSquare = loadImage( "media" + File.separator + "gradient_square.png" );
 
         noSmooth( );
 
@@ -352,7 +358,9 @@ public class Main extends PApplet {
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.getBuffer().tint( 0, 120 );
-        syphonOutput.getBuffer().noStroke();
+        syphonOutput.getBuffer().image( gradientLine, 1024, 960, 1024, 64 );
+        syphonOutput.getBuffer().image( gradientSquare, 1024, 0, 256, 256 );
+        syphonOutput.getBuffer().noStroke( );
         syphonOutput.getBuffer().fill( 0, opacity );
         syphonOutput.getBuffer().rect( 0, 0, syphonOutput.getBuffer().width, syphonOutput.getBuffer().height );
         //syphonOutput.getBuffer().noTint();
