@@ -19,7 +19,7 @@ public class AxisMundiChapter1  extends Piece implements PieceInterface {
 
         // CELLO - SQUARE - CHANNEL 1
         OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FREQUENCY_PARAMETER1, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
+        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FREQUENCY_PARAMETER1, KimaConstants.FREQUENCY_CHELLO_MIN, KimaConstants.FREQUENCY_CHELLO_MAX );
         ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
         OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER1, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
         ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );

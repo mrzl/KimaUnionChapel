@@ -25,9 +25,9 @@ public class AxisMundiChapter2 extends Piece implements PieceInterface {
 
         // CELLO - SQUARE - CHANNEL 1
         OscParameterMapping chelloRectChannel1 = new OscParameterMapping( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FREQUENCY_PARAMETER1, KimaConstants.MIN_FREQUENCY, KimaConstants.MAX_FREQUENCY );
+        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FREQUENCY_PARAMETER1, KimaConstants.FREQUENCY_CHELLO_MIN, KimaConstants.FREQUENCY_CHELLO_MAX );
         ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.M, KimaConstants.RECTANGLE_M_MIN, KimaConstants.RECTANGLE_M_MAX );
-        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER1, KimaConstants.MIN_AMPLITUDE, KimaConstants.MAX_AMPLITUDE );
+        OscInputParameter sin12 = new OscInputParameter( OscParameterInputEnum.AMPLITUDE_PARAMETER1, KimaConstants.AMPLTIDUE_CHELLO_MIN, KimaConstants.AMPLITUDE_CHELLO_MAX );
         ChladniPatternParameter cpp12 = new ChladniPatternParameter( ChladniPatternParameterEnum.N, KimaConstants.RECTANGLE_N_MIN, KimaConstants.RECTANGLE_N_MAX );
         chelloRectChannel1.addMapping( sin11, cpp11 );
         chelloRectChannel1.addMapping( sin12, cpp12 );
@@ -56,9 +56,9 @@ public class AxisMundiChapter2 extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.09f );
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.09f );
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.3f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.3f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( 0.3f );
 
         ColorState colorStateTriangleFrom = new ColorState().setHue( 0, 20 ).setSaturation( 99 ).setBrightness( 87 );
         ColorState colorStateTriangleTo = new ColorState().setHue( 44, 288 ).setSaturation( 68 ).setBrightness( 98 );

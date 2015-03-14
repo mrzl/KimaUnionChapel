@@ -55,9 +55,9 @@ public class AxisMundiChapter3  extends Piece implements PieceInterface {
 
     @Override
     public void startColorTransition () {
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.09f );
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.09f );
-        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( 0.09f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ).setParticleOpacity( 0.3f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ).setParticleOpacity( 0.3f );
+        getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ).setParticleOpacity( 0.3f );
 
         ColorState colorStateTriangleFrom = new ColorState().setHue( 201, 221 ).setSaturation( 85 ).setBrightness( 98 );
         ColorState colorStateTriangleTo = new ColorState().setHue( 238, 313 ).setSaturation( 80 ).setBrightness( 98 );
