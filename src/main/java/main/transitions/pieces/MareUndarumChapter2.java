@@ -55,7 +55,7 @@ public class MareUndarumChapter2 extends Piece implements PieceInterface {
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
         transitionCircle.start();
 
-        ColorState rectFrom = new ColorState().setHue( 210, 210 ).setSaturation( 16 ).setBrightness( 85 );
+        ColorState rectFrom = new ColorState().setHue( 211, 211 ).setSaturation( 16 ).setBrightness( 85 );
         ColorState rectTo = new ColorState().setHue( 60, 60 ).setSaturation( 7 ).setBrightness( 100 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();

@@ -18,7 +18,7 @@ public class OscController extends PApplet {
     private ArrayList< OscParameterMapping > mappings;
     private HashMap< OscParameterInputEnum, SignalFilterWrapper > filters;
     private long lastTimeOscMessageArrived, updateDelay;
-    private static final long FADE_OUT_DELAY = 1000;
+
 
     /**
 
@@ -83,15 +83,6 @@ public class OscController extends PApplet {
 
         lastTimeOscMessageArrived = System.currentTimeMillis();
         updateDelay = 0;
-    }
-
-    public boolean shouldFadeOut() {
-        long timeArrived = System.currentTimeMillis();
-        if( timeArrived - lastTimeOscMessageArrived > FADE_OUT_DELAY ) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 

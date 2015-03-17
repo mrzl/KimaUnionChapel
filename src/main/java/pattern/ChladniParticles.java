@@ -66,6 +66,9 @@ public class ChladniParticles {
 
     private boolean disabled;
 
+    private static final long FADE_OUT_DELAY = 1000;
+    long lastOscMessageArrived;
+    long fadeOutStart;
 
     // opengl
     public PGL pgl;
@@ -138,6 +141,9 @@ public class ChladniParticles {
         //gradientBuffer.endDraw();
         //getSurface().setGradient( gradient );
         getSurface().setUseGradient( false );
+
+        lastOscMessageArrived = System.currentTimeMillis();
+        fadeOutStart = System.currentTimeMillis();
 
         disabled = false;
     }
@@ -325,6 +331,16 @@ public class ChladniParticles {
             }
 
             directionalBlur2.apply( getParticlePBO() );
+
+            if( shouldFadeOut() ) {
+                long opacity = (System.currentTimeMillis() - ( lastOscMessageArrived + FADE_OUT_DELAY ) ) / 5;
+
+                getParticlePBO().beginDraw();
+                getParticlePBO().fill( 0, opacity );
+                getParticlePBO().rect( 0, 0, getParticlePBO().width, getParticlePBO().height );
+                getParticlePBO().endDraw();
+            }
+
         } else {
             getParticlePBO().beginDraw();
             getParticlePBO().background( 0 );
@@ -499,7 +515,19 @@ public class ChladniParticles {
         }
     }
 
+    public boolean shouldFadeOut() {
+        long timeNow = System.currentTimeMillis();
+        if( timeNow - lastOscMessageArrived > FADE_OUT_DELAY ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void parameterChangedFromOscController ( ChladniPatternParameterEnum chladniPatternParameter, float value ) {
+
+        lastOscMessageArrived = System.currentTimeMillis();
+
         switch ( chladniPatternParameter ) {
             case M:
                 getSurface( ).setM( value );

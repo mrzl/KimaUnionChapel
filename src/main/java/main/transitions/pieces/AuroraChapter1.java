@@ -26,7 +26,7 @@ public class AuroraChapter1  extends Piece implements PieceInterface {
 
         // VOICE - TRIANGLE - CHANNEL 2
         OscParameterMapping voiceTriangleChannel1 = new OscParameterMapping( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.TRIANGLE1 ) );
-        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX);
+        OscInputParameter sin11 = new OscInputParameter( OscParameterInputEnum.FUNDAMENTAL_PARAMETER2, KimaConstants.FUNDAMENTAL_MIN, KimaConstants.FUNDAMENTAL_MAX );
         ChladniPatternParameter cpp11 = new ChladniPatternParameter( ChladniPatternParameterEnum.SCALE, KimaConstants.TRIANGLE_SCALES_MIN, KimaConstants.TRIANGLE_SCALES_MAX );
         voiceTriangleChannel1.addMapping( sin11, cpp11 );
 
@@ -59,14 +59,14 @@ public class AuroraChapter1  extends Piece implements PieceInterface {
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
-        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0 );
-        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.08f );
+        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.1f );
+        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.15f );
 
         DirectionBlurTransition blurTransitionTriangle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
         blurTransitionTriangle.start( );
 
-        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0 );
-        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.08f );
+        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.1f );
+        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.15f );
 
         DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
         blurTransitionRect.start( );

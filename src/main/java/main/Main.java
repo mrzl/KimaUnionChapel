@@ -45,7 +45,6 @@ public class Main extends PApplet {
     private float scaleFactor;
     int overallWidth, overallHeight;
 
-    long fadeOutStart;
     PImage gradientLine, gradientSquare;
 
     public void setup () {
@@ -322,17 +321,8 @@ public class Main extends PApplet {
             Map.Entry pairs = ( Map.Entry ) it.next( );
             ChladniParticles p = ( ChladniParticles ) pairs.getValue( );
             p.update( 1 );
-            auroraDirectionBlurDirection += 0.005f;
+            auroraDirectionBlurDirection += 0.003f;
             p.getDirectionalBlur2().setDirection( auroraDirectionBlurDirection );
-
-            // fade out
-            if( oscController.shouldFadeOut() ) {
-                //fadeOutStart = System.currentTimeMillis();
-                //p.setDisabled( true );
-            } else {
-                fadeOutStart = System.currentTimeMillis();
-                //p.setDisabled( false );
-            }
         }
 
         // restrict surfaces
@@ -350,7 +340,6 @@ public class Main extends PApplet {
 
         // draw everything on the syphon buffer
         syphonOutput.beginDraw( );
-        long opacity = (System.currentTimeMillis() - fadeOutStart) / 5;
 
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.RECT1 ).getParticlePBO( ), 0, 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.TRIANGLE1 ).getParticlePBO( ), ( int ) ( resolution * chladniForms.get( ChladniFormId.RECT1 ).getScaleFactor( ) ), 0 );
@@ -360,9 +349,6 @@ public class Main extends PApplet {
         //syphonOutput.getBuffer().tint( 0, 120 );
         syphonOutput.getBuffer().image( gradientLine, 1024, 960, 1024, 64 );
         syphonOutput.getBuffer().image( gradientSquare, 1024, 0, 256, 256 );
-        syphonOutput.getBuffer().noStroke( );
-        syphonOutput.getBuffer().fill( 0, opacity );
-        syphonOutput.getBuffer().rect( 0, 0, syphonOutput.getBuffer().width, syphonOutput.getBuffer().height );
         //syphonOutput.getBuffer().noTint();
         syphonOutput.endDraw( );
 

@@ -59,14 +59,14 @@ public class AuroraChapter4  extends Piece implements PieceInterface {
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
         transitionRect.start();
 
-        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.24f );
-        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.3f );
+        DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.20f );
+        DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.21f );
 
         DirectionBlurTransition blurTransitionTriangle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
         blurTransitionTriangle.start( );
 
-        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.24f );
-        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.3f );
+        DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.20f );
+        DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.21f );
 
         DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
         blurTransitionRect.start( );

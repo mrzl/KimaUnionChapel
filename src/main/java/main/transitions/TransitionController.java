@@ -116,9 +116,9 @@ public class TransitionController {
             case AXIS_MUNDI_3:
             case AXIS_MUNDI_4:
                 particles.setParticleJumpyness( 80.0f );
-                particles.setParticleSize( 3.0f );
+                particles.setParticleSize( 6.0f );
                 particles.setParticleCount( 10500 );
-                particles.setParticleOpacity( 0.35f );
+                particles.setParticleOpacity( 0.2f );
                 particles.setBackgroundOpacity( 6 );
                 particles.setIntensity( 1.0f );
                 particles.setRenderMode( RenderMode.POINTS );
