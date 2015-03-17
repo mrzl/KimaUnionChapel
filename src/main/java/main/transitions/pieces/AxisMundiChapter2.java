@@ -62,31 +62,31 @@ public class AxisMundiChapter2 extends Piece implements PieceInterface {
 
         ColorState colorStateTriangleFrom = new ColorState().setHue( 0, 20 ).setSaturation( 99 ).setBrightness( 87 );
         ColorState colorStateTriangleTo = new ColorState().setHue( 44, 288 ).setSaturation( 68 ).setBrightness( 98 );
-        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, 180000 );
 
         ColorState colorStateTriangleFrom2 = new ColorState().setHue( 44, 288 ).setSaturation( 68 ).setBrightness( 98 );
         ColorState colorStateTriangleTo2 = new ColorState().setHue( 210, 221 ).setSaturation( 85 ).setBrightness( 98 );
-        ColorTransition transitionTriangle2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom2, colorStateTriangleTo2, durationMillis );
+        ColorTransition transitionTriangle2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom2, colorStateTriangleTo2, 20000 );
         transitionTriangle.setSecondTrans( transitionTriangle2 );
         transitionTriangle.start( );
 
         ColorState circleFrom = new ColorState().setHue( 11, 31 ).setSaturation( 78 ).setBrightness( 99 );
         ColorState circleTo = new ColorState().setHue( 195, 313 ).setSaturation( 78 ).setBrightness( 98 );
-        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom, circleTo, durationMillis );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom, circleTo, 180000 );
 
         ColorState circleFrom2 = new ColorState().setHue( 195, 313 ).setSaturation( 78 ).setBrightness( 98 );
         ColorState circleTo2 = new ColorState().setHue( 260, 280 ).setSaturation( 69 ).setBrightness( 98 );
-        ColorTransition transitionCircle2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom2, circleTo2, durationMillis );
+        ColorTransition transitionCircle2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom2, circleTo2, 20000 );
         transitionCircle.setSecondTrans( transitionCircle2 );
         transitionCircle.start( );
 
         ColorState rectFrom = new ColorState().setHue( 30, 66 ).setSaturation( 68 ).setBrightness( 98 );
         ColorState rectTo = new ColorState().setHue( 238, 159 ).setSaturation( 80 ).setBrightness( 97 );
-        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, 180000 );
 
         ColorState rectFrom2 = new ColorState().setHue( 238, 159 ).setSaturation( 80 ).setBrightness( 97 );
         ColorState rectTo2 = new ColorState().setHue( 218, 212 ).setSaturation( 98 ).setBrightness( 97 );
-        ColorTransition transitionRect2 = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom2, rectTo2, durationMillis );
+        ColorTransition transitionRect2 = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom2, rectTo2, 20000 );
         transitionRect.setSecondTrans( transitionRect2 );
         transitionRect.start();
 
