@@ -53,11 +53,21 @@ public class MareUndarumChapter2 extends Piece implements PieceInterface {
         ColorState colorStateCircleFrom = new ColorState().setHue( 57, 57 ).setSaturation( 20 ).setBrightness( 100 );
         ColorState colorStateCircleTo = new ColorState().setHue( 48, 48 ).setSaturation( 30 ).setBrightness( 99 );
         ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+
+        ColorState colorStateCircleFrom2 = new ColorState().setHue( 48, 48 ).setSaturation( 30 ).setBrightness( 99 );
+        ColorState colorStateCircleTo2 = new ColorState().setHue( 41, 41 ).setSaturation( 50 ).setBrightness( 99 );
+        ColorTransition transitionCircle2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom2, colorStateCircleTo2, durationMillis );
+        transitionCircle.setSecondTrans( transitionCircle2 );
         transitionCircle.start();
 
         ColorState rectFrom = new ColorState().setHue( 211, 211 ).setSaturation( 16 ).setBrightness( 85 );
         ColorState rectTo = new ColorState().setHue( 60, 60 ).setSaturation( 7 ).setBrightness( 100 );
         ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+
+        ColorState rectFrom2 = new ColorState().setHue( 60, 60 ).setSaturation( 7 ).setBrightness( 100 );
+        ColorState rectTo2 = new ColorState().setHue( 47, 47 ).setSaturation( 29 ).setBrightness( 99 );
+        ColorTransition transitionRect2 = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom2, rectTo2, durationMillis );
+        transitionRect.setSecondTrans( transitionRect2 );
         transitionRect.start();
 
         transitions.add( transitionCircle );

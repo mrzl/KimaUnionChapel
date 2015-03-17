@@ -17,7 +17,7 @@ public class Piece {
 
     public Piece( TransitionController _tc ) {
         this.tc = _tc;
-        this.durationMillis = 90000;
+        this.durationMillis = 120000;
         this.transitions = new ArrayList<>();
     }
 

@@ -331,6 +331,7 @@ public class ChladniParticles {
             }
 
             directionalBlur2.apply( getParticlePBO() );
+            lastOscMessageArrived = System.currentTimeMillis();
 
             if( shouldFadeOut() ) {
                 long opacity = (System.currentTimeMillis() - ( lastOscMessageArrived + FADE_OUT_DELAY ) ) / 5;

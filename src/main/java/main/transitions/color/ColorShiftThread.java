@@ -12,6 +12,9 @@ public class ColorShiftThread extends Thread {
     protected boolean running;
     private long startTime, endTime;
 
+    //HACKHACKHACK
+    ColorTransition secondTrans;
+
     public ColorShiftThread( ChladniParticles _pattern, float startMinHue,float startMaxHue, float startSaturation, float startBrightness, float endMinHue, float endMaxHue, float endSaturation, float endBrightness, long durationMillis ) {
         this.pattern = _pattern;
         this.startMinHue = startMinHue;
@@ -25,6 +28,12 @@ public class ColorShiftThread extends Thread {
         this.duration = durationMillis;
 
         this.running = false;
+
+        secondTrans = null;
+    }
+
+    public void addSecond( ColorTransition _t ) {
+        this.secondTrans = _t;
     }
 
     public void start() {
@@ -61,6 +70,9 @@ public class ColorShiftThread extends Thread {
                 if( percentage > 1.0f ) {
                     running = false;
                     System.out.println( "Done color shift." );
+                    if( secondTrans != null ) {
+                        secondTrans.start();
+                    }
                 }
 
                 Thread.sleep( 5 );
