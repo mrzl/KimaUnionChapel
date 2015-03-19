@@ -54,24 +54,24 @@ public class AuroraChapter6 extends Piece implements PieceInterface {
 
         ColorState colorStateCircleFrom = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
         ColorState colorStateCircleTo = new ColorState().setHue( 60, 60 ).setSaturation( 14 ).setBrightness( 98 );
-        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom, colorStateCircleTo, durationMillis );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), colorStateCircleFrom, colorStateCircleTo, 90000 );
         transitionCircle.start( );
 
         ColorState rectFrom = new ColorState().setHue( 190, 190 ).setSaturation( 24 ).setBrightness( 98 );
         ColorState rectTo = new ColorState().setHue( 190, 190 ).setSaturation( 24 ).setBrightness( 98 );
-        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, 90000 );
         transitionRect.start();
 
         DirectionalBlurState fromBlurTriangle = new DirectionalBlurState( 0.22f );
         DirectionalBlurState toBlurTriangle = new DirectionalBlurState( 0.23f );
 
-        DirectionBlurTransition blurTransitionCircle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), fromBlurTriangle, toBlurTriangle, durationMillis );
+        DirectionBlurTransition blurTransitionCircle = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), fromBlurTriangle, toBlurTriangle, 90000 );
         blurTransitionCircle.start( );
 
         DirectionalBlurState fromBlurRect = new DirectionalBlurState( 0.22f );
         DirectionalBlurState toBlurRect = new DirectionalBlurState( 0.23f );
 
-        DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, durationMillis );
+        DirectionBlurTransition blurTransitionRect = new DirectionBlurTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.RECT1 ), fromBlurRect, toBlurRect, 90000 );
         blurTransitionRect.start( );
 
         transitions.add( transitionCircle );
