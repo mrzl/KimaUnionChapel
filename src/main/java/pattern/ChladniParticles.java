@@ -66,7 +66,7 @@ public class ChladniParticles {
 
     private boolean disabled;
 
-    private static final long FADE_OUT_DELAY = 1000;
+    private long fadeOutDelay = 1000;
     long lastOscMessageArrived;
     long fadeOutStart;
 
@@ -331,10 +331,11 @@ public class ChladniParticles {
             }
 
             directionalBlur2.apply( getParticlePBO() );
-            lastOscMessageArrived = System.currentTimeMillis();
+            // debug to not fade out automatically
+            //lastOscMessageArrived = System.currentTimeMillis();
 
             if( shouldFadeOut() ) {
-                long opacity = (System.currentTimeMillis() - ( lastOscMessageArrived + FADE_OUT_DELAY ) ) / 5;
+                long opacity = (System.currentTimeMillis() - ( lastOscMessageArrived + fadeOutDelay ) ) / 5;
 
                 getParticlePBO().beginDraw();
                 getParticlePBO().fill( 0, opacity );
@@ -518,7 +519,7 @@ public class ChladniParticles {
 
     public boolean shouldFadeOut() {
         long timeNow = System.currentTimeMillis();
-        if( timeNow - lastOscMessageArrived > FADE_OUT_DELAY ) {
+        if( timeNow - lastOscMessageArrived > fadeOutDelay ) {
             return true;
         } else {
             return false;
@@ -642,6 +643,9 @@ public class ChladniParticles {
             case CUTOFF:
                 getSurface().setCutoff( value );
                 System.out.println( "cutoff: " + value );
+                break;
+            case FADE_OUT_DELAY:
+                fadeOutDelay = ( long ) value;
                 break;
             case MARE_UNDARUM_1:
                 setRenderMode( RenderMode.ORIGINAL );

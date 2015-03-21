@@ -145,11 +145,14 @@ public class Main extends PApplet {
             VisualParameter vp3 = new VisualParameter( VisualParameterEnum.CONTRAST, 0, 3 );
             BcrInputParameter bcr4 = new BcrInputParameter( BcrKnobEnum.KNOB_1_4, 0, 127 );
             VisualParameter vp4 = new VisualParameter( VisualParameterEnum.BRIGHTNESS, 0, 1 );
+            BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_8, 0, 127 );
+            VisualParameter vp5 = new VisualParameter( VisualParameterEnum.FADE_OUT_DELAY, 0, 4000 );
 
             mapping.addMapping( bcr1, vp1 );
             mapping.addMapping( bcr2, vp2 );
             mapping.addMapping( bcr3, vp3 );
             mapping.addMapping( bcr4, vp4 );
+            mapping.addMapping( bcr5, vp5 );
 
             bcr.addMapping( mapping );
         }
