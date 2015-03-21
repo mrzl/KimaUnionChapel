@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eff3ad5e-f5ef-4a52-add0-a3d7b841a202" name="Default" comment="Moves the intensity sliders into an separate function">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" afterPath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" afterPath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java" afterPath="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java" afterPath="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="99ed9a2a-b492-45cc-a29c-27d7f79e4733" name="Rejected commit: Default" comment="Moves the intensity sliders into an separate function" />
@@ -66,11 +65,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChladniParticles.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChladniParticles.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3352685" vertical-offset="5430" max-vertical-offset="14263">
-              <caret line="333" column="50" selection-start-line="333" selection-start-column="50" selection-end-line="333" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5430" max-vertical-offset="14263">
+              <caret line="335" column="0" selection-start-line="335" selection-start-column="0" selection-end-line="335" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,8 +108,8 @@
       <file leaf-file-name="AxisMundiChapter2.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="956" max-vertical-offset="1751">
-              <caret line="88" column="170" selection-start-line="88" selection-start-column="170" selection-end-line="88" selection-end-column="170" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="905" max-vertical-offset="1751">
+              <caret line="84" column="168" selection-start-line="84" selection-start-column="168" selection-end-line="84" selection-end-column="168" />
               <folding />
             </state>
           </provider>
@@ -120,17 +119,17 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1734">
-              <caret line="87" column="170" selection-start-line="87" selection-start-column="170" selection-end-line="87" selection-end-column="170" />
+              <caret line="83" column="168" selection-start-line="83" selection-start-column="168" selection-end-line="83" selection-end-column="168" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AxisMundiChapter4.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AxisMundiChapter4.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter4.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="803" max-vertical-offset="1479">
-              <caret line="73" column="168" selection-start-line="73" selection-start-column="168" selection-end-line="73" selection-end-column="168" />
+            <state vertical-scroll-proportion="0.34615386" vertical-offset="803" max-vertical-offset="1479">
+              <caret line="61" column="53" selection-start-line="61" selection-start-column="53" selection-end-line="61" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -193,13 +192,13 @@
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AuroraChapter5.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AuroraChapter6.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/MareUndarumChapter2.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter4.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/TransitionController.java" />
         <option value="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java" />
       </list>
     </option>
   </component>
@@ -1483,30 +1482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="956" max-vertical-offset="1751">
-          <caret line="88" column="170" selection-start-line="88" selection-start-column="170" selection-end-line="88" selection-end-column="170" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1734">
-          <caret line="87" column="170" selection-start-line="87" selection-start-column="170" selection-end-line="87" selection-end-column="170" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter4.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="803" max-vertical-offset="1479">
-          <caret line="73" column="168" selection-start-line="73" selection-start-column="168" selection-end-line="73" selection-end-column="168" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AuroraChapter1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1445">
@@ -1549,8 +1524,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3352685" vertical-offset="5430" max-vertical-offset="14263">
-          <caret line="333" column="50" selection-start-line="333" selection-start-column="50" selection-end-line="333" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5430" max-vertical-offset="14263">
+          <caret line="335" column="0" selection-start-line="335" selection-start-column="0" selection-end-line="335" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="905" max-vertical-offset="1751">
+          <caret line="84" column="168" selection-start-line="84" selection-start-column="168" selection-end-line="84" selection-end-column="168" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1007" max-vertical-offset="1734">
+          <caret line="83" column="168" selection-start-line="83" selection-start-column="168" selection-end-line="83" selection-end-column="168" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter4.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34615386" vertical-offset="803" max-vertical-offset="1479">
+          <caret line="61" column="53" selection-start-line="61" selection-start-column="53" selection-end-line="61" selection-end-column="53" />
           <folding />
         </state>
       </provider>
