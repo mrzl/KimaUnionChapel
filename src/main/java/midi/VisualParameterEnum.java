@@ -33,5 +33,6 @@ public enum VisualParameterEnum {
     BLUR_STRENGTH,
     CUTOFF,
 
-    FADE_OUT_DELAY
+    FADE_OUT_DELAY,
+    GRADIENT_TRANSPARENCY
 }

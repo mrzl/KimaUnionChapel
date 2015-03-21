@@ -647,6 +647,9 @@ public class ChladniParticles {
             case FADE_OUT_DELAY:
                 fadeOutDelay = ( long ) value;
                 break;
+            case GRADIENT_TRANSPARENCY:
+                Main.gradientTransparency = ( int ) value;
+                break;
             case MARE_UNDARUM_1:
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );

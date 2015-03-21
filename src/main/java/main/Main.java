@@ -47,6 +47,8 @@ public class Main extends PApplet {
 
     PImage gradientLine, gradientSquare;
 
+    public static int gradientTransparency = 0;
+
     public void setup () {
         resolution = 256;
         scaleFactor = 4.0f;
@@ -147,12 +149,15 @@ public class Main extends PApplet {
             VisualParameter vp4 = new VisualParameter( VisualParameterEnum.BRIGHTNESS, 0, 1 );
             BcrInputParameter bcr5 = new BcrInputParameter( BcrKnobEnum.KNOB_1_8, 0, 127 );
             VisualParameter vp5 = new VisualParameter( VisualParameterEnum.FADE_OUT_DELAY, 0, 4000 );
+            BcrInputParameter bcr6 = new BcrInputParameter( BcrKnobEnum.KNOB_1_7, 0, 127 );
+            VisualParameter vp6 = new VisualParameter( VisualParameterEnum.GRADIENT_TRANSPARENCY, 0, 255 );
 
             mapping.addMapping( bcr1, vp1 );
             mapping.addMapping( bcr2, vp2 );
             mapping.addMapping( bcr3, vp3 );
             mapping.addMapping( bcr4, vp4 );
             mapping.addMapping( bcr5, vp5 );
+            mapping.addMapping( bcr6, vp6 );
 
             bcr.addMapping( mapping );
         }
@@ -350,8 +355,11 @@ public class Main extends PApplet {
         //syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.HYDROGEN1 ).getParticlePBO( ), ( int ) ( resolution * 3 * chladniForms.get( ChladniFormId.CIRCLE1 ).getScaleFactor( ) ), 0 );
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.getBuffer().tint( 0, 120 );
+        syphonOutput.getBuffer().pushStyle();
+        syphonOutput.getBuffer().tint( 255, gradientTransparency );
         syphonOutput.getBuffer().image( gradientLine, 1024, 960, 1024, 64 );
         syphonOutput.getBuffer().image( gradientSquare, 1024, 0, 256, 256 );
+        syphonOutput.getBuffer().popStyle();
         //syphonOutput.getBuffer().noTint();
         syphonOutput.endDraw( );
 
