@@ -61,17 +61,17 @@ public class AxisMundiChapter4  extends Piece implements PieceInterface  {
 
         ColorState colorStateTriangleFrom = new ColorState().setHue( 238, 313 ).setSaturation( 80 ).setBrightness( 98 );
         ColorState colorStateTriangleTo = new ColorState().setHue( 238, 313 ).setSaturation( 80 ).setBrightness( 98 );
-        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, durationMillis );
+        ColorTransition transitionTriangle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.TRIANGLE1 ), colorStateTriangleFrom, colorStateTriangleTo, 180000 );
         transitionTriangle.start( );
 
         ColorState circleFrom = new ColorState().setHue( 248, 331 ).setSaturation( 80 ).setBrightness( 98 );
         ColorState circleTo = new ColorState().setHue( 248, 331 ).setSaturation( 80 ).setBrightness( 98 );
-        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom, circleTo, durationMillis );
+        ColorTransition transitionCircle = new ColorTransition( getTransitionController().getMain( ).chladniForms.get( Main.ChladniFormId.CIRCLE1 ), circleFrom, circleTo, 180000 );
         transitionCircle.start( );
 
         ColorState rectFrom = new ColorState().setHue( 281, 301 ).setSaturation( 50 ).setBrightness( 98 );
         ColorState rectTo = new ColorState().setHue( 281, 301 ).setSaturation( 50 ).setBrightness( 98 );
-        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, durationMillis );
+        ColorTransition transitionRect = new ColorTransition( getTransitionController().getMain().chladniForms.get( Main.ChladniFormId.RECT1 ), rectFrom, rectTo, 180000 );
         transitionRect.start( );
 
         transitions.add( transitionCircle );

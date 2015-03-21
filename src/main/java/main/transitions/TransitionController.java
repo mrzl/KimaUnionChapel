@@ -163,7 +163,7 @@ public class TransitionController {
                 particles.getDirectionalBlur2().setEnabled( true );
                 particles.getDirectionalBlur2().setDirection( 2.27f );
                 particles.getDirectionalBlur2().setRadius( 0.087f );
-                particles.getSurface().setUseGradient( true );
+                particles.getSurface().setUseGradient( false );
 
                 particles.setIntensity( 0.84f );
 
