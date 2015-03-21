@@ -356,9 +356,11 @@ public class Main extends PApplet {
         syphonOutput.drawOnTexture( chladniForms.get( ChladniFormId.CIRCLE1 ).getParticlePBO( ), ( int ) ( resolution * 2 * chladniForms.get( ChladniFormId.TRIANGLE1 ).getScaleFactor( ) ), 0 );
         //syphonOutput.getBuffer().tint( 0, 120 );
         syphonOutput.getBuffer().pushStyle();
-        syphonOutput.getBuffer().tint( 255, gradientTransparency );
+        syphonOutput.getBuffer().noStroke();
         syphonOutput.getBuffer().image( gradientLine, 1024, 960, 1024, 64 );
         syphonOutput.getBuffer().image( gradientSquare, 1024, 0, 256, 256 );
+        syphonOutput.getBuffer().fill( 255, gradientTransparency );
+        syphonOutput.getBuffer().rect( 0, 0, syphonOutput.getBuffer().width, syphonOutput.getBuffer().height );
         syphonOutput.getBuffer().popStyle();
         //syphonOutput.getBuffer().noTint();
         syphonOutput.endDraw( );

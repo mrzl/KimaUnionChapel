@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eff3ad5e-f5ef-4a52-add0-a3d7b841a202" name="Default" comment="Moves the intensity sliders into an separate function">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" afterPath="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/main/Main.java" afterPath="$PROJECT_DIR$/src/main/java/main/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" afterPath="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="99ed9a2a-b492-45cc-a29c-27d7f79e4733" name="Rejected commit: Default" comment="Moves the intensity sliders into an separate function" />
@@ -36,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5899" max-vertical-offset="9197">
-              <caret line="376" column="26" selection-start-line="376" selection-start-column="26" selection-end-line="376" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.39477503" vertical-offset="5882" max-vertical-offset="9231">
+              <caret line="362" column="109" selection-start-line="362" selection-start-column="109" selection-end-line="362" selection-end-column="109" />
               <folding />
             </state>
           </provider>
@@ -86,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChladniParticles.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ChladniParticles.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5079826" vertical-offset="10598" max-vertical-offset="14314">
-              <caret line="644" column="57" selection-start-line="644" selection-start-column="57" selection-end-line="644" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="10598" max-vertical-offset="14314">
+              <caret line="648" column="22" selection-start-line="648" selection-start-column="22" selection-end-line="648" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -198,8 +196,8 @@
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter2.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/transitions/pieces/AxisMundiChapter3.java" />
         <option value="$PROJECT_DIR$/src/main/java/midi/VisualParameterEnum.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/Main.java" />
       </list>
     </option>
   </component>
@@ -1542,18 +1540,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5899" max-vertical-offset="9197">
-          <caret line="376" column="26" selection-start-line="376" selection-start-column="26" selection-end-line="376" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="10598" max-vertical-offset="14314">
+          <caret line="648" column="22" selection-start-line="648" selection-start-column="22" selection-end-line="648" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/pattern/ChladniParticles.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5079826" vertical-offset="10598" max-vertical-offset="14314">
-          <caret line="644" column="57" selection-start-line="644" selection-start-column="57" selection-end-line="644" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.39477503" vertical-offset="5882" max-vertical-offset="9231">
+          <caret line="362" column="109" selection-start-line="362" selection-start-column="109" selection-end-line="362" selection-end-column="109" />
           <folding />
         </state>
       </provider>
