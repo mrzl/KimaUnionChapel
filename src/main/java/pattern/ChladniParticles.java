@@ -654,72 +654,110 @@ public class ChladniParticles {
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "MARE UNDARUM 1";
+                p.lastChapterChanged = System.currentTimeMillis();
                 break;
             case MARE_UNDARUM_2:
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "MARE UNDARUM 2";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case MARE_UNDARUM_3:
                 setRenderMode( RenderMode.ORIGINAL );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "MARE UNDARUM 3";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AXIS_MUNDI_1:
                 setRenderMode( RenderMode.POINTS );
                 p.controlFrame.drawModeSlider.setValue( 0.2f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AXIS MUNDI 1";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AXIS_MUNDI_2:
                 setRenderMode( RenderMode.POINTS );
                 p.controlFrame.drawModeSlider.setValue( 0.2f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AXIS MUNDI 2";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AXIS_MUNDI_3:
                 setRenderMode( RenderMode.POINTS );
                 p.controlFrame.drawModeSlider.setValue( 0.2f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AXIS MUNDI 3";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AXIS_MUNDI_4:
                 setRenderMode( RenderMode.POINTS );
                 p.controlFrame.drawModeSlider.setValue( 0.2f );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AXIS MUNDI 4";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_1:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 1";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_2:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 2";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_3:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 3";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_4:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 4";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_5:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 5";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             case AURORA_6:
                 setRenderMode( RenderMode.IMAGE_GRADIENT );
                 p.controlFrame.drawModeSlider.setValue( 0.5f );
                 p.controlFrame.setPattern( this );
                 p.getTransitionController().select( this, visualParameter );
+                p.currentChapter = "AURORA 6";
+                p.lastChapterChanged = System.currentTimeMillis();
+
                 break;
             default:
                 System.err.println( "ERROR: UNKNOWN VIASUAL PARAMETER" );

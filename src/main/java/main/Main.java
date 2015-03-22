@@ -48,6 +48,8 @@ public class Main extends PApplet {
     PImage gradientLine, gradientSquare;
 
     public static int gradientTransparency = 0;
+    public static String currentChapter = "";
+    public static long lastChapterChanged = 0;
 
     public void setup () {
         resolution = 256;
@@ -319,9 +321,12 @@ public class Main extends PApplet {
         frame.setResizable( true );
 
         if ( frameCount % 40 == 0 ) {
-            if( frame != null ) frame.setTitle( frameRate + "" );
+            //if( frame != null ) frame.setTitle( frameRate + "" );
             System.gc();
         }
+        long currentSeconds = System.currentTimeMillis() - lastChapterChanged;
+        currentSeconds /= 1000;
+        frame.setTitle( currentChapter + " -- " + currentSeconds + "seconds" );
 
         // draw the surface
         Iterator it = chladniForms.entrySet( ).iterator( );
